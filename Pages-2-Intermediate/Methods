@@ -1,0 +1,364 @@
+:: Methods [chapter menu] {"position":"2600,1100","size":"200,100"}
+<h1>Using Methods to change Variables</h1>
+Methods are [[functions|Functions]], JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run.
+{{{
+    <reciever>.method()
+Example:
+    $var.first()
+}}}
+
+In SugarCube, they are mainly used to handle arrays, change the formatting of strings values, or handle numbers.
+* [[Methods and String Variables|Method-String]]
+* [[Methods and Numbers|Method-Number]]
+* [[Methods and Arrays|Method-Array]] (long!)
+> ''Note:'' Other native JavaScript or jQuery methods can be used with SugarCube, but requires knowledge of those languages. The ones listed in this guide would be the most useful.
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Method-String [page] {"position":"2600,1300","size":"100,100"}
+<h1>Methods and String Variables</h1>
+The methods below are mainly useful to change the formatting of string variables, or see if certain characters are included in the strings. With the methods below, the code will look at a string as if it was an array of character (including space and punctuation), with the first having the position 0.
+\
+<h3>Changing the Formatting of Strings.</h3>\
+Whether to change the string to its upper or lowercase version, or just tranform the frist character, you would need to use one of the following methods: {{{.toLowerCase()}}}/{{{.toLocaleLowerCase()}}}, {{{.toUpperCase()}}}/{{{.toLocaleUpperCase()}}}, {{{.toUpperFirst()}}}/{{{.toLocaleUpperFirst()}}}
+> ''Note:'' the {{{.toLocale-()}}} method transforms the string in accordance to the user's language and region in their device.
+Assuming that {{{$jane = "jane"}}} and {{{$john = "John"}}} 
+{{{
+    <<print $jane.toUpperFirst()>> → Jane
+    <<print $jane.toUpperCase()>>  → JANE
+    <<print $john.toLowerCase()>>  → john
+}}}
+You can also save this information into a variable or use them in conditional statements:
+{{{
+    <<set $name to $jane.toUpperFirst()>>
+→ $name will have the value "Jane"
+
+    <<if $john.toLowerCase() is "john">>...<</if>>
+}}}
+\
+<h3>Get the First or Last Character of a String</h3>\
+To find the first or last character of a string variable, you would need to use respectively {{{.first()}}} and {{{.last()}}}. Assuming that {{{$var = "Hello, World :D"}}}:
+{{{
+    <<print $var.first()>> → H
+    <<print $var.last()>>  → D
+}}}
+\
+<h3>Find if or how many times a Substring is included in a String Variable</h3>\
+Similarly to [[arrays|Method-Array]], to find if a substring is included in a variable, you would need to use {{{.includes()}}}. With this method, you can do a wide search, or start it at a certain number. Assuming that {{{$var = "Hello, World :D"}}}:
+{{{
+    <<if $var.includes('lo')>>.this will show.<</if>>
+    <<if $var.includes('lo', 2)>>.this won't show.<</if>>
+    <<if $var.includes('lo', 6)>>.this won't show.<</if>>
+    <<if $var.includes('love')>>.this won't show either.<</if>>
+}}}
+On the other hand, {{{.count()}}} will look at how many times a substring is included in a variable. Assuming that {{{$var = "Hello, World :D"}}}:
+{{{
+    <<print $var.count('l')>> → 3
+    <<print $var.count('l', 5)>> → 1
+}}}
+> ''Note:'' the method cannot be left empty. If you are looking to check the length of a string, you should use {{{.length}}} instead.
+
+<div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
+
+:: Method-Number [page] {"position":"2700,1200","size":"100,100"}
+<h1>Methods and Numbers</h1>
+Mathematical methods can be quite useful in a project, especially when dealing with player statistics and stat bars, to ensure a value does not exceed or go below a certain range.
+\
+<h3>{{{Math.round()}}} </h3>\
+This method will round the numerical value of a variable or equation to the nearest full number. It is most useful when wanting to keep the results of statistic calculations to a round value.
+{{{
+    Math.round(value)
+    Math.round(5.5)  → 6
+    Math.round(-5.5) → -5
+}}}
+> ''Note:'' this method is native to [[JavaScript|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round]].
+
+While the use of this method can be as simple as rounding the value of a variable, you can use it for more complex equations:
+{{{
+    <<set $stoic to Math.round($stoic)>>
+→ will round the value of the value of $stoic to the nearest full number.
+
+    <<set $stoic to Math.round( $stoic + ( ( 100 - $stoic ) * ( _increase / 100 ) ) )>>
+→ will increase the value of $stoic by a percentage set by _increase, then round it to the nearest number.
+}}}
+> ''Note:'' This last calculation is a recreation of the ChoiceScript Fairmath system.
+\
+<h3>{{{Math.trunc()}}}</h3>\
+This method will remove any decimal from the value.
+{{{
+    Math.trunc(value)
+    Math.trunc(5.5)    → 5
+    Math.trunc(12.678) → 12
+}}}
+> ''Note:'' this method is native to [[JavaScript|https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc]].
+\
+<h3>{{{Math.clamp()}}}</h3>\
+This method will check whether the value is within a set range, and calculate a new value within the bounds. It is most useful when when wanting to ensure the value of a variable stays between bounds (ex: a stat not going above 100% or lower than 0%).
+{{{
+    Math.clamp(value, min, max)
+    Math.clamp($var, 6, 300)
+}}}
+The method alone will not change the value of a variable, this needs to be done with a {{{<<set>>}}} macro:
+{{{
+    <<set $stoic to Math.clamp($stoic, 0, 100)>>
+    <<set $stoic to Math.clamp(($stoic + 4) * 5, 0, 100)>>
+}}}
+> ''Note:'' for simple clamping without further calculation, this can also be done with {{{<Number>.clamp()}}}, {{{<<set $stoic to $stoic.clamp(0, 100)>>}}}.
+
+<div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
+
+:: Method-Array [page] {"position":"2600,1200","size":"100,100"}
+<h1>Methods and Arrays</h1>
+Arrays are where the methods are the most useful, as they are the main way to edit them or check its content. These methods can be used with the {{{<<set>>}}}/{{{<<run>>}}} macros, or in conditional statements.
+> ''Note:'' These methods do not need to be attached to a variable, they can be attached to a non-saved array (see the {{{<Array>.includes()}}} examples).
+\
+<h2>Add elements to an array</h2>\
+There are multiple ways to add elements to an array, but the methods listed below will do so differently.
+The examples below will assume that {{{_array = ['Apple', 'Potatoe', 'Sausage']}}} and {{{_array2 = [1, 2, 3]}}}
+<h4>{{{<Array>.concat()}}}</h4>\
+{{{<Array>.concat()}}} will merge other arrays or lists of values to the original array, with the new values added at the end of the orginal array:
+{{{
+    _array.concat(value/variable)
+}}}
+{{{
+    _array.concat(_array2) 
+        → ['Apple', 'Potatoe', 'Sausage', 1, 2, 3]
+
+    _array.concat(_array2, 'words')
+        → ['Apple', 'Potatoe', 'Sausage', 1, 2, 3, 'words']
+
+    _array.concat('words')
+        → ['Apple', 'Potatoe', 'Sausage', 'words']
+}}}
+As the method will not edit the original variable, you would need to use the {{{<<set>>}}} macro for the change the stay constant:
+{{{<<set _array to _array.concat(_array2)>>}}}
+> ''Note:'' if you want to only include new values to the array, you would need to use {{{<Array>.concatUnique()}}}
+<h4>{{{<Array>.push()}}}</h4>\
+{{{<Array>.push()}}} will add values to the original array, with the new values to be added at the end of the orignal array:
+{{{
+    _array.push(value/variable)
+}}}
+{{{
+    _array.push(_array2)
+        → ['Apple', 'Potatoe', 'Sausage', 1, 2, 3]
+
+    _array.push(_array2, 'words')
+        → ['Apple', 'Potatoe', 'Sausage', 1, 2, 3, 'words']
+
+    _array.push('words')
+        → ['Apple', 'Potatoe', 'Sausage', 'words']
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.push(_array2)>>
+    <<set _array.push(_array2)>>
+    <<run _array.push(_array2)>>
+}}}
+> ''Note:'' if you want to only include new values to the array, you would need to use {{{<Array>.pushUnique()}}}
+<h4>{{{<Array>.unshift()}}}</h4>\
+{{{<Array>.unshift()}}} will add values to the original array, with the new values to be added at the ''beginning'' of the orignal array:
+{{{
+    _array.unshift(value/variable)
+}}}
+{{{
+    _array.unshift(_array2)
+        → [1, 2, 3, 'Apple', 'Potatoe', 'Sausage']
+
+    _array.unshift(_array2, 'words')
+        → [1, 2, 3, 'words', 'Apple', 'Potatoe', 'Sausage']
+
+    _array.unshift('words')
+        → ['words', 'Apple', 'Potatoe', 'Sausage']
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.unshift(_array2)>>
+    <<set _array.unshift(_array2)>>
+    <<run _array.unshift(_array2)>>
+}}}
+> ''Note:'' if you want to only include new values to the array, you would need to use {{{<Array>.unshiftUnique()}}}
+\
+<h3>Remove elements from an array</h3>\
+There are multiple ways to remove elements from an array, but the methods listed below will do so differently.
+The examples below will assume that {{{_array = ['Apple', 'Apple', 'Potatoe', 'Sausage', 1, 2, 3]}}} and {{{_array2 = [1, 2, 3]}}}
+\
+<h4>{{{<Array>.delete()}}}</h4>\
+{{{<Array>.delete()}}} will remove any instance of the targeted value.
+{{{
+    _array.delete(value/variable)
+}}}
+{{{
+    _array.delete(_array2)
+        → ['Apple', 'Apple', 'Potatoe', 'Sausage']
+    _array.delete(_array2, 'Apple')
+        → ['Potatoe', 'Sausage']
+    _array.delete('Apple')
+        → ['Potatoe', 'Sausage', 1, 2, 3]
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.delete(_array2)>>
+    <<set _array.delete(_array2)>>
+    <<run _array.delete(_array2)>>
+}}}
+<h4>{{{<Array>.deleteAt()}}}</h4>\
+{{{<Array>.deleteAt()}}} will work similarly to the previous method, but will target the element at a certain position in the array.
+> ''Note:'' the first element in an array starts at 0.
+> You can use an array filled with numbers instead of of multiple values.
+{{{
+    _array.deleteAt(value/variable)
+}}}
+{{{
+    _array.deleteAt(_array2)
+        → ['Apple', 1, 2, 3]
+    _array.deleteAt(0, _array2)
+        → [1, 2, 3]
+    _array.deleteAt(6)
+        → ['Apple', 'Apple', 'Potatoe', 'Sausage', 1, 2,]
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.deleteAt(_array2)>>
+    <<set _array.deleteAt(_array2)>>
+    <<run _array.deleteAt(_array2)>>
+}}}
+<h4>{{{<Array>.pluck()}}}</h4>\
+{{{<Array>.pluck()}}} and {{{<Array>.pluckMany()}}} are two methods what will respectively remove an element/multiple elements from the array in a random manner.
+> ''Note:'' for {{{<Array>.pluckMany()}}}, you can use an integer variable to indicate the number of elements you want to remove.
+{{{
+    _array.pluck()
+    _array.pluckMany(number/variable)
+}}}
+{{{
+    _array.pluckMany(3)
+    _array.pluckMany(_var)
+}}}
+These methods can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.pluck(_array2)>>
+    <<set _array.pluckMany(_array2)>>
+    <<run _array.pluck(_array2)>>
+}}}
+<h4>{{{<Array>.pop()}}} and {{{<Array>.shift()}}}</h4>\
+{{{<Array>.pop()}}} and {{{<Array>.shift()}}} will remove respectively the last and first element in an array.
+{{{
+    _array.pop()
+→ will remove the element "3" from the array
+
+    _array.shift()
+→ will remove the element "Apple" from the array
+}}}
+These methods can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.pluck(_array2)>>
+    <<set _array.pluckMany(_array2)>>
+    <<run _array.pluck(_array2)>>
+}}}
+\
+<h3>Check the properties of an array</h3>\
+There are multiple ways to check the properties of an array. Depending on what you are looking for, you may find one method working better than another. 
+<h4>{{{<Array>.includes()}}} and its alternatives</h4>\
+{{{<Array>.includes()}}} will check whether an element is included in the array. It also comes in two other flavours: {{{<Array>.includesAll()}}}, which will check if all listed elements are included in an array, and {{{<Array>.includesAny()}}}, which will check whether one of the elements listed is included in an array.
+{{{
+    <Array>.includes(value, position)
+    <Array>.includesAll(value/variable)
+    <Array>.includesAny(value/variable)
+}}}
+> ''Note:'' the {{{position}}} parameter of {{{<Array>.includes()}}} will start the search for the wanted element starting that position in the array.
+\
+The method is best used in conditional statements:
+{{{
+    <<if _array.includes("Apple")>>...<</if>>
+→ since the array has the element "Apple", it will run the content
+    <<if _array.includes("Apple", 3)>>...<</if>>
+→ this won't run, since the elements "Apple" are in positions 0 and 1
+
+    <<if _array.includesAll(_array2, "Apple")>>...<</if>>
+→ since the array has those elements, it will run the content
+    <<if _array.includesAll(_array2, 4)>>...<</if>>
+→ won't run, since the array does not have the element 4
+
+    <<if _array.includesAny(_array2, "Apple")>>...<</if>>
+    <<if _array.includesAny(_array2, 4)>>...<</if>>
+→ since the array has those elements, it will run the content
+
+Using a non-variable array as the receiver:
+    <<if ["John", "Jane", "Sylvia"].includes($var)>>...<</if>>
+→ if the value of the variable is included in this array, the code will run.
+}}}
+> ''Note:'' this last example can be useful to block certain names from being used by the player when setting their character.
+\
+<h4>{{{<Array>.first()}}} and {{{<Array>.last()}}}</h4>\
+{{{<Array>.first()}}} and {{{<Array>.last()}}} will return respectively the element in the first and last position in the array.
+{{{
+    <Array>.first()
+    <Array>.last()
+}}}
+Among other, they can be used in conditional statements or setting another variable:
+{{{
+    <<if _array.first() is "Apple">>...<</if>>
+→ this will run, since the first element of the array is "Apple"
+    <<if _array.first() is 1>>...<</if>>
+→ this won't run
+
+    <<set $var to _array.last()>>
+→ the value of $var will be "3"
+}}}
+<h4>{{{<Array>.count()}}}</h4>\
+{{{<Array>.count()}}} will check how many times an element is included in the array. You can indicate a {{{position}}} to start the search at said position in the array
+{{{
+    <Array>.count(value, position)
+}}}
+{{{
+    _array.count("Apple")    → 2
+    _array.count("Apple", 4) → 0
+→ the elements 'Apple' are at position 0 and 1
+}}}
+> ''Note:'' the method cannot be left empty. If you are looking to check the length of an array, you should use {{{.length}}} instead.
+\ 
+<h3>Other Array Methods</h3>\
+There are handful of other methods one can use with arrays.
+<h4>{{{<Array>.random()}}}</h4>\
+{{{<Array>.random()}}} will take a value from the array at random (but not modify the orignal array), and {{{<Array>.randomMany()}}} will do the same thing but take as many as indicated:
+{{{
+    <Array>.random()
+    <Array>.randomMany(number)
+}}}
+> ''Note:'' it words similarly to the [[function|Function-Clone-Random]] {{{either()}}}.
+You can use these methods in conditional statements, to set variable, or simply print on the screen:
+{{{
+    <<set $var to _array.random()>>
+    <<= _array.randomMany(3)>>
+    <<if _array.random() is "Apple">>...<</if>>
+}}}
+<h4>{{{<Array>.shuffle()}}}</h4>\
+{{{<Array>.shuffle()}}} wiill shuffle the order of the values in the array, at random.
+{{{
+    _array.shuffle()
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.shuffle()>>
+    <<set _array.shuffle()>>
+    <<run _array.shuffle()>>
+}}}
+<h4>{{{<Array>.flat()}}}</h4>\
+{{{<Array>.flat()}}} will flatten an array containing sub-arrays.
+{{{
+    <Array>.flat(depth)
+}}}
+> ''Note:'' the {{{depth}}} parameter is optional, if omitted, it will default to 1.
+Assuming that {{{_array3 = [["Alfa", "Bravo"], [["Charlie", "Delta"], ["Echo"]], "Foxtrot"]}}}
+{{{
+    _array.flat()   → ["Alfa", "Bravo", ["Charlie", "Delta"], ["Echo"], "Foxtrot"]
+    _array.flat(2)  → ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot"]
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.flat()>>
+    <<set _array.flat(2)>>
+    <<run _array.flat(3)>>
+}}}
+
+<div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
+
