@@ -1,0 +1,409 @@
+:: StateAPI [chapter menu] {"position":"3200,1800","size":"200,100"}
+<h1>Dealing with the State of Play</h1>
+Any started playthrough will contain a State, which will include moments (states) created during play used to navigate the history (undo/redo) and to save the (potentially changed) value of variables. If relevant, the State will include Metadata and a Seedable PRNG.
+
+* [[Managing the State of Variables|StateAPI-Variable]] [ ★ NEW ★ ]
+* [[Exploring the Different Moments inside the State|StateAPI-State]] [ ★ NEW ★ ]
+* [[Using the Story Metadata|StateAPI-Metadata]] [ ★ NEW ★ ]
+* [[Initialising a Seedable PRNG|StateAPI-PRNG]] [ ★ NEW ★ ]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: StateAPI-Variable [page] {"position":"3200,1900","size":"100,100"}
+<h1>Managing the State of Variables</h1>
+The following APIs will help check the state of current variables in the story, and can be used to set value to those variables. They are especially helpful in JavaScript/jQuery code requiring the value of a SugarCube variable or setting them. 
+\
+<h3>{{{State.temporary}}}</h3>\
+This API will return the current temporary variables ({{{_temp}}}), as an object. 
+A specific temporary variable can be targeted by using the name of the variable as a property. 
+> //Assuming that// {{{_ThisIsATemp = [value]}}}:
+{{{
+    State.temporary.ThisIsATemp
+}}}
+\
+<h3>{{{State.variables}}}</h3>\
+This API will return the current active variables ({{{$var}}}), as an object. 
+A specific variable can be targeted by using the name of the variable as a property.
+> //Assuming that// {{{$aVariable = [value]}}}:
+{{{
+    State.variables.aVariable
+}}}
+\
+<h3>{{{State.getVar()}}}</h3>\
+This API will return the value of the indicated variable.
+{{{
+    State.getVar(varName)
+}}}
+It has 1 parameter:
+* {{{varName}}}, the name of the variable, including its sigil 
+> //Examples//
+{{{
+    State.getVar("$variable")
+    State.getVar("_temporary")
+    State.getVar("settings.alsothat")
+}}}
+\
+<h3>{{{State.setVar()}}}</h3>\
+This API sets the value of the indicated variable, like the {{{<<set>>}}} macro does.
+{{{
+    State.setVar(varName, value)
+}}}
+It has 2 parameters:
+* {{{varName}}}, the name of the variable, including its sigil 
+* {{{value}}}, the value to assign 
+> //Example://
+{{{
+    State.setVar("$charName", "Jane Doe")  
+→ assigns the string "Jane Doe" to $charName
+}}}
+<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
+
+:: StateAPI-State [page] {"position":"3300,1900","size":"100,100"}
+<h1>Exploring the Different Moments inside the State</h1>
+The following APIs will look at the different moments of the state, from future to current to history. Some of these will look only at the current moment (active), some will focus on the in-play moments (influenced by the [[maxState|Basic-API-Config]]), while others will include the expired moments.
+\
+<h3>{{{State.active}}}</h3>\
+This API will return the active/present moment.
+However, it is generally unnecessary, as there are better shortcut properties with {{{State.passage}}} (below) and {{{State.variables}}} ([[here|StateAPI-Variable]]), or the [[functions|Functions]] {{{passage()}}} and {{{variables()}}}.
+> //Examples://
+{{{
+    State.active.title      
+→ title of the present moment
+
+    State.active.variables  
+→ variables of the present moment
+}}}
+\
+<h3>{{{State.bottom}}}</h3>\
+This API will return the bottommost (least recent) moment, within the full in-play history.
+> //Examples://
+{{{
+    State.bottom.title      
+→ title of the bottommost moment
+
+    State.bottom.variables  
+→ variables of the bottommost moment
+}}}
+\
+<h3>{{{State.top}}}</h3>\
+This API will return the topmost (most recent) moment, within the full in-play history.
+>''Note:'' {{{State.top}}} is not synonymous to {{{State.active}}}. It is extreemly unlikely you will ever need {{{State.top}}}.
+\
+> //Examples://
+{{{
+    State.topmost.title      
+→ title of the topmost moment
+
+    State.topmost.variables  
+→ variables of the topmost moment
+}}}
+\
+<h3>{{{State.current}}}</h3>\
+This API will return the current moment, within the full in-play history, which is the pre-play version of the active moment.
+>''Note:'' {{{State.current}}} is not synonymous to {{{State.active}}}. It is extreemly unlikely you will ever need {{{State.current}}}.
+\
+> //Examples://
+{{{
+    State.current.title      
+→ title of the current moment
+
+    State.current.variables  
+→ variables of the current moment
+}}}
+\
+<h3>{{{State.length}}}</h3>\
+This API will return the number of moments in the past in-play history. This includes all visited passages in order of their visit. 
+> //Example://
+{{{
+    if (State.length === 0) {
+        /* No moments within the past in-play history. Egad! */
+    }
+}}}
+\
+<h3>{{{State.size}}}</h3>\
+This API will return the number of moments within the full in-play history.
+It is particularly useful when specific bits of code need to run on the landing page when the game starts, but shouldn't run again if the player undoes their actions.
+> //Examples://
+{{{
+    if (State.size === 0) {
+        /* Code if no moments in the history */
+    }
+}}}
+\
+<h3>{{{State.turns}}}</h3>\
+This API will return the number of played moments within the extended past history.
+> //Examples://
+{{{
+    if (State.turns === 1) {
+        /* Code to run on the starting passage */
+    }
+}}}
+\
+<h3>{{{State.passage}}}</h3>\
+This API returns the passage of the active (present) moment. It is useful in JavaScript code requiring the name of a passage to run code.
+> //Example://
+{{{
+   if (State.passage === "PassageName") {
+    /* Code to run in that passage only */
+   }
+}}}
+\
+<h3>{{{State.has()}}}</h3>\
+This API checks whether any moment(s) with the indicated title exist within the past in-play history.
+> ''Note:'' {{{State.has()}}} does not check expired moments. You may want to use {{{State.hasPlayed()}}} or {{{hasVisited()}}} instead.
+{{{
+    State.has(passageTitle)
+}}}
+It has 1 parameter:
+* {{{passageTitle}}}, the title of the moment to check
+> //Example://
+{{{
+    State.has("The Ducky")  
+→ checks if a moment matching "The Ducky" exists
+}}}
+\
+<h3>{{{State.hasPlayed()}}}</h3>\
+This API checks whether any moment(s) with the indicated title exist within the past history.
+> ''Note:'' if you need to check multiple passages, you may want to use {{{hasVisited()}}} instead.
+{{{
+    State.hasPlayed(passageTitle)
+}}}
+It has 1 parameter:
+* {{{passageTitle}}}, the title of the moment to check
+> //Example://
+{{{
+    State.hasPlayed("The Ducky")  
+→ checks if a moment matching "The Ducky" exists
+}}}
+\
+<h3>{{{State.index()}}}</h3>\
+This API returns the moment relative to the bottom of the past in-play history, with the given index.
+{{{
+    State.index(index)
+}}}
+It has 1 parameter:
+* {{{index}}}, the index of the relevant moment
+> //Example://
+{{{
+    State.index(0)                 
+→ the least recent moment
+
+    State.index(1)
+→ the second least recent moment
+
+    State.index(State.length - 1)
+→ the most recent moment
+}}}
+\
+<h3>{{{State.isEmpty()}}}</h3>\
+This API checks whether the full in-play history is empty.
+> //Example://
+{{{
+    if (State.isEmpty()) {
+        /* Code to run if history is empty */
+    }
+}}}
+\
+<h3>{{{State.peek()}}}</h3>\
+This API return the moment, relative to the top of the past in-play history, with an optional offset.
+{{{
+    State.peek([offset])
+}}}
+It has 1 parameter:
+* {{{offset}}} (optional), the offset from the top moment 
+** default is 0
+> //Examples://
+{{{
+    State.peek()
+    State.peek(0)                  
+→ most recent moment
+
+    State.peek(1)
+→ the second most recent moment 
+
+    State.peek(State.length - 1)
+→ the least recent moment
+}}}
+
+<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
+
+:: StateAPI-Metadata [page] {"position":"3200,2000","size":"100,100"}
+<h1>Using the Story Metadata</h1>
+Some of the APIs below functions similarly to the {{{memorize()}}}, {{{recall()}}}, and {{{forget()}}} [[functions|Function-Metadata]], in that it will affect the state of the Story Metadata. 
+\
+<h3>{{{State.metadata.size}}}</h3>\
+This API will return the size of the story metadata.
+{{{
+    if (State.metadata.size > 0) {
+	    /* code if some metadata */
+    }
+}}}
+\
+<h3>{{{State.metadata.clear()}}}</h3>\
+This API will empty the story metadata.
+{{{
+    State.metadata.clear();
+}}}
+\
+<h3>{{{State.metadata.delete()}}}</h3>\
+This API will remove the specified key and its value from the story metadata.
+{{{
+    State.metadata.delete(key)
+}}}
+It has 1 parameter:
+* {{{key}}}, the key to delete 
+> //Assuming that:// {{{'achievements' = some value}}}
+{{{
+    State.metadata.delete('achievements');
+}}}
+\
+<h3>{{{State.metadata.entries()}}}</h3>\
+This API will return the array of the metadata key/value pair ({{{[key, value]}}}).
+> //Examples://
+{{{
+→ going through the pairs with a {for} loop
+    var metadata = State.metadata.entries();
+    for (var i = 0; i < metadata.length; ++i) {
+        var key   = metadata[i][0];
+        var value = metadata[i][1];
+
+        /* code to do something */
+    }
+
+→ going through the pairs with {<Array>.forEach()}
+    State.metadata.entries().forEach(function (pair) {
+        var key   = pair[0];
+        var value = pair[1];
+
+        /* code to do something */
+    });
+}}}
+\
+<h3>{{{State.metadata.get()}}}</h3>\
+This API will return the value associated with the specified metadata key. This can be useful for conditional statements.
+{{{
+    State.metadata.get(key)
+}}}
+It has 1 parameter:
+* {{{key}}}, the key to delete 
+> //Assuming that:// {{{'achievements' = true}}}
+{{{
+    State.metadata.get('achievements');
+→ will have the value {true}    
+}}}
+\
+<h3>{{{State.metadata.has()}}}</h3>\
+This API will check whether the specified metadata key is defined. This can be useful for conditional statements.
+{{{
+    State.metadata.has(key)
+}}}
+It has 1 parameter:
+* {{{key}}}, the key to delete 
+> //Assuming that:// {{{'achievements' = some value}}}
+{{{
+    State.metadata.has('achievements')  
+
+    if (State.metadata.has('achievements')) {
+	    /* code to do something */
+    }
+}}}
+\
+<h3>{{{State.metadata.keys()}}}</h3>\
+This API will return the array of the current metadata keys.
+> //Examples://
+{{{
+→ going through the keys with a {for} loop
+    var metadataKeys = State.metadata.keys();
+    for (var i = 0; i < metadataKeys.length; ++i) {
+        var key = metadataKeys[i];
+
+        /* do something */
+    }
+→ going through the keys with {<Array>.forEach()}
+    State.metadata.keys().forEach(function (key) {
+        /* do something */
+    });
+}}}
+\
+<h3>{{{State.metadata.set()}}}</h3>\
+This API will set a value to the specified key within the story metadata, which will persist over the story and browser restarts.
+> ''Notes:'' private browsing modes will interfere with this.
+> The story metadata is tired to the specific story it was generated with.
+> The metadata ''SHOULD NOT'' replace saves.
+{{{
+    State.metadata.set(key, value)
+}}}
+It has 2 parameters:
+* {{{key}}}, the key that should be set 
+* {{{value}}}, the value to set 
+\
+> //Examples://
+{{{
+→ simple key setting 
+    State.metadata.set('ngplus', true);
+
+→ setting the key as an object
+    State.metadata.set('achievements', { ateYellowSnow : true });
+}}}
+
+<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: StateAPI-PRNG [page] {"position":"3300,2000","size":"100,100"}
+<h1>Initialising a Seedable PRNG</h1>
+A PRNG, or pseudo-random number generator, is a deterministic algorithm for generating a sequence of numbers whose properties approximate the properties of sequences of random numbers.
+The APIs below will be useful for procedural world building, factions alignment, loot drops, dungeon map layout etc... essentiall, anything that affects or involves randomness.
+\
+<h3>{{{State.prng.init()}}}</h3>\
+This API will initialise the seedable PRNG and integrate it into the story state and saves. This will affect the result of methods and functions like {{{State.random()}}}, {{{random()}}}, and {{{randomFloat()}}}.
+
+If used, {{{State.prng.init()}}} should be coded in the JavaScript section of your project, or inside {{{StoryInit}}}. It is strongly recommended not to add arguments to the API, but, if you do use an explicit seed, you must enable additional entropy (or all playthroughs will be the same).
+{{{
+    State.prng.init([seed [, useEntropy]])
+}}}
+It has 2 parameters:
+* {{{seed}}} (optional), the explicit seed used to initialise the PRNG 
+* {{{useEntropy}}} (optional), entables the use of additional entropy to pad the seed.
+\
+> //Examples://
+{{{
+    State.prng.init()
+→ automatically seed the PRNG
+
+    State.prng.init("aVeryLongSeed")
+→ seed with "aVeryLongSeed" (not recommended)
+
+    State.prng.init("aVeryLongSeed", true)
+→ seed with "aVeryLongSeed" and pad it (recommended)
+}}}
+\
+<h3>{{{State.prng.isEnabled()}}}</h3>\
+This API will check whether the seedable PRNG has been enable.
+{{{
+    State.prng.isEnabled()
+}}}
+\
+<h3>{{{State.prng.pull}}}</h3>\
+This API will return the current pull count, meaning how many times a request has been made from the PRNG. 
+> ''Note:'' the pull count is automatically included within saves and sessions, and is mainly useful for debugging purposes.
+{{{
+    State.prng.pull
+}}}
+\
+<h3>{{{State.prng.seed}}}</h3>\
+This API will return the seed from the PRNG.
+> ''Note:'' the pull count is automatically included within saves and sessions, and is mainly useful for debugging purposes.
+{{{
+    State.prng.seed
+}}}
+\
+<h3>{{{State.random()}}}</h3>\
+This API will return a pseudo-random decimal number (floating-point) in the range 0 (inclusive) up to but not included 1 (exclusive).
+> ''Note:'' by default, it simply returns results from {{{Math.random()}}}. 
+{{{
+    State.random()
+→ returns a pseudo-random floating-point number in the range [0, 1)
+}}}
+
+<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
+
