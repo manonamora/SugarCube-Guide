@@ -1,0 +1,75 @@
+:: Update Log [side] {"position":"1700,400","size":"100,100"}
+<h1>100% Good Twine SugarCube Guide</h1>
+> //Next Update// (TBA)
+Edits to take into account changes in the new SugarCube version 
+Potentially the Audio API
+<hr>
+> ''Version 1.2.0''
+[10-Dec] - Released a Downloadable Form
+[10-Dec] - Completed the SugarCube Theme 
+[10-Dec] - Completed the Settings Options
+[10-Dec] - Added the {Targetable HTML Elements} page
+[10-Dec] - Added the {State APIs} pages 
+[09-Dec] - Added the {Passage API} page
+[09-Dec] - Added the {Story API} page
+[08-Dec] - Added the {Methods Advanced} pages
+[08-Dec] - Added the {FullScreen API} pages
+[08-Dec] - Added the {Accessibility} page
+[07-Dec] - Added the {Stats Bar} and {Loading Screen} pages
+[07-Dec] - Added the {Save API} pages 
+[06-Dec] - Added the {Custom Macro} pages
+[05-Dec] - Added the {More Markup} pages 
+[05-Dec] - Added the {More Basic API} pages 
+[05-Dec] - Added the {Configuration API} pages
+[04-Dec] - Added more and reformatted examples 
+[04-Dec] - Rephrased some explanations for clarity and consistency
+[04-Dec] - Added the {Special Variables} and {Asset Tags} pages
+[04-Dec] - Added the {Settings API} pages
+[03-Dec] - Added more and reformatted examples 
+[03-Dec] - Rephrased some explanations for clarity and consistency
+[03-Dec] - Corrected an error in the {Typing Events} page
+[02-Dec] - Added more and reformatted examples 
+[02-Dec] - Rephrased some explanations for clarity and consistency
+[02-Dec] - Corrected an error in the {Script/Run Macro} page
+[30-Nov] - Added more and reformatted examples 
+[30-Nov] - Rephrased some explanations for clarity and consistency
+[30-Nov] - Fixed error in text for the {Condition Statements}
+[29-Nov] - Added more and reformatted examples 
+[29-Nov] - Rephrased some explanations for clarity and consistency
+[28-Nov] - Added more and reformatted examples 
+[28-Nov] - Fixes some code examples (Settings, Markup-Link)
+[28-Nov] - Rephrased some explanations for clarity and consistency
+[28-Nov] - Fixed some external links
+[28-Nov] - Added more links (internal guide)
+<hr>
+> ''Version 1.1.0''
+[05-Aug] - Clean up and check for update
+[02-Aug] - Added the {Event} pages
+[02-Aug] - Added the {Intro to Animation} page
+[01-Aug] - Addition in the {Going Further with Settings} page.
+[01-Aug] - Added the {Engine API} pages
+[01-Aug] - Added the {Localization} pages
+<hr>
+> ''Version 1.0.2''
+[30-Jul] - Fixed broken links
+[30-Jul] - Added external links
+[30-Jul] - Added extra explanation on the {Back vs Return} macros, and the {Conditional Statements}.
+[30-Jul] - Fixed errors in Typed code, Basic Macro code, Styling Markup
+[30-Jul] - Corrected wrong information in the Further CSS, Interactive Macros (cycle, listbox)
+[30-Jul] - Updated the {Index}
+[30-Jul] - Completed the {Macro List} Page
+[30-Jul] - Updated the {Lexicon}
+<hr>
+> ''Version 1.0.1''
+[29-Jul] - Fixed errors in Method code (array, string)
+[29-Jul] - Fixed broken links
+[29-Jul] - Fixed markup errors
+[29-Jul] - Fixed inconsistencies in formatting
+[29-Jul] - Cleaned up TODO notes on published pages
+<hr>
+> ''Version 1.0.0''
+[30-Jun] - Pre-Release
+
+<<back>>
+
+
