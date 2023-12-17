@@ -1,0 +1,1012 @@
+:: Int-JS-CSS [chapter menu] {"position":"3200,1100","size":"200,100"}
+<h1>Going further in Styling with CSS and JavaScript</h1>
+When wanting to change how a page looks or behave, you will need to edit either the StyleSheet, the JavaScript or a combination of both. If it is behaviour that needs setting, then you will most likely need the JavaScript. For most visual elements, you should turn to the StyleSheet.
+
+While editing the StyleSheet, you may find the Inspect Tool of your browser to be a useful thing. From testing for different screen sizes and accessibility, to view the source code (HTML/CSS) of the displayed passage, or even messing with the CSS rules without going back and forth between the StyleSheet and the file, the tool will let you ensure a great visual for your project.
+
+* [[The Different Targetable Elements|Int-JS-CSS-Elements]] [ ★ UPDATE ★ ]
+** [[The Full List of Targetable Elements|HTML-Full-List]] [ ★ NEW ★ ]
+* [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
+* [[Import and Change the Font|Int-JS-CSS-Font]] [ ★ UPDATE ★ ]
+* [[Using the Root and CSS var|Int-JS-CSS-Root]] [ ★ UPDATE ★ ]
+* [[Formating for Different Screen Size|Int-JS-CSS-Media]] [ ★ UPDATE ★ ]
+* [[Intro to Animation|Int-JS-CSS-Animation]]
+* [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) [ ★ NEW ★ ]
+* [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] [ ★ NEW ★ ]
+* [[A Note on Interface Accessibility|Accessibility]] [ ★ NEW ★ ]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-Elements [page] {"position":"3200,1200","size":"100,100"}
+<h1>The Different Targetable Elements</h1>
+With its [[base UI|http://www.motoslave.net/sugarcube/2/docs/#html]], SugarCube creates multiple elements on the page, which can be targeted in the StyleSheet with some CSS or in the JavaScript.
+
+The elements have also relationships with one another, as they are nested within one another. Depending on where they are located within the nesting, and how the Built-In StyleSheet targets them, any edit made may affect more than the targeted elements.
+> ''Note:'' when an element is located inside another, the first is called a child of the second, while the second is the parent of the first. CSS rules in the parent element may affect the child element.
+\
+<h3>Main Block Elements</h3>\
+<table>
+    <tr>
+        <th>Selector</th><th>Description</th><th>Relationship</th>
+    </tr>
+    <tr>
+        <td>{{{html}}}</td>
+        <td>The document element, necessary to set up the HTML page. ''Should not be included inside'' {{{StoryInterface}}}.
+        If a story-passage is tagged, {{{data-tags}}} will be added to this element.
+        If the project includes Settings, classes and attributes will be added to this element. 
+        The element sets the font size for the whole document.</td>
+        <td>{{{html}}} is the parent element to all elements below, but most closely to {{{body}}}</td>
+    </tr>
+    <tr>
+        <td>{{{body}}}</td>
+        <td>The body of the page. ''Should not be included in'' {{{StoryInterface}}}.
+        If a story-passage is tagged, the {{{data-tags}}} and special classes will be added to this element.
+        The element sets the default background and font colours.</td>
+        <td>{{{body}}} is the child element of {{{html}}}, and the parent element of all the elements below, most closely {{{#ui-dialog}}}, {{{#ui-bar}}}, and {{{#story}}}.</td>
+    </tr>
+    <tr>
+        <td>{{{#ui-dialog}}}</td>
+        <td>The popup element container. ''Should not be included in'' {{{StoryInterface}}}.</td>
+        <td>{{{#ui-dialog}}} is the child element of {{{body}}}, and the parent element of {{{#ui-dialog-titlebar}}} and {{{#ui-dialog-body}}}. </td>
+    </tr>
+    <tr>
+        <td>{{{#ui-bar}}}</td>
+        <td>The left sidebar. Can be included in {{{StoryInterface}}}, if want to be kept.
+        This element will affect how {{{#story}}} is positionned on the page.</td>
+        <td>{{{#ui-bar}}} is a child element of {{{body}}}, and the parent element of the Special Passage elements, among others.</td>
+    </tr>
+    <tr>
+        <td>{{{#story}}}</td>
+        <td>Container for the {{{#passages}}} element.
+        This element's width and position is affected by {{{#ui-bar}}}'s position on the page.</td>
+        <td>{{{#story}}} is the child element of {{{body}}}, and the parent of {{{#passages}}}</td>
+    </tr>
+    <tr>
+        <td>{{{#passages}}}</td>
+        <td>Container for the passage element. ''HAS TO BE included in'' {{{StoryInterface}}}.
+        All created passages will appear as a children of this element, in {{{.passage}}}.</td>
+        <td>{{{#passages}}} is the child element of {{{#story}}}, and the parent element of {{{.passage}}}</td>
+    </tr>
+    <tr>
+        <td>{{{.passage}}}</td>
+        <td>The passage element. ''Should not really be included'' in {{{StoryInterface}}}.
+        The active story-passage will determine the ID of this element.
+        If a story-passage is tagged, the {{{data-tags}}} and special classes will be added to this element.</td>
+        <td>{{{.passage}}} is the child element of {{{#passages}}}, and the parent element of any element coded in the story-passage.</td>
+    </tr>
+</table>
+> ''Note:'' When using the base UI, the {{{StoryInterface}}} [[Special Passage|SP-StoryInterface]] is not a necessary passage to have in your project.
+> You can find the complete list of targetable elements in a base UI [[here|HTML-Full-List]].
+\
+<h3>Notes on the Links Elements and Special Link Classes</h3>\
+targeting the links with the element {{{a}}} or the buttons with {{{button}}} without including a parent element before, the CSS rules will affect every link and button in the project (the passage, the sidebar, and the dialog box). On the other hand, if you indicate {{{.passage a}}} or {{{.passage button}}} in the StyleSheet, it will only target the links or buttons in the passage element.
+
+The {{{a}}} element will affect any interactive macro using a link, such as {{{<<link>>}}}, {{{<<linkappend>>}}}, {{{<<linkprepend>>}}}, {{{<<linkreplace>>}}}, and the {{{<<cycle>>}}} macros, as well as the {{{[[link]]}}} markup. targeting a certain macro can be done as follow: {{{a.macro-[name]}}} or {{{.macro-[name]}}}.
+> ''Note:'' targeting the macro class will not affect the [[link]] markup.
+
+To differenciate internal and external links, aside from the icon at the end of the link, a specific class is added to every link(-related) element: {{{.link-internal}}} or {{{.link-external}}}. Only the links going to another website will get the second class, all others will get the first.
+> ''Note:'' the macros listed in the paragraph above will have the {{{.link-internal}}} class. 
+
+To change how a link looks when hovered/in focus/being clicked on, compared to the link when not in use, you can add a special selector to the link: {{{:hover}}}, {{{:focus}}}, and {{{:active}}}. If all these three states will look the same, {{{a:hover, a:focus { /* CSS rules */ }}}} will be sufficient.
+
+If the {{{a}}} has not been modified in the StyleSheet, you may notice some links going nowhere will be formatted differently than working links. This is because those "broken" links have a special class: {{{.link-broken}}}.
+If you did modify {{{a}}} in the StyleSheet, you can always add {{{a.link-broken}}} to it to be able to see those broken link during testing/playing.
+
+When using the macro {{{<<choice>>}}}, links will become disabled, and get the class {{{.link-disabled}}} attached to them. It is possible to add this class to other links on the screen with a [[DOM Macro|Macro-DOM-Adv]].
+> ''Note:'' this should not be mistaken for the {{{.disabled}}} class added by the {{{<<disable>>}}} [[Custom Macro from Chapel|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/disable-macro.md]].
+
+If the project should display to the player whether a passage has been visited through the link, you can target the {{{.link-visited}}} class.
+> ''Note:'' the class is not enabled by default, but should be unlocked with {{{Config.addVisitedLinkClass = true;}}} in the JavaScript. See more about it, [[here|Config-Misc]].
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: HTML-Full-List [page] {"position":"3300,1200","size":"100,100"}
+<h1>The Full List of Targetable Elements</h1>\
+This page includes the full list of targetable elements (with a defined {{{#id}}} or {{{.class}}}) in a Basic SugarCube project (i.e. no custom UI, macro, elements). The HTML page contains other "hidden" element, like the Story date, which are not visible on the page.
+> ''Note:'' you can also find the wanted element to target by using the Inspect Tool.
+\
+The targetable elements are organised as follow:
+* the base elements of a page
+* the base elements of the Built-In Menus
+* the HTML elements defined in the StyleSheet
+* the macro classes
+
+To see how all these elements are styled by default or when special events happen, see the [[Built-In StyleSheets|http://www.motoslave.net/sugarcube/2/docs/#css-built-ins]].
+\
+<h3>The Base Elements of the Page</h3>\
+Assuming that you have not changed the Base UI with {{{StoryInterface}}} and are using all SideBar Special Passages, here are the base targetable elements inside a basic page, including the parent/child order.
+Inside the {{{html}}} wrapper you will find:
+* {{{body}}}
+** {{{#init-screen}}} (hidden after the game is loaded)
+*** {{{#init-loading}}}
+** {{{#ui-overlay}}} (hidden when no popup is active)
+** {{{#ui-dialog}}} (hidden when no popup is active)
+*** {{{#ui-dialog-titlebar}}}
+**** {{{h1#ui-dialog-title}}}
+**** {{{button#ui-dialog-close}}}
+*** {{{#ui-dialog-body}}}
+** {{{#ui-bar}}}
+*** {{{#ui-bar-tray}}}
+**** {{{button#ui-bar-toggle}}}
+**** {{{#ui-bar-history}}}
+***** {{{button#history-backward}}}
+***** {{{button#history-jumpto}}}
+***** {{{button#history-forward}}}
+*** {{{#ui-bar-body}}}
+**** {{{#title}}}
+***** {{{#story-banner}}}
+***** {{{h1#story-title}}}
+***** {{{#story-subtitle}}}
+***** {{{#story-title-separator}}}
+***** {{{p#story-author}}}
+**** {{{#story-caption}}}
+**** {{{nav#menu}}}
+***** {{{ul#menu-story}}}
+***** {{{ul#menu-core}}}
+****** {{{li#menu-item-saves}}}
+****** {{{li#menu-item-settings}}}
+****** {{{li#menu-item-restart}}}
+****** {{{li#menu-item-share}}}
+** {{{#story}}}
+*** {{{#passages}}}
+*** {{{.passage}}}
+** {{{#debug-bar}}} (for Testing/Debug Mode)
+\
+> ''Note:'' when targetting a base element, you don't have to indicate the type of element ({{{div}}}/{{{h1}}}/{{{button}}}/etc...). However, their specific default CSS settings may affect how they look (e.g. margin).
+\
+<h3>The Base Elements of the Built-In Menus</h3>\
+The targetable elements below can be found in the //Saves//, //Settings//, and //Restart// menus.
+\
+<h4>The Saves Menu</h4>\
+In the body of the //Saves// menu ({{{.saves}}} class), you will find:
+* {{{table#saves-list}}}
+** {{{ ... }}}
+*** {{{button#saves-load-[i]}}} or {{{button#saves-save-[i]}}}
+*** {{{div.datestamp}}}
+*** {{{button#saves-delete-[i]}}}
+* {{{ul.buttons}}}
+** {{{button#saves-export}}}
+** {{{button#saves-import}}}
+** {{{button#saves-clear}}}
+> ''Note:'' since the //Saves// menu includes more than one save slot (and the autosave), replace the [1] with the number of the relevant save slot (starting with 0) or {{{auto}}} (for autosave).
+> Other targetable elements includes the rows and cells of the save tables, and the {{{li}}} elements for the buttons.
+\
+<h4>The Settings Menu</h4>\
+The elements inside the //Settings// Menu will depend on what settings were coded in the project's JavaScript. 
+Each setting will be coded as follow, with [setting] being the defined name of the setting:
+* {{{#setting-body-[setting]}}}
+** {{{label#setting-label-[setting]}}}
+** {{{#setting-control-[setting]}}} (attached to {{{input}}}, {{{select}}} or {{{button}}})
+** {{{p#setting-desc-[setting]}}}
+As for the Header, [header] will use the sluggified version of the header text:
+* {{{#header-body-[header]}}}
+** {{{h2#header-heading-[header]}}}
+** {{{p#header-desc-[header]}}}
+The bottom of the //Settings// Menu also includes:
+* {{{ul.buttons}}}
+** {{{button#settings-ok}}}
+** {{{button#settings-reset}}}
+\
+<h4>The Restart Menu</h4>\
+The //Restart// Menu only includes on main block inside the body of the popup ({{{.restart}}} class):
+* {{{ul.buttons}}}
+** {{{button#restart-ok}}}
+** {{{button#restart-cancel}}}
+\
+<h3>The HTML Elements Defined in the StyleSheet</h3>\
+Below are the different HTML elements defined in the StyleSheet. 
+* clickables: {{{a}}}, {{{button}}}
+* interactive: {{{input}}}, {{{select}}}, {{{textarea}}}
+* headers: {{{h1}}}, {{{h2}}}
+* horizontal rule: {{{hr}}}
+* lists: {{{ul}}}, {{{li}}}, {{{ol}}}
+* tables: {{{table}}}, {{{tr}}}, {{{th}}}, {{{td}}}
+* multimedia: {{{img}}}, {{{audio}}}, {{{video}}}
+* other: {{{area}}}, {{{canvas}}}, {{{progress}}}
+> ''Note:'' this is not an exhaustive list of HTML elements, and you can even create your own (ex: {{{<y>}}}).
+\
+<h3>The Macro Classes</h3>\
+Some macros, mainly the interactive ones with outputs, will add an extra class to elements to indicate it is an interactive element created by a macro, or that certain outputs were added on the page with a macro.
+{{{
+    .macro-[name of the macro]
+}}}
+> //Examples://
+{{{
+    .macro-link 
+    .macro-button
+    .macro-linkappend
+    .macro-linkprepend
+    .macro-replace
+    .macro-include
+    .macro-type
+    .macro-checkbox
+    .macro-cycle 
+    .macro-listbox
+    {...}
+}}}
+For linking macros and markups, the element can be defined with these classes:
+{{{
+    .link-internal
+    .link-external
+
+    .link-broken
+    .link-disabled
+    .link-visited
+}}}
+Similarly, some macros may see their class change depending on their use.
+> //Examples://
+{{{
+    .macro-linkappend-insert
+    .macro-linkprepend-insert
+    .macro-linkreplace-insert
+    .macro-append-insert
+    .macro-prepend-insert
+    .macro-replace-insert
+    .macro-repeat-insert
+    .macro-timed-insert
+→ adding new element to the page
+
+    .macro-linkappend-in
+    .macro-linkprepend-in
+    .macro-linkreplace-in
+    .macro-append-in
+    .macro-prepend-in
+    .macro-replace-in
+    .macro-repeat-in
+    .macro-timed-in
+→ the starting class for page addition 
+  when {t8n} is an argument
+}}}
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-Events [page] {"position":"3200,1300","size":"100,100"}
+<h1>Ensuring that Elements Start at the Top when Opened</h1>
+When going from one long passage to another, or opening a multiple popups whose content does not fit the container, the system might not automatically scroll the element to the top of the page/element. 
+> ''Note:'' This should mainly apply to modified UI.
+
+However, this can be easily fixed with a bit of jQuery in the JavaScript passage, and [[Events]]:
+{{{
+    $(document).on(":passagedisplay", function() {
+        $("#passages").scrollTop(0);
+    });
+}}}
+> //For the Dialog Box://
+{{{
+    $(document).on(":dialogopened", function() {
+        $("#ui-dialog-body").scrollTop(0);
+    });
+}}}
+> ''Note:'' you can change {{{#passages}}} with any other relevant container, like {{{#story}}}.
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Int-JS-CSS-Font [page] {"position":"3300,1300","size":"100,100"}
+<h1>Import and Change the Font</h1>
+As different device come with different fonts, you may want to have a unified experience accross the playerbase through one-same font. For this, you will need to import the chosen font(s) and set it in the StyleSheet.
+As with [[images|URL-Types]], how to import fonts will depend on the location of the font. A local import will require a different rule than an import from a third-party server (e.g. Google).
+
+> ''IMPORTANT:'' the import of a font should be ''the first thing'' in your StyleSheet, before any other CSS rules!
+\
+<h3>The Different Imports</h3>\
+For a server import, the {{{@import url()}}} should be used. You only need to add the relevant URL of the font. For example, Google will provide one on their GoogleFont website, just as the one below.
+{{{
+    @import url('https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap');
+}}}
+> ''Note:'' when selecting multiple fonts (type or families), Google will provide one link for all selected fonts.
+\
+Depending on the services used, the URL for the font may look differently. For comparison, here's the one of an old FontAwesome version:
+{{{
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css’);
+}}}
+> ''Note:'' you should ensure to always get the official import URL.
+
+On the other hand, local import will use the {{{@font-face}}}, with a relative URL, and require a few more information. This will include the name of the font-family, the URL, the format of the file, the style (normal/italic) and the weight (400-normal/700-bold).
+> ''Note:'' while it requires a few more lines of code, local imports are not dependent on server up-times or shared user information.
+\
+For example, trying to import an OpenDyslexic font (normal, italics, bold, bold+italic):
+{{{
+    @font-face {
+        font-family: "Dyslexic";
+        src: url(fonts/OpenDyslexic-Regular.otf) format("opentype");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Dyslexic";
+        src: url(fonts/OpenDyslexic-Italic.otf) format("opentype");
+        font-style: italic;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Dyslexic";
+        src: url(fonts/OpenDyslexic-BoldItalic.otf) format("opentype");
+        font-style: italic;
+        font-weight: 700;
+    }
+    @font-face {
+        font-family: "Dyslexic";
+        src: url(fonts/OpenDyslexic-Bold.otf) format("opentype");
+        font-style: normal;
+        font-weight: 700;
+    }
+}}}
+> ''Note:'' a new {{{@font-face}}} is required for each new font type.
+\
+<h3>Changing the Font of the project</h3>\
+In the Base UI, the font is defined inside the {{{html}}} element. If the new font should apply to the whole project, you can simply do: 
+{{{
+    html {
+        font-family: 'Font-Name', type;
+    }
+
+→ For the OpenDyslexic, "imported" above:
+    html {
+        font-family: 'Dyslexic', sans-serif;
+    }
+}}}
+
+If the font should only apply to a specific element, you must target that element instead. 
+For example, if you want to change the font of the header:
+{{{
+    h1 {
+        font-family: 'Roboto', sans-serif;
+    }
+
+→ to target the title of the popup:
+    #ui-dialog-title {
+        font-family: 'Bacasime Antique', serif;
+    }
+}}}
+\
+<h3>Let the Player Change the Font*</h3>\
+*from a preset list of fonts that you set up in the code.
+
+To accomodate players, you can let them change the reading font through a [[List Setting|SettingsList]], within which you have indicated a list of imported fonts (serif, sans-serif, monospace) to choose from.
+For accessibility, it is recommended to have multiple legible //serif// and //sans-serif// fonts, especially for story text.
+> ''Note:'' you can find a Font setting in my [[Setting Template|https://manonamora.itch.io/twine-sugarcube-templates]].
+
+Assuming that a font //Georgia//, //Montserrat// and //OpenDyslexic// have been imported, the code below could be added to the JavaScript:
+{{{
+    var settingFontFamily = ["Georgia", "Montserrat", "OpenDyslexic"];
+    var fontFamily = function() {
+        var $html = $("html");
+            $html.removeClass("sansserif serif opendyslexic");
+        switch (settings.fontFamily) {
+            case "Georgia":
+                $html.addClass("serif");
+                break;
+            case "Montserrat":
+                $html.addClass("sansserif");
+                break;
+            case "OpenDyslexic":
+                $html.addClass("opendyslexic");
+                break;
+        }
+    };
+    Setting.addList("fontFamily", {
+        label       : "Change font style.",
+        list        : settingFontFamily,
+        default     : "Georgia",
+        onInit      : fontFamily,
+        onChange    : fontFamily
+    });
+}}}
+And in the CSS:
+{{{
+    .sansserif body {font-family: var(–sansserif);}
+    .opendyslexic body {font-family: var(–opendyslexic);}
+    .serif body {font-family: var(–serif);}
+}}}
+> ''Note:'' this will affect all elements on the page. Change the {{{body}}} to another element.
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-Root [page] {"position":"3200,1400","size":"100,100"}
+<h1>Using the Root and CSS var</h1>
+As the UI gets more complex, whether because of its base customisation, or with the addition of [[Settings]], you may want to organise certain values within the StyleSheet, like colours, fonts, or asset URL. This can be done through the creation of CSS variables ({{{--var}}}) inside the {{{:root}}} selector.
+> ''Note:'' this is used quite often in templates, to make changing colours of the UI easier for the user. Instead of finding all the different iterations of a value, there is only one to change!
+\
+In your StyleSheet, after any imported element:
+{{{
+    :root {
+        /* the listed variable */
+    }
+
+    :root {
+        --sansserif: 'Montserrat', sans-serif;
+        --font-colour: #000;
+        --dm-font-colour: #eee;
+        --width: 50px;
+        --timer: 3s;
+        --gradient: linear-gradient(-90deg, blue, green, red);
+    }
+}}}
+> ''Note:'' new versions of {{{:root}}} can be included inside the {{{@media}}} selector if a certain variable need to change for a different screen size.
+
+The CSS variable can then be used as many times as needed in relevant CSS rules in other elements:
+{{{
+    .passage {
+        color: var(--font-colour);
+    }
+    .dm #ui-dialog-body {
+        color: var(--dm-font-colour);
+    }
+    .sansserif .passage {
+        font-family: var(--sansserif);
+    }
+}}}
+>''Note:'' the classes {{{.dm}}} and {{{.sansserif}}} would have been created with a [[Setting API|SettingsList]].
+\
+Setting a CSS variables can also be done outside of {{{:root}}}:
+{{{
+    .parent-element {
+        --color: blue;
+    }
+    .child-element-1 {
+        background : var(--color);
+    }
+    .child-element-2 {
+        color: var(--color);
+    }
+}}}
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-Media [page] {"position":"3300,1400","size":"100,100"}
+<h1>Formating for Different Screen Size</h1>
+While the Base UI of SugarCube is already optimised for different screens/devices, any change in the interface, whether it be changing the size and display of elements in the StyleSheet or in {{{StoryInterface}}}, will need to be fitted for those different screen sizes. 
+
+This can be done with the {{{@media}}} rule inside the StyleSheet.
+{{{
+    @media screen and (size) {
+        [element] {
+            /* CSS Rule */
+        }
+    }
+}}}
+Inside the {{{(size)}}}, you can target a specific range or screen size or ratio to apply different CSS rules. You will need to use as many {{{@media}}} rules as your interface would require (it will depend on the elements on the page). Each iteraction of this rule should be ordered from most-restrictive size/ratio range to most-inclusive.
+> //Example://
+{{{
+    #passages {
+        width: 50vw;
+    }
+
+    @media screen and (max-width: 585px) {
+        #passages {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        #passages {
+            width: 85%;
+        }
+    }
+}}}
+If the screen used is 585px wide or smaller, the width of the passage will take the whole screen. For screen size is larger than wider than 585px but 800px wide or smaller, the width of the passage will take 85% of the screen. If the screen size is larger than 800px, the width of the passage will be half of the screen width.
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-Animation [page] {"position":"3200,1500","size":"100,100"}
+<h1>Intro to Animation</h1>
+To elevate your project and customize it further, you can decide to animate elements on the page of your game (e.g. text, images, other...). Animations can be as simple as a flicker, to more complex movement over the page. 
+It might seem daunting to create animations, as animation code published on CodePen and the like can look quite complicated. But, animations rests only on three essential elements in the StyleSheet:
+* the {{{@keyframes}}}: defining the trajectory of the animation (e.g. change of position, or colour, or opacity, etc...)
+* the {{{animation}}} CSS rule: linking and setting the animation to the relevant block (e.g. length, looping, delay, etc...)
+* the element targeted: which can be an HTML markup ({{{h1}}}, {{{span}}}), a class ({{{.class}}}), or an ID ({{{#id}}})
+> ''Note:'' certain animations may require the element to have {{{display: block}}}, {{{display: inline-block}}}, {{{display: absolute}}} to work.
+\
+<h3>{{{@keyframes}}}</h3>\
+Every keyframe is set up in the same way:
+{{{
+    @keyframes animation-name {
+        keyframes-selector {css-styles;}
+    }
+}}}
+As such, you will need to indicate the following:
+* {{{animation-name}}}: or the name you will give to the animation. 
+** For example, let's take {{{flicker}}}.
+* {{{keyframes-selector}}}: the percentage in the animation sequence where something changes for the element.
+** can be set with percentages ({{{0-100%}}}), or with {{{from}}}/{{{to}}} (same as 0% and 100%), or a combination of both.
+*** Here, let's have the flicker happen half-way through the animation (50%).
+* {{{css-styles}}}: or the css rules to indicate what changes at that step. 
+** Here, the flickering will need {{{opacity}}}.
+\
+If we combine it all, we get the following example:
+{{{
+    @keyframes flicker {
+        0% { opacity:1; }
+        50% { opacity:0; } 
+        100% { opacity:1; }
+    }
+}}}
+> ''Note:'' Testing and tweaking is ''very important'' here.
+\
+<h3>The {{{animation}}} Rule</h3>\
+Linking the animation to an element is necessary for the animation to display on the page. The {{{animation}}} CSS rule is a compiled version of 8 different separate rules ({{{animation-[insertname]}}}):
+{{{
+    animation: name duration timing-function delay iteration-count direction fill-mode play-state;
+}}}
+To function, it only requires at minimum the following:
+{{{
+    animation: name duration iteration-count;
+}}}
+\
+So, you will need to define:
+* {{{name}}} (or {{{animation-name}}}): the name of the keyframe animation. 
+** Here, we defined it as {{{flicker}}}.
+* {{{duration}}} (or {{{animation-duration}}}): the duration of the whole animation.
+** Let's make it {{{1 second}}} here.
+* {{{iteration-count}}} (or {{{animation-iteration-count}}}): how many times the animation goes. 
+** Let's make it {{{infinite}}}.
+{{{
+    animation: flicker 1s infinite;
+}}}
+\
+If you want to go further, you can also defined the following aspects:
+* {{{timing-function}}} (or {{{animation-timing-function}}}): indicates the curve of the animation speed (slow start, slow end, etc...) 
+* {{{delay}}} (or {{{animation-delay}}}): delaying the start of an animation.
+* {{{direction}}} (or {{{animation-direction}}}): whether an animation should be played forward, backward, or alternating.
+* {{{fill-mode}}} (or {{{animation-fill-mode}}}): define whether an animation takes the styling in the start of the animation or the one at the end.
+* {{{play-state}}} (or {{{animation-play-state}}}): define whether the animation is playing or paused.
+\
+<h3>Linking to an element</h3>\
+Finally, we need to add the {{{animation}}} rule in an element, to make it flicker.
+> Assuming the passage has the following block:
+{{{
+    <span class="flickering">Some Text</span>
+}}}
+> //In the StyleSheet//:
+{{{
+    .flickering {
+        animation: flicker 1s infinite;
+    }
+→ the {flicker} animation was added to the span class {flickering}
+}}}
+> Giving the following result: 
+<span class="flickering">Some Text</span>
+\
+<h3>A note on Accessibility</h3>\
+While animations can be quite fun to have, giving some spice to the displayed elements, some players may not find it comfortable. Fast moving elements, flickering animation, or bright flashes, may causes sensory issues for some. It is generally a good idea to warn player of such animation before they start the game, as well as create an [[Accessible Setting|SettingsToggle]], so player can toggle on/off the animation.
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-Stat [page] {"position":"3300,1500","size":"100,100"}
+<h1>Creating Stats, Meter, and Progress Bars</h1>
+Whether to show a character's abilities or affections, or a visual timer for quick-time event actions, these bars will allows for a meaningful visual to display the value of a variable, aside from a number.
+There are different ways of achieving this, namely:
+* using the {{{<progress>}}} or the {{{<meter>}}} HTML elements 
+* building it from scratch with {{{<div>}}} or {{{<span>}}} elements 
+* using custom macros (like [[Chapel's|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/meter-macros.md]]), which often ends up doing one of the options above but with more pazaaz and less HTML to deal with.
+** See the macro's documentation for use.
+\
+<h3>The {{{<progress>}}} HTML element</h3>\
+Like it's name suggests, {{{<progress>}}} is an HTML element used to create a progress bar. While it //can// be used for static bars, this element is more meant to represent the completion of a task/a timer.
+<progress max="100"></progress> (indeterminate form)
+<progress value="43" max="100"></progress> (determinate form)
+> ''Note:'' when unstyled, the progress bar will look different between browsers.
+\
+The element had two specific attributes:
+* {{{max}}} (optional) to indicate the completion value.
+** default is 1.0
+* {{{value}}} to indicate the current state of the progress. 
+** must either be {between 0.0 and 1.0 incl.} or {less than or equal to the {{{max}}}}
+** if used but left empty, you will get its indeterminate form 
+** if not indicated, you will get its indeterminate form
+> ''Note:'' the minimum will always be 0.
+{{{
+    <progress value="" max="100"></progress>
+    <progress max="100"></progress> 
+→ indeterminate form
+
+    <progress value="43" max="100"></progress> 
+    <progress value="0.43"></progress> 
+→ determinate form
+}}}
+If either the {{{value}}} or the {{{max}}} should be related to the value of a set variable, you will need to use the {{{@}}} [[directive|Markup-Attribute]] to link it.
+Assuming that {{{<<set $intext to 42>>}}}: <<set $intext to 42>>
+{{{
+    <progress @value="$intext" max="100"></progress>
+}}}
+→ will render as: <progress @value="$intext" max="100"></progress>
+
+The {{{<progress>}}} element will also accept other global attributes, such as {{{.class}}}, {{{#id}}}, or ARIA-related elements. These attribues can make it easier to target a specific progress bar during styling.
+
+If you want the {{{<progress>}}} element to look the same across browsers, you will need to edit the StyleSheet:
+* {{{progress}}} to target the {{{<progress>}}} elements as a whole 
+* {{{progress:not([value])}}} to target the {{{<progress>}}} if {{{value}}} is not indicated
+* {{{progress:indeterminate}}} to target {{{<progress>}}} elements if {{{value}}} is not indicated or defined
+* {{{progress[value]}}} to target {{{<progress>}}} elements if {{{value}}} is indicated (defined or empty)
+\
+To edit the value bar however, you will need to use browser specific Pseudo-Code:
+* For Chrome and Chromium browsers:
+** {{{::-webkit-progress-bar}}} to edit the appearance of the background bar 
+** {{{::-webkit-progress-value}}} to edit the appearance of the value bar
+* For Firefox :
+** {{{no-pseudo-code}}} to edit the appearance of the background bar 
+** {{{::-moz-progress-bar}}} to edit the appearance of the value bar
+> //Example, if the progress bar has the id:// {{{#test-bar}}}
+{{{
+#test-bar {
+    background: #0b1f0b;
+    width: 100%;
+    height: 2em;
+    border-radius: 20px;
+    border: 2px solid #013c01;
+}
+→ will set the base for the whole element
+  + the background for Firefox
+
+#test-bar::-moz-progress-bar {
+  background: linear-gradient(-90deg, #00800078, #6ecfff, #00800078);
+  border-radius: 20px;
+}
+→ will set the appearance of the value bar in Firefox
+
+#test-bar::-webkit-progress-bar {
+	background: #0b1f0b;
+    border-radius: 20px;
+}
+→ will set the appearance of the background in Chromium
+
+#test-bar::-webkit-progress-value {
+    background: linear-gradient(-90deg, #00800078, #6ecfff, #00800078);
+    border-radius: 20px;
+}
+→ will set the appearance of the value bar in Chromium
+}}}
+<progress id="test-bar" @value="$intext" max="100"></progress>
+
+\
+<h3>The {{{<meter>}}} HTML element</h3>\
+The {{{<meter>}}} element is meant to showcase static values, when the range is known, like the capacity of a device or the health of a character. 
+<meter @value="$intext" min="0" low="10" optimum="50" high="90" max="100"></meter> | <meter value="12" min="0" low="20" optimum="50" high="90" max="100"></meter> | <meter value="25" min="0" low="50" optimum="85" high="75" max="100"></meter>
+> ''Note:'' when unstyled, the meter bar will look different between browsers.
+\
+The element has 6 specific attributes:
+* {{{value}}} to indicate the current value of the measured range
+** must be between {{{min}}} and {{{max}}}
+* {{{min}}} (optional) to indicate the minimum value of the range 
+** default is 0
+** can be any value (even negative) as long as it is lower than {{{max}}}
+* {{{max}}} (optional) to indicate the maximum value of the range 
+** default i 1.0
+** can be any value (even negative) as long as it is higher than {{{max}}}
+* {{{low}}} (optional) to specify what is a low value in the range 
+** must be higher than {{{min}}}, but lower than {{{high}}} and {{{max}}}
+* {{{high}}} (optional) to specify what is a high value in the range 
+** must be lower than {{{max}}}, but higher than {{{low}}} and {{{min}}}
+* {{{optimum}}} (optional) to specifiy the optimal value in the range
+** if used along {{{low}}} and {{{high}}}, it will indicate the preferred zone for the range
+** can be any value within the {{{min}}}/{{{max}}} range
+> ''Note:'' when {{{high}}}, {{{low}}}, and {{{optimum}}} are used, it will change the colour of the meter bar. See examples above.
+{{{
+    <meter value="0.5"></meter>
+
+    <meter value="50" min="0" max="100"></meter>
+
+    <meter value="42" min="0" low="10" optimum="50" high="90" max="100"></meter>
+}}}
+If any of those attributes should be related to the value of a set variable, you will need to use the {{{@}}} [[directive|Markup-Attribute]] to link it.
+Assuming that {{{<<set $intext to 42>>}}}: <<set $intext to 42>>
+{{{
+    <meter @value="$intext" min="0" max="100"></meter>
+}}}
+→ will render as: <meter @value="$intext" min="0" max="100"></meter>
+
+The {{{<meter>}}} element will also accept other global attributes, such as {{{.class}}}, {{{#id}}}, or ARIA-related elements. These attribues can make it easier to target a specific progress bar during styling.
+
+If you want the {{{<meter>}}} element to look the same across browsers, you will need to edit the StyleSheet:
+* {{{meter}}} to target the {{{<meter>}}} elements as a whole 
+* {{{meter:not([value])}}} to target the {{{<meter>}}} if {{{value}}} is not indicated
+* {{{meter[value]}}} to target {{{<meter>}}} elements if {{{value}}} is indicated (defined or empty)
+\
+To edit the value bar however, you will need to use browser specific Pseudo-Code:
+* For Chrome and Chromium browsers:
+** {{{::-webkit-meter-bar}}} to edit the appearance of the background bar 
+** {{{::-webkit-meter-optimum-value}}} to edit the appearance of the value bar
+* For Firefox :
+** {{{no-pseudo-code}}} to edit the appearance of the background bar  
+** {{{::-moz-meter-bar}}} to edit the appearance of the value bar
+> ''Note:'' if you are using {{{high}}}/{{{low}}}/{{{optimum}}}, and want to change how the meter looks depending on where the value is in the range, you can also use the Pseudo-Elements:
+> For Chromium: {{{::-webkit-meter-suboptimum-value}}}, {{{::-webkit-meter-even-less-good-value}}}
+> For Firefox: {{{:-moz-meter-optimum}}}, {{{:-moz-meter-sub-optimum}}}, {{{:-moz-meter-sub-sub-optimum}}}
+\
+> //Example, if the progress bar has the id:// {{{#test-metbar}}}
+{{{
+#test-metbar {
+    background: #1d0b1f;
+    width: 100%;
+    height: 2em;
+    border-radius: 20px;
+    border: 2px solid #3a013c;
+}
+→ will set the base for the whole element
+  + the background for Firefox
+
+#test-metbar::-moz-meter-bar {
+    background: linear-gradient(-90deg, #76008078, #ffe26e, #76008078);
+    border-radius: 20px;
+}
+→ will set the appearance of the value bar in Firefox
+
+#test-metbar::-webkit-meter-bar {
+    background: #1d0b1f;
+    border-radius: 20px;
+    height: 2em;
+    border: 2px solid #3a013c;
+}
+→ will set the appearance of the background in Chromium
+
+#test-metbar::-webkit-meter-optimum-value {
+    background: linear-gradient(-90deg, #76008078, #ffe26e, #76008078);
+    border-radius: 20px;
+}
+→ will set the appearance of the value bar in Chromium
+}}}
+<meter id="test-metbar" @value="$intext" min="0" max="100"></meter>
+
+\
+<h3>Build your own from {{{<div>}}} and {{{<span>}}}</h3>\
+While progress and meter bars can be pretty neat to use, they do have some issues with compatibility with older browsers (especially {{{<meter>}}}), and require the use of Pseudo-Code to style the bar for the different browsers. And, if you are looking to add some [[animations|Int-JS-CSS-Animation]] to your bar, you would most likely require some JavaScript code.
+> ''Note:'' the examples below will only use {{{<div>}}} but you could technically use any block elements. Though you may need to add a few more CSS rules.
+
+This bit of a headache can be avoided if you build your start bar from scratch with basic elements. Something like this:
+{{{
+    <div class="statBarContainer">
+        <div class="statBar" style="width:33%"></div>
+    </div>
+}}}
+<div class="statBarContainer"><div class="statBar" style="width:33%"></div></div>
+> //In the StyleSheet//:
+{{{
+    .statBarContainer {
+        background: #660303;
+        width: 100%;
+        height: 2em;
+        border-radius: 20px;
+        border: 2px solid #a40606;
+    }
+    .statBar {
+        background: linear-gradient(-90deg, #ff489e78, #6effc2, #ff489e78);
+        border-radius: 20px;
+        height: inherit;
+    }
+}}}
+
+If any attribute defined in those {{{<div>}}} should be related to the value of a set variable, you will need to use the {{{@}}} [[directive|Markup-Attribute]] to link it.
+{{{
+    <div class="statBarContainer">
+        <div class="statBar" @style="'width:' + $intext + '%;'"></div>
+    </div>
+
+→ the quotes are required to parse the value of the variable.
+  otherwise it will not work.
+}}}
+<div class="statBarContainer"><div class="statBar" @style="'width: ' + $intext + '%;'"></div></div>
+
+Instead of an attribute directive, you can also use some JavaScript/jQuery.
+The example below assumes the stat-bar is coded as follow:
+{{{
+    <div class="statBarContainer">
+        <div id="#intext" class="statBar"></div>
+    </div>
+}}}
+{{{
+    $(document).on(":passagedisplay", function() {
+        var attributeStat = State.getVar("$intext") + "%";
+        $("#intext").attr("style", "width: " + attributeStat);
+    });
+}}}
+
+<h3>Using a {{{<<widget>>}}}</h3>
+If you are planning on adding multiple stat bars in one spot and want to avoid cluttering a passage with code, you can use the {{{<<widget>>}}} [[macro|Macro-Widget]].
+
+Assuming we want to use the {{{<div>}}} stat bar introduced above, but want to assign a different {{{#id}}} and link it to the relevant stat variable:
+{{{
+    <div class="statBarContainer">
+        <div id="#intext" class="statBar" @style="'width:' + $intext + '%;'"></div>
+    </div>
+}}}
+The widget could look something like this, requiring 2 arguments, one for the {{{#id}}} and one for the relevant stat variable:
+{{{
+    :: Widget [widget]
+    <<widget "StatBars">>
+        <div class="statBarContainer">
+            <div @id="_args[1]" class="statBar" @style="'width:' + _args[0] + '%;'"></div>
+        </div>
+    <</widget>>
+
+    :: Passage 
+    <<StatBar $statValue "#idForTheBar">>
+}}}
+> ''Note:'' this is a basic example. You could add more {{{<div>}}} to include a label for the bar, or the numerical value of the stat.
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-LoadingScreen [page] {"position":"3200,1600","size":"100,100"}
+<h1>Editing the Loading Screen</h1>
+If you are looking to change how the Loading Screen looks, to fit your project better, you will need to use a combination of JavaScript/jQuery and CSS. Since there is not Special Passage to edit the content of the Loading Screen, JavaScript/jQuery will help you empty the Built-In elements and add the one you wish.
+\
+<h3>The Loading Screen</h3>\
+The Loading Screen is composed of two elements: {{{#init-loading}}} nested inside {{{#init-screen}}}. {{{#init-loading}}} is the animated element: a rounded square, where only the top and bottom borders are coloured, with a spinning animation
+{{{
+    html[data-init="loading"] #init-loading {
+        display: block;
+        border: 24px solid transparent;
+        border-radius: 50%;
+        border-top-color: #7f7f7f;
+        border-bottom-color: #7f7f7f;
+        width: 100px;
+        height: 100px;
+        animation: init-loading-spin 2s linear infinite;
+    }
+}}}
+> ''Note:'' there are more CSS rules at play here. You may want to [[lock to Loading Screen|API-Lock]] and use the Inspect Tool when testing code.
+\
+If you just want to edit what is already there, you can do so in the JavaScript:
+{{{
+    $("#init-loading").css({ animation: "none", border: "none", width: "100%", height: "100%" });
+→ this will remove the current loading aninmation
+  and size the element to the screen
+}}}
+Or directly in the StyleSheet:
+{{{
+    html[data-init="loading"] #init-loading {
+        /* New CSS code */
+    }
+}}}
+> ''Note:'' if you are planning to add things to {{{#init-loading}}}, you may want to edit its CSS rules too.
+
+If you are looking to add elements to {{{#init-loading}}}, like the logo of SugarCube bouncing around, you will need the following:
+{{{
+    $("#init-loading").empty().append('/* the new elements */');
+}}}
+Inside the {{{.append()}}}, you should indicate the HTML elements to add. A {{{<div>}}}, a {{{<span>}}}, an {{{<img>}}}... Whatever you end up adding should be edited in the StyleSheet.
+{{{
+    #init-loading [element] {
+        /* CSS rules */
+    }
+}}}
+\
+<h3>Adding a Splash Screen</h3>\
+A Splash Screen is a a graphical element appearing when a program/game is launching. It will often contain an image or logo of the program/game or developer/company. 
+In SugarCube, you can create a Splash screen which would fade in-and-out, with some JavaScript and CSS, by adding an overlay on the page.
+> ''Note:'' the code below was taken from this [[Forum page|https://twinery.org/forum/discussion/7910/intro-screen]], and assumes an image should appear on the screen and the Base SugarCube StyleSheet is used.
+\
+> In the JavaScript
+{{{
+    (function () {
+        // Duration of the splash image's fade in.
+        var fadeIn  = 3000; // in milliseconds
+
+        // Delay before the splash screen begins to fade out.
+        var linger  = 6000; // in milliseconds
+
+        // Duration of the splash screen's fade out.
+        var fadeOut = 3000; // in milliseconds
+
+        // Splash image.
+        var $image  = $('<img src="splash-image.jpg">').hide();
+
+        // Display the splash screen.
+        $(document.body)
+            .append('<div id="splash-screen"></div>')
+            .find('#splash-screen')
+                .append($image)
+                .find('img')
+                    .fadeIn(fadeIn)
+                    .end()
+                .delay(linger)
+                .fadeOut(fadeOut);
+
+        // Set up the removal of the splash screen.
+        setTimeout(function () {
+            $('#splash-screen').remove();
+        }, fadeIn + linger + fadeOut + 1000);
+    })();
+}}}
+> In the StyleSheet:
+{{{
+    #splash-screen {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100;
+        background-color: #111;
+        color: #eee;
+    }
+    #splash-screen > img {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}}}
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Accessibility [page] {"position":"3300,1600","size":"100,100"}
+<h1>A Note on Interface Accessibility</h1>
+While SugarCube was deliberately built with ARIA (Accessibility) support, any change in the Interface or inclusion of external elements will affect the accessibility of your project. Below are some elements to take into account when creating a project and editing the Built-In Interface.
+\
+<h3>Colour Compatibility and Contrast</h3>\
+As fun as it is to create crazy interface with strange palettes, some colours are not compatible with one another, rendering things difficult to read on the screen because of the poor contrast. For example, <span id="bad-idea">this text has really poor readability</span>. When editing the page, you must be mindful of colour combination.
+
+To help figure out what colour work best together, the WCAG has set [[standards|https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html]] in the minimum contrast for text readability. The minimum contrast of plain text should be of 4.5 between the text colour and the background. For even better contrast, a ration of 7.0 should be reached.
+To check whether you achieved those ratio, you can use an [[online contrast checker|https://app.contrast-finder.org/?lang=en]] or use the Inspect Tool of your browser.
+> ''Note:'' this [[checker|https://www.myndex.com/APCA/]] goes even further that the WCAG minimum, by including font size and weight into the mix.
+\
+<h4>Colour Contrast and Image Background</h4>\
+This contrast is even more important when the text is brought before an image background. Due to the often varied range of colours in images, it is sometimes difficult to find the correct text colour for a good contrast.
+While avoiding busy background altogether is preferred, there are ways to keep your pie and eat it. One option is to add a blurry shadow behing the text with the {{{text-shadow}}} CSS rule. Another is adding a border around each letter, like an outline (again with {{{text-shadow}}} or with {{{-webkit-text-stroke}}}). 
+An even easier option is to add a "sreen" between the image and the text:
+{{{
+    #passages {
+        background: #HexcodeWithSomeOpacity;
+    }
+
+→ if #passages already has a background 
+  you can add a {:before} pseudo-element 
+    #passages {
+        position: relative;
+    }
+    #passages:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        background: #HexcodeWithSomeOpacity;
+    }
+}}}
+> ''Note:'' it is not recommended to add a background to {{{.passage}}} as it will refresh along with the content of the passage (flash).
+\
+<h4>Light and Dark Themes</h4>\
+Because your project may be played by others, you may want to consider adding multiple themes for comfort. Light mode (bright colours closer to white) tend to be superior for readability and provising less eye straints in bright environment. On the other hand, dark mode (darker colours closer to black) make it easier to the eyes in darker environment, and reduces exposure to blue screen light. Individuals also have their personal preference between light and dark mode.
+> ''Note:'' many SugarCube templates will include a Theme [[Setting|SettingsList]] within its code, with a light and dark mode.
+\
+<h3>Font Choices and Alternatives</h3>\
+We all love Papyrus as a font, but it does not make for a legible font for plain text. When considering to use a different font for your project than the one included in the Base StyleSheet (which is {{{Helmet/Freesans/sans-serif}}}), legibility should be a priority. This is extra important for players with dyslexia and other visual impairment, as similarly shaped letters and characters and short ascenders and descenders combinations may increase confusion.
+
+So decorative and overly stylized fonts, such as cursive fonts, which can be difficult to read even for non-impaired users, should be avoided (or an alternative should be provided). Serif fonts, like Times New Roman or Calibri, are preferred for printed items (i.e. books), but doesn't display as nicely on screens as sans-serif fonts do (though those two are still very legible).
+
+Fonts like {{{Arial}}} (sans-serif), {{{Calibri}}} (serif), {{{Georgia}}} (serif), {{{Helvetica}}} (sans-serif), {{{Lucida Sans}}}/{{{Lucida Grande}}} (sans-serif), {{{Tahoma}}} (sans-serif), {{{Times New Roman}}} (serif), and {{{Verdana}}} (sans-serif) are often among lists of recommended fonts. 
+There are also fonts created specifically for dyslexic and visually impared users, though many are under copyright or are not free for use. [[OpenDyslexic|https://opendyslexic.org/]] and [[Atkinson Hyperlegible|https://brailleinstitute.org/freefont]] are two freely available sans-serif fonts.
+
+For Twine projects, you may want to consider adding multiple serif and sans-serif fonts, letting the player decided which one they would prefer to use, through a [[Setting|SettingsList]].
+> ''Note:'' along with font families, you may want to add different font sizes for player to choose from as well!
+\
+<h3>Animated Content</h3>\
+While animations can help elevate a project, some may also hinder it. Ill-timed animations can become a distraction, too many animations at once could bring confusion on where the eye should focus, poorly designed animations may work fine on computers but may not translate on mobile devices, and certain types of animations (e.g. rapid flashing) could present accessibility issues to users (e.g. espilepsy, visual impairments, etc...).
+
+When including animation, even as simple as the {{{<<type>>}}} macro, you may want to code a [[Toggle Setting|SettingsToggle]] to hide the animated elements. This can be done either in the StyleSheet through a class, or directly in the passage with a conditional statement.
+\
+<h3>Images and Alternative Text</h3>\
+When including assets like images into your project, you must remember that they may not be accessible to users with impairments.
+
+Alternative texts, thanks to the {{{alt}}} attribute, may alleviate this issue for screen readers:
+{{{
+    <img src="URL" alt="this is the image">
+}}}
+> ''Note:'' a recommended Alternative text length should be about 125 characters. 
+> Extensive and verbose descriptions should be included in the page itself.
+For inconsequential elements, such as a fancy paragraph break as an image, you can use an empty {{{alt}}} attribute to "hide" the image from screen readers:
+{{{     <img src="URL" alt="">}}} 
+> ''Note:'' if not indicated, the screen reader will say //Image//.
+\
+<h3>Some Links about Accessibility and Guidelines</h3>\
+* [[ARIA - Accessibility - MDN|https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA]]
+* [[HTML: A good basis for accessibility - MDN|https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML]]
+* [[HTML5 Accessibility - Support Status (2022)|https://stevefaulkner.github.io/HTML5accessibility/]]
+* [[Web Accessibility Initiative Guidelines 2.2 - WCAG|https://www.w3.org/TR/WCAG22/]]
+* [[Game Accessibility Guidelines|https://gameaccessibilityguidelines.com/]]
+* [[Can I Use ?|https://caniuse.com/]] (features accepted by which browser)
+* [[APCA Contrast Simulator|https://www.myndex.com/APCA/]]
+
+<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
