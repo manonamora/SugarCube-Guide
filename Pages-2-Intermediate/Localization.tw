@@ -1,0 +1,246 @@
+:: Localization [chapter menu] {"position":"3800,1100","size":"200,100"}
+<h1>Edit the Built-In Text or Change the Game's Language</h1>
+Further customisation of a SugarCube project can be done with the {{{l10nStrings}}}, bits of JavaScript code that will change what text the Built-In elements will show. This can affect the buttons on the Sidebar, as well as the Restart, Saves, and Settings Popup. You can edit these strings to fit the vibe of your project, change its language entirely, or link them to a function to provide translation of your work. 
+
+* [[l10nStrings, and How to Edit Them|Local-L10n]]
+* [[Localization, and Pre-Translated Templates|Local-Trans]]
+* [[Providing Multiple Languages In-Game|Local-Setting]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Local-L10n [page] {"position":"3800,1200","size":"100,100"}
+<h1>{{{l10nStrings}}}, and How to Edit Them</h1>
+{{{l10nStrings}}} are strings of words which can only be edited in JavaScript. These strings populate your project pages in very specific spots, as defined by the property attached to it. Depending on the property chosen, it can affect visible text on the screen, text only visible when hovering over an element, text inside a browser alert, or when the game is in Debugging Mode (Test).
+{{{
+    l10nStrings.property = "New Text";
+}}}
+> //For example://
+{{{
+    l10nStrings.restartTitle = "Restart";
+    l10nStrings.restartTitle = "Are You Sure?";
+}}}
+> ''Note:'' any {{{l10nStrings}}} added to your JavaScript will override the built-in text. If multiple iteration of the same property is edited in your file, only the last one will be shown on the page.
+
+You can find the whole list of accepted property on [[this page|https://github.com/tmedwards/sugarcube-2/blob/develop/locale/l10n-template.js]] of the SugarCube repository. 
+Just Copy-Paste the necessary lines into your JavaScript, and edit the text. The code will accept any [[Unicode Character and Symbols|https://en.wikipedia.org/wiki/List_of_Unicode_characters]] (testing for fonts advised).
+> ''Note:'' If you remove an element in the UI, like the backward button, the related {{{l10nStrings.propery}}} (here {{{l10nStrings.uiBarBackward}}}) will not need to be included in your project.
+
+You can also use the text of other properties inside an {{{l10nStrings}}} to avoid writing it multiple times, either by using the property itself ({{{l10nStrings.propery}}}) or creating a template ({{{l10nStrings._template}}}). For example, in the Built-In {{{l10nStrings}}}:
+{{{
+    l10nStrings.identity = 'game';
+
+    l10nStrings._warningIntroLacking  = 'Your browser either lacks or has disabled';
+
+    l10nStrings._warningOutroDegraded = ', so this {identity} is running in a degraded mode. You may be able to continue, however, some parts may not work properly.';
+
+    l10nStrings.warningNoWebStorage   = '{_warningIntroLacking} the Web Storage API{_warningOutroDegraded}';
+}}}
+The three first {{{l10nStrings}}} (one a property, the two others templates) are used by the last string to create the following text:
+> //Your browser either lacks or has disabled// the Web Storage API, //so this ''game'' is running in a degraded mode. You may be able to continue, however, some parts may not work properly.//
+
+<div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Local-Trans [page] {"position":"3900,1200","size":"100,100"}
+<h1>Localization, and Pre-Translated Templates</h1>
+If your project is not in English and you want the Built-In text to reflect this, you will need to include and edit most of the [[l10nStrings|Local-L10n]] defined in the format's code. This can be done by Copy-Pasting into your JavaScript the code from [[this page|https://github.com/tmedwards/sugarcube-2/blob/develop/locale/l10n-template.js]] of the SugarCube repository, and edit the text.
+> ''Note:'' you can forgo the first and last line of the code in that page (i.e. the {{{function()}}}).
+
+There may be a faster way to translate this built-in text if your language is included in the following list:
+{{{
+    Arabic (ar-EG)
+    Chinese (chs)
+    German (de)
+    Spanish (es-ES)/(es-UNKNOWN)
+    French (fr)
+    Italian (it-IT)
+    Dutch (nl)
+    Polish (pl)
+    Portuguese (pt-BR)/(pt-PT)
+    Russian (ru)
+    Turk (tr)
+}}}
+> ''Note:'' this was last checked on 3-Dec-2023.
+These languages already have a Localization package, downloadable on the [[SugarCube website|http://www.motoslave.net/sugarcube/2/#downloads]], that you can Copy-Paste without needing to translate.
+> ''Note:'' you //may// want to check the translated version fits with your project, or whether some edits may be required.
+
+If your language (or its regional version) is unfortunately not included in the list above, you will need to edit every {{{l10nStrings}}} manually.
+> ''Note:'' You may also want to provide this translation to TME, so it may be included in this list for future users. This can be done by forking the GitHub repository, edit [[this folder|https://github.com/tmedwards/sugarcube-2/tree/master/locale]] to include your translation, and open a pull request.
+
+<div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
+
+:: Local-Setting [page] {"position":"3800,1300","size":"100,100"}
+<h1>Providing Multiple Languages In-Game</h1>
+If you want to include more than one language to your project, how to code it will depend on the UI of your project (Base or Custom) and whether the functionalities in your game (i.e. Settings, Saves, ...) use the [[Built-In text|Local-L10n]]. It may be as simple as creating seperate passage paths per language (with a starting screen displaying a list of available languages), to more complex, like having a Setting the player can use to change the language at anytime.
+\
+<h3>No Built-In Text and Language Choice at Start</h3>\
+In this first case (which can be attainable by removing the Sidebar or creating a Custom UI), an easy way to achieve including localization would be to start with a passage where the player can choose the language from a list of links, each of which would send the player to a path of passages for that specific language:
+{{{
+    :: Start
+    THIS IS A GAME, REALLY...
+    [[English|EN-Passage]]
+    [[Français|FR-Passage]]
+    [[Español|ES-Passage]]
+    [[Nederlands|NL-Passage]]
+
+    :: EN-Passage
+    This passage is English.
+    [[Continue|EN-Next]]
+
+    :: FR-Passage
+    Ce Passage est en Français. 
+    [[Continuer|FR-Next]]
+    
+    :: EN-Passage
+    Este pasaje esta en español.
+    [[Continuar|ES-Next]]
+    
+    :: EN-Passage
+    Deze passage is in het Nederlands.
+    [[Doorgaan|NL-Next]] 
+}}}
+You can also choose to merge every translated passage into one, tracking the language choice through a variable:
+{{{
+    :: Start
+    THIS IS A GAME, REALLY...
+    [[English|Passage][$language to "English"]]
+    [[Français|Passage][$language to "French"]]
+    [[Español|Passage][$language to "Spanish"]]
+    [[Nederlands|Passage][$language to "Dutch"]]
+
+    :: Passage
+    <<switch $language>><<case "English">>
+        This passage is English.
+        [[Continue|Next]]
+    <<case "French">>
+        Ce Passage est en Français. 
+        [[Continuer|Next]]
+    <<case "Spanish">>
+        Este pasaje esta en español.
+        [[Continuar|Next]]
+    <<case "Dutch">>    
+        Deze passage is in het Nederlands.
+        [[Doorgaan|Next]]
+    <</switch>>
+}}}
+> ''Note:'' this last example can work with a Custom UI, where other UI elements need to be displayed in the chosen language.
+\
+<h3>Built-In Text and Settings</h3>\
+If Built-In Text appears on the page (throug the Base UI or while using Settings or Saves), you will need to not only show the proper Story Text within passages, but the correct version of this Built-In text. This should be done via JavaScript and include [[l10nStrings|Local-L10n]].
+
+While you may choose to built your own, TME has already created a custom version ([[code here|https://gist.github.com/tmedwards/33f3b4b7ada317fc9cc70aa8580c03f0]]), which includes a Setting for the player to switch from one language to another at any time, and explained below.
+\
+<h4>TME Internalization Code</h4>\
+First, Copy-Paste the JavaScript code between the {{{:: Language Switching [script]}}} and {{{:: Start}}} lines into your project's JavaScript. Then, edit the code to fit your project's need. 
+Two parts are the most important: changing the list of languages to choose from, and changing the Built-In text for each language. 
+> ''Note:'' TME indicates where to edit the code with his {{{// ''Note:'' User customization required here.}}} comment.
+{{{
+    langs : {
+        // ''Note:'' User customization required here.
+
+		'Deutsche' : 'de',
+		'English'  : 'en',
+		'Français' : 'fr',
+	},
+}}}
+In this part, you will want to list the languages you want to display, followed by a language code. This is required for the latter part of the code to work.
+You will need to remove unnecessary cases as well. 
+
+{{{
+    switch (setup.i18n.langs[settings.lang]) {
+		/*
+			NOTE 1: User customization required here.
+			NOTE 2: The `l10nStrings` properties shown in the cases below are an
+			abbreviated set for example purposes.  There are many more properties
+			within the `l10nStrings` object which you'll need to handle.
+		*/
+		case 'de':
+			l10nStrings.settingsTitle = 'Einstellungen';
+			l10nStrings.settingsOff   = 'Deaktivieren';
+			l10nStrings.settingsOn    = 'Aktivieren';
+			l10nStrings.settingsReset = 'Auf Standardeinstellung zurücksetzen';
+			break;
+
+		case 'fr':
+			l10nStrings.settingsTitle = 'Paramètres';
+			l10nStrings.settingsOff   = 'Désactiver';
+			l10nStrings.settingsOn    = 'Activer';
+			l10nStrings.settingsReset = 'Réinitialiser les paramètres par défaut';
+			break;
+	}
+}}}
+In this part, you will need to create the relevant cases with the language codes you created in the first part of the code, and list the relevant {{{l10nStrings}}}, so the Built-In text is shown in the chosen language.
+The {{{case 'en':}}} is not listed here, since it already uses the Built-In text. If you want to change any of the [[l10nStrings|Local-L10n]] for English, you will need to add its case there.
+> ''Note:'' you can find [[pre-translated packages|Local-Trans]] for the {{{l10nStrings}}}.
+\
+<h4>Setting up the Passages</h4>\
+After the JavaScript code is set, you will have to set the passages. While similar to the first method, this way requires an empty passage to act as an anchor for the JavaScript code. From that anchor, the code will check the langugage chosen, add the relevant language code as a suffic to the anchor, and display the corresponding passage. 
+For example, with the passage {{{Start}}}:
+# Anchor {{{Start}}}
+# Language: {{{English}}}
+# Code into Suffix: {{{en}}} -> {{{_en}}}
+# Passage to display: {{{Start_en}}}
+So, you will need to create as many passages as there are defined languages, on top of the anchor (e.g. 3 languages = 4 passages). In a project, it will look like this:
+{{{
+    :: Start
+        /* You can add code, macros and notes here, but no text will show. */
+    
+    :: Start_de
+        Deutsche.
+        [[Nächster|Next]]
+
+    :: Start_en
+        English.
+        [[Next]]
+
+    :: Start_fr
+        Français.
+        [[Prochain|Next]]
+
+}}}
+And so on and so forth...
+> ''Note:'' The links to the next passage MUST go towards the anchor passage. If you link it to a suffixed passage ({{{Start_en}}}), it will add another suffix ({{{Start_en_en}}}) and display and error.
+\
+<h4>Language Choice at Start and Window Reload</h4>\
+While the player can go into the settings to change the language of the game, it is also possible to give the player the option to choose a language as a starting passage. You will need to create a link, where you save the language choice in a setting variable.
+{{{
+    <<link "Français" "Next">>
+        <<set settings.lang to "Français">>
+        <<run Setting.save()>>
+    <</link>>
+}}}
+
+If you are using Build-in elements or the Base UI, you will need to force a page refresh to ensure the next page loads {{{l10nStrings}}} correctly. This is because this method links the {{{l10nStrings}}} to the {{{lang}}} attribute attached to {{{<html>}}}, so changing the setting without changing the attribute is not enough for those elements. A page refresh, however, will be able to fix that.
+This can be done by adding a tad extra code:
+{{{
+    <<link "Français" "Next">>
+        <<set settings.lang to "Français">>
+        <<run Setting.save()>>
+        <<run window.location.reload()>>
+    <</link>>
+}}}
+> ''Note:'' In a fully Custom UI, this //may// not be necessary. Though a refresh is still recommended.
+\
+<h4>Edit Settings Language or Other Custom Elements</h4>\
+While TME's code allows the automation in displaying different version of Built-In text through the {{{l10nStrings}}}, you will need to do the same for custom text, such as Settings lables and descriptions, or whatever element you created on the page (e.g. Custom Menu in the UI). This, however, can easily be remedied with the {{{<<switch>>}}} macro.
+> //In a Non-Story Passage://
+{{{
+    <<switch settings.lang>>
+        <<case "English">>Settings
+        <<case "Français">>Paramètres
+    <</switch>>
+}}}
+> //In JavaScript Settings://
+{{{
+    Setting.addList('lang', {
+		label    : `<<switch settings.lang>><<case "English">>Language<<case "Français">>Langue<</switch>>`,
+        desc     : `<<switch settings.lang>><<case "English">>Select the wanted language<<case "Français">>Choisissez la langue voulue<</switch>>`,
+		list     : setup.i18n.labels(),
+		default  : setup.i18n.labelFromCode('en'),
+		onInit   : initLanguage,
+		onChange : changeLanguage
+	});
+}}}
+> ''Note:'' the backticks {{{` `}}} allows the includions of SugarCube code inside JavaScript here.
+
+<div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
