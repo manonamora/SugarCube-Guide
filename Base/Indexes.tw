@@ -1,0 +1,220 @@
+:: Index {"position":"1200,200","size":"200,100"}
+<h1>Index</h1>\
+<h3>The Basics</h3>\
+* ''[[About Twine and SugarCube|About]]''
+* ''[[Starting with SugarCube|Basics]]''
+** [[The Elements on the Page|Basics-UI]]
+** [[Linking Passages|Macro-Link-Basic]]
+** [[Tracking Information|Macro-Set-Basic]]
+** [[Display Variation|Macro-If-Basic]]
+** [[The Basics of Variables|Variables-Base]]
+** [[Basic Demo|Demo-Basic]]
+\
+<h3> The Basics+</h3>\
+* ''[[SugarCube Markup and Basic Styling|Markup]]''
+** [[Showing the Value of a Variable|Markup-Variable]]
+** [[Using a Variable inside a Link|Markup-Link]]
+** [[Display an Image, and turn an Image into a Link|Markup-Image]]
+** [[Removing a Line-break|Markup-Nobr]]
+** [[Basic Text Styling|Markup-Styling]] (long)
+* ''[[Going Further with the Basics|Macro-Basic]]''
+** [[Displaying more than text in Links|Macro-Link]]
+** [[Setting and Changing Variables|Macro-Set]]
+** [[Unsetting Variables|Macro-Unset]]
+** [[More Conditional Statements|Macro-If]]
+** [[Display Variables, the Print Macro and Variants|Macro-Print]]
+* ''[[Adding some Interactivity|Macro-Interact]]''
+** [[Multi or Single Option Choices|Macro-CheckRadio]]
+** [[Cycles and Conditional Options|Macro-Cycle]]
+*** [[Make the Cycle Macro Accessible|Accessibility-Cycle]]
+** [[Revealing Extra Text and Disappearing Links|Macro-Link-AppPreRep]]
+** [[Listboxes and Conditional Options|Macro-Listbox]]
+** [[Player Input in three macros|Macro-Input]]
+* ''[[Basic Special Passages|Special-Passage]]''
+** [[Headers and Footers|SP-HeaderFooter]]
+** [[Special Passages for the UI Bar|SP-UIBar]]
+** [[Setting Important Variables before Start|SP-Init]]
+** [[Special Passage Demo|SP-Demo]]
+* ''[[About JavaScript and the StyleSheet|Base-JS-CSS]]''
+* ''[[ULRs for Assets and Testing|URL-Types]]''
+\
+<h3>Intermediate Use</h3>\
+* ''[[More SugarCube Markup|Markup-Int]]''
+** [[Special Attributes and Directives|Markup-Attribute]]
+** [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]]
+** [[Display Small Variation with Templates|Markup-Template]]
+* ''[[Going Further with Basic APIs and More|API-Adv]]''
+** [[More Popups APIs|API-Dialog]]
+** [[More UIBar APIs|API-UIBar]]
+** [[The Template APIs|TemplateAPI]]
+** [[(Un)Locking the Loading Screen|API-Lock]]
+* ''[[More Interactivity Macros|Macro-Interact-Adv]]''
+** [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
+** [[Single-Use Choice Lists|Macro-Action-Choice]]
+** [[Delaying Displaying Text or Running Code|Macro-Timed]]
+** [[Displaying Text Letter by Letter|Macro-Type]]
+** [[Using Custom Macro|Custom-Macro]]
+* ''[[Macros of Convenience|Macro-Conv]]''
+** [[An Alternative to Conditional Statements|Macro-Switch]]
+** [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
+** [[Including a Passage inside another|Macro-Include]]
+** [[Creating and Using a Widget|Macro-Widget]]
+** [[Going Back or Returning to a Passage with a Special Link|Macro-Back-Return]]
+*** [[Arbitrarily Long Returns|Long-Return-JS]]
+** [[Sending the Player to a Passage|Macro-Goto]]
+** [[Using JavaScript in the Passage|Macro-Script-Run]]
+* ''[[More Special Passages and Tags|Special-Tags]]''
+** [[Special Tags creating Special Passages and Functionalities|Tags-Built]]
+** [[Process Code Before and After Rendering a Passage|SP-PassageReady-Done]]
+** [[Changing the UI of the Project|SP-StoryInterface]]
+** [[Customising Passages with Tags|Tags-CSS]]
+** [[Including Assets with Tags|Tags-Asset]]
+** [[The Special Variables|SP-Variables]]
+* ''[[Harness the Power of Functions|Functions]]''
+** [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
+** [[Using Play, Passage, and Tags information|Function-Pass-Tag]]
+** [[Memorizing Information and Metadata|Function-Metadata]]
+** [[JavaScript-only Functions|Function-JS]]
+* ''[[Using Methods to change Variables|Methods]] ''
+** [[Methods and String Variables|Method-String]]
+** [[Methods and Numbers|Method-Number]]
+** [[Methods and Arrays|Method-Array]]
+* ''[[Adding Sound with the Audio Macros|Macro-Audio]]''
+** [[Setting up the Audio Tracks|CacheAudio]]
+** [[Create Track Groups and Playlists|Macro-Group-Playlist]]
+** [[Playing Tracks in a Passage|Audio-Macro]]
+** [[Other Audio Macros|Audio-Other]]
+* ''[[Going further in Styling with CSS and JavaScript|Int-JS-CSS]]''
+** [[The Different Targetable Elements|Int-JS-CSS-Elements]]
+*** [[The Full List of Targetable Elements|HTML-Full-List]]
+** [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
+** [[Import and Change the Font|Int-JS-CSS-Font]]
+** [[Using the Root and CSS var|Int-JS-CSS-Root]]
+** [[Formating for Different Screen Size|Int-JS-CSS-Media]]
+** [[Intro to Animation|Int-JS-CSS-Animation]]
+** [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long)
+** [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]]
+** [[A Note on Interface Accessibility|Accessibility]]
+* ''[[Some Useful Basic APIs|Basic-API]]''
+** [[Moving back and forth in the History|Basic-API-Engine]]
+** [[Create a PopUp|Basic-API-Dialog]]
+** [[Handle the SideBar|Basic-API-UIBar]]
+** [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]]
+** [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
+** [[Some Useful Configuration API for your Project|Basic-API-Config]]
+* ''[[Edit the Built-In Text or Change the Game's Language|Localization]]''
+** [[l10nStrings, and How to Edit Them|Local-L10n]]
+** [[Localization, and Pre-Translated Templates|Local-Trans]]
+** [[Providing Multiple Languages In-Game|Local-Setting]]
+\
+<h3>''Advanced Mode''</h3>\
+> ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processed of SugarCube.
+* ''[[Advanced Macros|Macro-Adv]]''
+** [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]] 
+** [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
+** [[Capturing the Value of a Variable|Macro-Capture]]
+** [[Emulating PassageDone for one Passage|Macro-Done]]
+* ''[[More Variable and Interaction Methods|Methods-Adv]]''
+** [[More Methods to change Variables|Method-Variables]]
+** [[jQuery Methods and Interactivity|Method-jQuery]]
+* ''[[The Settings API|Settings]]''
+** [[Adding Headers|SettingsHeader]]
+** [[Creating a Toggle Setting|SettingsToggle]]
+** [[Creating a List Setting|SettingsList]]
+** [[Creating a Slider|SettingsRange]]
+** [[Going Further with Settings|Settings-More]]
+* ''[[Going further with the Engine API|Engine-API]]''
+** [[Checking the State of the Game|Engine-State]]
+** [[Move through the Player's History|Engine-Go]]
+** [[(Re-)Play a Passage|Engine-Play]]
+** [[Restarting without the Built-In PopUp|Engine-Restart]]
+* ''[[The Save APIs and Further Saving Configurations|SaveAPI]]''
+** [[Save Objects and Their Contents|SaveAPI-Objects]]
+** [[The Basic APIs of the Save Elements|SaveAPI-General]]
+** [[Managing the Save Slots|SaveAPI-Slots]]
+** [[Managing the Autosave Slot|SaveAPI-Autosave]]
+** [[Using Save-related Events|SaveAPI-Events]]
+* ''[[More Configuration APIs to Customise Interaction|Config-API]]''
+** [[Macro-relevant Configurations|Confic-Macro]]
+** [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
+** [[Save Configurations|Config-Saves]]
+** [[Other Config APIs|Config-Misc]]
+* ''[[Getting the FullScreen Experience|FullScreen]]''
+* ''[[Trigger Code with Special Events|Events]]''
+** [[Dialog Events|Events-Dialog]]
+** [[Passage and Navigation Events|Events-Passage]]
+** [[System Events|Events-System]]
+** [[Type Macro Events|Events-Type]]
+* ''[[Creating your Own Macro|Macro]]''
+** [[The Base APIs for Macros|Macro-API]]
+** [[Using Macro Context Objects in the handler|Macro-Context]]
+* ''[[Managing Story Elements with APIs|StoryAPI]]''
+* ''[[Managing Passage Properties with APIs|PassageAPI]]''
+* ''[[Dealing with the State of Play|StateAPI]]'' 
+** [[Managing the State of Variables|StateAPI-Variable]]
+** [[Exploring the Different Moments inside the State|StateAPI-State]]
+** [[Using the Story Metadata|StateAPI-Metadata]]
+** [[Initialising a Seedable PRNG|StateAPI-PRNG]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Macros List {"position":"1200,300","size":"200,100"}
+<h1>Macro List</h1>
+Below you will find the alphabetical list of SugarCube macro, and where they are discussed in this guide.
+
+{{{<<actions>>}}}: [[1|Macro-Action-Choice]]
+{{{<<addclass>>}}}: [[1|Macro-DOM-Adv]]
+{{{<<append>>}}}: [[1|Macro-ApPreRepCopy]]
+{{{<<audio>>}}}: [[1|Audio-Macro]]
+{{{<<back>>}}}: [[1|Macro-Back-Return]]
+{{{<<break>>}}}: [[1|Macro-For-Repeat]]
+{{{<<button>>}}}: See {{{<<link>>}}}
+{{{<<cacheaudio>>}}}: [[1|CacheAudio]]
+{{{<<capture>>}}}: [[1|Macro-Capture]]
+{{{<<checkbox>>}}}: [[1|Macro-CheckRadio]]
+{{{<<choice>>}}}: [[1|Macro-Action-Choice]]
+{{{<<continue>>}}}: [[1|Macro-For-Repeat]]
+{{{<<copy>>}}}: [[1|Macro-ApPreRepCopy]]
+{{{<<createaudiogroup>>}}}: [[1|Macro-Group-Playlist]]
+{{{<<createplaylist>>}}}: [[1|Macro-Group-Playlist]]
+{{{<<cycle>>}}}: [[1|Macro-Cycle]]
+{{{<<done>>}}}: [[1|Macro-Done]]
+{{{<<for>>}}}: [[1|Macro-For-Repeat]]
+{{{<<if>>}}}: [[1|Macro-If-Basic]], [[2|Macro-If]]
+{{{<<include>>}}}: [[1|Macro-Include]]
+{{{<<goto>>}}}: [[1|Macro-Goto]]
+{{{<<link>>}}}: [[1|Macro-Link-Basic]], [[2|Macro-Link]]
+{{{<<linkappend>>}}}: [[1|Macro-Link-AppPreRep]]
+{{{<<linkprepend>>}}}: [[1|Macro-Link-AppPreRep]]
+{{{<<linkreplace>>}}}: [[1|Macro-Link-AppPreRep]]
+{{{<<listbox>>}}}: [[1|Macro-Listbox]]
+{{{<<masteraudio>>}}}: [[1|Audio-Other]]
+{{{<<nobr>>}}}: [[1|Macro-Nobr-Silent]]
+{{{<<numberbox>>}}}: [[1|Macro-Input]]
+{{{<<playlist>>}}}: [[1|Audio-Macro]]
+{{{<<prepend>>}}}: [[1|Macro-ApPreRepCopy]]
+{{{<<print>>}}} / {{{<<=>>}}} / {{{<<->>}}}: [[1|Macro-Print]]
+{{{<<radiobutton>>}}}: [[1|Macro-CheckRadio]]
+{{{<<remove>>}}}: [[1|Macro-ApPreRepCopy]]
+{{{<<removeaudiogroup>>}}}: [[1|Audio-Other]]
+{{{<<removeclass>>}}}: [[1|Macro-DOM-Adv]]
+{{{<<removeplaylist>>}}}: [[1|Audio-Other]]
+{{{<<repeat>>}}}: [[1|Macro-For-Repeat]]
+{{{<<replace>>}}}: [[1|Macro-ApPreRepCopy]]
+{{{<<return>>}}}: [[1|Macro-Back-Return]]
+{{{<<run>>}}}: [[1|Macro-Unset]], [[2|Macro-Script-Run]]
+{{{<<script>>}}}: [[1|Macro-Script-Run]]
+{{{<<set>>}}}: [[1|Macro-Set-Basic]], [[2|Macro-Set]]
+{{{<<silently>>}}}: [[1|Macro-Nobr-Silent]]
+{{{<<stop>>}}}: [[1|Macro-For-Repeat]]
+{{{<<switch>>}}}: [[1|Macro-Switch]]
+{{{<<textarea>>}}}: [[1|Macro-Input]]
+{{{<<textbox>>}}}: [[1|Macro-Input]]
+{{{<<timed>>}}}: [[1|Macro-Timed]]
+{{{<<toggleclass>>}}}: [[1|Macro-DOM-Adv]]
+{{{<<type>>}}}: [[1|Macro-Type]]
+{{{<<unset>>}}}: [[1|Macro-Unset]]
+{{{<<waitforaudio>>}}}: [[1|CacheAudio]]
+{{{<<widget>>}}}: [[1|Macro-Widget]]
+
+TODO!! Link back to last page!
