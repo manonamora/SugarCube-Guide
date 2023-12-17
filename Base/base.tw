@@ -107,3 +107,29 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 */
 
 If something is unclear, if you find an error in this guide, if you think I missing an important element, or if I did not provide enough examples, please [[let me know|https://manonamora-if.tumblr.com/ask]]!
+
+:: Lexicon [side popup] {"position":"1500,400","size":"100,100"}
+__Types of Values__
+//String//	: type of value, word, wrapped in {" "}
+//Boolean// : type of value, true/false 
+//Integer// : type of value, number
+//Object//  : type of variable, can have multiple variables nested inside
+	//Property//  : a sub element of an object
+//Array//   : type of variable, can have multiple values inside
+
+__Types of Variables__
+//Temporary variable// ({{{_temp}}}) : an editable variable that disappears when moving to a new passage.
+//Permanent variable// ({{{$var}}})  : an editable variable that tracks a value until changed or unset. 
+//Setup variable// ({{{setup.var}}}) : a variable set at the start of the game, and cannot be edited.
+//Settings variable// ({{{settings.var}}}) : a variable set with a Setting in the JavaScript passage.
+
+__Other Concepts__
+//UI//		 : User Interface, the page shown to the player
+//API//      : Application Programming Interface, code that will trigger hidden built-in fuctions
+//Macro//    : a block of code designed to do a specific task
+	//Container// : (ref to macro) a block a code wrapped between an opening and closing tag 
+	//Argument//  : (ref to macro) items set in the macro to process code.
+//Function// : JavaScript blocks of code designed to do a specific task
+//Method//   : JavaScript blocks of code designed to do a specific task, linked to a reciever
+
+> If something is missing here, let me know!!!!
