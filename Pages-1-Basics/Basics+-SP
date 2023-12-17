@@ -1,0 +1,127 @@
+:: Special-Passage [chapter menu] {"position":"1700,600","size":"200,100"}
+<h1>Basic Special Passages</h1>
+Your project can be further customised with the use of Special Passages. Those passages are special because they require a specific name to load built-in code. Some will affect how the page looks, while others can affect how code works.
+
+To use a Special Passage, create a new passage, change the name of that passage for one of the Special Passage Name (as indicated in the [[Documentation|http://www.motoslave.net/sugarcube/2/docs/#special-passages]]), and fill it with what you need!
+> ''Note:'' the names are case-sensitive!
+\
+* [[Headers and Footers|SP-HeaderFooter]]
+* [[Special Passages for the UI Bar|SP-UIBar]] [ ★ UPDATE ★ ]
+* [[Setting Important Variables before Start|SP-Init]] [ ★ UPDATE ★ ]
+
+You can click [[here for the demo|SP-Demo]] to see most of the aforementioned Special Passages in action!
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: SP-HeaderFooter [page] {"position":"1700,700","size":"100,100"}
+<h1>Headers and Footers</h1>
+Whether wanting to display Chapter titles at the top of the page, or links to special passages (like the bottom of this page), the Headers and Footers are respectively attached at the top of and below the main body of the passage. It will [[load along|Events-Passage]] with the story passage.
+Those Special Passages, {{{PassageHeader}}} and {{{PassageFooter}}}, will accept anything from simple text to complex code.
+For example:
+{{{
+    :: PassageHeader
+        <<if def $chapter>>Chapter $chapter<</if>>
+
+    :: PassageFooter
+        <<if $name is "Jane">>
+            [[Jane's Curiosities|Inventory]]
+        <<else>>
+            [[$name + "'s closet"|Inventory]]
+        <</if>>
+}}}
+\
+> ''Note:'' if you are looking to add plain code without output (visible text), {{{PassageReady}}} and {{{PassageDone}}} is preferred. See [[this page|SP-PassageReady-Done]].
+
+<div id="link-menu">[[Back to the Special Passages Menu|Special-Passage]] - [[Back to the Start Menu|Start]]</div>
+
+:: SP-UIBar [page] {"position":"1800,700","size":"100,100"}
+<h1>Special Passages for the UI Bar</h1>
+The sidebar on the left can look pretty bare without some customisation, which can be remedied with the Special Passages mentioned below. From adding images, changing the title, to adding extra text or links, there are //many// ways to customise this block. 
+The Special Passages listed below are organised in the other they would appear in the UI Bar (top → bottom).
+> ''Note:'' the content of UI Bar will automatically update when the player moves to another passage. 
+\
+<h3>{{{StoryBanner}}}</h3>\
+As its name implies, this passage allows you to add a banner or icon to the sidebar, located above the title of the game. But you are not limited to adding images, you can also include text or code!
+{{{
+    : : StoryBanner
+    <img src="extra/logo.png">
+}}}
+> ''Note:'' if you want to edit how this block looks directly from the StyleSheet, you can target the element {{{#story-banner}}}.
+\
+<h3>{{{StoryDisplayTitle}}}</h3>\
+If this Special Passage is not included in your project, Twine will use the name of the project as the title to display. Whether to include it depends more on how you name projects in Twine. 
+If you name projects a certain way but want the title to be something else, then this Special Passage is for you. The passage also allows the inclusion of images and code.
+{{{
+    :: StoryDisplayTitle
+    The Road Not Taken
+}}}
+> ''Note:'' no matter whether this Special Passage is in use, you can change the formatting of the title in the StyleSheet by targeting the element {{{#story-title}}}.
+\
+<h3>{{{StorySubtitle}}}</h3>\
+This Special Passage will appear under the title, and is meant to show a tagline for the game. It will also accept images and code.
+{{{
+    :: StorySubtitle
+    It's time to make a choice!
+}}}
+> ''Note:'' if you want to edit how this passage looks directly from the StyleSheet, you can target the element {{{#story-subtitle}}}
+\
+<h3>{{{StoryAuthor}}}</h3>\
+This Special Passage is meant to display the name of the author, but does not limit you to this. You can also include images or code.
+{{{
+    :: StoryAuthor
+    by [[manonamora|https://manonamora.itch.io/]]
+}}}
+> ''Note:'' this element has some special formatting, which you change in the StyleSheet by targeting the element {{{#story-author}}}
+\
+<h3>{{{StoryCaption}}}</h3>\
+This Special Passage provides an extra space to include text or other elements. It is often used to show extra links towards side passage, like a Codex, or the state of certain variables, like a health bar.
+{{{
+    :: StoryCaption
+    Coins: $coins
+    [[Codex]]
+}}}
+> ''Note:'' this element has some special formatting, which you change in the StyleSheet by targeting the element {{{#story-caption}}}
+\
+<h3>{{{StoryMenu}}}</h3>\
+This Special Passage adds a block of links, formatted in the same way as the //Save// and //Restart// buttons. This passage, however, ''only accepts links'' ({{{[[link]]}}}, {{{<<link>>}}} and {{{<a>}}}) and conditional statements (to hide/display the links). If you include text or non-linking macro (incl. buttons), they will not appear.
+{{{
+    :: StoryMenu
+    [[Inventory]]
+    [[$name|MC Page]]
+}}}
+> ''Note:'' this element has some special formatting, which you change in the StyleSheet by targeting the element {{{#menu-story}}}. The //Save// and //Restart// buttons are located inside the element {{{#menu-core}}}.
+\
+<h3>{{{StoryShare}}}</h3>\
+This Special Passage creates a //Share// button below the //Restart// button and is meant to display social media links in a dialog box. However it can only be filled with links. If you want to display text with your links, I would recommend creating a regular passage and add that to the //StoryMenu// instead.
+{{{
+    :: StoryShare
+    [[itch|https://manonamora.itch.io/]]
+}}}
+
+<div id="link-menu">[[Back to the Special Passages Menu|Special-Passage]] - [[Back to the Start Menu|Start]]</div>
+
+:: SP-Init [page] {"position":"1700,800","size":"100,100"}
+<h1>Setting Important Variables before Start</h1>
+Some projects may require setting some variables in advance, for the game to progress as it should, to track certain information from the start, or to include macros or custom code to load before everything else (like the [[audio macros|Macro-Audio]] or defining stats bars).
+{{{StoryInit}}} will accept any type of code, but will //not// display any text on the page.
+{{{
+    :: StoryInit
+    <<set $var to "Jane">>
+    <<set $object to {
+        property1: 1,
+        property2: "Home",
+        property3: true
+    }>>
+    <<set setup.treasure to ['coins', 'rubies', 'jewelry']>>
+    <<include "MoreCode">>
+    <<AlsoCodeWidget>>
+    <<cacheaudio "rain" "extra/rain.mp3">>
+}}}
+> ''Note:'' when //testing// a project (Debug Mode), Twine will display the list of macro used in StoryInit in a greyed box. This only appears in the Debug Mode; it is hidden otherwise.
+
+<div id="link-menu">[[Back to the Special Passages Menu|Special-Passage]] - [[Back to the Start Menu|Start]]</div>
+
+:: SP-Demo [sp-demo] {"position":"1800,800","size":"100,100"}
+There is not much to say about the demo. I think the Special Passages speak for themselves.
+
+<<back "Click Here to Go back">>
