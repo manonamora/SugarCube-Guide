@@ -1,0 +1,281 @@
+:: Macro-Adv [chapter menu] {"position":"800,1800","size":"200,100"}
+<h1>Advanced Macros</h1>
+Below you will find the last of the macros not discussed in the previous chapters. These macros are considered advanced, as they will either require some HTML/CSS knowledge, or full control of coding logics. They are usually not needed for basic projects. 
+
+* [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]] 
+* [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
+* [[Capturing the Value of a Variable|Macro-Capture]]
+* [[Emulating PassageDone for one Passage|Macro-Done]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Macro-DOM-Adv [page] {"position":"800,1900","size":"100,100"}
+<h1>DOM Macros and Changing Class of an Element</h1>
+As [[DOM Macros|Macro-ApPreRepCopy]] can affect the content displayed on the page, so can they change //how// elements on the page look, by adding or removing an HTML class from that element. There are three macros in this set:
+* {{{<<addclass>>}}}, which will add a class to the targeted element.
+* {{{<<removeclass>>}}}, which will remove a class from the targeted element.
+* {{{<<toggleclass>>}}}, which will either add or remove a class from the targeted element, depending on whether the class was there in the first place.
+
+<<button "Click Me to Change the Title Colour!">>
+    <<toggleclass ".passage h1" "colour">>
+<</button>>
+
+The macros have 2 arguments:
+* {{{selector}}}, or the targeted element 
+* {{{className(s)}}}, the classe(s) to add/remove/toggle from the element 
+** This one is optional for {{{<<removeclass>>}}} 
+\
+The macro will target any element you indicate in the first argument. It can be as simple as {{{h1}}}, which will target //all// large header on the page, to more specific like {{{.passage h1}}}, which will only target the large header in the passage.
+{{{
+    <<addclass "h1" "colour">> 
+→ will add ".colour" to the "h1" element
+
+    <<removeclass "#passages">>
+→ will remove ALL classes from "#passages"
+
+    <<toggleclass ".dog" "sweet">>
+→ will add/remove the class ".sweet" from the ".dog" element
+}}}
+> ''Note:'' the element indicated in the macro should be on the page. Otherwise, this will trigger an error.
+> When using {{{<<removeclass>>}}} to remove classes, please note that it can also affect class created by the Passage Tags, or in JavaScript settings. You can check what class were removed with the macro via the Inspect Tool of your browser.
+\
+<h3>An important note on DOM Macros</h3>\
+Since the macros require the targeted element to be on the page, they ''cannot'' be coded as is on the page, due to how the [[page renders|SP-PassageReady-Done]]. As such, you will need either to:
+* use the {{{<<link>>}}} or {{{<<button>>}}} macro, letting the player interact with the element,
+* use the {{{<<done>>}}} macro, which will trigger when the page is fully rendered,
+* use the {{{<<timed>>}}} macro, which will trigger long after the page is rendered,
+* code it in the {{{PassageDone}}} special passage (same as the {{{<<done>>}}} macro, but will trigger at every passage render).
+
+<div id="link-menu">[[Back to the Advanced Macro Menu|Macro-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-For-Repeat [page] {"position":"900,1900","size":"100,100"}
+<h1>Loops and Repeats - Two Ways</h1>
+There may be situations and mechanics that will require a looping function to repeat code or print elements on the page. This can be done with the {{{<<for>>}}} and {{{<<repeat>>}}} macros.
+
+While both {{{<<for>>}}} and {{{<<repeat>>}}} will loop and repeat their action, they do it in different ways. The {{{<<repeat>>}}} macro will trigger its content at an indicated interval until stopped, while the {{{<<for>>}}} macro will trigger an indicated amount of time (almost) at once. Whether time is involved is the biggest difference.
+\
+<h3>The {{{<<repeat>>}}} macro</h3>\
+The macro will repeatedly execute its content after the indicated delay. It can be useful as a countdown, check the value of a variable before triggering some code, or replace elements on the page. It can be stopped either by using the {{{<<stop>>}}} macro inside the container or moving to a new passage.
+
+The macro has 2 arguments:
+* {{{delay}}}, or the interval between each iteration, should be indicated in seconds or milliseconds.
+** the minimum is 40ms
+* {{{t8n}}}/{{{transition}}} (optional), whether any insertion on the page should be done with an animation 
+{{{
+    <<repeat 1s t8n>> 
+        /* Your Code */ 
+    <</repeat>>
+}}}
+
+When creating a loop, it should be remembered that the macro ''will not stop'' until it encounters a {{{<<stop>>}}} macro within the code (or when moving to a different passage).
+
+An example of a loop, as a countdown timer, updating the text every second, before sending the player to an end passage:
+{{{
+    <<set $seconds to 10>>
+
+    Countdown: <span id="countdown">$seconds seconds</span> remaining!
+
+	<<repeat 1s>>
+		<<set $seconds to -->>
+		<<if $seconds is 1>>
+            <<replace "#countdown">>$seconds second<</replace>>
+        <<elseif $seconds gt 0>>
+			<<replace "#countdown">>$seconds seconds<</replace>>
+		<<else>>
+			<<replace "#countdown">>Too Late<</replace>>
+            <<timed 3s>>
+                <<goto "Too Late END">>
+            <</timed>>
+			<<stop>>
+		<</if>>
+	<</repeat>>
+}}}
+\
+<h3>The {{{<<for>>}}} macro</h3>\
+The macro will repeatedly execute its content for a certain amount of times, set in three forms: conditional, 3-part conditional, and range. Unless used in combination with the submacros {{{<<break>>}}} and {{{<<continue>>}}}, the loop will execute until the condition in the form is fulfilled.
+> ''Note:'' while the macro does not allow for a set number in the macro ({{{<<for 4>>}}} will give an error), there is a way to circumvent it (see end).
+
+This macro is quite useful in displaying content of an inventory, or doing code loop.
+\
+<h4>The Conditional forms</h4>\
+The conditional forms come in two ways: simple and 3-part. They will execute the content of the macro until the condition is no longer true.
+{{{<<for [init]; [conditional]; [post]>>}}}
+
+For this form, the macro has three arguments:
+* {{{init}}} (optional), or the initialisation of a counter variable (ex: {{{_i}}})
+* {{{conditional}}}, or the conditional expression which should be check at the start of every loop, triggering the code until it is no longer true
+* {{{post}}} (optional), the change of value of the counter variable, happening at the end of each loop.
+> ''Note:'' the arguments HAVE to be seperated by a semi-colon {{{ ; }}}
+\
+> //Single Conditional://
+{{{
+    <<set _filling to ["Apple", "Chocolate", "Cherry", "Pumpkin"]>>
+    <<for _done isnot true>>
+        <<if _filling.length is 0>>
+            <<set _done to true>>
+            The Pies Have ALL Been Eaten!
+        <<else>>
+            <<set _taste to _filling.pluck()>>
+            You eat the _taste Pie!
+        <</if>>
+    <</for>>
+
+→ This will print //You eat the [type] Pie!// untill all {{{_filling}}} have been listed.
+}}}
+> //3-Part Conditional://
+{{{
+    <<set $dwarves to ["Doc", "Dopey", "Bashful", "Grumpy", "Sneezy", "Sleepy", "Happy"]>>
+
+    <ol>
+        <<for _i to 0; _i lt $dwarves.length; _i++>>
+            <li> $dwarves[_i]</li>
+        <</for>>
+    </ol>
+
+→ This will print the array as an ordered list
+}}}
+\
+<h4>The Range form</h4>\
+This form will go through all entries of a given collection (ex: values of an array), and stop executing the content when the collection has run out.
+
+There are 4 arguments for this form:
+* {{{keyVariable}}} (optional), a temporary variable holding the loop iteration number (starting at 0)
+* {{{valueVariable}}}, as a {{{$var}}} or {{{_temp}}}, holding the value of the current loop iteration
+* {{{range}}}, required to tell the system this is a range form
+* {{{collection}}}, the variable holding as many entries are there will be iterations
+** among others, it will accept: arrays, objects, strings (as an array of characters)
+{{{
+    <<set $dwarves to ["Doc", "Dopey", "Bashful", "Grumpy", "Sneezy", "Sleepy", "Happy"]>>
+
+    <<for _i, _name range $dwarves>>
+        <<print _i + 1>>. _name
+    <</for>>
+
+→ will print the content of the array as a list (#. value)
+}}}
+\
+<h4>Using a set number as the amount of iteration</h4>\
+While it is not possible to simply do {{{<<for 4>>}}} to have the loop onyl run four times, you can circumvent this in two ways:
+* use Maliface's {{{<<times>>}}} [[Custom Macro|https://github.com/MalifaciousGames/Mali-s-Macros#the-times-macro]]
+* use a widget to "hide" the 3-part contidional form (below)
+{{{
+    :: Widget [widget]
+    <<widget "times" container>>
+        <<for _i = 0; _i lt _args[0]; _i++>>
+            _contents
+        <</for>>
+    <</widget>>
+
+    :: Story Passage
+    <<times 5>>
+        → Run code or output stuff five times
+    <</times>>
+}}}
+\
+<h4>Using {{{<<break>>}}} and {{{<<continue>>}}}</h4>\
+The {{{<<for>>}}} macro has also two submacros to skip finishing an iteration or stop the loop altogether before it is completed, respectively with the {{{<<continue>>}}} and {{{<<break>>}}} macros. 
+
+For example, the code below is set to run 10 times, and will check if the number of iteration and:
+* not print a number if the iteration is 2, 3, or 5
+* stop the looping altogether if the iteration is greater than 8 
+{{{
+    <<for _i to 0; _i lt 10; _i++>>
+        <<if [2,3,5].includes(_i)>>
+            <<continue>>
+        <<elseif _i gt 8>>
+            <<break>>
+        <</if>>
+        <<print _i>>
+    <<for>>
+
+→ Printed output:
+    0 1 4 6 7 8
+}}}
+
+<div id="link-menu">[[Back to the Advanced Macro Menu|Macro-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Capture [page] {"position":"800,2000","size":"100,100"}
+<h1>Capturing the Value of a Variable</h1>
+The {{{<<capture>>}}} macro is considered one of the hardest macro to grasp for most Twine users, as its use is pretty limited (to the more complex form of code). Essentially, the macro allows to create a copy of the value of a variable, for the current passage, regardless of whatever happens to that variable later on.
+
+The macro is most useful with interactive macros, loop macros, or delayed ones.
+
+Assuming {{{_n = 1}}} at the start, but changing later down the code:<<nobr>>
+	<<set _n = 1>>
+	<<button "Non-Captured Value">>
+		<<run alert(_n)>>
+	<</button>>
+	<<capture _n>>
+        <<button "Captured Value">>
+            <<run alert(_n)>>
+        <</button>>
+	<</capture>>
+	<<set _n = 4>>
+<</nobr>>
+
+The macro has 1 argument:
+* {{{variableList}}}: the variable, or list of variables, whose value need to be captured 
+** the macro will work with both {{{$var}}} and {{{_temp}}}
+{{{
+    <<capture $var>>...<</capture>>
+    <<capture _var, $var, $varvar>>...<</capture>>
+}}}
+\
+<h3>Some Examples</h3>\
+> //Below is the code for the interactive example at the top of this passage://
+{{{
+    <<nobr>>
+        <<set _n = 1>>
+        <<button "Non-Captured Value">>
+            <<run alert(_n)>>
+        <</button>>
+        <<capture _n>>
+            <<button "Captured Value">>
+                <<run alert(_n)>>
+            <</button>>
+        <</capture>>
+        <<set _n = 4>>
+    <</nobr>>
+}}}
+While the value of {{{_n}}} changes, only the first button will show the updated value when clicked, as it will take the most recent value of {{{_n}}} (" 4 "). The second button, on the other hand, copied the value of {{{_n}}} before the variable changed (" 1 "), and kept that value.
+
+> //A more complex example involving a loop and an interactive element://
+<<nobr>><<set _what to ["a crab rangoon", "a gaggle of geese", "an aardvark", "the world's smallest violin"]>>
+<<for _i to 0; _i lt _what.length; _i++>>
+	<<capture _i>>
+		I spy with my little <<linkappend "eye" t8n>>, _what[_i]<</linkappend>>.
+	<</capture>>
+<</for>><</nobr>>
+{{{
+    <<set _what to [
+        "a crab rangoon",
+        "a gaggle of geese",
+        "an aardvark",
+        "the world's smallest violin"
+    ]>>
+    <<for _i to 0; _i lt _what.length; _i++>>
+        <<capture _i>>
+            I spy with my little <<linkappend "eye" t8n>>, _what[_i]<</linkappend>>.
+        <</capture>>
+    <</for>>
+}}}
+For each element of the array {{{_what}}}, the loop will create a new sentence, within which is linked a different variable of that array.
+
+<div id="link-menu">[[Back to the Advanced Macro Menu|Macro-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Done [page] {"position":"900,2000","size":"100,100"}
+<h1>Emulating PassageDone for one Passage</h1>
+While it is possible to target one single passage with the [[Special Passage|SP-PassageReady-Done]] {{{PassageDone}}}, the same can be achieved with the {{{<<done>>}}} macro inside that particular passage. Instead of having the code run on every visited passage, it will only trigger where {{{<<done>>}}} has been coded.
+> ''Note'': for multiple passages use, {{{PassageDone}}} should be preferred. Or even assigning code to the {{{:passagedisplay}}} [[event|Events-Passage]] in the JavaScript.
+
+This macro is especially useful to trigger DOM Macros whether it is [[adding elements to the page|Macro-ApPreRepCopy]] or [[changing the class of that element|Macro-DOM-Adv]].
+> ''Note:'' the player will not see any delay between the rendering of the passage and triggering the macro. For delayed needs, use the {{{<<timed>>}}} macro.
+{{{
+    @@#spy;@@
+
+    <<done>>
+        <<replace "#spy">>I spy with my little eye, a crab rangoon.<</replace>>
+    <</done>>
+}}}
+
+<div id="link-menu">[[Back to the Advanced Macro Menu|Macro-Adv]] - [[Back to the Start Menu|Start]]</div>
