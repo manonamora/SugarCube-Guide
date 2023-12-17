@@ -1,0 +1,261 @@
+:: Settings [chapter menu] {"position":"1400,1800","size":"200,100"}
+<h1>The Settings APIs</h1>
+Settings can be a great way to customise your project, and make it more accessible for players. Whether it is to change the visual aspect (font, theme, etc), the audio (volume, track), or overall mechanics (difficulty, annimation), there are many ways to reach your goal.
+
+While including settings in a project can feel a bit overwhelming, as they //will// require some knowledge of JavaScript, the Setting APIs are there to make things easier. There are also many UI templates out there including some settings. You can find also find a Setting-Only Template [[here|https://manonamora.itch.io/twine-sugarcube-templates]].
+
+The basic Settings API is built in this format:
+{{{
+    Settings.function(parameters)
+}}}
+> ''Note:'' The order you add the settings in the JavaScript passage will be the order you will see in the Setting dialog box.
+* [[Adding Headers|SettingsHeader]]
+* [[Creating a Toggle Setting|SettingsToggle]]
+* [[Creating a List Setting|SettingsList]]
+* [[Creating a Slider|SettingsRange]]
+* [[Going Further with Settings|Settings-More]]
+> ''Note:'' you can find a Setting Template with the most useful settings for Interactive Fiction on my [[itch page|https://manonamora.itch.io/twine-sugarcube-templates]].
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: SettingsHeader [page] {"position":"1400,1900","size":"100,100"}
+<h1>Adding Headers</h1>
+If you want to customise the Setting Dialog Box or organise your settings, you can group those under a Header. This will indicate to users what kind of setting they can expect below.
+This API has 2 parameters :
+* {{{name}}}: the name of the header (string)
+* {{{desc}}}: description of the group of settings (string, optional)
+{{{
+    Setting.addHeader(name [, description])
+}}}
+> //Examples://
+{{{
+→ Only a header
+    Setting.addHeader("Font Settings");
+
+→ A header and a description
+    Setting.addHeader("Font Settings", "Settings controlling how the text is formatted.");
+}}}
+
+<div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
+
+:: SettingsToggle [page] {"position":"1500,1900","size":"100,100"}
+<h1>Creating a Toggle Setting</h1>
+Like the name suggests, this type of settings create a toggle. This type is best used for settings with a True/False options. For example: toggling a widescreen or autosave.
+
+To add a Toggle setting, you need the followin API:
+{{{
+    Setting.addToggle(name, definition)
+}}}
+This API has 2 main parameters:
+* {{{name}}}: the name of the settings variable (string)
+* {{{definition}}}: definition of the setting (object)
+The //definition// object has multiple options:
+* {{{label}}}: visible description of the setting (string)
+* {{{desc}}}: further description of the setting (string, optional)
+* {{{default}}}: default value for the setting (boolean, optional, undefined = false)
+* {{{onInit}}}: the function to call when the game starts (optional, function)
+* {{{onChange}}}: the function to call when the setting is changed (optional, function)
+> ''Note:'' You can use a setting as a variable in a passage. You would write the variable as such:
+{{{settings.name}}} 
+
+> //Basic Toggle Setting to create a boolean setting//:
+{{{
+    Setting.addToggle("notifications", {
+	    label : "Show notifications?" 
+    });
+→ the default value not defined, so false is used
+
+    :: Story Passage
+    <<if settings.notifications is true>> 
+        /* your code/text  */
+    <</if>>
+}}}
+> //Toggle Setting to add/remove a CSS class//:
+{{{
+    var settingNotifications = function () {
+        if (settings.notifications) { // is true
+            $("html").addClass("notifications");
+        }
+        else { // is false
+            $("html").removeClass("notifications");
+        }
+    };
+    Setting.addToggle("notifications", {
+        label    : "Display Notifications?",
+        desc     : "If enabled, you will be shown notifications throughout the game",
+        default  : false,
+        onInit   : settingNotifications,
+        onChange : settingNotifications
+    });
+
+→ In your CSS, you'll need to include the following:
+    html.notifications .macro-notif {
+	    display: none;
+    }
+}}}
+> ''Note:'' this assumes that the notification element/macro uses the class {{{.macro-notif}}}
+
+<div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
+
+:: SettingsList [page] {"position":"1400,2000","size":"100,100"}
+<h1>Creating a List Setting</h1>
+Like the name suggests, this type of settings create a list. This type is best used for settings with more than 2 options or options with names. For example: a theme change setting or font settings.
+
+To add a Toggle setting, you need the followin API:
+{{{
+    Setting.addList(name, definition)
+}}}
+This API has 2 main parameters:
+* {{{name}}}: the name of the settings variable (string)
+* {{{definition}}}: definition of the setting (object)
+The //definition// object has multiple options:
+* {{{label}}}: visible description of the setting (string)
+* {{{list}}}: the list of options (array of string)
+* {{{desc}}}: further description of the setting (string, optional)
+* {{{default}}}: default value for the setting (string from array, optional, undefined = 1st of array)
+* {{{onInit}}}: the function to call when the game starts (optional, function)
+* {{{onChange}}}: the function to call when the setting is changed (optional, function)
+> ''Note:'' You can use a setting as a variable in a passage. You would write the variable as such:
+{{{settings.name}}} 
+
+> //Basic List Setting, creating a string setting variable//:
+{{{
+    Setting.addList("difficulty", {
+        label   : "Choose a difficulty level.",
+        list    : ["Easy", "Normal", "Hard", "INSANE"],
+        default : "Normal"
+    });
+
+    :: Story Passage
+    <<if settings.difficulty is "Normal">> 
+        /* your code/text  */
+    <</if>>
+}}}
+> //List Setting to add/remove a CSS class//:
+{{{
+    var settingThemeNames = ["Base", "Reverse", "Night", "Light"];
+    var settingThemeHandler = function () {
+        var $html = $("html");
+        // remove any existing theme class
+            $html.removeClass("theme-reverse theme-night theme-light");
+        // switch on the theme name to add the requested theme class
+            switch (settings.theme) {
+                case "Reverse":
+                    $html.addClass("theme-reverse");
+                    break;
+                case "Night":
+                    $html.addClass("theme-night");
+                    break;
+                case "Light":
+                    $html.addClass("theme-light");
+                    break;
+            }
+    };
+    Setting.addList("theme", {
+        label    : "Choose a theme.",
+        desc     : "This will change the colour palette",
+        list     : settingThemeNames,
+        default  : "Base",
+        onInit   : settingThemeHandler,
+        onChange : settingThemeHandler
+    });
+
+→ In your CSS: 
+    body {color: black;}
+    html.theme-reverse body {color: white;}
+    html.theme-night body {color: lightgrey;}
+    html.theme-light body {color: darkgrey;}
+}}}
+
+<div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: SettingsRange [page] {"position":"1500,2000","size":"100,100"}
+<h1>Creating a Slider</h1>
+Like the name suggests, this type of settings create a slider. This type is best used for settings with a range of value. For example: a a volume.
+
+To add a Toggle setting, you need the followin API:
+{{{
+    Setting.addRange(name, definition)
+}}}
+\
+This API has 2 main parameters:
+* {{{name}}}: the name of the settings variable (string)
+* {{{definition}}}: definition of the setting (object)
+The //definition// object has multiple options:
+* {{{label}}}: visible description of the setting (string)
+* {{{min}}}: the minimum value (number)
+* {{{max}}}: the maximum value (number)
+* {{{step}}}: the increment between each step (number, divisible by min & max)
+* {{{desc}}}: further description of the setting (string, optional)
+* {{{default}}}: default value for the setting (boolean, optional, undefined = false)
+* {{{onInit}}}: the function to call when the game starts (optional, function)
+* {{{onChange}}}: the function to call when the setting is changed (optional, function)
+
+> //Basic Range Setting//:
+{{{
+    Setting.addRange("masterVolume", {
+        label    : "Volume Level",
+        min      : 0,
+        max      : 10,
+        step     : 1,
+        default  : 10,
+        onChange : function () {
+            SimpleAudio.volume(settings.masterVolume / 10);
+        }
+    });
+}}}
+
+<div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
+
+:: Settings-More [page] {"position":"1400,2100","size":"100,100"}
+<h1>Going Further with Settings</h1>
+The settings are not just stuck to the JavaScript passage, they can also be used in regular passages.
+\
+<h3>The {{{settings}}} variable</h3>\
+When a Setting is set, it creates a special variable that can be used in other passages, for example to trigger code.
+{{{
+    settings.nameOfTheSetting
+}}}
+Assuming that a setting has been set up with the name {{{notification}}}:
+{{{
+→ For a Toggle Setting:
+    <<if settings.notification>>
+        <<notify 5s>>This is a notification only seen if the notification setting is toggled on<</notify>>
+    <</if>>
+
+→ For a Range Setting:
+    <<if settings.notification gt 9>>
+        <<notify 5s>>This is very loud!<</notify>>
+    <</if>>
+
+→ For a List Setting:
+    <<if settings.notification is "Easy">>
+        <<notify 5s>>You are playing on BabyMode<</notify>>
+    <</if>>
+}}}
+> ''Note:'' the {{{<<notify>>}}} macro is a [[Custom Macro by Chapel|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/notify-macro.md]].
+\
+<h3>Changing the Settings in the Passage</h3>\
+It is also possible to change settings outside of the Settings Dialog Box, and can be done with {{{Setting.reset()}}} to reset a/all setting(s) to their default value, or {{{Setting.save()}}} to save the change of a setting.
+> ''Note:'' the targeted setting needs to be set in the JavaScript beforehand.
+> You also need to use the macros {{{<<script>>}}} or {{{<<run>>}}} with those APIs.
+\
+> //To reset://
+{{{
+    Setting.reset() → will reset all settings to the default
+    Setting.reset('difficulty') → will reset only the 'difficulty' setting 
+
+    <<run Setting.reset()>>
+}}}
+> //To save://
+{{{
+    <<set settings.difficulty to "Normal">>
+    <<run Setting.save()>>
+}}}
+> ''Note:'' this can be quite useful when setting some functionality before the game starts, like the game's Language.
+
+> ''Note:'' a {{{Setting.load()}}} API exists within SugarCube. However, it is called automatically everytime the game is loaded. As such, it should never be called manually.
+
+<div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
+
