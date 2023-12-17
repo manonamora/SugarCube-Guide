@@ -1,0 +1,97 @@
+:: StoryAPI [chapter page] {"position":"3500,1900","size":"200,100"}
+<h1>Managing Story Elements with APIs</h1>
+The APIs listed below will help you check and manage different elements of your Story.
+\
+<h3>{{{Story.domId}}}</h3>
+This API keeps the DOM ID of the project, created from the slugified story title.
+{{{
+    Story.domId
+→ sugarcube-guide is the DOM ID of this project.
+}}}
+\
+<h3>{{{Story.ifId}}}</h3>\
+This API keeps the IFID ([[Interactive Fiction IDentifier|https://ifdb.org/help-ifid]]) of the story.
+{{{
+    Story.ifId
+→ C15CE33F-61F6-4909-BB59-73EE7A3D57B1
+  is the IFID of this project
+}}}
+\
+<h3>{{{Story.title}}}</h3>
+This API keeps the title of the project.
+{{{
+    Story.title
+→ {SugarCube Guide} is the title of this project
+}}}
+\
+<h3>{{{Story.get()}}}</h3>\
+This API will return the Passage object of the referenced title (tags, classes, HTML element).
+{{{
+    Story.get(title)
+}}}
+It has 1 parameter:
+* {{{title}}}, the title of the Passage object (i.e. the Passage Name)
+> //Example://
+{{{
+    Story.get("Start")  
+→ returns the Passage object of {:: Start}
+}}}
+\
+<h3>{{{Story.has()}}}</h3>\
+This API will check whether the Passage object of the referenced title (tags, classes, HTML element) exists.
+{{{
+    Story.has(title)
+}}}
+It has 1 parameter:
+* {{{title}}}, the title of the Passage object (i.e. the Passage Name)
+> //Example://
+{{{
+    Story.has("Start")  
+→ checks that {:: Start} exists 
+}}}
+\
+<h3>{{{Story.lookup()}}}</h3>\
+This API will return an array of Passage objects whose value matches the search value, given a property.
+{{{
+    Story.lookup(propertyName , searchValue [, sortProperty])
+}}}
+It has 3 parameters:
+* {{{propertyName}}}, the property to check 
+* {{{searchValue}}}, the value wanted related to the property
+* {{{sortProperty}}} (optional), the property used to sort the array 
+** default is the Passage's title lexicographically sorting
+\
+> //Example://
+{{{
+    Story.lookup("tags", "forest");
+→ will list all Passages tagged 'forest'
+  sorted by title
+}}}
+\
+<h3>{{{Story.lookupWith()}}}</h3>\
+This API will return an array of Passage objects passing the test from a defined predicate function.
+{{{
+    Story.lookupWith(predicate [, sortProperty])
+}}}
+It has 2 properties:
+* {{{predicate}}}, the function used to test each Passage object 
+* {{{sortProperty}}} (optional), the property used to sort the array 
+** default is the Passage's title lexicographically sorting
+\
+> //Examples://
+{{{
+    Story.lookupWith(function (p) {
+        return p.tags.includes("forest");
+    });
+→ will list all Passages tagged 'forest'
+  sorted by title
+
+    var hasWhitespaceRegExp = /\s/;
+    Story.lookupWith(function (p) {
+        return hasWhitespaceRegExp.test(p.title);
+    });
+→ will list all Passages containing whitespace
+  sorted by title
+}}}
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
