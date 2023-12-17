@@ -1,0 +1,386 @@
+:: Macro-Basic [chapter menu] {"position":"1100,600","size":"200,100"}
+<h1>Going Further with the Basics</h1>
+After [[linking passages|Macro-Link-Basic]], [[setting variables|Macro-Set-Basic]], and creating some simple [[conditional statements|Macro-If-Basic]], you would have the basis required to make a textual game. You can add onto this base, with more complex use of those macros, as well as including a few more related ones. This chapter is meant to expand the use of the basic macros.
+
+* [[Displaying more than text in Links|Macro-Link]] [ ★ UPDATE ★ ] 
+* [[Setting and Changing Variables|Macro-Set]]
+* [[Unsetting Variables|Macro-Unset]] [ ★ UPDATE ★ ] 
+* [[More Conditional Statements|Macro-If]]  [ ★ UPDATE ★ ] 
+* [[Display Variables, the Print Macro and Variants|Macro-Print]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Macro-Link [page] {"position":"1100,700","size":"100,100"}
+<h1>Displaying more than text in Links</h1>
+Like the [[Link Markup|Markup-Link]], you can display more than just plain text as links. This includes the content of variables, widgets, or even images (similar to the [[Image Markup|Markup-Image]]). 
+
+You can use variables to display the text of the link, or send the player to a certain passage.
+Assuming that {{{$passage = "Garden"}}} and {{{$text = "Go take a walk"}}}:
+{{{
+    <<link $text $passage>><</link>>
+
+→ will work the same way as
+    <<link [[Go take a walk|Garden]]>><</link>> 
+→ or 
+    <<link "Go take a walk" "Garden">><</link>>
+}}}
+
+Displaying ''the value of a variable'' is a bit more straightforward than with the [[Link Markup|Markup-Link]]. 
+Assuming that {{{$name = "Jane"}}} and {{{$location = "Garden"}}}:<<set $name to "Jane">>
+{{{<<link "I am $name" "Passage">><</link>>}}} → <<link "I am $name" "Passage">><</link>>
+
+You can even use ''conditional statements'' to display variation inside a link. In the example below, depending on the value of {{{$location}}}, the text will show a different text.
+{{{
+<<link '<<if $location is "Garden">>Go back to the house<<else>>Go to the house<</if>>' "House">><</link>>
+
+<<link `($location === "Garden") ? "Go back to the house" : "Go to the house"` "House">><</link>>
+}}}
+> ''Note:'' the second example is called a //ternary conditional operator//, used in JavaScript as a one-line if-else statement. You will require a backtick {{{`}}} instead of a quote or apostrophe, as it is technically JavaScript code.
+\
+Similarly, for ''widgets'', assuming that {{{<<widget "SomeWidget">>Wow Some Text<</widget>>}}}:
+{{{<<link "<<SomeWidget>>" "Passage">><</link>>}}} → <<link "<<SomeWidget>>" "Passage">><</link>>
+> ''Note:'' you need to wrap the widget with quotes/apostrophe inside the link! Otherwise, you will get an error.
+\
+As for ''images'', you can use the [[Image markup|Markup-Image]] inside the {{{<<link>>}}} macro, or the HTML markup ({{{<img>}}}). You will also need to know the [[URL|URL-Types]] of the relevant image.
+{{{
+    <<link [img[URL][Passage]]>><</link>>
+
+    <<link "[img[URL]]" "Passage">><</link>>
+
+    <<link '<img src="URL">' "Passage">><</link>>
+}}}
+\
+<h3>Quotes or Apostrophes... or both?</h3>\
+To use the {{{<<link>>}}} macro, you need to either include the [[Link Markup|Markup-Link]] or wrap the wanted text (and potentially the passage) with either Apostrophes {{{' '}}} or Quotes {{{" "}}}, which are essentially interchangeable (see examples). 
+
+However, this can become an issue if the wrapped text/element contains apostrophes or quotes to function (like the image or the conditional statement examples above), or to format the text (like with [[bolding|Markup-Styling]]). In this case, you have multiple solutions:
+> //Nest one inside the other// {{{' " " '}}} or {{{" ' ' "}}}: 
+{{{
+    <<link '"I am speaking!"' "Passage">><</link>>
+    <<link "I don't think this is a good idea..." "Passage">><</link>>
+    <<link '<img src="URL">' "Passage">><</link>>
+    <<link "//''HEY!''//" "Passage">><</link>>
+}}}
+> //Use the backslash before the nested character// {{{\}}}:
+{{{
+    <<link "\"I am speaking!\"" "Passage">><</link>>
+    <<link 'I don\'t think this is a good idea...' "Passage">><</link>>
+    <<link "<img src=\"URL\">" "Passage">><</link>>
+    <<link "//\'\'HEY!\'\'//" "Passage">><</link>>
+}}}
+> ''Note:'' For story text requiring an apostrophe or quotes, I would recommend the use of the curly type ({{{“ ”}}} and {{{‘ ’}}}) rather than straight ones. This way, you would not run into the nesting issue mentioned above.
+> {{{<<link '“I am speaking!”' "Passage">><</link>>}}} → <<link '“I am speaking!”' "Passage">><</link>>
+
+<div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Set [page] {"position":"1100,800","size":"100,100"}
+<h1>Setting and Changing Variables</h1>
+To first [[set a variable|Macro-Set-Basic]], you would most commonly use the {{{to}}} operator, as the example below:
+{{{<<set $var to "a value">>}}}
+
+But, to change the value of a variable, especially if that value is numerical, the {{{<<set>>}}} macro will accept other JavaScript (mathematical) operators: 
+<<nobr>>
+<table>
+    <tr>
+        <th>Operator</th><th>Explanation</th><th>Example</th>
+    </tr>
+    <tr>
+        <td>{{{ = }}}</td><td>Works like {{{to}}}.<br> Assign the value to the variable.</td><td>{{{<<set $apples = 6>>}}}</td>
+    </tr>
+    <tr>
+        <td>{{{+=}}}</td><td>Adds to the current value.</td><td>{{{<<set $apples += 6>>}}} or {{{<<set $apples to $apples + 6>>}}} </td>
+    </tr>
+    <tr>
+        <td>{{{-=}}}</td><td>Substract to the current value.</td><td>{{{<<set $apples -= 6>>}}} or {{{<<set $apples to $apples - 6>>}}} </td>
+    </tr>
+    <tr>
+        <td>{{{*=}}}</td><td>Multiplies the current value.</td><td>{{{<<set $apples *= 6>>}}} or {{{<<set $apples to $apples * 6>>}}} </td>
+    </tr>
+    <tr>
+        <td>{{{/=}}}</td><td>Divides the current value.</td><td>{{{<<set $apples /= 6>>}}} or {{{<<set $apples to $apples / 6>>}}} </td>
+    </tr>
+    <tr>
+        <td>{{{%=}}}</td><td>Removes a percentage of the current value.</td><td>{{{<<set $apples %= 6>>}}}</td>
+    </tr>
+    <tr>
+        <td>{{{++}}}</td><td>Adds 1 to the current value.</td><td>{{{<<set $apples ++>>}}}</td>
+    </tr>
+    <tr>
+        <td>{{{--}}}</td><td>Removes 1 to the current value.</td><td>{{{<<set $apples -->>}}}</td>
+    </tr>
+</table>
+<style>td:first-of-type {width: 15%;text-align: center;}</style>
+<</nobr>>
+\
+Aside from setting a variable with a value, you can also set it with the value of another variable, or a combination of values from multiple variables.
+Assuming that {{{$test = 6}}} and {{{$apple = 4}}}:
+{{{
+    <<set $test to $apple>>
+→ $test will have the value of $apple (= 4)
+
+    <<set $test += $apple>>
+→ $test will have the value of ($test + $apple) (= 10)
+
+    <<set $test to (($apple * 4)/($test - 2))>>
+→ $test will have the value of ($apple multiplied by 4) divided by ($test minus 2) (= 4)
+}}}
+> ''Note:'' when handling complex calculations of variable, using parentheses {{{( )}}} will help order the code.
+\
+It is also possible to use some of these operators with string values and variables.
+Assuming that {{{$name = "Jane"}}} and {{{$surname = "Doe"}}}, and the widget {{{<<widget "SomeWidget">>Wow Some Text<</widget>>}}}:
+{{{
+    <<set $wholename to $name + $surname>>
+→ $wholename will have the value "JaneDoe"
+    <<set $wholename to $name + " " + $surname>>
+→ $wholename will have the value "Jane Doe"
+
+    <<set $address to "Hello, $name">>
+→ $address will print "Hello, Jane" on the page.
+}}}
+> ''Note:'' if the value {{{$name}}} changes or if {{{$name}}} is unset during the story, this will affect how {{{$address}}} is displayed, but not {{{$wholename}}}. 
+> {{{$address}}} will not show "Hello, Jane" if {{{$name}}} changes, but will show the current value of {{{$name}}} (or the name of the variable, if unset). 
+{{{
+    <<set $text to "<<SomeWidget>>">>
+→ $text will print the content of the widget, here "Wow Some Text".
+}}}
+
+You can also mix the types of values when combining them, similarly to the examples above. Mixing anything with a string value will result in a string value. Mixing integer with a boolean will result in a integer.
+Assuming that {{{$name = "Jane"}}} and {{{$apple = 4}}}
+{{{
+    <<set $test to $name + $apple>>
+→ $test will have the value "Jane4" (string)
+}}}
+> ''Note:'' using some mathematical operators on a string-based variable will give an error: {{{<<set $name /= 2>>}}}.
+\
+<h3>Setting up Arrays and Objects</h3>\
+To use an array or object variable, you need to define it as an array or object ahead of time. This can be done at the earliest inside [[StoryInit|SP-Init]], and, at the lastest, just before you use them. Defined arrays and objects can be empty before use.
+Arrays need to be defined with square brackets {{{[ ]}}}, while objects need curly brackets {{{ {} }}}
+{{{
+→ Array:
+    <<set $array to []>> → defined but empty
+    <<set $array to [1, "word", true]>>
+    <<set $inventory to ["pen", "coins", "apple"]>>
+
+→ Object:
+    <<set $object to {}>> → defined but empty
+    <<set $object to {number: 1, string: "word", boolean: true}>>
+    <<set $mc to {age: 51, hair: "bald", degree: true}>>
+}}}
+After an object is defined, you can add any property to it, even if they were not listed when the main variable was set. You can also change the value of an already defined property the same way you would a regular variable.
+{{{
+    <<set $object.newproperty = "value of your choice">>
+    <<set $object.definedproperty = "new value">>
+}}}
+
+As for arrays, adding or removing elements require methods, which you can learn about [[in this page|Method-Array]].
+\
+<h3>Going further:</h3>\
+You can also use [[functions|Functions]] and [[methods|Methods]] when setting a variable, or edit its value. 
+They are most useful when changing the formatting of a string (upper/lowercase), or with statistics (e.g. health level).
+
+<div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Unset [page] {"position":"1200,800","size":"100,100"}
+<h1>Unsetting Variables with {{{<<unset>>}}}</h1>
+To avoid bloating the loading time of passages (lag), it is recommended to keep the number of variables set at any time to a minimum. One way is to use [[temporary variables|Variables-Base]] {{{_temp}}}, which disappear automatically when the player moves to another passage, another is to rely more on [[functions|Functions]]. The one covered here focuses on unseting permanant variables {{{$var}}} you don't need anymore, with the {{{<<unset>>}}} macro.
+{{{
+    <<unset $variable>>
+
+→ multiple at once:
+    <<unset $var, $var2, $var3>>
+}}}
+The macro can be used as is, or inside other container macros, like a {{{<<link>>}}} or a {{{<<button>>}}}.
+\
+<h3>Using the {{{<<run>>}}} macro.</h3>\
+The {{{<<run>>}}} macro will, as the name suggest, [[run|Macro-Script-Run]] any one-line JavaScript/jQuery code given. It can also help unset (or delete) variables from the game state. This is particularly helpful in cases where the {{{<<unset>>}}} macro doesn't work: like unseting a property of an opject ({{{$object.property}}}).
+
+Currently, trying to unset a property inside an object ({{{<<unset $object.property>>}}}) will not just delete that property, but also unset the whole object variables (so all the other properties saved inside). To resolve this, you should use the {{{<<run>>}}} macro coupled with the JavaScript {{{delete}}} operator:  
+{{{<<run delete $object.property>>}}}
+
+Assuming that {{{$mc = {name: "Jane", nickname: "Janie", age: 10} }}}:
+{{{
+    <<run delete $mc.nickname>>
+→ will only remove the {nickname} property from the object
+
+    <<run delete $mc.nickname, delete $mc.age>>
+→ this will remove both the {nickname} and {age} properties from the object 
+}}}
+> ''Note'': you can also unset any other variable with this method.
+
+<div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-If [page] {"position":"1200,700","size":"100,100"}
+<h1>More Conditional Statements</h1>
+While the {{{is}}} operator will often cover many situations where you would need a [[conditional statement|Macro-If-Basic]], there are other operators that can include more than one specific condition at a time. Since SugarCube is based on JavaScript, you can use either form, or mix-n-match:
+<<nobr>>
+    <table class="ifses">
+        <tr>
+            <th>SugarCube</th><th>JavaScript</th><th>Description</th><th>Example</th>
+        </tr>
+        <tr>
+            <td>{{{is}}}</td><td>{{{===}}}</td><td>Check if //strickly// equal</td><td>{{{<<if $test is 1>>}}} {{{<<if $test === 1>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{isnot}}}</td><td>{{{!==}}}</td><td>Check if //strickly// NOT equal</td><td>{{{<<if $test isnot "apple">>}}} {{{<<if $test !== "apple">>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{eq}}}</td><td>{{{==}}}</td><td>Check if equivalent</td><td>{{{<<if $test eq 45>>}}} {{{<<if $test == 45>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{neq}}}</td><td>{{{!=}}}</td><td>Check if NOT equivalent</td><td>{{{<<if $test neq "dinner">>}}} {{{<<if $test != "dinner">>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{gt}}}</td><td>{{{>}}}</td><td>Check if greater than</td><td>{{{<<if $test gt 12>>}}} {{{<<if $test > 12>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{gte}}}</td><td>{{{>=}}}</td><td>Check if greater or equal</td><td>{{{<<if $test gte $tries>>}}} {{{<<if $test >= $tries>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{lt}}}</td><td>{{{<}}}</td><td>Check if lower than</td><td>{{{<<if $test lt ($tries + 2)>>}}} {{{<<if $test < ($tries +2)>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{lte}}}</td><td>{{{<=}}}</td><td>Check if lower or equal</td><td>{{{<<if $test lte $listparticipant.length>>}}} {{{<<if $test <= $listparticipant.length>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{def}}}</td><td>/</td><td>Check if variable is defined</td><td>{{{<<if def $test>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{ndef}}}</td><td>/</td><td>Check if variable is NOT defined</td><td>{{{<<if ndef $test>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{not}}}</td><td>{{{!}}}</td><td>Check if condition is //false// or Falsy</td><td>{{{<<if not $test>>}}} {{{<<if !$test>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{ }}}</td><td>{{{ }}}</td><td>Check if condition is //true// or Truthy</td><td>{{{<<if $test>>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{and}}}</td><td>{{{&&}}}</td><td>Evaluate if //all// conditions are true</td><td>{{{<<if $test is 1 and $name is "Jane">>}}} {{{<<if $test === 1 && $name === "Jane">>}}}</td>
+        </tr>
+        <tr>
+            <td>{{{or}}}</td><td>{{{||}}}</td><td>Evaluate if //one// of the conditions is true</td><td>{{{<<if $test is 1 or $test if 4>>}}} {{{<<if $test === 1 || $test === 4>>}}}</td>
+        </tr>
+    </table>
+<</nobr>>\
+<h3>Ordering your Conditional Statements</h3>\
+When checking for multiple conditions with one {{{<<if>>}}} block, you need to order the conditional statements from ''most strict'' to //least//. This is because Twine reads code from top to bottom, so the program will stop at the first fulfilled condition, even if there is a more fitting situation below. For example:
+{{{
+    <<if $turn gt 3>>
+        The Code will stop here and only show this text...
+    <<elseif $turn gt 3 && $turn lt 5>>
+        ... even if the value of $turn is 4.
+    <</if>>
+
+    <<if $turn gt 3 && $turn lt 5>>
+        But this code will only show if the value of $turn is 4...
+    <<elseif $turn gt 3>>
+        ...while this one will show if the value of $turn is greater then 3 
+        and does not meet the condition above.
+    <</if>>
+}}}
+\
+<h3>Mixing AND and OR</h3>\
+Instead of having a long list of {{{<<elseif>>}}} to show the same variation of text for each condition to be met, you can merge conditional statements with linking operator. 
+If a variation requires multiple conditions to be met, you can merge them into one statement using the {{{and}}} operator (or {{{&&}}}). For a variation that could be applied to different conditions, you can merge them into one statement using the {{{or}}} operator (or {{{||}}}). 
+It is also possible to mix and match those operators for more complex merge of conditional statements (see below). To organise the different conditions, it is recommended to uses parentheses {{{( )}}}.
+> ''Note:'' you must remember that the order of which the operators are applied, work like maths. Inside parentheses first, then layers by layers.
+{{{
+    <<if ($turn is 1) and ($name is "Jane")>>
+→ will only work if $turn has a value of 1 >AND< $name is "Jane"
+
+    <<if ($turn is 3) or ($pet is "dog")>>
+→ will work if $turn has the value of 3 >OR< $pet is "dog"
+
+    <<if ($turn is 4 or $pet is "dog") && ($name is "Jane" or $credit gt ($cost * 2))>>
+→ will only work if one of the conditions in >EACH< block is true:
+    → if $turn has the value of 4 >OR< $pet is "dog"
+    → if $name is "Jane" >OR< the value of $credit is greater than 
+      the value of $cost multiplied by 2
+}}}
+> ''Note:'' for example 1 and 2, the parentheses are not mandatory, but it IS for example 3 to work as explained.
+\
+<h3>True/False and Truthy/Falsy</h3>\
+There is a difference between //True/False// and //Truthy/Falsy//:
+* //True/False// is strickly related to Boolean values and situations
+** {{{$var is true}}} or {{{hasVisited("PASSAGE") is false}}}
+* //Truthy/Falsy// will look at whether a variable is defined, and what types of value it holds (including //True/False//)
+<table id="truthy">
+    <tr>
+        <th>Truthy values</th><th>Falsy values</th>
+    </tr>
+    <tr>
+        <td>true
+        any number that is not 0
+        any filled string (inc. 'false' and '0')
+        {{{[]}}} (defined but empty arrays)
+        {{{{}}}} (defined but empty objects)
+        </td>
+        <td>false
+        0
+        {{{''}}} (empty string)
+        null
+        undefined
+        NaN
+        </td>
+    </tr>
+</table>\
+Assuming that {{{$test = ''}}}:
+{{{
+    <<if $test>>
+        This text will not show because $test is an empty string, and so a falsy condition.
+    <</if>>
+    <<if !$test>>
+        This text //will// show, because $test is an empty string, and so a falsy condition.
+    <</if>>
+
+Note:
+    <<if def $test>>
+        This text //will// show, because $test is defined, even as an empty string.
+    <</if>>
+}}}
+<style>.ifses td:nth-child(1), .ifses td:nth-child(2) {text-align:center;}.ifses th:nth-child(3), .ifses td:nth-child(3) {width: 33%;} #truthy td:first-child {width: 260px;}</style>
+<div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Print [page] {"position":"1100,900","size":"100,100"}
+<h1>Display Variables, the {{{<<print>>}}} Macro and Variants</h1>
+There are essentially four ways of displaying a variable:
+* [[bare|Markup-Variable]]: {{{$variable}}}
+* with the {{{<<print>>}}} macro: {{{<<print $variable>>}}}
+* with the {{{<<=>>}}} macro: {{{<<= $variable>>}}}
+* with the {{{<<->>}}} macro: {{{<<- $variable>>}}}
+
+Unlike the bare version, the macros will display [[special variables|Variables-Base]] and functions attached to variables. 
+
+Assuming that {{{$choice = "dog"}}}: <<set $choice = "dog">>
+{{{$choice}}} → $choice
+{{{<<print $choice>>}}} → <<print $choice>>
+{{{<<= $choice>>}}} → <<= $choice>>
+{{{<<- $choice>>}}} → <<- $choice>>
+
+Assuming that {{{$name = "jane"}}}: <<set $name = "jane">>
+{{{$name.toUpperCase()}}} → $name.toUpperCase()
+{{{<<print $name.toUpperCase()>>}}} → <<print $name.toUpperCase()>>
+{{{<<= $name.toUpperCase()>>}}} → <<= $name.toUpperCase()>>
+{{{<<- $name.toUpperCase()>>}}} → <<- $name.toUpperCase()>>
+> ''Note:'' For more functions, [[see this page|Functions]].
+\
+All three macros are interchangeable, aside from one distinction: the {{{<<->>}}} macro will show HTML markup and some nested SugarCube code as regular characters.
+Assuming that {{{$example = "<i>this</i>"}}} <<set $example = "<i>this</i>">>
+{{{$example}}} → $example
+{{{<<print $example>>}}} → <<print $example>>
+{{{<<= $example>>}}} → <<= $example>>
+{{{<<- $example>>}}} → <<- $example>>
+
+Assuming that {{{$test = "<<SomeWidget>>"}}} and the widget {{{<<widget "SomeWidget">>Wow Some Text<</widget>>}}}: <<set $test = "<<SomeWidget>>">>
+{{{$test}}} → $test
+{{{<<print $test>>}}} → <<print $test>>
+{{{<<= $test>>}}} → <<= $test>>
+{{{<<- $test>>}}} → <<- $test>>
+\
+<h3>Display all the values of an object:</h3>\
+To print whole object variables on the page, you need to use a bit of JavaScript:
+Assuming that {{{$npc = {name: 'Jane', age: '53'} }}}: <<set $npc = {name: 'Jane', age: '53'}>>
+{{{<<print Object.values($npc)>>}}} → <<print Object.values($npc)>>
+{{{<<print JSON.stringify($npc)>>}}} → <<print JSON.stringify($npc)>>
+<<unset $choice, $name, $example, $test, $npc>>
+<div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
+
