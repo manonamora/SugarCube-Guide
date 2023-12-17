@@ -1,0 +1,415 @@
+:: Macro-Conv [chapter menu] {"position":"1700,1100","size":"200,100"}
+<h1>Macros of Convenience</h1>
+Whether for a more convinent way to format code and passages, send players to a specific part of the story, or include more JavaScript in the story, SugarCube has a handful of very convenient macros. 
+
+* [[An Alternative to Conditional Statements|Macro-Switch]] 
+* [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
+* [[Including a Passage inside another|Macro-Include]] [ ★ UPDATE ★ ]
+* [[Creating and Using a Widget|Macro-Widget]] [ ★ UPDATE ★ ]
+* [[Going Back or Returning to a Passage with a Special Link|Macro-Back-Return]]
+** [[Arbitrarily Long Returns|Long-Return-JS]]
+* [[Sending the Player to a Passage|Macro-Goto]]
+* [[Using JavaScript in the Passage|Macro-Script-Run]]  [ ★ UPDATE ★ ]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Macro-Switch [page] {"position":"1700,1200","size":"100,100"}
+<h1>An Alternative to Conditional Statements</h1>
+If you are looking at multiple values from one variable or function, with the conditional statement only looks at one variable/function for the whole block, the {{{<<switch>>}}} macro might be a useful alternative to the {{{<<if>>}}} macro.
+
+The Macro has one argument for the container, and one for the submacro:
+* {{{<<switch>>}}}:
+** the element whose value you want to check.
+* {{{<<case>>}}}
+** the value(s) of the element for the particular case.
+* {{{<<default>>}}} (optional) does not have an argument, works exactly like {{{<<else>>}}}
+\
+> //Using a variable://
+{{{
+    <<switch $dice>>
+        <<case 1>>You rolled a 1, this is a critical failure...
+        <<case 2>>You rolled a 2, this is a failure.
+        <<case 5>>You rolled a 5, this is a success.
+        <<case 6>>You rolled a 6, this is a critical success!
+        <<default>>You rolled a $dice. Nothing happens.
+    <</switch>>
+
+→ the <<switch>> will look at the value of $dice and display the text depending on the value.
+}}}
+> //Using a function://
+{{{
+    <<switch previous()>>
+        <<case "Home">>Leaving your house, you soon arrive at the park.
+        <<case "Work">>Finally done with work, you skip towards the park.
+        <<case "Cinema" "Theater">>Waking up after a boring movie, you sluggishly walk towards the park.
+    <</switch>>
+
+→ here, the macro will look at the name of the previously visited passage, and if this name is either "Home", "Work" or "Cinema"/"Theater", it will display the text. For any other case, it will not display anything.
+}}}
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Nobr-Silent [page] {"position":"1800,1200","size":"100,100"}
+<h1>Removing Blank Space and Hiding Code</h1>
+It can be //very// frustrating to code and format a whole passage, only to realise when playing it that unwanted blank space is everywhere. While some of it can be resolved with the [[nobr Markup|Markup-Nobr]], for longer block of text or code, you may want to use the {{{<<nobr>>}}} and {{{<<silently>>}}} macros. 
+\
+<h3>{{{<<nobr>>}}} or {{{<<silently>>}}}</h3>\
+Both macros will remove any blank space created by the code inside its container, making them quite useful when indenting the code for a clearer read through (especially for complex code).
+
+The main difference between the macros is whether an output is expected within the macro. As in: is there text inside the container that should appear on the screen where the macro is coded?
+
+{{{<<silently>>}}} will run any code inside the macro, but will not print anything on the page (unless you play the game in //Test/Debug// mode). {{{<<nobr>>}}} will run the code inside the macro, as well show any output on the page, without any linebreak (like the [[nobr Markup|Markup-Nobr]]). 
+> //An example for// {{{<<nobr>>}}}
+{{{
+    I'd like a <<nobr>>
+        <<if $feeling eq "blue">>
+            blueberry
+        <<else>>
+            cherry
+        <</if>>
+    <</nobr>> pie.
+
+→ will show the result in one line
+}}}
+> //An example for// {{{<<silently>>}}}
+{{{
+    <<silently>>
+    	You'll never see any of this! But this code will run...
+        <<set _time to "9s">>
+        <<timed _time>>
+            <<goto "END">>
+        <</timed>>
+    <</silently>>
+
+→ will send you to the passage "END" but nothing will appear on the page
+}}}
+\
+> ''Note:'' another method is to enable the [[nobr Config API|Basic-API-Config]], which will remove ALL line breaks inside the project.
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Include [page] {"position":"1700,1300","size":"100,100"}
+<h1>Including a Passage inside another</h1>
+The {{{<<include>>}}} macro is quite helpful when it comes to including a bit of text or code inside multiple passages, or simple helping organising the content of a passage (especially if it includes quite a bit of code) to avoid unnecessary clutter. It essentially includes the content of a passage inside the one where the macro is coded.
+
+The macro has 2 arguments:
+* the passage name 
+* the HTML element type (optional) to wrap the included passage (ex: h1, div, p, etc...)
+{{{
+    <<include "Passage Name">>
+    <<include [[Passage Name]]>> ← will create an arrow in Twine
+    <<include "Passage Name" "div">> ← will wrap the passage in a 'div'
+    <<include [[Passage Name]] "h1">> ← will wrap the passage in the largest header 
+}}}
+
+You can use {{{<<include>>}}} in any passage you want, even the [[Special Passages|Special-Passage]]! It can be pretty practical for {{{StoryInit}}} if you have a lot of variables or macros to set up and want to organise them.
+
+If an HTML element is included in the macro, that element will also include a class (if you want to edit it with some CSS). That class will be defined after the name of the included passage, only in lowercases, with hyphens {{{-}}} replacing spaces, and removing any punctuation.
+So {{{Passage Name}}} will have the class {{{passage-passage-name}}}, or {{{To the Left !}}} will look like {{{passage-to-the-left-}}}.
+> ''Note:'' It is not recommended to use punctuation in a passage name.
+{{{
+    :: Start 
+    This is the Start. 
+    <<include "Left">>
+
+    :: Left 
+    And now you go left!
+
+→ will appear on the page as:
+    This is the Start.
+    And now you go left!
+}}}
+> ''Note:'' unlike the {{{<<widget>>}}} [[macro|Macro-Widget]], {{{<<include>>}}} will add the whole passage called to the page, whether it is one line or a hundred long (space, line breaks and all).
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Widget [page] {"position":"1800,1300","size":"100,100"}
+<h1>Creating and Using a Widget</h1>
+Widgets are a pretty practical macro that lets you create "special macros" with basic SugarCube. You can call bits of texts or codes as many times as you want, or create containers to format text, without cluttering the code of the passage. A defined widget can be used as many times as you want inside a project, or even within a passage.
+The {{{<<widget>>}}} macro is also useful for: creating shortcuts for pronouns, grouping list of links to appear on multiple passages (e.g. exposition conversation), adding special hovertext of elements (e.g. images, translation), formatting dialogue with character portraits...
+
+For widgets to work they need to be:
+* set inside a non-story passage [[tagged|Tags-Built]] with {{{widget}}}
+** the passage can have any non-[[Special|Special-Passage]] name.
+* called inside another passage:
+** the name of the widget wrapped with double arrowheads {{{<<WIDGETNAME>>}}}
+\
+You can have as many widgets as you want inside one widget-tagged passage. You can also have multiple widget passages (though they should be kept to a minimum).
+It is recommended to either wrap the code inside the {{{<<widget>>}}} with [[line-break remover macro|Macro-Nobr-Silent]] or add the {{{nobr}}} [[tag|Tags-Built]] to the widget passage. This will remove any unwanted space.
+
+The macro has 2 arguments:
+* the name of the widget, which:
+** has to be one word
+** is case sensitive
+** canot include punctuation 
+** cannot start with a number
+** cannot have the same name as a Base SugarCube Macro or any custom macro included in your JavaScript
+* {{{container}}} (optional), to create a container macro.
+{{{
+    <<widget "Name" container>>
+        /* Your code */
+    <</widget>>
+}}}
+> //Example://
+{{{
+    :: Widget [widget]
+    <<widget "SimonSays">>
+        <<set _array to ["Raise your hands!", "Jump!", "Dance!"]>>
+        <<print _array.random()>>
+    <</widget>>
+
+    :: Story Passage 
+    > Simon says: <<SimonSays>>
+}}}
+> Simon says: <<SimonSays>> [ [[Reload|Macro-Widget]] ]
+\
+<h3>Arguments and Contents</h3>\
+Aside from using basic SugarCube code (or even JavaScript/jQuery inside a {{{<<run>>}}} or {{{<<script>>}}} [[macro|Macro-Script-Run]]), widgets allows the use of exta arguments when called, as well as becoming containers.
+This is possible thanks to the special temporary variables: {{{_args[]}}} and {{{_contents}}} 
+
+An argumented widget is used to create more complex but general macros. Arguments can be in the form of base value or variables, and will be stored in an array called {{{_args[]}}} (starting with the position 0).
+> //Example://
+{{{
+    :: Widget [widget]
+    <<widget "SimonSpecialSay">>
+        <<if _args[0]>>
+            <<print _args[0]>>
+        <<else>>
+            <<SimonSays>>
+        <</if>>
+    <</widget>>
+
+→ this will check whether an argument has been included when calling the widget, and if so show the content of the argument.
+
+    :: Story Passage
+    > Simon says? <<SimonSpecialSay>>
+    > Simon says: <<SimonSpecialSay "Fooled you!">>
+}}}
+> Simon says: <<SimonSpecialSay>>
+> Simon says: <<SimonSpecialSay "Fooled you!">>
+
+A container widget will create a special "macro", with an opening and closing brackets that can be wrapped around some text in the main passage to format it in a special way. It uses the variable {{{_contents}}} to link that text with the macro. 
+> //Example://
+{{{
+    :: Widget [widget]
+    <<widget "SimonDoes" container>>
+        <div class="simon">
+            <hr class="before-simon">
+            <p class="simon-does">_contents</p>
+        </div>
+    <</widget>>
+
+    :: StyleSheet [sheet]
+    .simon {
+        width: 134px;
+        margin: auto;
+    }
+  
+    hr.before-simon {
+        border-color: darkgreen;
+    }
+  
+    .simon-does {
+        text-transform: capitalize;
+    }
+
+    :: Story Passage
+    <<SimonDoes>>And so he does!<</SimonDoes>>
+}}}
+<<SimonDoes>>And so he does!<</SimonDoes>>
+\
+It is also possible to combine both types of widgets, making is an argumented container widget.
+> //Example from the Documentation://
+{{{
+    <<widget "say" container>>
+        <div class="say-box">
+            <img class="say-image" @src="'images/' + _args[0].toLowerCase() + '.png'">
+            <p class="say-text">_contents</p>
+        </div>
+    <</widget>>
+
+    <<say "Chapel">>
+        Tweego is a pathway to many abilities some consider to be… unnatural.
+    <</say>>
+}}}
+This code will create a dialogue box ({{{<div>}}}), showing an image ({{{<img>}}}) next to the text ({{{<p>}}}). The url of image is pulled by the argument ({{{images/chapel.png}}}).
+
+Though it should not be abused, you can call a widget inside another widget:
+{{{
+    <<widget "Test">>This is a test<</widget>>
+
+    <<widget "whoops">>
+        <<if $var is 0>>
+            <<Test>>
+        <<else>>
+            This is a bug.
+        <</if>>
+    <</widget>>
+}}}
+
+> ''Note:'' this macro differs from the {{{<<include>>}}} [[macro|Macro-Include]], in that {{{<<include>>}}} will include the whole passage on the page, while {{{<<widget>>}}} will only call what is defined inside the macro.
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Back-Return [page] {"position":"1700,1400","size":"100,100"}
+<h1>Going Back or Returning to a Passage with a Special Link</h1>
+Whether it is to return to the story from a codex page, or going back to a certain location, the {{{<<back>>}}} and {{{<<return>>}}} macros create an easy link towards previously visited passages.
+> ''Note:'' If the player has not visited the coded passage, they //will// get an error message.
+\
+Both macros are formatted the same way and only requires 1 argument:
+* (optional) the text to display on the page, the passage to send the player, or the image to show
+{{{
+→ Going back one passage:
+    <<back>>
+    <<return>>
+
+→ Going back one passage, showing the text "Home" in the link:
+    <<back "Home">>
+    <<return "Home">>
+
+→ Going back to a passage with the Link Markup:
+    <<back [[Home]]>>
+    <<return [[Going Home|Home]]>>
+
+→ Going back to a passage with an image:
+    <<back [img[URL]]>>
+    <<return [img[URL][Home]]>>  
+}}}
+> ''Note:'' Going back one passage is essentiall the same as {{{[[Text|previous()]]}}}, see the {{{previous()}}} [[function|Functions]].
+\
+<h3>{{{<<back>>}}} or {{{<<return>>}}}?</h3>\
+Though they seem to perfrom the same action (going to a specific passage), the macros behave differently under the hood. The {{{<<back>>}}} macro goes back in the player history, undoing any action made between the current passage and the targeted one. The {{{<<return>>}}} macro goes to the passage by going forward in the player history (like a regular {{{<<link>>}}}), keeping any action performed between the two passages safe.
+
+For example, the player goes to "NPC Codex Page" from the "Tavern" passage. Their history would look like this:
+{{{State.history = ["Tavern", "NPC Codex Page"]}}}
+In the Codex page, if the player clicks on the {{{<<return>>}}} macro, the history would look liks this:
+{{{State.history = ["Tavern", "NPC Codex Page", "Tavern"]}}}
+On the other hand, if the player clicks on the {{{<<back>>}}} macro, the history would look like this:
+{{{State.history = ["Tavern"]}}}
+\
+<h3>Using a variable as the targeted passage</h3>\
+If your project includes Codex pages, and you want to send the player back to the story with one easy link, you can use the [[Long Arbitrarily Return|Long-Return-JS]] in combination with the {{{<<back>>}}} or {{{<<return>>}}} macros. Thanks to that code, you can include a variable where the last visited Story Passage is stored.
+This method is particularly helpful to avoid neverending loops.
+{{{
+    <<back [[Return to the Story|$passage]]>>
+    <<return [[Return to the Story|$passage]]>>
+}}}
+> ''Note:'' since Twine automatically creates a new passage when using the {{{[[link]]}}} Markup, you will need to delete the new passage (here {{{$passage}}}) after coding the macros. Otherwise, the player will be sent to a blank page instead of the wanted passage. Or you can use the {{{<<link>>}}} macro instead.
+> {{{<<link "Return to the Story" $passage>><</link>>}}}
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Long-Return-JS [page] {"position":"1800,1400","size":"100,100"}
+<h1>Arbitrarily Long Returns</h1>
+While the {{{<<return>>}}} macro or {{{previous()}}} function can be useful in sending the player back to the Story when visiting a Codex or Inventory page, it can also create inescapable loops, making it impossible for the player to go back to the Story. 
+
+This can be solved in different ways:
+* Using the {{{<<back>>}}} macro as is or the {{{Engine.backwards()}}} API,
+** If multiple non-Story passages are clicked, the player will have to click each //Back// link.
+* Creating Popups to display those non-Story passages,
+** This will avoid navigating between passages.
+* Using the JavaScript code below.
+\
+<h3>How to Code the Arbitrarily Long Return</h3>\
+The //Arbitrarily Long Return// will record the last Story passage the player visited and store it in a variable, which can then be used inside a link, to send the player back to the Story. We will call here the variable {{{$return}}}.
+
+The code also requires something to differenciate Story and non-Story passages: a tag. We will calle it here {{{noreturn}}}. 
+
+When all your non-Story passages are tagged correctly, add this code in your JavaScript passage:
+{{{
+    $(document).on(':passagestart', function (ev) {
+        if (!ev.passage.tags.includes('noreturn')) {
+            State.variables.return = ev.passage.title;
+        }
+    });
+}}}
+> ''Note:'' you may change the name of the variable or the tag, if you prefer another name for either.
+> If you want to use multiple tags instead of one, change {{{!ev.passage.tags.includes('one-tag')}}} into {{{!ev.passage.tags.includesAny('one-tag two-tags')}}}.
+
+When this is set, you can add your links in the non-Story passages to send the player back to the Story:
+* {{{[[Return|$return]]}}}
+* {{{<<link "Return" $return>><</link>>}}}
+* {{{<<return $return>>}}} / {{{<<return [[Return|$return]]>>}}}
+* {{{<<back $return>>}}} / {{{<<back [[Return|$return]]>>}}}
+> ''Note:'' since Twine automatically creates a new passage when using the {{{[[link]]}}} Markup, you will need to delete the new passage (here {{{$passage}}}) after coding the macros. Otherwise, the player will be sent to a blank page instead of the wanted passage. Or you can use the {{{<<link>>}}} macro instead.
+\
+<h3>A Note on Navigating to a Previous Passage</h3>\
+Navigating back to a previously visited passage can be problematic, especially when code could run into issues when re-executing the content of the passage. Code may have some side-effect, like changing the value of a variable, or printing a different text on the page (ex: using the [[-visited() functions|Function-Pass-Tag]] to display variation). 
+
+This can be avoided if you:
+* ensure the passages contain no code with side effect,
+* wrap the code in something to prevent re-execution,
+** ex: {{{<if visited() is 1>>only show on the first view<</if>>}}}
+* use the code above with {{{<<back>>}}} macro to send the player back to the passage, erasing the record of visiting the non-Story passages,
+** ex: {{{<<back $return>>}}} / {{{<<back [[Return|$return]]>>}}}
+* move the non-Story passages into a PopUp with the Dialog API.
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Goto [page] {"position":"1700,1500","size":"100,100"}
+<h1>Sending the Player to a Passage</h1>
+The [[Link Markup|Markup-Link]] and {{{<<link>>}}} [[macro|Macro-Link]] are not the only macros to send the player to a specific passage. You also have {{{<<goto>>}}}.
+While it should not be overused, as it adds to the player history, and is alreayd included as an argument in the {{{<<link>>}}} macro, there are situations where {{{<<goto>>}}} is necessary. Like the destination of the next passage being conditional.
+> ''Note:'' using {{{<<goto>>}}} outside of a macro (like a {{{<<link>>}}}, {{{<<button>>}}}, or {{{<<timed>>}}}) will send the player to that passage without loading the previous passage completely. Both the incomplete and new passage will be included in the player's visited passages.
+
+The macro has 1 argument:
+* the name of the wanted passage, variable or function
+{{{
+    <<goto "PassageName">>
+    <<goto [[PassageName]]>> ← will create an arrow in Twine
+    <<goto $passage>>
+    <<goto [[$passage]]>>
+    <<goto `previous()`>>
+}}}
+> ''Note:'' on Twine, using the Link Markup with the variable will automatically create a passage. When using the variable or function, don't forget to remove that newly created passage.
+\
+> //Some example of uses://
+{{{
+    <<link "Attack!">>
+        <<if $attack gt 5>>
+            <<goto "Success">>
+        <<else>>
+            <<goto "Failure">>
+        <</if>>
+    <</link>>
+
+    <<timed 3s>>
+        <<goto "No Action">>
+    <</timed>>
+}}}
+\
+> ''Note:'' in some instances, it is preferrable to use the [[Navigation Override|Basic-Config-Navig]] instead of {{{<<goto>>}}}.
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Script-Run [page] {"position":"1800,1500","size":"100,100"}
+<h1>Using JavaScript in the Passage</h1>
+While you can add JavaScript or jQuery code inside the JavaScript tab, it is sometimes necessary to include it directly inside the passage. This can be done inside the {{{<<script>>}}} or the {{{<<run>>}}} macro.
+
+While both macros will run code, {{{<<run>>}}} is usually used for one-line type of codes (e.g. calling SugarCube [[APIs|Basic-API]], functions defined in the JavaScript tab, etc..), while {{{<<script>>}}} is more fitted for longer and more complex code.
+> ''Note:'' some knowledge of JavaScript/jQuery is necessary to have, especially if the code runs into issues.
+
+If added as is on the page, the code will triggers as soon at the passage is loaded. But it can also be included inside a {{{<<link>>}}} macro, or triggered at a later time with the {{{<<timed>>}}} macro.
+{{{
+    <<script>>
+        /*Your JavaScript/jQuery code*/
+    <</script>>
+
+    <<script>>
+        setup.Hi = function (name) {
+            if (name == undefined) {
+                return "Hi.";
+            } else {
+                return "Hi, " + name + ".";
+            }
+        };
+    <</script>>
+
+    <<run $(document.body).append('<div id="report-down"></div>').find('#report-down')>>
+    <<run setup.ScrollDown()>>
+}}}
+> ''Note:'' when using the {{{<<script>>}}} macro with {{{<<nobr>>}}}, the latter macro will transform the code into one line. If comments are included with backslash {{{//}}}, it will render the rest of the code unuseable. {{{/* Comments */}}} is prefered in this case.
+\
+> ''Note:'' the {{{<<script>>}}} macro has the same use as the {{{<script>}}} HTML markup, though the latter will only work inside the {{{StoryInterface}}} passage.
+
+<div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
