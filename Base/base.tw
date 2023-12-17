@@ -39,6 +39,14 @@ SugarCube Guide
 :: StorySubtitle {"position":"2300,300","size":"100,100"}
 <<if tags().includes("sp-demo")>>The bestest of guides!<<else>>Version 1.2.0<</if>>
 
+:: PassageFooter {"position":"2000,200","size":"100,100"}
+<<if tags().includes("sp-demo")>><hr>The Footer in action! included in a horizontal bar<<else>><hr>
+	<center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - [[Index]] - [[Macros List]] - <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora-if.tumblr.com/ask]]</center>
+<</if>>
+
+:: PassageHeader {"position":"1900,200","size":"100,100"}
+<<if tags().includes("sp-demo")>>The Header in action! included in a horizontal bar<hr><</if>>
+
 
 :: Start [noreturn menu] {"position":"1500,100","size":"200,200"}
 <div style="text-align:right;font-size:85%;">Last Updated: 10 Dec '23</div>
