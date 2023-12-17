@@ -1,0 +1,60 @@
+:: Widget [widget nobr] {"position":"1900,100","size":"100,100"}
+<<widget "SomeWidget">>
+    Wow Some Text
+<</widget>>
+<<widget "SimonSays">>
+    <<set _array to ["Raise your hands!", "Jump!", "Dance!"]>>
+    <<print _array.random()>>
+<</widget>>
+<<widget "SimonSpecialSay">>
+    <<if _args[0]>>
+        <<print _args[0]>>
+    <<else>>
+        <<SimonSays>>
+    <</if>>
+<</widget>>
+<<widget "SimonDoes" container>>
+    <div class="simon">
+        <hr class="before-simon">
+        <p class="simon-does">_contents</p>
+    </div>
+<</widget>>
+
+:: Credits [side popup] {"position":"1900,400","size":"100,100"}
+This guide was constructed by ''manonamora''.
+It is based on the SugarCube official documentation, created by Thomas M. Edwards, the developer of the SugarCube format.
+
+<h3>manonamora</h3>\
+You can find:
+* my other templates on [[Itch|https://manonamora.itch.io/]], as well as my guides:
+** [[Ready-to-Use Tweego and Guide|https://manonamora.itch.io/ready-to-use-tweego-folder]]
+** [[ChoiceScript to SugarCube Guide|https://manonamora.itch.io/choicescript-sugarcube-tweego-folder]]
+* my games and IF experiments on [[Itch|https://manonamora.itch.io/]]
+* me, and ask me questions, over on [[Tumblr|https://manonamora-if.tumblr.com]] or [[my website|https://manonamora.neocities.org/]]
+* my Twine Resource Masterlist [[on Tumbr|https://manonamora-if.tumblr.com/post/700577877042888704/]] or the [[IntFiction Forum|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]] (more up to date).
+
+<h3>Twine and SugarCube</h3>\
+[[About Twine and SugarCube|About]]
+You can download Twine over on the [[Twinery.org|https://twinery.org/]] website, which includes the SugarCube format.
+Thomas M. Edwards hosts the Documentation for the SugarCube format over on [[his website|https://www.motoslave.net/sugarcube/2/docs/]].
+
+You can also find resources and help with Twine and SugarCube:
+* on the [[IntFiction Forum|https://intfiction.org/c/authoring/twine/46]]
+* on the [[Twine Subreddit|https://www.reddit.com/r/twinegames/]]
+* in the [[Twine Discord|https://discord.gg/n5dJvPp]]
+* and more listed in this [[Masterlist|https://manonamora-if.tumblr.com/post/700577877042888704/]] ([[IntFiction Forum copy|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]])
+
+<h3>HTML, CSS, JavaScript</h3>\
+There are many online courses to learn the basics (or further) of the Twine-adjacent languages: HTML, CSS, JavaScript/jQuery.
+* the [[W3 School|https://www.w3schools.com/]] has the most beginner explanations, and lets you test and edit their examples.
+* [[MDN Web Docs|https://developer.mozilla.org/en-US/]] is more technical but provides a more extensive documentation.
+* [[jQuery|https://jquery.com/]] has also a special documentation website.
+
+<h3>This Guide also uses...</h3>\
+The {{{<<message>>}}} and {{{Dialog API}}} macros from [[Chapel|https://github.com/ChapelR/custom-macros-for-sugarcube-2/]].
+The Accessibility Fix for the {{{<<cycle>>}}} macro by [[HiEv|https://www.patreon.com/HiEv]].
+
+<h3>A Special Thanks to...</h3>\
+* Chris Klimas for creating Twine, and TME for making the SugarCube format and the Tweego compiler.
+* Cycy for making the Twee 3 Language Tool extension for VScode.
+* The Twine Discord, especially Crepes, TRBRY, Gwen, Cyrus, Sjoerd, SleepyFool, TME, for their help and sharing examples when I forgot what certain macros were supposed to do!
