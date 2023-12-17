@@ -1,0 +1,121 @@
+:: Engine-API [chapter menu] {"position":"1700,1800","size":"200,100"}
+<h1>The Engine APIs</h1>
+Aside from [[moving back and forth|Basic-API-Engine]] in the player history, the Engine APIs has some useful functions to customize the gameplay of your project. Some of these APIs are more useful in JavaScript code than in TwineScript code in the relevant passage.
+
+* [[Checking the State of the Game|Engine-State]]
+* [[Move through the Player's History|Engine-Go]]
+* [[(Re-)Play a Passage|Engine-Play]]
+* [[Restarting without the Built-In PopUp|Engine-Restart]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Engine-State [page] {"position":"1700,1900","size":"100,100"}
+<h1>Checking the State of the Game</h1>
+There are instences where knowing the state of the game before triggering a certain bit of code is important, such as with macros needing the passage to be fully idle to change something on the screen, or if the game has a server connection, this set of Engine API will show whether the game is in one of the following three states:
+* {{{idle}}}: the page is idle (default)
+* {{{playing}}}: nagivation to a new passage has been triggered
+* {{{rendering}}}: a passage is rendering on the screen 
+
+You can check which state the game is currently at with {{{Engine.state}}}:
+{{{
+    <<print Engine.state>>
+
+in JavaScript:
+    if (Engine.state === "rendering") { /* your JS code */ }
+}}}
+
+SugarCube has also three other Engine API to check for a specific state:
+* {{{Engine.isIdle()}}}, checking if the page is idle
+* {{{Engine.isPlaying()}}}, checking is the navigation to a new passage has been triggered
+* {{{Engine.isRendering()}}}, checking if a passage is rendering on the screen
+{{{
+    if (Engine.isIdle()) { /* your JS code */ }
+    else if (Engine.isRendering()) { /* your JS code */ }
+}}}
+
+> ''Note:'' while those are useful, if you are looking to target a more specific time during the redering of a passage or element, you may want to check the [[Events]], instead.
+
+<div id="link-menu">[[Back to the Engine API Menu|Engine-API]] - [[Back to the Start Menu|Start]]</div>
+
+:: Engine-Go [page] {"position":"1800,1900","size":"100,100"}
+<h1>Move through the Player's History</h1>
+While there are already [[options to go back and forth|Basic-API-Engine]] in the player's history, you can move further back and forth with the {{{Engine.go()}}} API. 
+{{{
+    Engine.go(number)
+}}}
+By indicating a number - positive to move forward, negative to move back - you will be telling the engine to undo or redo the player's actions as many times as the number. For example:
+{{{
+    Engine.go(2)   → Redoes two moments, forwards the player twice
+    Engine.go(-4)  → Undoes four moments, send the player back four times
+}}}
+
+Another method, to target a specific turn in the player's history is to use {{{Engine.goTo()}}}:
+{{{
+    Engine.goTo(number)
+}}}
+Unlike the previous method, the number indicates the specific passage in the player's history, with {{{0}}} being the starting page.
+{{{
+    Engine.goTo(0)  → Goes to the first screen
+    Engine.goTo(9)  → Goes to the tenth screen
+}}}
+> ''Note:'' it is hard to predict how a player will interact with a game, and what path they take, so this method can be quite unreliable.
+
+<div id="link-menu">[[Back to the Engine API Menu|Engine-API]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Engine-Play [page] {"position":"1700,2000","size":"100,100"}
+<h1>(Re-)Play a Passage</h1>
+While you can use links to move the player to a new passage, there is as well an Engine API to show said passage to the player:
+{{{
+    Engine.play("PassageName" [, noHistory])
+}}}
+
+In a passage, you will need to use the API the {{{<<run>>}}} or {{{<<script>>}}} macro:
+{{{
+    <<run Engine.play("PassageName")>>
+}}}
+The passage will then load, and will be added to the history of the player.
+
+> ''Note:'' if you want to know when the last time {{{Engine.play()}}} was used, {{{Engine.lastPlay}}} will give you that information.
+\
+<h3>Not adding to the History</h3>\
+{{{Engine.play()}}} allows showing a passage without adding to the player's history. To do so, you need to code it as follow:
+{{{
+    Engine.play("PassageName", true)
+}}}
+> ''Note:'' if the passage you want to show is the same as the current passage (a sort of refreshing the page), you can use {{{Engine.show()}}} instead.
+
+When triggered, the page will display the new passage. It will also change the value of variables if coded, which may affect what is displayed ont the screen. For example:
+{{{
+    :: StoryInit
+    <<set $words = 'I say hello'>>
+
+    :: Passage
+    <<print $words>>
+    <<button " Click">>
+        <<set $words = 'You say goodbye'>>
+        <<run Engine.play('beat', true)>>
+    <</button>>
+}}}
+When the passage is first displayed, the page will show {{{I say hello}}}. After clicking on the button, the passage will refresh and will now show: {{{You say goodbye}}}.
+
+''HOWEVER'', any changed value in the previous passage or the currently displayed one ''won't'' save until a new moment is created in the player's history. If the player refreshed the browser tap (F5) after {{{Engine.play("PassageName", true)}}} has been triggered, any action done or change in value since the display of the original passage will be lost.
+
+<div id="link-menu">[[Back to the Engine API Menu|Engine-API]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Engine-Restart [page] {"position":"1800,2000","size":"100,100"}
+<h1>Restarting without the Built-In PopUp</h1>
+Outside of the base [[Restart API|Basic-API-UI]], SugarCube has another way to restart a game, withe {{{Engine.restart()}}}. Unlike its counterpart {{{UI.restart()}}}, which will create a popup warning the player to save their progress, {{{Engine.restart()}}} will restart the file when triggered and without warning.
+
+This method can useful when wanting a more custom Restart screen, if the game does not have any saves, or at an end screen.
+Whatever reason for its use, {{{Engine.restart()}}} should be triggered through a link or a button, inside the {{{<<run>>}}} or {{{<<script>>}}} macro:
+{{{
+    <<button "Restart">>
+        <<run Engine.restart()>>
+    <</button>>
+}}}
+Another way to edit the Built-In PopUp is to change the relevant [[l10nStrings|Local-L10n]] in the JavaScript.
+
+<div id="link-menu">[[Back to the Engine API Menu|Engine-API]] - [[Back to the Start Menu|Start]]</div>
+
