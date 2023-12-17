@@ -1,0 +1,261 @@
+:: API-Adv [chapter menu] {"position":"1100,1100","size":"200,100"}
+<h1>Going Further with Basic APIs and More</h1>
+While most of the Basic API were listed [[here|Basic-API]], this chapter will cover more advanced elements for the Dialog Box and the UI SideBar, as well as extra APIs dealing with elements on the screen.
+
+Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
+
+* [[More Popups APIs|API-Dialog]] [ ★ NEW ★ ]
+* [[More UIBar APIs|API-UIBar]] [ ★ NEW ★ ]
+* [[The Template APIs|TemplateAPI]] [ ★ NEW ★ ]
+* [[(Un)Locking the Loading Screen|API-Lock]] [ ★ NEW ★ ]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+
+:: API-Dialog [page] {"position":"1100,1200","size":"100,100"}
+<h1>More Popups APIs</h1>
+\
+<h3>targeting and Appending a Popup</h3>\
+\
+<h4>{{{Dialog.body()}}}</h4>\
+This API will be most used to target the body element of a popup, especially with jQuery code.
+> //Adding text to the popup://
+{{{
+    jQuery(Dialog.body()).append("Cry 'Havoc!', and let slip the <em>ponies</em> of <strong>friendship</strong>.");
+
+    jQuery(Dialog.body()).wiki("Cry 'Havoc!', and let slip the //ponies// of ''friendship''.");
+}}}
+> ''Note:'' {{{.append()}}} will not parse SugarCube Markup or run macros. You will need to use {{{.wiki()}}} for that.
+\
+<h4>{{{Dialog.append()}}}</h4>\
+This API will append any given content to the body of the popup. This can be helpful when using a popup for multiple situations, but one requires some extra elements.
+It is a shortcut for {{{jQuery(Dialog.body()).append(…)}}}. Like the jQuery {{{.append}}}, you ''cannot include'' any SugarCube Markup or macro as content, but use the {{{Dialog.wiki()}}} [[API|Basic-API-Dialog]] instead.
+> //Example://
+{{{
+    Dialog.append("Cry 'Havoc!', and let slip the <em>ponies</em> of <strong>friendship</strong>.");
+}}}
+<<button "Click for Action">><<run UI.restart()>><<run Dialog.append("Look at what I added here!<br>But we shouldn't mess up with this popup. This is just for an example.");>><</button>>
+\
+<h3>{{{Dialog.isOpen()}}}</h3>\
+If there is code that should only be executed when a popup is (not) open (e.g. for a macro), you can use this API to check. {{{Dialog.isOpen()}}} also let you check if a particular popup is open, by indicating its class.
+{{{
+    Dialog.isOpen([classNames])
+}}}
+> //Examples://
+{{{
+    if (Dialog.isOpen()) {
+        /* code to execute if the dialog is open… */
+    }
+
+    if (Dialog.isOpen("saves")) {
+        /* code to execute if the Saves dialog is open… */
+    }
+}}}
+> ''Note:'' For code that should be triggered every time a popup is opened, it is recommended to use the [[Dialog Event|Events-Dialog]] instead.
+
+\
+<h3>Creating an Alert Popup</h3>\
+While the [[Dialog API|Basic-API-Dialog]] has many elements and options to customise a popup, there is a quicker way to include an Alert Popup, with {{{UI.alert()}}}. With this one-line API, a popup titled //Alert// will appear on the screen, with an //OK// button to close it.
+> ''Note'': this should not be confused with the JavaScript {{{alert()}}} which will create a browser popup.
+{{{
+    UI.alert(message [, options [, closeFn]])
+}}}
+\
+The API has 3 parameters:
+* {{{message}}}, which will be displayed to the player.
+** this cannot include any SugarCube macro.
+* {{{options}}} (optional) 
+** namely {{{ {top: [value]} }}}, to affect the top margin of the popup.
+* {{{closeFn}}} (option), the function to execute whenever the popup is closed
+\
+> //Example://
+{{{
+    UI.alert("You smell of elderberries!");
+
+    UI.alert("You smell of elderberries!", { top : 500});
+}}}
+<<button "Alert Hi">><<run UI.alert("You smell of elderberries!");>><</button>> | <<button "Alert Low">><<run UI.alert("You smell of elderberries!", { top : 500});>><</button>>
+
+<div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: API-UIBar [page] {"position":"1200,1200","size":"100,100"}
+<h1>More UIBar APIs</h1>
+\
+<h3>{{{UIBar.update()}}}</h3>\
+This API will let you update the whole of the SideBar outside of [[Navigation Update|Events-Passage]]. Runing this API will refresh any element coded in [[Special Passages|SP-UIBar]] (e.g. {{{StoryBanner}}}, {{{StoryCaption}}}, etc...).
+{{{
+    UIBar.update();
+}}}
+> ''Note:'' this should be used sparingly, as the refresh does not target a single element. If you need to update the SideBar, it is recommended to target that specific element instead of the whole, or move the player to a new passage. 
+\
+<h3>{{{UIBar.isHidden()}}} and {{{UIBar.isStowed()}}}</h3>\
+These API will check whether the SideBar is currently hidden or stowed respectively, using boolean values as results. These states are particularly useful when wanting to trigger code, whether in JavaScript or with SugarCube macros.
+{{{
+    if (UIBar.isHidden()) {
+	    /* code to execute if the UI bar is hidden… */
+    }
+
+    if (!UIBar.isStowed()) {
+	    /* code to execute if the UI bar is not stowed… */
+    }
+
+    <<if !UIBar.isHidden()>> ... <</if>>
+
+    <<if UIBar.isStowed()>> ... <</if>>
+}}}
+> ''Note:'' these API will be useless if you removed the SideBar.
+
+<div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: TemplateAPI [page] {"position":"1100,1300","size":"100,100"}
+<h1>The Template APIs</h1>
+Used in combination with the [[Template Markup|Markup-Template]], the Template APIs allows the inclusion of templates to display specific strings on the page. When defined, the Template API will look for any Template Markup ({{{?this}}}) and see if it can display a string instead.
+This can be used to a wide range of elements and variation, but it might be the most useful for Pronouns display.
+\
+<h3>Creating a Template</h3>\
+This API will allow you to define a template in your project. You can include as many as you want, as long as each template is named differently.
+> ''Note:'' this API is case-sensitive!
+{{{
+    Template.add(name , definition);
+}}}
+The API has 2 parameters:
+* {{{name}}}, the name (or array of names) of the template
+** it must consist of basic Latin characters (A → Z) and start with a letter.
+** it can include numbers, underscores, or hyphens
+* {{{definitition}}}, what could be outputed when the template is used
+** this can be a function, a string, or an array of either 
+** if the definition is an array, the output will be randomly selected between all listed options
+** functions should always produce string values
+*** functions can use {{{this}}} to refer to the template's {{{name}}}
+\
+> //Basic Examples://
+{{{
+→ String template named ?sunrise:
+    Template.add('sunrise', 'sunset');
+
+→ Array template named ?pie-filling:
+Template.add('pie-filling', ['cherry', 'apple', 'chocolate', 'pumpkin']);
+
+→ Function template named ?pet:
+Template.add('pet', function () {
+	return either('a dog', 'a cat', 'a turtle');
+});
+}}}
+> ''Note:'' a Function template is used for [[HiEv's Pronoun Template|https://hiev-heavy-ind.com/Sample_Code/Sample_Code.html#Pronoun%20Templates]] 
+\
+> //Mixed Array Example://
+{{{
+→ Mixed array template (string + function) named ?cmyk:
+Template.add('cmyk', [
+	'Cyan',
+	function () {
+		return either('Magenta', 'Yellow');
+	},
+	'Black'
+]);
+}}}
+> //Function Example with context object// {{{this}}}:
+{{{
+→ Multi-Named template, whose output depends on the name:
+Template.add(['color', 'Color'], function () {
+	var color = either('red', 'green', 'blue');
+	return this.name === 'Color' ? color.toUpperFirst() : color;
+});
+}}}
+> ''Note:'' in this last example, the function will randomly select between //red//, //green//, and //blue//. Then it will look at whether the Template Markup is either {{{?color}}} or {{{?Color}}} to format the output (capitalised or lowercase).
+\
+<h3>Removing a Template</h3>\
+To remove a template (or multiple), you need to use {{{Template.delete()}}}. Please note that deleting a template will affect any future iteration of that specific Template Markup.
+
+The template has 1 parameter:
+* {{{name}}}, the name (or arrays of names) of the template(s) to remove.
+> //Examples://
+{{{
+→ Removes the template for ?sunrise
+    Template.delete('sunrise');
+
+→ Removes the templates ?color and ?Color
+    Template.delete(['color', 'Color']);
+}}}
+\
+<h3>Other Template APIs</h3>\
+<h4>{{{Template.size}}}</h4>\
+This API can tell how many templates exist within the code.
+{{{
+    if (Template.size === 0) {
+        /* If no templates exist, run code */
+    }
+}}}
+\
+<h4>{{{Template.had()}}}</h4>\
+This API will check whether a template, for which you need to indicate the name, exists within the code.
+{{{
+    Template.had()
+
+    if (Template.has('sunrise')) {
+	    /* if ?sunrise is defined, run code */
+    }
+}}}
+\
+<h4>{{{Template.get()}}}</h4>\
+This API will indicate the definition of the template, whether it be a function ({{{[function]}}}), a string ({{{'word'}}}) or an array (list all elements), or will return NULL if the template is not defined.
+{{{
+    Template.get(name)
+
+    var sunrise = Template.get('sunrise');
+}}}
+> ''Note:'' if {{{?sunrise}}} is defined as the first example on this page, this API will show {{{sunset}}} as a value.
+
+<div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: API-Lock [page] {"position":"1200,1300","size":"100,100"}
+<h1>(Un)Locking the Loading Screen</h1>
+While the Loading Screen will stay visible until all coded assets are imported, like the [[Audio|Macro-Audio]], or loading [[StyleSheets or Scrips|Function-JS]], you can force it to stay locked for a longer period of time. During that time, the player will not be able to interact with the game.
+This can be useful when wanting to display multiple elements as a loading sequence, or to run more code at the start. It can also be used during the story.
+\
+<h3>{{{LoadScreen.lock()}}}</h3>\
+You can lock the screen by simply adding {{{LoadScreen.lock();}}} inside the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros directly in a passage. The Loading Screen will then appear on the screen. 
+
+Each use of the {{{LoadScreen.lock()}}} will return a ID (number). It is also preferable to save this id inside a (JavaScript) variable, for when you want to unlock the screen:
+{{{
+    var lockID = LoadScreen.lock();
+}}}
+\
+<h3>{{{LoadScreen.unlock()}}}</h3>
+To unlock the screen, and remove the Loading Screen, you will need to use {{{LoadScreen.unlock()}}} and indicate the lock ID:
+{{{
+    LoadScreen.unlock(lockId);
+
+    LoadScreen.unlock(2);
+}}}
+> ''Note:'' the ID must be a number, or an integer variable, saving that number.
+\
+> //Examples://
+{{{
+    var lockID = LoadScreen.lock();
+
+    setTimeout(function(){
+        LoadScreen.unlock(lockID);
+        /* Other functions that could affect the loading screen */
+    }, 5000);
+}}}
+{{{
+    var lockID = LoadScreen.lock();
+
+    /* Do something whose timing is unpredictable 
+    that should be hidden by the loading screen */
+
+    LoadScreen.unlock(lockID);
+}}}
+\
+<h3>Loading Screens and Config API</h3>\
+If your goal is only to delay the dismissal of the loading screen (e.g. to avoid it flashing at the start if too quick), the APIs above are somewhat unnecessary. You can use the {{{Config.loadDelay}}} API instead.
+
+{{{Config.loadDelay}}} will add a timer to the dismissal of the loading screen (indicated in milliseconds), which should normally happen once the game is ready to play. 
+> //Example://
+{{{
+→ Adding 2s of delay:    
+    Config.loadDelay = 2000;
+}}}
+
+<div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
