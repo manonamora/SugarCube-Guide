@@ -1,0 +1,304 @@
+:: Methods-Adv [chapter menu] {"position":"1100,1800","size":"200,100"}
+<h1>More Variable and Interaction Methods</h1>
+In the [[Methods]] chapter, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. 
+This chapter includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
+
+* [[More Methods to change Variables|Method-Variables]] [ ★ NEW ★ ]
+* [[jQuery Methods and Interactivity|Method-jQuery]] [ ★ NEW ★ ]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Method-Variables [page] {"position":"1100,1900","size":"100,100"}
+<h1>More Methods to change Variables</h1>
+The methods below should be used with other macros, such as {{{<<set>>}}}, {{{<<run>>}}}, {{{<<print>>}}} or even {{{<<if>>}}}, as well as JavaScript.
+\
+<h3>String-related Methods</h3>\
+<h4>{{{String.format()}}}</h4>\
+This method will help merge and format strings together, following the coded arguments.
+{{{
+    String.format(format , arguments…)
+}}}
+This method had 2 parameters:
+* {{{format}}} (string), consisting of normal text and format items.
+** {{{index}}}, starting from {{{0}}}, indicating where to place the item 
+** {{{alignment}}} (optional), inside the index, length of the field and the alignment of the argument within the field (positive = right, negative = left)
+* {{{arguments}}}, a list of arguments, corresponding to the elements to place in the index.
+** can be a list of strings {{{"word", "word"}}} or an array {{{['word', 'word']}}}
+\
+> //Examples://
+{{{
+→ List of arguments:
+    String.format("{0}, {1}!", "Hello", "World") 
+    → returns "Hello, World!"
+    
+→ Array argumment:
+    String.format("{0}, {1}!", [ "Hello", "World" ])
+    → returns "Hello, World!"
+
+→ Alignment right:
+    String.format("{0,6}", "foo")
+    → returns "   foo"
+
+→ Alignment left:
+    String.format("{0,-6}", "foo")
+    → returns "foo   "
+}}}
+\
+You can also use variables for either parameter.
+> //Assuming that// {{{_var = Hello}}} and {{{_var2 = World}}}
+{{{
+    String.format("{0}, {1}!", "_var", "_var2")
+
+→ will be the same as:
+    String.format("{0}, {1}!", [ "Hello", "World" ])
+}}}
+> //Using the method inside// {{{<<set>>}}}
+{{{
+    <<set $var to String.format("{0}, {1}!", "_var", "_var2")>>
+→ will be the same as:
+    <<set $var to _var + ", " + _var2 + "!">>
+}}}
+\
+<h4>{{{RegExp.escape()}}}</h4>\
+This method will take the given string and return an expression where the [[metacharacters|https://www.w3schools.com/jsref/jsref_obj_regexp.asp]] would be ignored.
+{{{
+    RegExp.escape('That will be $5 (cash only)')   
+→ returns 'That will be \$5 \(cash only\)'
+}}}
+> ''Note:'' there will only be very specific situations where this method is relevant to a project.
+\
+<h3>Array-related Methods</h3>\
+\
+<h4>{{{<Array>.countWith()}}}</h4>\
+This method will count every element in an array fitting the defined function. It will be useful to count the number of elements in an array for complex conditions requiring functions.
+{{{
+    <Array>.countWith(predicate [, thisArg])
+}}}
+It has 2 parameters:
+* {{{predicate}}}, the function used to test each member of the array. It is called with 3 arguments:
+** {{{value}}}, the processed member 
+** {{{index}}} (optional), the index of the member being processed
+** {{{array}}} (optional), the array being processed
+* {{{thisArg}}} (optional), the value used as {{{this}}}
+\
+> //Examples://
+{{{
+→ $fruits = ["Apples", "Oranges", "Plums", "Oranges"]
+    
+    $fruits.countWith(
+        function (fruit) { 
+            return fruit === "Oranges"; 
+        }
+    )
+}}}
+This will return as 2, since there are 2 counts of {{{Oranges}}} in the array.
+{{{
+→ $numbers = [1, 2.3, 4, 76, 3.1]
+
+    $numbers.countWith(
+        Number.isInteger
+    ) 
+}}}
+This will return as 3, since there are 3 counts of full numbers in the array. 
+{{{
+→ $items = [
+    { name : 'Healing potion', kind : 'potion' },
+    { name : 'Longsword', kind : 'weapon' },
+    { name : 'Mana potion', kind : 'potion' },
+    { name : 'Dead rat', kind : 'junk' },
+    { name : 'Endurance potion', kind : 'potion' },
+    { name : 'Shortbow', kind : 'weapon' }
+    ]
+
+    $items.countWith(
+        function (item) { 
+            return item.kind === 'junk';
+        }
+    )  
+}}}
+This will return as 1, since there is only 1 count of junk object in the array.
+\
+<h4>{{{<Array>.deleteWith()}}}</h4>\
+This method will remove every element in an array fitting the defined function. It will be useful to remove elements in an array for complex conditions requiring functions.
+{{{
+    <Array>.deleteWith(predicate [, thisArg])
+}}}
+It has 2 parameters:
+* {{{predicate}}}, the function used to test each member of the array. It is called with 3 arguments:
+** {{{value}}}, the processed member 
+** {{{index}}} (optional), the index of the member being processed
+** {{{array}}} (optional), the array being processed
+* {{{thisArg}}} (optional), the value used as {{{this}}}
+\
+> //Examples, assuming that:// {{{$fruits = ["Apples", "Apricots", "Oranges"]}}}
+{{{
+    $fruits.deleteWith(function (val) {
+        return val === "Apricots";
+    })
+
+→ the function removes any instance of ["Apricots"]
+    → $fruits = ["Apples", "Oranges"]
+}}}
+{{{
+    $fruits.deleteWith(function (val) {
+        return val.startsWith("Ap");
+    })
+
+→ the function removes any instance starting with ["Ap"]
+    → $fruits = ["Oranges"]
+}}}
+> //Examples, assuming that:// {{{$fruits = [{ name : "Apples" }, { name : "Apricots" }, { name : "Oranges" }]}}}
+{{{
+    $fruits.deleteWith(function (val) {
+        return val.name === "Apricots";
+    })
+
+→ the function will remove any iteration where {name : "Apricots"}
+    → $fruits = [{ name : "Apples" }, { name : "Oranges" }]
+}}}
+{{{
+    $fruits.deleteWith(function (val) {
+        return val.name.startsWith("Ap");
+    })
+
+→ this function will remove any interation where {name} starts with {"Ap"}
+    → $fruits = [{ name : "Oranges" }]
+}}}
+\
+<h4>{{{<Array>.flatMap()}}}</h4>\
+This method will flatten an array in accordance to a defined function. 
+{{{
+    <Array>.flatMap(callback [, thisArg])
+}}}
+> ''Note:'' it is identical to {{{<Array>.map(…).flat()}}}.
+It has 2 parameters:
+* {{{callback}}}, the function used to produce members of the edited array. It is called with 3 arguments:
+** {{{value}}}, the processed member 
+** {{{index}}} (optional), the index of the member being processed
+** {{{array}}} (optional), the array being processed
+* {{{thisArg}}} (optional), the value used as {{{this}}} when executing {{{callback}}}
+> //Assuming that:// {{{$npa = ["Alfa", "Bravo Charlie", "Delta Echo Foxtrot"]}}}
+{{{
+    $npa.flatMap(function (val) {
+        return val.split(" ");
+    })
+
+→ this function will flatten the array 
+  by removing all spaces between words
+    → $npa = ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot"]
+}}}
+
+<div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Method-jQuery [page] {"position":"1200,1900","size":"100,100"}
+<h1>jQuery Methods and Interactivity</h1>
+\
+<h3>{{{<jQuery>.ariaClick()}}}</h3>\
+This method will make the target element WAI-ARIA-compatible clickable. This means the element will get accessibility attributes and can be activated with a mouse click, or key press (enter/return/spacebar).
+{{{
+    <jQuery>.ariaClick([options ,] handler)
+}}}
+The method has 2 parameters:
+* {{{options}}} (optional), options to be used when creating the clickable
+** {{{namespace}}}, list of event namespaces
+** {{{one}}}, if indicated, the clickable is single-use 
+** {{{selector}}}, if indicated, the selector will filter the descendants that triggered the event.
+** {{{data}}}, to be passed to the handler 
+** {{{controls}}}, value for {{{aria-controls}}}
+** {{{pressed}}}, value for {{{aria-pressed}}}
+** {{{label}}}, value for {{{aria-label}}} and {{{title}}}
+* {{{handler}}} (function), the callback to invoke when the element is activated.
+\
+> //Examples//
+{{{
+→ existing element: <a id="so-clicky">Click me</a>
+    $('#so-clicky').ariaClick(function (event) {
+        /* do stuff */
+    });
+}}}
+{{{
+→ creating a basic link + appending output:
+    $('<a>Click me</a>')
+        .ariaClick(function (event) {
+            /* do stuff */
+        })
+	    .appendTo(output);
+}}}
+{{{
+→ creating a basic button + appending output:
+    $('<button>Click me</button>')
+        .ariaClick(function (event) {
+            /* do stuff */
+        })
+        .appendTo(output);
+}}}
+{{{
+→ creating a link with options + appending output:
+    $('<a>Click me</a>')
+        .ariaClick({
+            one   : true,
+            label : 'This single-use link does stuff.'
+        }, function (event) {
+            /* do stuff */
+        })
+        .appendTo(output);
+}}}
+\
+<h3>{{{<jQuery>.ariaDisabled()}}}</h3>\
+This method will change the ''disabled'' state of the target WAI-ARIA-compatible clickable element(s).
+{{{
+    <jQuery>.ariaDisabled(state)
+}}}
+> ''Note:'' this method will only to work with clickables created via {{{<jQuery>.ariaClick()}}}, which is what SugarCube uses to handle the link markups and macros.
+\
+> //Examples://
+{{{
+$('.macro-link').ariaDisabled(true)   
+    → Disable all <<link>> on the page
+$('.macro-link').ariaDisabled(false)  
+    → Enables  all <<link>> on the page
+}}}
+\
+<h3>{{{<jQuery>.ariaIsDisabled()}}}</h3>\
+This method will check whether the targetted WAI-ARIA-compatible clickable element(s) is(are) disabled.
+{{{
+    <jQuery>.ariaIsDisabled()
+}}}
+> ''Note:'' this method will only to work with clickables created via {{{<jQuery>.ariaClick()}}}, which is what SugarCube uses to handle the link markups and macros.
+\
+> //Examples assuming that an element {{{#so-clicky}}} exists//:
+{{{
+$('#so-clicky').ariaIsDisabled()
+  → Returns true if {#so-clicky} is disabled
+  → Returns false if {#so-clicky} is enabled
+}}}
+\
+<h3>{{{jQuery.wiki()}}}</h3>\
+This methos will wikify the indicated content source(s) and discard the result (unless there are errors). This is only useful when you want to invoke a macro for its side-effects but don't need the output.
+{{{
+    jQuery.wiki()
+}}}
+It has 1 parameter:
+* {{{sources}}}: the list of content sources 
+> //Example://
+{{{
+    $.wiki('<<somemacro>>');  
+→ Invokes the <<somemacro>> macro, discarding any output
+}}}
+\
+<h3>{{{<jQuery>.wiki()}}}</h3>\
+This method is similar to the previous one, except it will append the output of the content source(s) to the targetted element(s).
+{{{
+    <jQuery>.wiki(sources…)
+}}}
+It has 1 parameter:
+* {{{sources}}}: the list of content sources 
+> //Examplem given the element:// {{{<div id="the-box"></div>}}}
+{{{
+    $('#the-box').wiki('Who //are// you?'); 
+→ will append to {#the-box}
+    "Who <em>are</em> you?"
+}}}
+
+<div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
