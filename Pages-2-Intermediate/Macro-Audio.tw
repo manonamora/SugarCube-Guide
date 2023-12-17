@@ -1,0 +1,243 @@
+:: Macro-Audio [chapter menu] {"position":"2900,1100","size":"200,100"}
+<h1>Adding Sound with the Audio Macros</h1>
+Adding any asset to a project can be daunting, especially when it can involve so many macros. But adding audio is actually quite simple and, at the minimum, only requires the use of 2 macros: {{{<<audio>>}}} and {{{<<cacheaudio>>}}}.
+
+* [[Setting up the Audio Tracks|CacheAudio]]
+* [[Create Track Groups and Playlists|Macro-Group-Playlist]]
+* [[Playing Tracks in a Passage|Audio-Macro]]
+* [[Other Audio Macros|Audio-Other]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: CacheAudio [page] {"position":"2900,1200","size":"100,100"}
+<h1>Setting up the Audio Tracks</h1>
+To use audio tracks in your project, SugarCube requires you to cache the tracks at the start of the game by using the {{{<<cacheaudio>>}}} macro in the {{{StoryInit}}} [[Special Passage|SP-Init]].
+
+The macro has 2 arguments:
+* the ID for the track, as a reference
+* the [[URL|URL-Types]] of the file, or files if a track has multiple formats.
+{{{
+        :: StoryInit
+        <<cacheaudio "boom" "music/explosion.mp3">>
+        <<cacheaudio "synth" "music/synth.mp3" "music/synth.wav" "music/synth.aac">>
+}}}
+>'' Note:'' if possible, take into account browser support when adding audio tracks to a project. [[Not every format is compatible|https://caniuse.com/?search=audio%20format]].
+\
+<h3>Pre-loading some tracks</h3>\
+If some tracks will be played from the first few screens and should be pre-loaded, the {{{<<waitforaudio>>}}} macro will do just that, by increasing the loading screen until the track(s) is(are) ready to play. 
+
+Place the macro in {{{StoryInit}}} below the necessary tracks, to load ahead. The tracks below the macro will only be cached.
+{{{
+       :: StoryInit
+        <<cacheaudio "boom" "music/explosion.mp3">>
+        <<waitforaudio>>
+        <<cacheaudio "synth" "music/synth.mp3">>
+        <<cacheaudio "wind" "music/wind.mp3">>
+        <<cacheaudio "water" "music/water.mp3">>
+}}}
+
+<div id="link-menu">[[Back to the Audio Macros Menu|Macro-Audio]] - [[Back to the Start Menu|Start]]</div>
+:: Macro-Group-Playlist [page] {"position":"3000,1200","size":"100,100"}
+<h1>Create Track Groups and Playlists</h1>
+On top of adding audio tracks to your project, you can also create groups of tracks, for a better control over multiple tracks at once, and playlists. The first is set by the {{{<<createaudiogroup>>}}} macro, while the second is done through {{{<<createplaylist>>}}}. Both macros need to be set in {{{StoryInit}}} ''after'' the tracks are cached (with {{{<<cacheaudio>>}}}).
+\
+<h3>Create a Track Group</h3>\
+The macro only has one argument for the container, and one arugment for the sub-macro:
+* {{{<<createaudiogroup>>}}}
+** the name of the group, starting with {{{:}}}
+* {{{<<track>>}}}
+** the ID of the track(s)
+Assuming that the tracks {{{beep}}}, {{{boop}}}, and {{{swish}}} were defined above:
+{{{
+       <<createaudiogroup ":controls">>
+                <<track "beep">>
+                <<track "boop">>
+                <<track "swish">>
+        <</createaudiogroup>> 
+}}}
+>'' Note:'' You cannot name your group with the following: {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:not}}}, {{{:paused}}}, {{{:playing}}}, as they are used for [[audio control|Audio-Macro]].
+\
+<h3>Create a Playlist</h3>\
+The macro only has one argument for the container, and three arugment for the sub-macro:
+* {{{<<createplaylist>>}}}
+** the ID of the playlist
+* {{{<<track>>}}}
+** the ID of the track
+** {{{volume}}} (optional), to set the volume of the track, set from 0 (for 0%) to 1 (for 100%).
+** {{{own}}} (optional), to create an independant copy of the track for the playlist
+Assuming that the tracks {{{beep}}}, {{{boop}}}, and {{{swish}}} were defined above:
+{{{
+       <<createplaylist "controls">>
+                <<track "beep" own>>
+                <<track "boop" volume 0.5>>
+                <<track "swish" volume 0.3 own>>
+        <</createplaylist>> 
+}}}
+
+<div id="link-menu">[[Back to the Audio Macros Menu|Macro-Audio]] - [[Back to the Start Menu|Start]]</div>
+
+:: Audio-Macro [page] {"position":"2900,1300","size":"100,100"}
+<h1>Playing Tracks in a Passage</h1>
+After setting tracks in {{{StoryInit}}}, you can those tracks to a passage with the {{{<<audio>>}}} macro. You also use this macro to target track groups, as well as controling the playback (ex: pause, volume change...).
+
+The macro can be coded as is in a passage, or can be nested inside other macros, like a {{{<<link>>}}} or with a delay in {{{<<timed>>}}}.
+
+When started, a track will play until it ends or another action is set with the {{{<<audio>>}}} macro.
+
+The macro has 2 main arguments:
+* the ID of the track or the group
+* the list of action to perform (can be combined)
+{{{
+        <<audio "ID" action>>
+}}}
+\
+<h3>Action List</h3>\
+There are 14 actions that can be included in the {{{<<audio>>}}} macro to control how a track or group of tracks is played:
+<<nobr>>
+<table id="audio">
+        <tr>
+                <th>Argument</th><th>Explanation</th><th>Example</th>
+        </tr>
+        <tr>
+                <td>{{{play}}}</td><td>Start/Restart to play the track(s)</td><td>{{{<<audio "track" play>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{pause}}}</td><td>Pause the track(s)</td><td>{{{<<audio "track" pause>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{stop}}}</td><td>Stop the track(s)</td><td>{{{<<audio "track" stop>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{mute}}}</td><td>Reduce the volume to 0, without pausing the track</td><td>{{{<<audio "track" mute>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{volume}}}</td><td>Change the volume of the track(s)</td><td>{{{<<audio "track" volume 0.5>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{loop}}}</td><td>Set the track(s) to repeat when reahcing the end</td><td>{{{<<audio "track" loop>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{unloop}}}</td><td>Remove the looping (default)</td><td>{{{<<audio "track" unloop>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{fadein}}}</td><td>Start/Continue to play the track(s), fading in from their current volume to max over 5 seconds</td><td>{{{<<audio "track" fadein>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{fadeout}}}</td><td>Start/Continues to play the track(s), fading out from their current volume to 0 over 5 seconds</td><td>{{{<<audio "track" fadeout>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{fadeoverto}}}</td><td>Start/Continue to play the track(s), fading it over a set amount of seconds to a certain volume level </td><td>{{{<<audio "track" 5 0.5>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{fadeto}}}</td><td>Start/Continue to play the track(s), fading to a certai volume level over 5 seconds</td><td>{{{<<audio "track" fadeto 0.9>>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{goto}}}</td><td>Send the player to a certain passage at the end of the track(s)</td><td>{{{<<audio "track" goto "Home">>}}}</td>
+        </tr>
+        <tr>
+                <td>{{{time}}}</td><td>Move the play of the track to a certain amount of seconds from 0 (start) to the max of the file.</td><td>{{{<<audio "track" time 60>>}}}</td>
+        </tr>
+</table>
+<</nobr>>
+Assuming that the track {{{space}}}, inside the group {{{:space}}}, has been cached, here are some extra examples:
+{{{
+        <<audio ":space" play>>
+→ Will start to play the group of tracks called :space, all at the same time.
+
+        <<audio "space" volume 0.65 play>>
+→ Will start playing the track {space} at 65% volume
+
+        <<audio "space" time 92 play>>
+→ Will start playing the track {space} from the 92th second
+
+        <<audio "space" loop play>>
+→ Will start playing the track {space} on repeat
+
+        <<audio "space" volume 10 fadein>>
+→ Will start playing the track {space}, fading in from 10% to max volume
+
+        <<audio "space" volume 0.15 fadeto 0.78>>
+→ Will start playing the track {space}, fading from 15% to 78% volume 
+
+        <<audio "space" volume 0.04 fadeoverto 27 0.96>>
+→ Will start playing the track {space}, fading from 4% to 96% volume over 27 seconds 
+
+        <<audio "space" play goto "Home">>
+→ Will start playing the track {space}, and send the player to the passage "Home" when the track ends.
+}}}
+<h3>Group IDs</h3>\
+Aside from targeting groups, the {{{<<audio>>}}} macro can also target the state of tracks.
+{{{
+        <<audio ":paused" play>>
+→ Will start playing all tracks previously paused
+
+        <<audio ":playing" pause>>
+→ Will pause all tracks currently playing
+
+        <<audio ":playing" stop>>
+→ Will stop all tracks currently playing
+
+        <<audio ":all" stop>>
+→ Will stop all tracks (playing and paused)
+
+        <<audio ":playing:not(:space)" stop>>
+→ Will stop all tracks currently playing, except the ones in the ":space" group
+
+        <<audio ":all:not(:space)" volume 0.40>>
+→ Will change the volume of all tracks not in the ":space" group to 40%
+}}}
+\
+<h3>The {{{<<playlist>>}}} macro</h3>\
+This macro will work similarly to the {{{<<audio>>}}} macro, aside from targeting playlists set in {{{StoryInit}}} instead of groups or single tracks.  
+
+The macro has 2 main arguments:
+* the ID of the playlist 
+* the list of action to perform (can be combined)
+{{{
+        <<playlist "ID" action>>
+}}}
+On top of the actions mentioned above for {{{<<audio>>}}}, this macro has three extra: 
+* {{{shuffle}}}, shuffling the order of the tracks
+* {{{unshuffle}}}, reorganising the order of the tracks to its original form
+* {{{skip}}}, skipping the next track in the playlist 
+{{{
+        <<playlist "playlist" shuffle>>
+        <<playlist "playlist" unshuffle>>
+        <<playlist "playlist" skip>>
+}}}
+>'' Note:'' The action {{{goto}}} will not work with {{{<<playlist>>}}}
+
+<div id="link-menu">[[Back to the Audio Macros Menu|Macro-Audio]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Audio-Other [page] {"position":"3000,1300","size":"100,100"}
+<h1>Other Audio Macros</h1>
+There are three extra macros that can affect the played audio.
+\
+<h3>{{{<<masteraudio>>}}}</h3>\
+This macro will control the master volume of the game (overall volume), as well as affect all registered tracks, regardless of their state.
+
+This macro only has one argument, the action:
+* {{{mute}}} and {{{unmute}}}, muting or unmuting the master volume of the game.
+* {{{muteonhide}}} and {{{nomuteonhide}}}, which will either mute or unmute (default) the master volume when the player moves to another tab or minimize the browser.
+* {{{stop}}}, which will stop all registered tracks.
+* {{{volume}}}, which will change the master volume to a specified level
+{{{
+        <<masteraudio action>>
+}}}
+>'' Note:'' the master audio volume can be changed at will by the player with a [[Slider Setting|SettingsRange]].
+\
+<h3>{{{<<removeaudiogroup>>}}}</h3>\
+This macro will delete a track group, which was previously set with {{{<<createaudiogroup>>}}}, by targeting the ID of the group. As with the latter macro, it will not accept the following IDs: {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:not}}}, {{{:paused}}}, {{{:playing}}}.
+{{{
+        <<removeaudiogroup ":space">>
+}}}
+\
+<h3>{{{<<removeplaylist>>}}}</h3>\
+This macro will delete a playlist, which was previously set with {{{<<createplaylist>>}}}, by targeting the ID of the playlist.
+{{{
+        <<removeplaylist "playlist">>
+}}}
+
+<div id="link-menu">[[Back to the Audio Macros Menu|Macro-Audio]] - [[Back to the Start Menu|Start]]</div>
+
