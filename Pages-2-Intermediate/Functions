@@ -1,0 +1,274 @@
+:: Functions [chapter menu] {"position":"2300,1100","size":"200,100"}
+<h1>Harness the Power of Functions</h1>
+Functions are JavaScript blocks of code designed to do a specific task, from importing outside scripts, to save information, or setting variables. While some of the functions explained in this chapter can be used in any passage in combination with SugarCube macros, some should be restricted to the JavaScript passage only.
+
+* [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
+* [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  [ ★ UPDATE ★ ]
+* [[Memorizing Information and Metadata|Function-Metadata]]
+* [[JavaScript-only Functions|Function-JS]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Function-Clone-Random [page] {"position":"2300,1200","size":"100,100"}
+<h1>Cloning Variables, and Random Values Functions</h1>
+SugarCube has a handful of functions to set variables, from cloning objects to randomising a value.
+\
+<h3>The {{{clone()}}} function</h3>\
+Unlike simple variables or arrays, copying an object in another variable will not just copy the current value of the orginal variable but any future changes to that original variable. Assuming that {{{$object = {turn : 1} }}}:
+{{{
+    <<set $var to $object>>
+    <<set $object.turn to 6>>
+
+    → $object.turn = 6
+    → $var.turn = 6
+}}}
+This is where the {{{clone()}}} function comes in. The function will clone the values of an object, but not any future change. 
+{{{
+    <<set $var to clone($object)>>
+    <<set $object.turn to 6>>
+
+    → $object.turn = 6
+    → $var.turn = 1
+}}}
+\
+<h3>Random Values Functions</h3>\
+To randomise a value, there are two main functions: {{{either()}}} for strings and arrays, and {{{random()}}}/{{{randomFloat()}}} for integer (only). Both functions can be used in setting variables or simply printed on the page:
+{{{
+    <<set $var to either('Blueberries', 'Cherries', 'Peaches')>>
+→ this will set $var with one of the listed values
+
+    <<print random(5)>>
+→ this will print on the page a number between 0 and 5 (incl)
+
+    <<set _temp to randomFloat(0.0, 5.0)>>
+→ this will set _temp a number between 0.0 and 4.99999...
+}}}
+> ''Note:'' {{{either()}}} will also accept integer and boolean values.
+\
+Instead of listing values, other variables can be used inside the functions. Assuming that {{{_min = 0}}}, {{{_max = 10}}}, {{{_array = ["Apple", "Chocolate"]}}}, {{{_array2 = [1, 2]}}}:
+{{{
+    <<set
+        $var to either(_array),
+        $var2 to either(_array, _array2),
+        $var3 to either(_array, "Peaches"),
+        $var4 to random(_max),
+        $var5 to random(_min, _max)
+    >>
+}}}
+
+<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
+
+:: Function-Pass-Tag [page] {"position":"2400,1200","size":"100,100"}
+<h1>Using Play, Passage, and Tags information</h1>
+SugarCube functions can also track where players have (or have not) been, or how many times they have visited a certain passage. These can be useful to show variation, whether certain links appear in a menu, or changing the content of the Header/Footer depending on a location.
+\
+<h3>Using the {{{tags()}}} and {{{visitedTags()}}} functions</h3>\
+To track where the player is or has been based on the tags coded on the passages, we can use respectively the {{{tags()}}} and {{{visitedTags()}}} functions. This is quite useful when trying to target a group of passages rather than a handful of them (and having to list those). 
+
+{{{tags()}}} should mainly be used in Special Passages, widgets, or JavaScript code outside of the passage, as it contains the list of tags of the current passage. As passages may have multiple tags, it should be treated as if they were an array variable.
+{{{
+    :: PassageHeader
+    <<if tags().includes('forest')>>The Dark Forest
+    <<elseif tags().includes('town')>>The Lovely Town 
+    <<elseif tags().includes('tavern')>>The Thick Table Tavern :P
+    <</if>>
+
+Display tags:
+    <<print tags()>>
+
+Set as a value:
+    <<set $var to tags()>>
+}}}
+
+{{{visitedTags()}}} will save all the different tags attached to the previously visited passages, and should be mainly be used in conditional statements:
+{{{
+    <<if visitedTags("forest")>> … </if>>
+→ has visited at least one passage tagged 'forest'
+
+    <<if visitedTags("forest", "haunted") is 1>> … <</if>>
+→ has visited a passage tagged with both 'forest' and 'haunted' exactly once
+
+    <<if visitedTags("forest", "burned") gt 3>> … <</if>>
+→ has visited a passage tagged with both 'forest' and 'burned' more than three times
+}}}
+> ''Note:'' this functions works similarly to the {{{visited()}}} function. As such, when using more strict conditional statements, as players may unknowingly visit a passage more than once (see {{{<<return>>}}} [[macro|Macro-Back-Return]] or the [[Arbitrarily Long Return|Long-Return-JS]]).
+\
+<h3>Using the Passage-related functions</h3>\
+One can track where the player is or has been based on the passages' name. Aside from {{{passage()}}}, all other functions deal with past events, with {{{visited()}}} and {{{lastVisited()}}} handling both current and past events.
+
+{{{passage()}}} will ''only'' look at the current passage. It can be used both in conditional statements, setting variables, or reloading a page:
+{{{
+    <<if passage() is "Forest">>...<</if>>
+    <<set $var to passage()>>
+    <<link "Reload" `passage()`>><</link>>
+}}}
+> ''Note:'' while it is possible to reload as passage with {{{passage()}}}, this is not recommended, as issues may arise from reloading one passage too many times. If used, it should be done so parsimoniously.
+> It is best to use {{{<<replace '.passage'>><<include `passage()`>><</replace>>}}} instead.
+
+{{{previous()}}} will log the most recent previous passage. It will be most useful in conditional statements or links:
+{{{
+    <<if previous() is "Forest">>...<</if>>
+    <<link "Go Back" `previous()`>><</link>>
+}}}
+> ''Note:'' using {{{previous()}}} in a link will be the same as using the {{{<<back>>}}} [[macro|Macro-Back-Return]]. 
+
+{{{visited()}}} will look at the amount of time a passage has been visited, and is mainly used in conditional statements. When landing on a passage, the {{{visited()}}} counter will increase by 1. The following examples will check if:
+{{{
+    <<if visited() is 2>>...<</if>>
+→ this is currently the second visit on this passage
+
+    <<if visited('Tavern')>>...<</if>>
+→ the player has visited the passage "Tavern" at least once 
+
+    <<if visited('Tavern') is 2>>...<</if>>
+→ the player has visited the passage "Tavern" exactly two times 
+
+    <<if visited('Tavern', 'Forest')>>...<</if>>
+→ the player has visited the passages "Tavern" AND "Forest" at least once
+}}}
+> ''Note:'' when using more strict conditional statements, as players may unknowingly visit a passage more than once (see {{{<<return>>}}} [[macro|Macro-Back-Return]] or the [[Arbitrarily Long Return|Long-Return-JS]]).
+
+{{{lastVisited()}}} works similarly to the {{{previous()}}} function, though it will look at the length of turns between the current passage and the one in question. The following examples will check if:
+{{{
+    <<if lastVisited('Tavern') is 0>>...<</if>>
+→ the player is currently in the passage "Tavern"
+
+    <<if lastVisited('Tavern') is -1>>...<</if>>
+→ the player has not yet visited the passage "Tavern"
+
+    <<if lastVisited('Tavern') is 1>>...<</if>>
+→ the previous passage visited by the player is "Tavern"
+
+    <<if lastVisited('Tavern', 'Forest') is 2>>...<</if>>
+→ the player has visited BOTH the "Tavern" and "Forest" passage, most recently 2 turns ago
+}}}
+> ''Note:'' the {{{lastVisited()}}} function will look at all passages visited in the order they were visited, even if those passages are not part of the story (i.e. Codex).
+> To avoid seeing those passages in the history, consider avoiding using the {{{<<return>>}}} [[macro|Macro-Back-Return]] or a regular link with the the [[Arbitrarily Long Return|Long-Return-JS]], favouring the {{{<<back>>}}} [[macro|Macro-Back-Return]] instead.
+
+{{{hasVisited()}}} will only check if a passage has been visited or not. The following examples will check if:
+{{{
+    <<if hasVisited('Tavern')>>...<</if>>
+→ the player has visited the passage 'Tavern'
+
+    <<if not hasVisited('Tavern')>>...<</if>>
+→ the player has not yet visited the passage 'Tavern'
+
+    <<if hasVisited('Tavern', 'Forest')>>...<</if>>
+→ the player has visited BOTH the passages 'Tavern' and 'Forest'
+
+    <<if not hasVisited('Tavern', 'Forest')>>...<</if>>
+→ the player has not visited 'Tavern', or not visited 'Forest', or not visited both
+}}}
+\
+<h3>Other Play Functions</h3>\
+{{{turns()}}} will look at the amount of turns a player has taken since the start of the playthrough. It will count all passages visited as a singular path (including starting menus and codexes). As such, rewound/undone actions are not counted. It can be used to display said count on the page, in conditional statements, or saved in a variable.
+{{{
+    <<= turns()>> 
+→ will print the number of turns 
+
+    <<print "Turn #" + turns()>>
+→ will print the number of turns, with some extra text 
+
+    <<if turns() gt 5>>...<</if>>
+    <<set $var to turns()>>
+}}}
+
+{{{time()}}} will look at the time spent in the current passage, in milliseconds. It can be useful in forcing the player to do quick decisions, or track how long a player goes through a section.
+{{{
+    <<set $time += time()>>
+
+    <<if time() lt 5000>>...<</if>>
+→ if the time spent on the passage is less than 5 seconds.
+
+    <<link "Run Away!">>
+        <<if time() lt 5000>>
+            <<goto "Escaped">>
+        <<else>>
+            <<goto "Caught">>
+        <</if>>
+    <</link>>
+}}}
+    
+<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
+
+:: Function-Metadata [page] {"position":"2300,1300","size":"100,100"}
+<h1>Memorizing Information and Metadata</h1>
+Aside form the Built-In Saves, SugarCube has another way of saving information, in the story metadata. While it ''is not'' a save and ''should not'' replace saves, the following functions can be useful for tracking achievements or statistics, or having a New Game+ feature.
+> ''Note:'' this //will not work with private browsing//, and may affect how the game progresses.
+> It will also affect all playthroughs of the game.
+{{{
+    memorize() → save information
+    recall()   → bring up information 
+    forget()   → delete information
+}}}
+
+The functions will need the {{{<<run>>}}} macro to be used and is set as follow:
+* the function 
+* the name of the information to save/edit/delete, as a string
+* (optional) the value of the information, can be a boolean, string or integer
+{{{
+    <<run function('name': value)>>
+}}}
+{{{
+    <<run memorize('achievement1': true)>>
+    <<run forget('achievement1')>>
+}}}
+
+The {{{recall}}} function can also be used in conditional statements and saving the information in variables:
+{{{
+    <<if recall('achievement') is true>>
+        You already achieved this.
+    <</if>>
+    <<set $variable to recall('achievement')>>
+}}}
+
+<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
+
+:: Function-JS [page] {"position":"2400,1300","size":"100,100"}
+<h1>JavaScript-only Functions</h1>
+The functions below can only be used in the JavaScript tab or inside a {{{<<script>>}}} macro.
+\
+<h3>Importing outside code</h3>\
+SugarCube functions allows for importing JavaScript and CSS from outside sources, to use in a project:
+{{{
+To import JavaScript:
+    importScripts(URL);
+
+To import CSS:
+    importStyles(URL);
+}}}
+
+You can import multiple scripts or styles in one import:
+{{{
+    importScripts(
+        "https://somesite/a/path/a.js",
+        "https://somesite/a/path/b.js",
+        "https://somesite/a/path/c.js",
+        "https://somesite/a/path/d.js"
+    );
+    importStyles([
+        "https://somesite/a/path/a.css",
+        "https://somesite/a/path/b.css",
+        "https://somesite/a/path/c.css",
+        "https://somesite/a/path/d.css"
+    ]);
+}}}
+> ''Note:'' the use of square {{{[ ]}}} brackets will determine whether the sheets should be loaded one after the other or not.
+\
+<h3>Calling SugarCube variables in JS code</h3>\
+Sometimes, your JavaScript code will need a variable set in SugarCube to run. This is where {{{temporary()}}} and {{{variables()}}} come in.
+> ''Note:'' knowledge of JavaScript is required.
+{{{
+    temporary().test    → _test
+    variables().colour  → $colour
+}}}
+> ''Note:'' those functions are equivalent to {{{State.temporary}}} and {{{State.variables}}}
+{{{
+    if (variables().hasGoldenKey) {
+	    temporary().unlock = true
+    }
+→ if the variable $hasGoldenKey is true, the code will change the value of _unlock to true
+}}}
+
+<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
+
