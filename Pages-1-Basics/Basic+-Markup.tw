@@ -1,0 +1,261 @@
+:: Markup [chapter menu] {"position":"800,600","size":"200,100"}
+<h1>SugarCube Markup and Basic Styling</h1>
+Whether to format text or code in a specific way, SugarCube includes some special markup code, separate from HTML and macros. The ones mentioned in the listed pages below would be most relevant to basic and starting projects. For more advanced Markup, see [[this page|Markup-Int]].
+
+* [[Showing the Value of a Variable|Markup-Variable]]
+* [[Using a Variable inside a Link|Markup-Link]] [ ★ UPDATE ★ ]
+* [[Display an Image, and turn an Image into a Link|Markup-Image]] [ ★ UPDATE ★ ] /*Have examples here for the image! */
+* [[Removing a Line-break|Markup-Nobr]] (Empty space on the page)
+* [[Basic Text Styling|Markup-Styling]] (long) [ ★ UPDATE ★ ]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+TODO!!! See Comment
+
+:: Markup-Variable [page] {"position":"800,700","size":"100,100"}
+<h1>Showing the Value of a Variable</h1>
+While you may be tempted to use a [[macro|Macro-Print]] to display the value of a variable, there is a much simpler way to do so. You only need to code the variable as such {{{$variable}}} in the passage.
+
+Assuming that {{{$name}}} was set with the value {{{"Jane"}}}, you would see here its value:<<set $name to "Jane">>
+{{{$name}}} → $name
+
+For [[arrays|Variables-Base]], you can print either the full list of values or a specific value on the page. Assuming that {{{$list}}} has been set with the following values {{{[1, 9, 3, 4, 7]}}}, you would see:<<set $list = [1, 9, 3, 4, 7]>>
+> //the whole array//:
+{{{$list}}} → $list
+> //one specific value// (here, the third in the list):
+{{{$list[2]}}} → $list[2]
+> ''Note:'' the first value inside an array is at position {{{[0]}}}, the second has the position {{{[1]}}}, etc...
+
+For [[objects|Variables-Base]], there are two ways to show a stored value: indicating the specific propery inside square brackets {{{[' ']}}} or after a dot {{{.}}}. Assuming {{{$npc}}} has been set as {{{$npc = {name: 'Jane', age: '53'} }}}: <<set $npc = {name: 'Jane', age: '53'}>>
+> //property after a dot://
+{{{$npc.name}}} → $npc.name
+> //property inside brackets://
+{{{$npc['age']}}} → $npc['age']
+> ''But'' you can't show the whole object as is:
+{{{$npc}}} → $npc
+
+> ''Note:'' See [[the Print Macro page|Macro-Print]] for other ways to show a value on the page.
+<<unset $name, $list, $npc>>
+<div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
+
+:: Markup-Link [page] {"position":"900,700","size":"100,100"}
+<h1>Using a Variable inside a Link</h1>
+Aside from [[storing information|Macro-Set-Basic]], or being used in [[conditional statements|Macro-If-Basic]], you can use a variable inside links: to display a spefic text or send the player to a specific passage.
+Assuming that {{{$passage = "Garden"}}} and {{{$text = "Go take a walk"}}}:
+{{{
+[[$text|$passage]]
+    → will work the same way as
+[[Go take a walk|Garden]]
+}}}
+> ''Note:'' using a variable to send the player to a passage is quite useful as a //Back to the Story// link for Codex pages (like [[this|Long-Return-JS]]).
+
+You can also display the value of a variable with another string of text inside a link, by wrapping the text in quotes. Assuming that {{{$name = "Jane"}}}:<<set $name to "Jane">>
+{{{[["I am " + $name|Passage]]}}} → [["I am " + $name|Passage]]
+{{{[["She is " + $name + ", a friend."|Passage]]}}} → [["She is " + $name + ", a friend."|Passage]]
+> ''Note:'' Do not use this markup as {{{[["Text" + $var]]}}}, as it will break the game!
+> Note 2: You can use apostrophes {{{' '}}} instead of quotes {{{" "}}}.
+
+If your link includes a quoted sentence and a variable, or a combination of straight quotes and apostrophes, you may run into issue with the printed link. I recommend using the curly types of quotes {{{“ ”}}} and apostrophes {{{‘ ’}}} for the text itself, as it is not recognised as code by Twine/SugarCube, and the straight version for the code. 
+It is also possible to use {{{\}}} before the non-code character, as shown below:
+{{{[["\"She\'s " + $name + ", a friend.\""|Passage]]}}} → [["\"She\'s " + $name + ", a friend.\""|Passage]]
+<<unset $name>>
+<div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
+
+:: Markup-Image [page] {"position":"800,800","size":"100,100"}
+<h1>Display an Image, and turn an Image into a Link</h1>
+The Markup code to display an image works similarly to the [[Link Markup|Markup-Link]], though you will need to include the [[URL of an image|URL-Types]] for it to work:
+{{{[img[URL]]}}}
+> ''Note:'' When compiling the code into an HTML file, the code will transorm the SugarCube markup into the HTML version: {{{<img src="URL">}}}
+
+This required URL can be an absolute, relative or online [[URL|URL-Types]]:
+{{{
+→ absolute URL:
+    [img[C:/Users/YourAcount/Documents/Folder/image/garden.png]]
+
+→ relative URL:    
+    [img[images/garden.png]]
+
+→ online URL:
+    [img[https://your-domain.com/garden.png]]
+}}}
+> ''Note:'' I do not recommend using absolute URLs, especially if you are sharing your project with others, as it is easy for the link to break.
+
+The URL of the image can also be stored inside a variable. Assuming that {{{$url = "garden.png"}}}:
+{{{
+[img[$url]]
+    → will work the same way as
+[img[garden.png]]
+}}}
+
+You can also turn the image into a clickable one, sending the player to another passage, like you would have with the [[Link Markup|Markup-Link]].
+{{{
+    [img[URL][PASSAGE]]
+}}}
+> //using variables//: {{{$passage = "Garden"}}} and {{{$url = "garden.png"}}}
+{{{
+[img[$url][$passage]]
+    → will work the same way as
+[img[garden.png][Garden]]
+}}}
+
+You can go even further and set a variable inside that Image Link:
+{{{[img[URL][PASSAGE][$var to true]]}}}
+
+> ''Note:'' for the Image Link, I would recomment using the {{{<<link>>}}} macro with the {{{<img>}}} HTML markup instead.
+
+<div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
+
+:: Markup-Nobr [page] {"position":"900,800","size":"100,100"}
+<h1>Removing a Line-break</h1>
+Everytime you start a new line (of code or text) in a passage, Twine will automatically add a {{{<br>}}} HTML markup (also called a line-break) to match. This can become an issue when using macros or fomatted text (header, lists, etc..), as Twine may create more extra space than wanted. 
+
+If you want to remove a line-break, you can do so with a backslash {{{\}}}:
+{{{
+    This is bat of a sentence... \
+    ... that is broken in two.
+
+or 
+
+    This is bat of a sentence... 
+    \... that is broken in two.
+
+→ will show as:
+    This is bat of a sentence... ... that is broken in two.
+}}}
+> ''Note:'' Though the backslash is quite useful, the {{{<<nobr>>}}} [[macro|Macro-Nobr-Silent]], the {{{nobr}}} [[special tag|Special-Tags]], or the [[Config setting|Basic-API-Config]] can help remove more {{{<br>}}} at once.
+
+<div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Markup-Styling [page] {"position":"800,900","size":"100,100"}
+<h1>Basic Text Styling</h1>
+From using headers to chanding the colour of one word, you can use some HTML (coupled with som CSS) OR use some formatting markup...
+> ''Note:'' when {{{Beginning a line with...}}} is indicated, that character has to be the first on the line. If you have a space or an intentation at the start of the line, the text will not transform. 
+> Also, if the text, passage, or project uses one of the [[Line-Break features|Markup-Nobr]], the Style Markup will not work. However, the HTML markul will!
+\
+<h3>Headings</h3>\
+Beginning a line with an exclamation point {{{!}}}, you can define different levels of headings. Starting with one (for the largest heading), all the way to 6 (for the smallest one), each new exclamation point will decrease the importance and size of the header.
+{{{
+        Markup          HTML
+          --             --
+    !Level 1        → <h1></h1>
+    !!Level 2       → <h2></h2>
+    !!!Level 3      → <h3></h3>
+    !!!!Level 4     → <h4></h4>
+    !!!!!Level 5    → <h5></h5>
+    !!!!!!Level 6   → <h6></h6>
+}}}
+\
+<h3>Styling</h3>\
+To render a text ''bold'' or //italics//, you need to wrap the text with special characters. You can mix and match the different stylings, as long as you nest one inside the other(s).
+{{{
+    //Italics//         → <em></em>
+    ''Bold''            → <strong></strong>
+    __Underline__       → <u></u>
+    ==Strikethrough==   → <s></s>
+    ^^Superscript^^     → <sup></sup>
+    ~~Subscript~~       → <sub></sub>
+}}}
+> //Nesting styles//
+{{{''//Bold and Italics//''}}} → ''//Bold and Italics//''
+> ''Note:'' using styling markup (SugarCube or HTML) to style some text inside a [[Link Markup|Markup-Link]] often leads to strange results (or plainly won't work). The use of the {{{<<link>>}}} [[macro|Macro-Link]] in this case is recommended.
+\
+<h3>Lists - ordered and unordered</h3>\
+Beginning the line with an asterisk {{{*}}} or a number/pound sign {{{#}}}, you can create respectively unordered or ordered lists of items (or code). Similarly the headings, adding more than one character consecutively will define the indentation of the list.
+{{{
+    * Item 1
+    ** Item a
+    * Item 2
+→ will be the same as:
+    <ul>
+        <li> List
+            <ul>
+                <li>List</li>
+            </ul>
+        </li>
+        <li>List</li>
+    </ul>
+}}}
+* Item 1
+** Item a
+* Item 2
+{{{
+    # Item 1
+    ## Item a
+    # Item 2
+→ will be the same as:
+    <ol>
+        <li> List
+            <ol>
+                <li>List</li>
+            </ol>
+        </li>
+        <li>List</li>
+    </ol>
+}}}
+# Item 1
+## Item a
+# Item 2
+\
+<h3>Horizontal Rule</h3>\
+Beginning the line with four hyphen {{{-}}} characters, will create a horizontal line (like the one at the bottom of the page) marking a thematic break:
+{{{
+    ---- 
+→ will be the same as:
+    <hr>
+}}}
+\
+<h3>Blockquotes</h3>\
+Beginning the line with a right angle bracket {{{>}}}, you can create blockquote elements to include quotes on the page. This styling has been used in this quite for ''notes''.
+Similarly the headings, adding more than one character consecutively will define the indentation of the list.
+{{{
+    >Main 1
+    >>Nested 1
+    >>Nested 2
+    >Main 2
+→ will be the same as:
+    <blockquote>Line 1<br>
+        <blockquote>Nested 1<br>
+        Nested 2<br>
+        </blockquote>
+    Line 2<br>
+    </blockquote>
+}}}
+>Main 1
+>>Nested 1
+>>Nested 2
+>Main 2
+\
+<h3>Custom Style</h3>\
+To create a block (like a {{{<span>}}} or a {{{<div>}}}) to target a spcecific bit of text, you need to wrap it with two at signs{{{@@}}}:
+{{{
+    @@Text@@ → <span>Text</span>
+
+    @@
+    Text     → <div>Text<div>
+    @@
+
+}}}
+> ''Note:'' a {{{<div>}}} will create a block of text, while a {{{<span>}}} will stay inside a line.
+
+To further customise a block, you can assign it a class {{{.class}}}, id {{{#id}}}, or CSS rule to it, seperating each and it from the text with a semi-colon {{{;}}}:
+{{{
+    @@#id;.class;color:red;Text@@ 
+→ <span id="id" class="class" style="color:red;"></span>
+
+    @@#id;.class;color:red;
+    Text
+    @@    
+→ <div id="id" class="class" style="color:red;"><div>
+}}}
+> ''Note:'' you should only have one id per element, and no element on the page should share the same id. Multiple classes can be added to an element, and can be used for multiple elements at once.
+\
+<h3>Comments</h3>\
+There are three ways of leaving a note in your passage which will be hidden to the player:
+{{{
+    /* A comment */     → Passage, JavaScript, Stylesheets
+    /% A comment %/     → Passage
+    <!-- A comment -->  → Passage, Special Passages
+}}}
+
+<div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
+
