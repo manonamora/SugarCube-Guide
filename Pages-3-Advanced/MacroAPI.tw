@@ -1,0 +1,302 @@
+
+:: Macro [chapter menu] {"position":"2900,1800","size":"200,100"}
+<h1>Creating your Own Macro</h1>
+If you are looking to include a specific behaviour in your project that is not covered by the macros already built in SugarCube or custom ones available on the internet, you may want to consider creating your own.
+SugarCube has many API to help you build your custom macros, or even chose to edit already-included macros.
+> ''Note:'' Knowledge of JavaScript and understanding of the SugarCube format is very important here! 
+
+* [[The Base APIs for Macros|Macro-API]] [ ★ NEW ★ ]
+* [[Using Macro Context Objects in the handler|Macro-Context]] [ ★ NEW ★ ]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+
+:: Macro-API [page] {"position":"2900,1900","size":"100,100"}
+<h1>The Base APIs for Macros</h1>
+\
+<h3>{{{Macro.add()}}}</h3>\
+If you want to create a custom macro in SugarCube, you will need to use this API. Knowledge of JavaScript/jQuery and understanding on how SugarCube works is required.
+
+The API has 2 parameters:
+* {{{name}}}: the name (or array of names) of the macro to add
+** must start with a letter, and consist of characters from the basic Latin alphabet (A → Z)
+** you can also use numbers, underscores, and hyphens after the letter 
+* {{{definition}}}: how the macro will behave (see below)
+** to copy the definition of an existing macro, you can indicate the name of //that// macro instead.
+{{{
+    Macro.add(name , definition)
+
+    Macro.add(['link', 'button'] , {/* definition code */})
+→ <<link>> and <<button>> will behave the same
+
+    Macro.add('run', 'set');
+→ <<run>> is an alias of <<set>>
+}}}
+
+The definition of a macro will be an object with multiple properties:
+* {{{skipArgs}}} (optional): disable processing arguments into a discrete form (i.e. use the whole expression as an arguments)
+** you can indicate {{{true}}} to affect the macro and macro tags (if defined), or the array of tags where it is relevant.
+* {{{tags}}} (optional): will signify that the macro is a container macro (with an opening and closing tag)
+** you can indicate an array of child tags (sub-macro) or {{{null}}} for a simpler container
+* {{{handler}}}: the macro's function, called without arguments
+** you may need some [[macro context objects|Macro-Context]] to parse the function
+> ''Note:'' you can add other properties for internal use (JavaScript knowledge required)
+\
+> //Example from the Documentation for a simple implementation of// {{{<<if>>}}}
+{{{
+    Macro.add('if', {
+        skipArgs : true,
+        tags     : ['elseif', 'else'],
+        handler  : function () {
+            try {
+                for (var i = 0, len = this.payload.length; i < len; ++i) {
+                    if (
+                        this.payload[i].name === 'else' ||
+                        !!Scripting.evalJavaScript(this.payload[i].args.full)
+                    ) {
+                        jQuery(this.output).wiki(this.payload[i].contents);
+                        break;
+                    }
+                }
+            }
+            catch (ex) {
+                return this.error('bad conditional expression: ' + ex.message);
+            }
+        }
+    });
+}}}
+\
+<h3>{{{Macro.delete()}}}</h3>\
+Like the code implies, this API will remove any existed macro listed inside its parentheses.
+This can be useful if you are looking to edit one of the Built-In [[macros|Macros List]] (by deleting the macro, and using {{{Macro.add()}}} to reintroduce it).
+{{{
+    Macro.delete("amacro")
+    Macro.delete(["amacro", "bmacro"])
+}}}
+> ''Note:'' The macros targeted ''must be defined prior'' to using this API.
+\
+<h3>{{{Macro.has()}}}</h3>\
+This API will check whether the indicated macro exists in the code. 
+{{{
+    Macro.has("print")
+}}}
+\
+<h3>{{{Macro.get()}}}</h3>\
+This API will look at the definition of the targeted macro, or return NULL if there is none.
+The output of this API is an oject containing the definition of the macro
+{{{
+    Macro.get("print")
+}}}
+\
+<h3>{{{Macro.tags.has()}}}</h3>\
+This API will check whether the indicated macro tag exists - the macro tag being any child macro inside a container macro (e.g. {{{<<else>>}}} and {{{<<elseif>>}}} for {{{<<if>>}}}).
+{{{
+    Macro.tags.has("else")
+}}}
+\
+<h3>{{{Macro.tags.get()}}}</h3>\
+This API will return with the name of the all the macros which have included the targeted macro tag within their definition, or NULL on failure.
+{{{
+    Macro.tags.get("option")
+→ will result in ['cycle', 'listbox']
+}}}
+
+<div id="link-menu">[[Back to the Macro API Menu|Macro]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Macro-Context [page] {"position":"3000,1900","size":"100,100"}
+<h1>Using Macro Context Objects in the handler</h1>
+While Macro [[handlers|Macro-API]] are called with no arguments, you can use {{{this}}} and the context object properties below to refer to different components of the macro (e.g. macro arguments and expressions, data, methods).
+\
+<h3>Refering to the Macro Arguments and Expressions</h3>\
+\
+<h4>{{{<MacroContext>.args}}}</h4>\
+This property will refer to the arguments you can indicate in a macro. It is saved as an array.
+> Assuming that {{{<<someMacro "a" "b" "c">>}}}:
+{{{
+    this.args.length  → 3
+    this.args[0]      → 'a'
+    this.args[1]      → 'b'
+    this.args[2]      → 'c'
+}}}
+\
+<h4>{{{<MacroContext>.args.full}}}</h4>\
+This property will convert the argument into native JavaScript code. It is useful for expression arguments.
+> Assuming that {{{<<if "a" is "b">>}}}:
+{{{
+    this.args.full  → '"a" === "b"'
+}}}
+\
+<h4>{{{<MacroContext>.args.raw}}}</h4>\
+This property will take the unprocessed expression.
+> Assuming that {{{<<if "a" is "b">>}}}:
+{{{
+    this.args.raw  → '"a" is "b"'
+}}}
+\
+<h3>Referencing the Macro Information</h3>\
+\
+<h4>{{{<MacroContext>.name}}}</h4>\
+This property will refer to the name of the macro.
+> Assuming that {{{<<someMacro...>>}}}
+{{{
+    this.name  → 'someMacro'
+}}}
+\
+<h4>{{{<MacroContext>.self}}}</h4>\
+This property will refer to the definition of the macro, indicated in the second property of {{{Macro.add()}}}
+{{{
+    this.self → { /* definition object */ }
+}}}
+\
+<h4>{{{<MacroContext>.parent}}}</h4>\
+This property will refer to the macro's parent (or null, if it does not have a parent).
+{{{
+    this.parent → /* name of parent or NULL */
+}}}
+
+\
+<h4>{{{<MacroContext>.output}}}</h4>\
+This property references the output element, as an HTML Elment object.
+{{{
+    this.output
+}}}
+\
+<h4>{{{<MacroContext>.parser}}}</h4>\
+This property will refer to the parser instance that generated the macro call.
+{{{
+    this.parser
+}}}
+\
+<h4>{{{<MacroContext>.payload}}}</h4>\
+This property is only useful for container macros, and will not work otherwise. The text of the macro is parsed into discrete payload objects by tag, each having the following properties:
+* {{{name}}}: name of the current tag 
+* {{{args}}}: similar to {{{<MacroContext>.args}}}, but regarding the current tag
+** {{{args.full}}} will be similar to {{{<MacroContext>.args.full}}}, and {{{args.raw}}} to {{{<MacroContext>.args.raw.}}}
+* {{{contents}}}: the content between the current tag and the next.
+{{{
+    this.payload 
+    this.payload.name 
+    this.payload.args 
+    this.payload.contents
+
+    this.payload[0] → the text between the first and second tag of the macro
+}}}
+\
+<h3>Macro Context Methods</h3>\
+\
+<h4>{{{<MacroContext>.contextHas()}}}</h4>\
+This method will look at whether the macro's parent(s) passed the test implemented by the defined filter function.
+> //Example for// {{{<<break>>}}}:
+{{{
+    if (this.contextHas(ctx => ctx.name === 'for')) {
+        TempState.break = this.name === 'continue' ? 1 : 2;
+    }
+    else {
+        return this.error('must only be used in conjunction with its parent macro <<for>>');
+    }
+→ if <<break>> is not used inside a <<for>>, you will get an error
+}}}
+\
+<h4>{{{<MacroContext>.contextSelect()}}} and {{{<MacroContext>.contextSelectAll()}}}</h4>\
+These two methods work similarly to {{{<MacroContext>.contextHas()}}}, in that it will check whether the macro's ancestor(s) passed the test implemented byt the given filter function.
+If passed:
+* {{{<MacroContext>.contextSelect()}}} will return an object of the first ancestor 
+* {{{<MacroContext>.contextSelectAll()}}} will return an array of objects of all ancestors 
+If failed:
+* {{{<MacroContext>.contextSelect()}}} will return NULL
+* {{{<MacroContext>.contextSelectAll()}}} will return an empty array 
+> //Examples://
+{{{
+    var includeAncestor = function (ctx) { return ctx.name === "include"; };
+    this.contextSelect(includeAncestor);  
+→ Returns the first <<include>> macro ancestor
+
+    var includeAncestor = function (ctx) { return ctx.name === "include"; };
+    this.contextSelectAll(includeAncestor);  
+→ Returns an array of all <<include>> macro ancestors
+}}}
+\
+<h4>{{{<MacroContext>.createShadowWrapper()}}}</h4>\
+> ''Forenote:'' this method is only useful when you have asynchronous callback that invokes code/content that needs to access story and/or temporary variables shadowed by {{{<<capture>>}}}. ''Do not use this if you don't know what this means''. /* 
+    Honestly, I have no idea what this does really, but it's macro relevant I guess.
+    TME (the creator of SugarCube) REALLY does not recommend using this API unless you are absolutely sure what you are doing. And even then, cases where you would need it are super small... 
+*/
+This method creates a callback wrapper around the given parameters, which are themselves callbacks, that shadows variables, as necessary, for its first callback parameter. You can use up to 3 parameters (all functions):
+* {{{callback}}}: The main callback function, executed when the wrapper is invoked. Receives access to variable shadows.
+* {{{doneCallback}}}: (optional) The finalization callback function, executed after the main callback returns. Does not receive access to variable shadows.
+* {{{startCallback}}}: (optional) The initialization callback function, executed before the main callback is invoked. Does not receive access to variable shadows.
+\
+> Basic Example:
+{{{
+    $someElement.on(
+        'some_event', 
+        this.createShadowWrapper(function (ev) {
+            /* main asynchronous code */
+        })
+    );
+}}}
+> //With an optional doneCallback//
+{{{
+    $someElement.on('some_event', this.createShadowWrapper(
+        function (ev) {
+            /* main asynchronous code */
+        },
+        function (ev) {
+            /* asynchronous code invoked after the main code */
+        }
+    ));
+}}}
+> //With an optional doneCallback and startCallback//
+{{{
+    $someElement.on('some_event', this.createShadowWrapper(
+        function (ev) {
+            /* main asynchronous code */
+        },
+        function (ev) {
+            /* asynchronous code invoked after the main code */
+        },
+        function (ev) {
+            /* asynchronous code invoked before the main code */
+        }
+    ));
+}}}
+> //Example from the macro// {{{<<link>>}}}:
+{{{
+    $link
+		.addClass(`macro-${this.name}`)
+		.ariaClick({
+			namespace : '.macros',
+			role      : passage != null ? 'link' : 'button', // equality for null
+			one       : passage != null // lazy equality for null
+		}, this.createShadowWrapper(
+			this.payload[0].contents !== ''
+				? () => Wikifier.wikifyEval(this.payload[0].contents.trim())
+				: null,
+			passage != null // lazy equality for null
+				? () => Engine.play(passage)
+				: null
+		))
+		.appendTo(this.output);
+
+→ the code will look at whether there is code to trigger inside the <<link>> macro 
+    then it will look at whether there is a passage to go to
+}}}
+
+\
+<h4>{{{<MacroContext>.error()}}}</h4>\
+This property will render an error message for then the macro can't be processed. It requires an error message in the form of a string.
+> //Assugming that// {{{<<someMacro …>>}}}
+{{{
+    return this.error("oops");
+
+→ will output on the page as:
+    '<<someMacro>>: oops'
+}}}
+The message can include full expressions, including pure JavaScript rendering.
+> //Error message from// {{{<<if>>}}}
+{{{
+    return this.error(`whitespace is not allowed between the "else" and "if" in <<elseif>> clause${i > 0 ? ' (#' + i + ')' : ''}`)
+}}}
+
+<div id="link-menu">[[Back to the Macro API Menu|Macro]] - [[Back to the Start Menu|Start]]</div>
