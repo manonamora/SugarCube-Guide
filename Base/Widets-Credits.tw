@@ -61,3 +61,18 @@ The Accessibility Fix for the {{{<<cycle>>}}} macro by [[HiEv|https://www.patreo
 * Chris Klimas for creating Twine, and TME for making the SugarCube format and the Tweego compiler.
 * Cycy for making the Twee 3 Language Tool extension for VScode.
 * The Twine Discord, especially Crepes, TRBRY, Gwen, Cyrus, Sjoerd, SleepyFool, TME, for their help and sharing examples when I forgot what certain macros were supposed to do!
+
+:: Organise {"position":"2475,100","size":"100,100"}
+<h1>Some Random Stuff That will be Organised Later</h1>
+Here are some SugarCube relevant bits, which I haven't found a good place to put right now.
+The links below won't change but may be located in a different Sub Menu at a later date. See [[Update Log]] for more information.
+
+Welp there is nothing there:P
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+
+:: Passage {"position":"2475,225","size":"100,100"}
+This is an empty passage for an interactive example.
+
+<<back "Go back to the previous passage!">>
+
