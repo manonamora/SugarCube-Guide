@@ -1,0 +1,246 @@
+:: Events [chapter menu] {"position":"2600,1800","size":"200,100"}
+<h1>Trigger Code with Special Events</h1>
+Events are messages sent by the code within the game file to notify other bits of code that something has happened (automated or through player interaction). These are built-in the code of SugarCube, and can be used when creating a [[Custom Macro|Macro]], or wanting to customise elements on the page at a very specific moment (e.g. having a sound when closing a popup).
+
+Each event is formatted as an object and contains information about the state at the moment of the event and what happened during the event. You can find these events used plainly in JavaScript (e.g. scroll back to the top) or within macros.
+> ''Note:'' The events discussed here are specific to SugarCube. The format, however, does accept more [[standardized browser events|https://developer.mozilla.org/en-US/docs/Web/Events]].
+\
+* [[Dialog Events|Events-Dialog]]
+* [[Passage and Navigation Events|Events-Passage]]
+* [[System Events|Events-System]]
+* [[Type Macro Events|Events-Type]] [ ★ UPDATE ★ ]
+/* [[Audio Events|Events-Audio]]*/
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Events-Dialog [page] {"position":"2600,1900","size":"100,100"}
+<h1>Dialog Events</h1>
+The following events allow the execution of JavaScript code at specific points during the opening and closing of popups. The events will be triggered when using the [[Dialog API|Basic-API-Dialog]]. They happen in the following order:
+{{{
+    :dialogopening
+    :dialogopened 
+
+        //Player Interaction inside the Dialog Box//
+
+    :dialogclosing
+    :dialogclosed
+}}}
+> ''Note:'' The events are triggered by the body element of the popup {{{#ui-dialog-body}}}. 
+\
+<h3> {{{:dialogopening}}}</h3>\
+This event is triggered as the popup is opening (as the first step of {{{Dialog.open()}}}). You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':dialogopening', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+\
+<h3> {{{:dialogopened}}}</h3>\
+This event is triggered when the popup is fully rendered (as the last step of {{{Dialog.open()}}}). You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':dialogopened', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+An useful example, where any new popup with overflow will have its text displayed from the top.
+{{{
+    $(document).on(':dialogopened', function (ev) {
+        $("#ui-dialog-body").scrollTop(0);
+    });
+}}}
+\
+<h3> {{{:dialogclosing}}}</h3>\
+This event is triggered as the popup is closing (as the first step of {{{Dialog.close()}}}). You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':dialogclosing', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+\
+<h3> {{{:dialogclosed}}}</h3>\
+This event is triggered when the popup is fully closed (as the last step of {{{Dialog.close()}}}). You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':dialogclosed', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+
+<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Events-Passage [page] {"position":"2700,1900","size":"100,100"}
+<h1>Passage and Navigation Events</h1>
+The following events allow the execution of JavaScript code at specific points during the rendering of a passage, as well as [[Special Passages|Special-Passage]], a.k.a passage navigation. The order of those events go as follow:
+{{{
+1- Passage initiation (before change in history)
+    :passageinit event
+
+2- Passage start (before passage rendering)
+    PassageReady
+    :passagestart event
+    PassageHeader
+
+3- Passage render (after passage rendering)
+    PassageFooter
+    :passagerender event
+
+4- Passage display (after passage displayed)
+    PassageDone
+    :passagedisplay event
+
+5- UI bar special passages update (if relevant)
+    StoryBanner
+    StoryDisplayTitle 
+    StorySubtitle 
+    StoryAuthor 
+    StoryCaption 
+    StoryMenu
+    
+6- Passage end (end of passage navigation)
+    :passageend event
+}}}
+\
+<h3>{{{:passageinit}}}</h3>\
+This event is triggered before the player's history is modified (a.k.a just after the start to navigation is called). It also will contain the elements of the passage to display next.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':passageinit', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+\
+<h3>{{{:passagestart}}}</h3>\
+This event is triggered before the rendering of the incoming passage. It will also contain the elements of the passage to display next, and the HTML (currently empty) elements to render.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':passagestart', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+\
+<h3>{{{:passagerender}}}</h3>\
+This event is triggered after the rendering of the incoming passage. It will also contain the elements of the passage rendering, and the HTML elements rendered.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':passagerender', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+\
+<h3>{{{:passagedisplay}}}</h3>\
+This event is triggered after the incoming passage is displayed. It will also contain the elements of the passage displayed, and the HTML elements rendered.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':passagedisplay', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+An example where the incoming passage with overflow will be displayed from the top, useful when the previous passage required some scrolling.
+{{{
+    $(document).on(":passagedisplay", function() {
+        $("#passages").scrollTop(0);
+    });
+}}}
+> ''Note:'' this is especially useful with custom UI.
+\
+<h3>{{{:passageend}}}</h3>\
+This event is triggered at the end of the passage navigation. It will also contain the elements of the passage displayed, and the HTML elements rendered.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':passageend', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+
+<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Events-System [page] {"position":"2600,2000","size":"100,100"}
+<h1>System Events</h1>
+The following events allow the execution of JavaScript code at specific points during story startup and restart.
+\
+<h3>{{{:storyready}}}</h3>\
+This is a global event that will be triggered just before the loading screen disappears at startup.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).one(':storyready', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+\
+<h3>{{{:enginerestart}}}</h3>\
+This is a global event that will be triggered just before the page is reloaded when using {{{Engine.restart()}}}.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).one(':enginerestart', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+
+> ''Note:'' these events are only triggered ''once''.
+
+<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Events-Type [page] {"position":"2700,2000","size":"100,100"}
+<h1>Type Macro Events</h1>
+The {{{<<type>>}}} macro has events allowing the execution of JavaScript code at specific points during typing. They are sequenced as follow:
+{{{
+    :typingstart
+    :typingstop
+    :typingcomplete
+}}}
+> ''Note:'' every new addition of the {{{<<type>>}}} macro after a {{{:typingcomplete}}} is triggered will start the sequence again.
+\
+<h3>{{{:typingstart}}}</h3>\
+This is a local event that will be triggered when the typing of a section starts.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':typingstart', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+> //Adding a Mouse Click as a SkipKey//
+{{{
+    (function () {
+        var skipKeyEv = jQuery.Event('keydown', {
+            key : Config.macros.typeSkipKey
+        });
+
+        jQuery(document).on(':typingstart', function (ev) {
+            jQuery(ev.target).one('mousedown', function (ev) {
+                ev.stopImmediatePropagation();
+                ev.preventDefault();
+                jQuery(document.body).trigger(skipKeyEv);
+            });
+        });
+    })();
+}}}
+\
+<h3>{{{:typingstop}}}</h3>\
+This is a local event that will be triggered when the typing of a section stops.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':typingstop', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+\
+<h3>{{{:typingcomplete}}}</h3>\
+This is a global event that will be triggered all the {{{<<type>>}}} macros within a passage have been completed.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':typingcomplete', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
+
+<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
