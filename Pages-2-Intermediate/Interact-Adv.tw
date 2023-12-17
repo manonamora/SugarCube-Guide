@@ -1,0 +1,270 @@
+:: Macro-Interact-Adv [chapter menu] {"position":"1400,1100","size":"200,100"}
+<h1>More Interactivity Macros</h1>
+While a previous chapter touched upon the [[Base Interactive Macros|Macro-Interact]], SugarCube also includes more intermediate interactive macros. These will give the project a different kind of interactivity, or more flexibility in said interactivity.
+
+* [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]] [ ★ UPDATE ★ ]
+* [[Single-Use Choice Lists|Macro-Action-Choice]]
+* [[Delaying Displaying Text or Running Code|Macro-Timed]]
+* [[Displaying Text Letter by Letter|Macro-Type]] [ ★ UPDATE ★ ]
+* [[Using Custom Macro|Custom-Macro]]
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Macro-ApPreRepCopy [page] {"position":"1400,1200","size":"100,100"}
+<h1>DOM Macros and Revealing Text in Targeted Spots</h1>
+DOM (Document Object Model) Macros target HTML elements on a page and affect the displayed content of that element. Those macros have the same functionality as the {{{<<link[insert-DOM]>>}}} [[macros|Macro-Link-AppPreRep]], but have more flexibility and do not require a link to work.
+
+There are four main macros and one extra:
+* {{{<<append>>}}}, which will add content after the targeted element. 
+* {{{<<prepend>>}}}, which will add content before the targeted element.
+* {{{<<replace>>}}}, which will replace the content of the targeted element.
+* {{{<<remove>>}}}, which will remove the targeted element.
+* {{{<<copy>>}}}, which will copy the content of the targeted element.
+\
+The macros have each argument:
+* the element to target: which can be an {{{#id}}}, a {{{.class}}} or an HTML {{{element}}}, or a combination.
+> ''Note:'' if you are targeting an element that is on the page multiple time, the macro will affect all these elements.
+\
+{{{
+	<<append "#chocolate">>
+		This text will append the element with the ID "chocolate".
+		It will appear after the content inside that element.
+	<</append>>
+	
+	<<prepend h1>>
+		This text will prepend every h1 element.
+		It will appear before the content inside that element.
+	<</prepend>>
+	
+	<<replace ".dog">>
+		This text will replace the content of 
+		the element with the Class "dog".
+	<</replace>>
+	
+	<<remove p.test>> 
+→ will remove the element <p class="test"> from the page
+	
+	<<copy span#sweet>> 
+→ will copy the content of the element <span id="sweet">
+}}}
+> ''Notes:'' if the element you are trying to target is //not// on the page, you will get an error.
+> If you want to empty an element, it is best to use an empty {{{<<replace>>}}} than a {{{<<remove>>}}}.
+\
+<h3>Transition or no transition</h3>\
+Like with their {{{<<link[insert-DOM]>>}}} counterparts, {{{<<append>>}}}, {{{<<prepend>>}}} and {{{<<replace>>}}} have an optional extra argument:
+* {{{t8n}}} or {{{transition}}} (optional) whether to show the new text with a transition.
+{{{
+	<<append "#chocolate" t8n>>
+		This text will append the element with the ID "chocolate".
+		It will do so with a transition.
+	<</append>>
+}}}
+<span id="coco">This is a sentence.</span>
+	<<link "Replace as is">><<replace "#coco">>This replaces the element without a transition.<</replace>><</link>> | <<link "Replace with transition">><<replace "#coco" t8n>>This replaces the element with a transition.<</replace>><</link>>
+\
+<h3>In combination with other macros</h3>\
+The DOM macros are best used in combination with other interative elements, like {{{<<link>>}}}, {{{<<button>>}}}, or even {{{<<timed>>}}}. Here are some examples:
+<span id="dog">The dog is barking</span>.
+	<<link "Throw a ball">><<append "#dog">> at the ball<</append>><</link>>
+{{{
+Code:
+	<span id="dog">The dog is barking</span>.
+	<<link "Throw a ball">><<apprend "#dog">> at the ball<</append>><</link>>
+}}}
+> //Replacing a list of links with more text://
+{{{
+	<span id="choices">
+		<<link "Go Home">>
+			<<replace "#choices">>
+				You went home. Nothing much happened.
+				[[Next|Next Day]] 
+			<</replace>>
+		<</link>>
+		<<link "Go to the Cinema">>
+			<<replace "#choices">>
+				You went to the Cinema, and met Charlie after the movie ended.
+				[[Next|Convo Charlie]] 
+			<</replace>>
+		<</link>>
+	</span>
+}}}
+> //Copying and Pasting://
+{{{
+	This is a <span class="one">terrible</span> idea!
+	Well, I think this is <span class="two">a grand idea!</span>
+
+	<<link "Or is it?">>
+		<<replace ".two">>actuall a <<copy ".one">> as well...<</replace>>
+	<</link>>
+}}}
+\
+<h3>An important note on DOM Macros</h3>\
+Since the macros require the targeted element to be on the page, they ''cannot'' be coded as is on the page, due to how the [[page renders|SP-PassageReady-Done]]. As such, you will need either to:
+* use the {{{<<link>>}}} or {{{<<button>>}}} macro, letting the player interact with the element,
+* use the {{{<<done>>}}} [[macro|Macro-Done]], which will trigger when the page is fully rendered,
+* use the {{{<<timed>>}}} [[macro|Macro-Timed]], which will delay the trigger long after the page is rendered,
+* code it inside the {{{PassageDone}}} [[special passage|SP-PassageReady-Done]] (same as the {{{<<done>>}}} macro, but will trigger at every passage render).
+
+<div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Action-Choice [page] {"position":"1500,1200","size":"100,100"}
+<h1>Single-Use Choice Lists</h1>
+SugarCube has two macros that will automatically create lists of links, which will disappear when used: the {{{<<actions>>}}} and the {{{<<choice>>}}} macros. 
+<<actions [[You won't be able to go there|LOL]] [[This one also doesn't work|LOL]] [[But here is a list of actions|LOL]]>>\
+\
+While both macros are coded and are formatted  the same, they actually work differently:
+* {{{actions}}} will only remove the links where the passages have already been visited by the player.
+* {{{choice}}} will deactivate all listed links when one of them is clicked.
+
+The macros have only 1 argument:
+* the passage(s) you want listed
+{{{
+Indicating the passages names only:  
+	<<actions "Home" "Garden" "Cinema">>
+→ this will list the passages as links 
+
+Using the Link Markup:
+	<<choice [[Go Home|Home]] [[Go to the Garden|Garden]] [[Go to the Cinema|Cinema]]>>
+
+Using the Image Markup:
+	<<actions [img[URL][PassageName]]>>
+}}}
+
+> ''Note:'' Both macros are quite limiting, both in terms of coding and player use. 
+> If the player needs to go back to the passage where the macro is coded, or has visited every passage of the listed options, they will get stuck.
+> If the code required is more complex than the base Link Markup (i.e. setting variables or conditional display of a link), you will get an error.
+> In general, using regular links and manually formatting them into a list (with potential conditional statements) will be preferable. 
+
+<div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Timed [page] {"position":"1400,1300","size":"100,100"}
+<h1>Delaying Displaying Text or Running Code</h1>
+If a text should be displayed with some delay or a bit of code should not be triggered as soon as the passage is loaded, the {{{<<timed>>}}} macro should be used. As its name suggest, the macro will run a timer before triggering the code and displaying text.
+
+<<timed 4s>>//Whoop, there it is!//<</timed>>
+The macro has 2 arguments for its container, and 1 for the submacro:
+* {{{<<timed>>}}}:
+** the delay before the macro triggers, can be indicated in seconds or milliseconds.
+*** the minumum delay is 40ms.
+** {{{t8n}}}/{{{transition}}}, whether the text appearing does so like the transition between passages.
+* {{{<<next>>}}}:
+** (optional) the delay before the next part of the macro triggers, can be indicated in seconds or milliseconds.
+*** the minumum delay is 40ms.
+*** if not indicated, it will take the delay from the {{{<<timed>>}}} macro.
+
+{{{
+	<<timed 2s t8b>>
+		This will appear with a transition after 2 seconds.
+	<<next>>
+		And this will appear 2 seconds after the previous text.
+	<<next 4s>>
+		While this will appear 4 seconds after the previous block.
+	<</timed>>
+}}}
+
+Aside from displaying text, you can use the {{{<<timed>>}}} macro to trigger code:
+{{{
+→ sending the player to another passage:
+	<<timed 10s>><<goto "END">><</timed>>
+
+→ replacing some text on the page:
+	Can I by some <span id="text">eggs</span>?
+	<<timed 2s>><<replace "#text">>milk<</replace>><</timed>>
+}}}
+\
+> ''Note:'' When using this macro, it is important to test the passage extensively, to ensure it works as intended.
+
+<div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Macro-Type [page] {"position":"1500,1300","size":"100,100"}
+<h1>Displaying Text Letter by Letter</h1>
+Whether wanting to emulate a computer monitor or a typewriter, by displaying a text letter by letter, the {{{<<type>>}}} macro will do the job!
+
+<<type 80ms>>Here is the macro in action! It can also do [[links|Macro-Type]] and ''formatting''...<</type>>
+\
+The macro has 8 arguments:
+* speed: the amount of time between each letter, can be indicated in seconds or milliseconds.
+** 20-60ms is a good printing rate. 0s will show the whole text with a flash.
+* {{{start}}} (optional): adding a delay before the typing starts, indicated in seconds or milliseconds
+** if only {{{start}}} is indicated, the default will be 400ms.
+* {{{class}}} (optional): will assign an extra CSS {{{.class}}} to the typing container.
+* {{{id}}} (optional): will assign a CSS {{{#id}}} to the typing container.
+* {{{element}}} (optional): will transform the container from a {{{<div>}}} to another HTML element.
+* {{{keep}}} (optional): will keep the cursor even after the typing is complete.
+* {{{none}}} (optional): will not use the cursor during typing.
+* {{{skipkey}}} (optional): when the key is pressed, the typing will display the whole text immediately.
+** If only {{{skipkey}}}, the default value must be indicated with the {{{Config.macros.typeSkipKey}}} [[API|Confic-Macro]].
+\
+{{{
+	<<type 40ms>>I ate an apple.<</type>>
+→ The base required, with characters showing every 40 milliseconds.
+
+	<<type 40ms start 2s none>>Oh no, I'm late...<</type>>
+→ After a 2-second delay, this will show characters every 40 milliseconds, without the cursor.
+
+	<<type 40ms class "menu">>[[Start Now!]]<</type>>
+→ This will type the characters of the link every 40 milliseconds, and add the class '.menu' to the container.
+
+	<<type 40ms element "span" keep>>Now I'm a span!<</type>>
+→ Instead of the base container, this will be a '<span>'. When all text is displayed, the cursor will stay on the page.
+
+	<<type 40ms id "words" skipkey "Enter">>Last one!<</type>>
+→ This will type the characters every 40 milliseconds, unless the key 'Enter' is pressed to display everything at once. The container will also get the id '#words' added to it.
+}}}
+\
+<h3>Order of triggers</h3>\
+You can have as many iteration of {{{<<type>>}}} inside one passage, thought they will trigger one after the other.
+If you nest a {{{<<type>>}}} macro inside another one, the nested {{{<<type>>}}} will only start ''after all non-nested'' iteration have been completed.
+{{{
+	<<type 40ms>>First.
+		<<type 40ms>>Fourth.
+			<<type 40ms>>Sixth.<</type>>
+		<</type>>
+	<</type>>
+	<<type 40ms>>Second.<</type>>
+	<<type 40ms>>Third.
+		<<type 40ms>>Fifth.<</type>>
+	<</type>>
+}}}
+> ''Note:'' Because the macro is time dependant, it is important to test the passages extensively, to ensure it works as wanted.
+\
+<h3>Customising the typed text with CSS</h3>\
+While the typed text does not have default styling (aside from the cursor), the macro includes special classes you can target and edit:
+* {{{.macro-type}}}, to change the base styling of the macro (e.g. colour, font...)
+* {{{.macro-type-done}}}, to change the styling when all iteractions of the macro are complete
+* {{{.macro-type-cursor:after}}}, to edit the cursor
+{{{
+	.macro-type {
+		color: limegreen;
+		font-family: monospace, monospace;
+	}
+	.macro-type-cursor:after {
+		color: limegreen;
+		content: "\269C\FE0F"; /* Fleur-de-lis emoji */
+		font-family: monospace, monospace;
+	}
+}}}
+
+> ''Note:'' for even more advanced customisation of the macro, you can also add custom JavaScript code with the [[Typing Events|Events-Type]].
+
+<div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Custom-Macro [page] {"position":"1400,1400","size":"100,100"}
+<h1>Using Custom Macro</h1>
+Aside from the built-in macros, there are many custom ones created by other SugarCube users, from official [[add-ons|http://www.motoslave.net/sugarcube/2/]] on the SugarCube page, to code repositories (mainly on GitHub - see <<link "Credits">><<popup "Credits" "Credits">><</link>>). These custom macros will almost always have their specific documentation, with examples or guides on how to use them.
+
+As they are not included with SugarCube, you will need to "install" the custom macro by copy-pasting the relevant code into the JavaScript tab, the StyleSheet tab, or inside a [[Widget Passage|Macro-Widget]]. Not including this code inside the project (in the correct place) will trigger errors on the page.
+
+> ''Note:'' when using multiple macros, it is important to check that ''no two macros have the same name''. Otherwise, it will create issues when loading the game.
+\
+<h3>Creating your own Macro</h3>\
+If you need a custom macro for your project, because it cannot be done with base SugarCube or with the {{{<<script>>}}} [[macro|Macro-Script-Run]], and you have enough knowledge of JavaScript and jQuery, you could attempt to create your own Macro.
+> ''Note:'' this option should be for very advanced users with JavaScript knowledge. Many game functionalities do not require a custom macro, or may have already been created by someone. See the Masterlist link in the Credits for a non-exhaustive list of macro creators.
+
+To do so, you will need to use the [[Macro API|Macro]] and code away!
+The most important things to remember will be to:
+* ensure the name of the macro is different to the Base SugarCube macrs (or other custom ones you may be using)
+* test it extensively 
+
+<div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
