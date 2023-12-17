@@ -1,0 +1,328 @@
+:: Macro-Interact [chapter menu] {"position":"1400,600","size":"200,100"}
+<h1>Adding some Interactivity</h1>
+Aside from links, there are other macros to make your project a bit more interactive. SugarCube is built with multiple that can help add different kinds of gameplay elements. The macros mentioned in the pages listed below are quite useful for character creation, including puzzles, or even a combat system!
+\
+* [[Multi or Single Option Choices|Macro-CheckRadio]]
+* [[Cycles and Conditional Options|Macro-Cycle]] [ ★ UPDATE ★ ]
+** [[Make the Cycle Macro Accessible|Accessibility-Cycle]]
+* [[Revealing Extra Text and Disappearing Links|Macro-Link-AppPreRep]]
+* [[Listboxes and Conditional Options|Macro-Listbox]] [ ★ UPDATE ★ ]
+* [[Player Input in three macros|Macro-Input]]
+\
+> ''Note:'' For a concrete example of interactive character creator, see the [[Character Creator Template|https://manonamora.itch.io/twine-sugarcube-templates]].
+\
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+
+:: Macro-CheckRadio [page] {"position":"1500,800","size":"100,100"}
+<h1>Multi or Single Option Choices</h1>
+Anoter way to display choice options aside from link can be found with the {{{<<checkbox>>}}} and {{{<<radiobutton>>}}} macros. The first allows the player to choose multiple options from a list, while the second only give the player one option to select. Both let player make choices without moving to a new passage.
+These macros are great for customising characters!
+\
+<h3>{{{<<checkbox>>}}}</h3>\
+The {{{<<checkbox>>}}} creates a visual checkbox, which will modify the value of a variable, depending on whether the box is checked or not.
+
+<<checkbox "_warning" false true>> I've read the warnings...
+
+This macro has 5 arguments:
+* the variable saving the player's choice
+* the value to give the variable when the checkbox is //unchecked//
+* the value to give the variable when the checkbox is //checked//
+* {{{autocheck}}} (optional): whether the checkbox should match the state of the named variable 
+** this will check the box if the variable has the same current value as when the checkbox is checked
+* {{{checked}}} (optional): whether the checkbox should be checked when the passage loads
+{{{
+    <<checkbox "_example" false true autocheck>> Displayed Text
+    <<checkbox "_object.property" 1 0 autocheck>> Displayed Text
+    <<checkbox "_array[0]" "Tim" "Tom" autocheck checked>> Displayed Text
+}}}
+> ''Note:'' unlike {{{<<radiobutton>>}}}, you cannot use the same variable (or array position or object property) for more than one {{{<<checkbox>>}}}. Otherwsie, the last iteration with that re-used variable will override any previous choice.
+\
+<h3>{{{<<radiobutton>>}}}</h3>\
+The {{{<<radiobutton>>}}} creates a visual radio button, which will modify the value of a variable. You can use multiple of these linked to one variable to create a group of options.
+
+<<radiobutton "_pieBlueberry" false>> I've read the warnings...
+
+This macro has 4 arguments:
+* the variable saving the player's choice
+* the value to give the variable when the option is //checked//
+* {{{autocheck}}} (optional): whether the radiobutton should match the state of the named variable 
+** this will check the option with the same current value of the variable 
+* {{{checked}}} (optional): whether the option should be checked from the start (only for one per group)
+{{{
+    <<radiobutton "_exmaple" false>> Displayed Text
+    <<radiobutton "_object.property" 1>> Displayed Text
+    <<radiobutton "_array[0]" "Tim" checked>> Displayed Text
+
+A radiobutton group:
+    <<radiobutton "$pie" "blueberry" checked>> Blueberry?
+    <<radiobutton "$pie" "cherry">> Cherry?
+    <<radiobutton "$pie" "coconut cream">> Coconut cream?
+}}}
+\
+<h3>Using a {{{<label>}}}</h3>\
+For accessiblity reasons, it is recommended to wrap each option of the macros above with the HTML markup {{{<label>}}}. Rather than forcing the player to click on a small checkbox or radiobutton, they will be able to click on the displayed text to trigger the macro.
+{{{
+    <label><<checkbox "_example" false true autocheck>> Displayed Text</label>
+    <label><<radiobutton "_exmaple" false>> Displayed Text</label>
+}}}
+<label><<checkbox "_example" false true autocheck>> Displayed Text</label>
+<label><<radiobutton "_exmaple" false>> Displayed Text</label>
+
+<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Macro-Cycle [page] {"position":"1400,700","size":"100,100"}
+<h1>Cycles and Conditional Options</h1>
+Cycles can be a fun way to have the player interact with the story, and give a different way to format choices or display different variations. The {{{<<cycle>>}}} macro can be useful to lists MC characteristics options, or environmental observations.
+
+I looked at her and she <<cycle "_example">>
+	<<option "seemed fine">>
+	<<option "was distraught">>
+	<<option "was in tears">>
+	<<option "smiled">>
+<</cycle>>.
+
+The macro has two sets of arguments: one for the container {{{<<cycle>>}}} and one set for the {{{<<option>>}}}/{{{<<optionfrom>>}}}.
+* {{{<<cycle>>}}}:
+** the variable to save the player's choice
+** {{{once}}} (optional): whether the cycle stops at the last option
+** {{{autoselect}}} (optional): will autoselect the option from the list, if the value of the variable is included in the list of options
+* {{{<<option>>}}}
+** the name of the option.
+** (optional) the value of the option (if different from the name).
+* {{{<<optionfrom>>}}}:
+** the variable containing the list of options (array or object).
+
+Assuming that the array {{{_pieOptions = ["blueberry", "cherry", "coconut cream"]}}}:
+{{{
+    <<cycle "_example" autoselect>>
+        <<option "seemed fine" false>>
+        <<option "was distraught">>
+        <<option "was in tears" 0>>
+        <<option "smiled" "bad">>
+    <</cycle>>
+→ this cycle is the same as shown above, aside from most options having different values from their labels.
+
+    <<cycle "$pie" once autoselect>>
+        <<optionsfrom _pieOptions>>
+    <</cycle>>
+→ this cycle will display the options from the array _pieOptions, and will stop when reaching the end.
+}}}
+\
+<h3>Why {{{<<optionfrom>>}}} instead of {{{<<option>>}}}?</h3>\
+The reason for choosing one rather than the other will depend on preferences and situations. 
+
+{{{<<optionfrom>>}}} allows for cleaner/less code on the page, as well as giving the option to provide different options to players depending on how the list variable is set before use. While the {{{<<cycle>>}}} macro is a container, it will not accept any other macros inside, except the option ones. This means you cannot add or remove options within the cycle code (i.e. you cannot do {{{<<if $var>><<option "value">><</if>>}}}).
+> ''Note:'' you can also hide all your cycles inside [[widgets|Macro-Widget]].
+\
+If the list of options is set ahead of the passage, and unchanging, {{{<<option>>}}} might be the easiest way to go. If the list's content is conditional on specific paths, then {{{<<optionfrom>>}}} might be more fitting.
+> ''Note:'' You can also have different {{{<<cycle>>}}}/{{{<<option>>}}} combo for each situation...
+\
+With {{{<<optionfrom>>}}}, you also have two options to set the cycle: using an array or an object. The first is the simplest, as you set a list of options inside an array, but it will mean the displayed text will also be the value of the cycled variable. On the other hand, objects seem a bit more complex to set up, but will allow you to display a different text than the value. 
+For example, assuming that:
+{{{
+    _pieOptionsArray = ["blueberry", "cherry", "coconut cream"]
+
+    _pieOptionsObject = { "Blueberry" : "1", "Cherry" : "2", "Coconut cream" : "3" }
+}}}
+<<set _pieOptions = ["blueberry", "cherry", "coconut cream"], _pieOptions2 = { "Blueberry" : "1", "Cherry" : "2", "Coconut cream" : "3" }>>\
+The array will show : <<cycle "_pie" autoselect>>
+	<<optionsfrom _pieOptions>>
+<</cycle>> (value of the first option: _pie)
+While the object will show: <<cycle "_pie2" autoselect>>
+	<<optionsfrom _pieOptions2>>
+<</cycle>> (value of the first option: _pie2)
+
+> ''Note on the cycle macro:'' this macro has some issues with accessiblity (screen readers). While this can be remedied with some [[extra code|Accessibility-Cycle]], this should be taken into account when creating a project.
+
+<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+
+:: Accessibility-Cycle [page] {"position":"1500,700","size":"100,100"}
+<h1>Make the Cycle Macro Accessible</h1>
+While it can be a fun way to have Interactivity in your project, the {{{<<cycle>>}}} [[macro|Macro-Cycle]] has some issues with accessiblity (especially screen readers). This can be remedied with the code below, created by [[HiEv|https://www.reddit.com/r/twinegames/comments/qo1p1j/cycling_links_and_accessibility/]], which you must include in your JavaScript.
+{{{
+    $(document).on(":passagerender", function (event) {
+        var clinks = $(event.content).find(".macro-cycle");
+        if (clinks.length) {
+            clinks.attr("aria-label", function (event) {
+                return "(click to change) " + $(this).text();
+            });
+            clinks.on("click", function (evnt) {
+                //Fix SugarCube bug with <<cycle>>+Config.cleanupWikifierOutput
+                    $(this).find("p").contents().unwrap();  
+                //End Fix bug 
+                $(this).attr("aria-label", "(click to change) " + $(this).text());
+            });
+        }
+    });
+}}}
+> ''Note:'' if you are not using the {{{Config.cleanupWikifierOutput}}} [[API|Basic-API-Config]] in your project, the Fix Bug code line can be removed.
+
+<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Link-AppPreRep [page] {"position":"1500,900","size":"100,100"}
+<h1>Revealing Extra Text and Disappearing Links</h1>
+Instead of forcing the player to another passage to continue the story, or if you want to add extra flavour text, SugarCube includes three link macros with a twist: {{{<<linkappend>>}}}, {{{<<linkprepend>>}}} and {{{<<linkreplace>>}}}. Like their name suggests, when the link is clicked, the macro will add text after the link ({{{<<linkappend>>}}}), add text before the link ({{{<<linkprepend>>}}}), or replace the link with a new text ({{{<<linkreplace>>}}}).
+
+The three container macros have each 2 arguments:
+* the text to display in the link
+* (optional) whether to show the new text with a transition : {{{t8n}}} or {{{transition}}}
+\
+<h3>{{{<<linkappend>>}}}</h3>\
+This macro is essentially a combination of the {{{<<link>>}}} and {{{<<append>>}}} macros, by creating a one-time use link that deactivates itself when clicked and prints the content coded inside the container ''after'' that link.
+{{{
+    <<linkappend "text in link" t8n>>text to appear after the link<</linkappend>>
+    <<linkappend "text in link" t8n>>/* Code */<</linkappend>>
+}}}
+Ex: I ate a <<linkappend "cookie" t8n>>, which was filled with chocolate<</linkappend>>.
+\
+<h3>{{{<<linkprepend>>}}}</h3>\
+This macro is essentially a combination of the {{{<<link>>}}} and {{{<<prepend>>}}} macros, by creating a one-time use link that deactivates itself when clicked and displays the content coded inside the container ''before'' that link.
+{{{
+    <<linkprepend "text in link" t8n>>text to appear before the link<</linkprepend>>
+    <<linkprepend "text in link" t8n>>/* Code */<</linkprepend>>
+}}}
+Ex: I ate a <<linkprepend "cookie" t8n>>delicious <</linkprepend>>.
+\
+<h3>{{{<<linkreplace>>}}}</h3>\
+This macro is essentially a combination of the {{{<<link>>}}} and {{{<<replace>>}}} macros, by creating a one-time use link that replaces itself with the content coded inside the container when clicked.
+{{{
+    <<linkreplace "text in link" t8n>>text to appear before the link<</linkreplace>>
+    <<linkreplace "text in link" t8n>>/* Code */<</linkreplace>>
+}}}
+Ex: I ate a <<linkreplace "cookie" t8n>>slice of pie<</linkreplace>>.
+
+> ''Note:'' if you are looking for more flexibility in the placement of the link and/or the display of the added text, you may want to use their respective [[DOM macros|Macro-ApPreRepCopy]] nested inside a {{{<<link>>}}} instead.
+
+<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Listbox [page] {"position":"1400,800","size":"100,100"}
+<h1>Listboxes and Conditional Options</h1>
+Listboxes are an easy way to have the player interact with the story, and give a different way to format choices. The {{{<<listbox>>}}} can be useful to lists options for a character's characteristics, or choosing a location to travel to.
+
+Where to go next? <<listbox "_example">>
+	<<option "Home">>
+	<<option "Garden">>
+	<<option "Cinema">>
+	<<option "School">>
+<</listbox>>
+
+The macro has two sets of arguments: one for the container {{{<<listbox>>}}} and one set for the {{{<<option>>}}}/{{{<<optionfrom>>}}}.
+* {{{<<listbox>>}}}:
+** the variable to save the player's choice.
+** {{{autoselect}}} (optional): will autoselect the option from the list, if the current value of the variable is included in the list of options
+* {{{<<option>>}}}
+** the name of the option.
+** (optional) the value of the option (if different from the name).
+* {{{<<optionfrom>>}}}:
+** the variable containing the list of options (array or object).
+
+Assuming that the array {{{_pieOptions = ["blueberry", "cherry", "coconut cream"]}}}:
+{{{
+    <<listbox "_example" autoselect>>
+        <<option "Home" false>>
+        <<option "Garden">>
+        <<option "Cinema" 0>>
+        <<option "School" "bad">>
+    <</listbox>>
+→ this list is the same as shown above, aside from most options having different values from their labels.
+
+    <<listbox "$pie" autoselect>>
+        <<optionsfrom _pieOptions>>
+    <</listbox>>
+→ this list will display the options from the array _pieOptions.
+}}}
+\
+<h3>Why {{{<<optionfrom>>}}} instead of {{{<<option>>}}}?</h3>\
+The reason for choosing one rather than the other will depend on preferences and situations. 
+
+{{{<<optionfrom>>}}} allows for cleaner/less code on the page, as well as giving the option to provide different options to players depending on how the list variable is set before use. While the {{{<<listbox>>}}} macro is a container, it will not accept any other macros inside, except the option ones. This means you cannot add or remove options within the listbox code (i.e. you cannot do {{{<<if $var>><<option "value">><</if>>}}}).
+> ''Note:'' you can also hide all your cycles inside [[widgets|Macro-Widget]].
+\
+If the list of options is set ahead of the passage, and unchanging, {{{<<option>>}}} might be the easiest way to go. If the list's content is conditional on specific paths, then {{{<<optionfrom>>}}} might be more fitting.
+> ''Note:'' You can also have different {{{<<listbox>>}}}/{{{<<option>>}}} combo for each situation...
+\
+With {{{<<optionfrom>>}}}, you also have two options to set the cycle: using an array or an object. The first is the simplest, as you set a list of options inside an array, but it will mean the displayed text will also be the value of the cycled variable. On the other hand, objects seem a bit more complex to set up, but will allow you to display a different text than the value. 
+For example, assuming that:
+{{{
+    _pieOptionsArray = ["blueberry", "cherry", "coconut cream"]
+
+    _pieOptionsObject = { "Blueberry" : "1", "Cherry" : "2", "Coconut cream" : "3" }
+}}}
+<<set _pieOptions = ["blueberry", "cherry", "coconut cream"], _pieOptions2 = { "Blueberry" : "1", "Cherry" : "2", "Coconut cream" : "3" }>>\
+The array will show : <<listbox "_pie" autoselect>>
+	<<optionsfrom _pieOptions>>
+<</listbox>> (value of the first option: _pie)
+While the object will show: <<listbox "_pie2" autoselect>>
+	<<optionsfrom _pieOptions2>>
+<</listbox>> (value of the first option: _pie2)
+
+<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+
+
+:: Macro-Input [page] {"position":"1400,900","size":"100,100"}
+<h1>Player Input in three macros</h1>
+SugarCube offers three variations of input boxes: the {{{<<textbox>>}}}, the {{{<<textarea>>}}}, and the {{{<<numberbox>>}}}. The latter deals with integer (numbers), while the other two save inputs into strings (words).
+\
+<h3>The {{{<<textbox>>}}} macro</h3>\
+The textbox allows the player to indicate a string of word(s). This can be useful for short and simple inputs, like a name.
+
+<<textbox "_wager" "Jane">>
+
+The macro has four arguments:
+* the variable to save the player input (must be wrapped inside quotes/apostrophes)
+* the default text visible to the player
+* {{{"PassageName"}}} (optional) whether the player will be sent to another passage when pressing //Enter//
+* {{{autofocus}}} (optional) whether the area is automatically in focus when the passage loads
+{{{
+    <<textbox "$variable" "Default Text" "NextPassage" autofocus>>
+→ this will be in focus, showing "Default Text", with the final value saved in $variable, and the player sent to "NextPassage" when pressing Enter.
+
+    <<textbox "$variable" "">>
+→ this will not be in focus, showing 0 as the default value, and saving the input in $variable.
+}}}
+> ''Note:'' if you need to check the value of the {{{<<textbox>>}}} before the player moves to another passage, I would not recommend indicating a passage name in the macro, but use a separate button/link.
+\
+<h3>The {{{<<numberbox>>}}} macro</h3>\
+The macro works similarly to the {{{<<textbox>>}}}, aside from saving the input as an integer instead of a string.
+
+<<numberbox "_wager" 100>>
+
+The macro has four arguments:
+* the variable to save the player input (must be wrapped in quotes/apostrophes)
+* the default number visible to the player
+* {{{PassageName}}} (optional) whether the player will be sent to another passage when presseing //Enter//
+* {{{autofocus}}} (optional) whether the area is automatically in focus 
+{{{
+    <<numberbox "$variable" 10 "NextPassage" autofocus>>
+→ this will be in focus, showing the number 10, with the final value saved in $variable, and the player sent to "NextPassage" when pressing Enter.
+
+    <<numberbox "$variable" "">>
+→ this will not be in focus, showing 0 as the default value, and saving the input in $variable.
+}}}
+> ''Notes:'' while the macro does not have min or max value, [[the Numberpool custom macro|http://www.motoslave.net/sugarcube/2/#downloads]] does.
+> If you need to check the value of the {{{<<numberbox>>}}} before the player moves to another passage, I would not recommend indicating a passage name in the macro, but use a separate button/link.
+\
+<h3>The {{{<<textarea>>}}} macro</h3>\
+This macro creates a multi-line area for the player to input text, and saves this input inside a variable. This is a good interactive macro to save longer bits of text, like journal entries.
+Unlike the two previous macros, the {{{<<textarea>>}}} allows the player to resize the input box (unless disabled with some CSS).
+
+<<textarea "_example" "This is an example of a text area.">>
+
+The macro has three arguments:
+* the variable to save the player input (must be wrapped in quotes/apostrophes)
+* the default text visible to the player
+* {{{autofocus}}} (optional) whether the area is automatically in focus 
+{{{
+    <<textarea "$variable" "Visible Text" autofocus>> 
+→ this will be in focus and the player will see "Visible Text" in the box, and the player input will be saved in $variable
+
+    <<textarea "$variable" "">> 
+→ this will not be in focus, and will not show any text, but the final input will be saved in $variable
+}}}
+
+> ''Note on autofocus:'' As of SugarCube 2.36.1, the autofocus function has some issues when: it is located outside of a passage, the passage with those macros is the first one loaded (also during page refresh), more than one macros on the page has autofocus on.
+> This can be fixed(-ish) with some [[jQuery]].
+
+<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+/* TODO!! TODO WAHT? of the jQuery....*/
