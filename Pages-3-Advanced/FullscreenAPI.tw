@@ -1,0 +1,174 @@
+:: FullScreen [chapter page] {"position":"3500,1800","size":"200,100"}
+<h1>Getting the FullScreen Experience</h1>
+The FullScreen API provides you access to the player's browser's fullscreen abilities. It comes with some built-in limitations, namely the fullscreen request having to be initiated by the player, through player interaction with the page (e.g. link, button, etc...). Running the executing APIs listed below in the Browser Console will not work, returning errors instead.
+
+<<link "Toggle FullScreen">><<run Fullscreen.toggle()>><</link>>
+
+When the fullscreen mode is active, it will save the current and whole HTML page inside the {{{Fullscreen.element}}} object. If the fullscreen mode is not active, {{{Fullscreen.element}}} will return null.
+> ''Note:'' Pressing F11 won't activate the fullscreen mode, but it will deactivate it. 
+\
+<h3>Checking for FullScreen</h3>\
+\
+<h4>{{{Fullscreen.isEnabled()}}}</h4>\
+This API will check whether fullscreen is both supported and available for the device.
+{{{
+    Fullscreen.isEnabled()
+}}}
+\
+<h4>{{{Fullscreen.isFullscreen()}}}</h4>\
+This API will check whether the fullscreen mode is currently active.
+{{{
+    Fullscreen.isFullscreen()
+}}}
+\
+<h3>(De-)Activating the FullScreen Mode</h3>\
+\
+<h4>{{{Fullscreen.request()}}}</h4>\
+This API will request the browser to enter fullscreen mode.
+{{{
+    Fullscreen.request([options [, requestedEl]])
+}}}
+It has 2 parameters:
+* {{{options}}} (optional), the fullscreen options 
+** {{{navigationUI}}}, dtermines the fullscreen navigation UI preference 
+*** only valid values: {{{auto}}} (no preference), {{{hide}}} (hidden navigation), {{{show}}} (shown navigation)
+*** this may not be honoured by the browser
+* {{{requestedEl}}} (optional), the element to enter fullscreen mode
+** if omitted, it will show the entire page.
+\
+> //Examples://
+{{{
+    Fullscreen.request();
+→ Basic usage (recommended)
+
+    Fullscreen.request({ navigationUI : "show" }, myElement);
+→ Usage with option (show the navigation UI)
+  and given an element
+}}}
+> ''Note:'' it may be easier to use {{{Fullscreen.toggle()}}}, as it will merge both this API and {{{Fullscreen.exit()}}}
+\
+<h4>{{{Fullscreen.exit()}}}</h4>\
+This API will request the browser to exit the fullscreen mode.
+{{{
+    Fullscreen.exit()
+}}}
+> ''Note:'' it may be easier to use {{{Fullscreen.toggle()}}}, as it will merge both this API and {{{Fullscreen.request()}}}
+\
+<h4>{{{Fullscreen.toggle()}}}</h4>\
+This API will toggle the fullscreen mode, entering or exiting the mode depending on the current state.
+{{{
+    Fullscreen.toggle([options [, requestedEl]])
+}}}
+It has 2 parameters:
+* {{{options}}} (optional), the fullscreen options 
+** {{{navigationUI}}}, dtermines the fullscreen navigation UI preference 
+*** only valid values: {{{auto}}} (no preference), {{{hide}}} (hidden navigation), {{{show}}} (shown navigation)
+*** this may not be honoured by the browser
+* {{{requestedEl}}} (optional), the element to enter fullscreen mode
+** if omitted, it will show the entire page.
+\
+> //Examples://
+{{{
+    Fullscreen.toggle();
+→ Basic usage (recommended)
+
+    Fullscreen.toggle({ navigationUI : "show" }, myElement);
+→ Usage with option (show the navigation UI)
+  and given an element
+}}}
+This API is the one used in the interactive element at the top of the page:
+{{{
+    <<link "Toggle FullScreen">><<run Fullscreen.toggle()>><</link>>
+}}}
+\
+<h3>FullScreen Mode and Event Handlers</h3>\
+\
+<h4>{{{Fullscreen.onChange()}}}</h4>\
+This API will attach an event handler to the fullscreen.
+{{{
+    Fullscreen.onChange(handlerFn [, requestedEl])
+}}}
+It has 2 parameters:
+* {{{handlerFn}}}, the function to invoke when the fullscreen mode changes 
+* {{{requestedEl}}}, the HTML element to attach the handler to
+\
+> //Examples//
+{{{
+    Fullscreen.onChange(function (ev) {
+        /* Fullscreen mode changed, so do something. */
+    });
+→ Basic usage (recommended)
+
+    Fullscreen.onChange(function (ev) {
+        /* Fullscreen mode changed on myElement, so do something. */
+    }, myElement);
+→ With a specified element
+}}}
+\
+<h4>{{{Fullscreen.offChange()}}}</h4>\
+This API will removes an event handler to the fullscreen.
+{{{
+    Fullscreen.offChange([handlerFn [, requestedEl]])
+}}}
+It has 2 parameters:
+* {{{handlerFn}}}, the function to remove 
+** if omitted, it will remove ALL handlers
+* {{{requestedEl}}}, the HTML element to remove the handler(s) from
+\
+> //Examples//
+{{{
+    Fullscreen.offChange();
+    Fullscreen.offChange(originalHandlerFn);
+→ Basic usages (recommended)
+
+    Fullscreen.offChange(null, myElement);
+    Fullscreen.offChange(originalHandlerFn, myElement);
+→ With a specified element
+}}}
+> ''Note:'' for each case, the first line will remove ALL handlers
+\
+<h4>{{{Fullscreen.onError()}}}</h4>\
+This API will attach an error handler to the fullscreen mode.
+{{{
+    Fullscreen.onError(handlerFn [, requestedEl])
+}}}
+It has 2 parameters:
+* {{{handlerFn}}}, the function to invoke when the fullscreen mode encounters an error 
+* {{{requestedEl}}}, the HTML element to attach the handler to
+\
+> //Examples//
+{{{
+    Fullscreen.onError(function (ev) {
+        /* Fullscreen mode changed, so do something. */
+    });
+→ Basic usage (recommended)
+
+    Fullscreen.onError(function (ev) {
+        /* Fullscreen mode changed on myElement, so do something. */
+    }, myElement);
+→ With a specified element
+}}}
+\
+<h4>{{{Fullscreen.offError()}}}</h4>\
+This API removes an error event handler to the fullscreen mode.
+{{{
+    Fullscreen.offError([handlerFn [, requestedEl]])
+}}}
+It has 2 parameters:
+* {{{handlerFn}}}, the function to remove 
+** if omitted, it will remove ALL handlers
+* {{{requestedEl}}}, the HTML element to remove the handler(s) from
+\
+> //Examples//
+{{{
+    Fullscreen.offError();
+    Fullscreen.offError(originalHandlerFn);
+→ Basic usages (recommended)
+
+    Fullscreen.offError(null, myElement);
+    Fullscreen.offError(originalHandlerFn, myElement);
+→ With a specified element
+}}}
+> ''Note:'' for each case, the first line will remove ALL handlers
+
+<div id="link-menu">[[Back to the Start Menu|Start]]</div>
