@@ -8,7 +8,7 @@ Each event is formatted as an object and contains information about the state at
 * [[Dialog Events|Events-Dialog]]
 * [[Passage and Navigation Events|Events-Passage]]
 * [[System Events|Events-System]]
-* [[Type Macro Events|Events-Type]] [ ★ UPDATE ★ ]
+* [[Type Macro Events|Events-Type]] 
 /* [[Audio Events|Events-Audio]]*/
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 

@@ -4,10 +4,10 @@ While most of the Basic API were listed [[here|Basic-API]], this chapter will co
 
 Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
 
-* [[More Popups APIs|API-Dialog]] [ ★ NEW ★ ]
-* [[More UIBar APIs|API-UIBar]] [ ★ NEW ★ ]
-* [[The Template APIs|TemplateAPI]] [ ★ NEW ★ ]
-* [[(Un)Locking the Loading Screen|API-Lock]] [ ★ NEW ★ ]
+* [[More Popups APIs|API-Dialog]] 
+* [[More UIBar APIs|API-UIBar]] 
+* [[The Template APIs|TemplateAPI]] 
+* [[(Un)Locking the Loading Screen|API-Lock]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 
@@ -187,10 +187,10 @@ This API can tell how many templates exist within the code.
     }
 }}}
 \
-<h4>{{{Template.had()}}}</h4>\
+<h4>{{{Template.has()}}}</h4>\
 This API will check whether a template, for which you need to indicate the name, exists within the code.
 {{{
-    Template.had()
+    Template.has()
 
     if (Template.has('sunrise')) {
 	    /* if ?sunrise is defined, run code */

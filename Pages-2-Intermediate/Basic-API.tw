@@ -5,9 +5,9 @@ Along with macros, there are further APIs to trigger an event in the game, such 
 Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
 
 * [[Moving back and forth in the History|Basic-API-Engine]]
-* [[Create a PopUp|Basic-API-Dialog]] [ ★ UPDATE ★ ]
+* [[Create a PopUp|Basic-API-Dialog]] 
 * [[Handle the SideBar|Basic-API-UIBar]]
-* [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] [ ★ UPDATE ★ ]
+* [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
 * [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
 * [[Some Useful Configuration API for your Project|Basic-API-Config]]
 

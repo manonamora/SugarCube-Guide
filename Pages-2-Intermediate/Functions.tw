@@ -3,7 +3,7 @@
 Functions are JavaScript blocks of code designed to do a specific task, from importing outside scripts, to save information, or setting variables. While some of the functions explained in this chapter can be used in any passage in combination with SugarCube macros, some should be restricted to the JavaScript passage only.
 
 * [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
-* [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  [ ★ UPDATE ★ ]
+* [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
 * [[Memorizing Information and Metadata|Function-Metadata]]
 * [[JavaScript-only Functions|Function-JS]]
 

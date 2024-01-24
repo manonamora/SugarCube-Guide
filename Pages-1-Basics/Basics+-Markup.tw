@@ -3,13 +3,12 @@
 Whether to format text or code in a specific way, SugarCube includes some special markup code, separate from HTML and macros. The ones mentioned in the listed pages below would be most relevant to basic and starting projects. For more advanced Markup, see [[this page|Markup-Int]].
 
 * [[Showing the Value of a Variable|Markup-Variable]]
-* [[Using a Variable inside a Link|Markup-Link]] [ ★ UPDATE ★ ]
-* [[Display an Image, and turn an Image into a Link|Markup-Image]] [ ★ UPDATE ★ ] /*Have examples here for the image! */
+* [[Using a Variable inside a Link|Markup-Link]] 
+* [[Display an Image, and turn an Image into a Link|Markup-Image]]s
 * [[Removing a Line-break|Markup-Nobr]] (Empty space on the page)
-* [[Basic Text Styling|Markup-Styling]] (long) [ ★ UPDATE ★ ]
+* [[Basic Text Styling|Markup-Styling]] (long) 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
-TODO!!! See Comment
 
 :: Markup-Variable [page] {"position":"800,700","size":"100,100"}
 <h1>Showing the Value of a Variable</h1>
@@ -86,7 +85,8 @@ The URL of the image can also be stored inside a variable. Assuming that {{{$url
 [img[garden.png]]
 }}}
 
-You can also turn the image into a clickable one, sending the player to another passage, like you would have with the [[Link Markup|Markup-Link]].
+You can also turn the image into a clickable one, sending the player to another passage, like you would have with the [[Link Markup|Markup-Link]]. For example, the image below will send you to the Wikipedia website:
+[img[https://upload.wikimedia.org/wikipedia/en/8/80/Wikipedia-logo-v2.svg][https://en.wikipedia.org/wiki/Main_Page]]
 {{{
     [img[URL][PASSAGE]]
 }}}
@@ -96,7 +96,6 @@ You can also turn the image into a clickable one, sending the player to another 
     → will work the same way as
 [img[garden.png][Garden]]
 }}}
-
 You can go even further and set a variable inside that Image Link:
 {{{[img[URL][PASSAGE][$var to true]]}}}
 

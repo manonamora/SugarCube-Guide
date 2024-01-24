@@ -2,10 +2,10 @@
 <h1>Going Further with the Basics</h1>
 After [[linking passages|Macro-Link-Basic]], [[setting variables|Macro-Set-Basic]], and creating some simple [[conditional statements|Macro-If-Basic]], you would have the basis required to make a textual game. You can add onto this base, with more complex use of those macros, as well as including a few more related ones. This chapter is meant to expand the use of the basic macros.
 
-* [[Displaying more than text in Links|Macro-Link]] [ ★ UPDATE ★ ] 
+* [[Displaying more than text in Links|Macro-Link]]  
 * [[Setting and Changing Variables|Macro-Set]]
-* [[Unsetting Variables|Macro-Unset]] [ ★ UPDATE ★ ] 
-* [[More Conditional Statements|Macro-If]]  [ ★ UPDATE ★ ] 
+* [[Unsetting Variables|Macro-Unset]]  
+* [[More Conditional Statements|Macro-If]]   
 * [[Display Variables, the Print Macro and Variants|Macro-Print]]
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>

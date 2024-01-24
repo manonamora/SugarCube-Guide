@@ -3,8 +3,8 @@
 In the [[Methods]] chapter, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. 
 This chapter includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
 
-* [[More Methods to change Variables|Method-Variables]] [ ★ NEW ★ ]
-* [[jQuery Methods and Interactivity|Method-jQuery]] [ ★ NEW ★ ]
+* [[More Methods to change Variables|Method-Variables]] 
+* [[jQuery Methods and Interactivity|Method-jQuery]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 

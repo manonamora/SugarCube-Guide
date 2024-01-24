@@ -4,12 +4,12 @@ Whether for a more convinent way to format code and passages, send players to a 
 
 * [[An Alternative to Conditional Statements|Macro-Switch]] 
 * [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
-* [[Including a Passage inside another|Macro-Include]] [ ★ UPDATE ★ ]
-* [[Creating and Using a Widget|Macro-Widget]] [ ★ UPDATE ★ ]
+* [[Including a Passage inside another|Macro-Include]] 
+* [[Creating and Using a Widget|Macro-Widget]] 
 * [[Going Back or Returning to a Passage with a Special Link|Macro-Back-Return]]
 ** [[Arbitrarily Long Returns|Long-Return-JS]]
 * [[Sending the Player to a Passage|Macro-Goto]]
-* [[Using JavaScript in the Passage|Macro-Script-Run]]  [ ★ UPDATE ★ ]
+* [[Using JavaScript in the Passage|Macro-Script-Run]]  
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 
