@@ -3,10 +3,10 @@
 Aside from links, there are other macros to make your project a bit more interactive. SugarCube is built with multiple that can help add different kinds of gameplay elements. The macros mentioned in the pages listed below are quite useful for character creation, including puzzles, or even a combat system!
 \
 * [[Multi or Single Option Choices|Macro-CheckRadio]]
-* [[Cycles and Conditional Options|Macro-Cycle]] [ ★ UPDATE ★ ]
+* [[Cycles and Conditional Options|Macro-Cycle]] 
 ** [[Make the Cycle Macro Accessible|Accessibility-Cycle]]
 * [[Revealing Extra Text and Disappearing Links|Macro-Link-AppPreRep]]
-* [[Listboxes and Conditional Options|Macro-Listbox]] [ ★ UPDATE ★ ]
+* [[Listboxes and Conditional Options|Macro-Listbox]] 
 * [[Player Input in three macros|Macro-Input]]
 \
 > ''Note:'' For a concrete example of interactive character creator, see the [[Character Creator Template|https://manonamora.itch.io/twine-sugarcube-templates]].

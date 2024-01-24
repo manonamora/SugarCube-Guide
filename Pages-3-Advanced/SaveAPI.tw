@@ -3,11 +3,11 @@
 While the Config APIs have [[configuration settings|Config-Saves]], it may not be enough for the customisation you may want to achieve. This is where the Save APIs come in.
 > ''Note:'' in-browser saves (autosave/slow saves) are largely incompatible with Private Browsing Mode and Cookies/Cache blockers. Users may get an error message on start in those cases.
 \
-* [[Save Objects and Their Contents|SaveAPI-Objects]] [ ★ NEW ★ ]
-* [[The Basic APIs of the Save Elements|SaveAPI-General]] [ ★ NEW ★ ]
-* [[Managing the Save Slots|SaveAPI-Slots]] [ ★ NEW ★ ]
-* [[Managing the Autosave Slot|SaveAPI-Autosave]] [ ★ NEW ★ ]
-* [[Using Save-related Events|SaveAPI-Events]] [ ★ NEW ★ ]
+* [[Save Objects and Their Contents|SaveAPI-Objects]] 
+* [[The Basic APIs of the Save Elements|SaveAPI-General]] 
+* [[Managing the Save Slots|SaveAPI-Slots]] 
+* [[Managing the Autosave Slot|SaveAPI-Autosave]] 
+* [[Using Save-related Events|SaveAPI-Events]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 

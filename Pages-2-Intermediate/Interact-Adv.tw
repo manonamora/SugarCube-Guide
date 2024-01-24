@@ -2,10 +2,10 @@
 <h1>More Interactivity Macros</h1>
 While a previous chapter touched upon the [[Base Interactive Macros|Macro-Interact]], SugarCube also includes more intermediate interactive macros. These will give the project a different kind of interactivity, or more flexibility in said interactivity.
 
-* [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]] [ ★ UPDATE ★ ]
+* [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]] 
 * [[Single-Use Choice Lists|Macro-Action-Choice]]
 * [[Delaying Displaying Text or Running Code|Macro-Timed]]
-* [[Displaying Text Letter by Letter|Macro-Type]] [ ★ UPDATE ★ ]
+* [[Displaying Text Letter by Letter|Macro-Type]] 
 * [[Using Custom Macro|Custom-Macro]]
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>

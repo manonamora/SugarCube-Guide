@@ -6,8 +6,8 @@ To use a Special Passage, create a new passage, change the name of that passage 
 > ''Note:'' the names are case-sensitive!
 \
 * [[Headers and Footers|SP-HeaderFooter]]
-* [[Special Passages for the UI Bar|SP-UIBar]] [ ★ UPDATE ★ ]
-* [[Setting Important Variables before Start|SP-Init]] [ ★ UPDATE ★ ]
+* [[Special Passages for the UI Bar|SP-UIBar]] 
+* [[Setting Important Variables before Start|SP-Init]] 
 
 You can click [[here for the demo|SP-Demo]] to see most of the aforementioned Special Passages in action!
 

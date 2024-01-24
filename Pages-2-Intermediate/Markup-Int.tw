@@ -2,9 +2,9 @@
 <h1>More SugarCube Markup</h1>
 While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like stats bars), or display small variation (like pronouns).
 
-* [[Special Attributes and Directives|Markup-Attribute]] [ ★ NEW ★ ]
-* [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]] [ ★ NEW ★ ]
-* [[Display Small Variation with Templates|Markup-Template]] [ ★ NEW ★ ]
+* [[Special Attributes and Directives|Markup-Attribute]] 
+* [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]] 
+* [[Display Small Variation with Templates|Markup-Template]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 

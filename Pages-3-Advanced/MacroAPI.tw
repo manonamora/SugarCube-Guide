@@ -5,8 +5,8 @@ If you are looking to include a specific behaviour in your project that is not c
 SugarCube has many API to help you build your custom macros, or even chose to edit already-included macros.
 > ''Note:'' Knowledge of JavaScript and understanding of the SugarCube format is very important here! 
 
-* [[The Base APIs for Macros|Macro-API]] [ ★ NEW ★ ]
-* [[Using Macro Context Objects in the handler|Macro-Context]] [ ★ NEW ★ ]
+* [[The Base APIs for Macros|Macro-API]] 
+* [[Using Macro Context Objects in the handler|Macro-Context]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 

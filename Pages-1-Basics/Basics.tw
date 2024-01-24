@@ -27,8 +27,8 @@ To do this, you essentially need the 3 following macros: {{{<<link>>}}}, {{{<<se
 
 * [[The Basics of Variables|Variables-Base]]
 * [[The Elements on the Page|Basics-UI]]
-* [[Linking Passages|Macro-Link-Basic]] [ ★ UPDATE ★ ]
-* [[Tracking Information|Macro-Set-Basic]] [ ★ UPDATE ★ ]
+* [[Linking Passages|Macro-Link-Basic]] 
+* [[Tracking Information|Macro-Set-Basic]] 
 * [[Display Variation|Macro-If-Basic]]
 > ''Note:'' Any code on the page will be displayed top to bottom by the program. Code at the top of the passage can affect code further down.
 

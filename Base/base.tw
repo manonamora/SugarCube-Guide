@@ -37,11 +37,13 @@ SugarCube Guide
 	[[Update Log]]<</if>>
 
 :: StorySubtitle {"position":"2300,300","size":"100,100"}
-<<if tags().includes("sp-demo")>>The bestest of guides!<<else>>Version 1.2.0<</if>>
+<<if tags().includes("sp-demo")>>The bestest of guides!<<else>>Version 1.2.1<</if>>
 
 :: PassageFooter {"position":"2000,200","size":"100,100"}
 <<if tags().includes("sp-demo")>><hr>The Footer in action! included in a horizontal bar<<else>><hr>
-	<center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - [[Index]] - [[Macros List]] - <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora-if.tumblr.com/ask]]</center>
+	<center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - [[Pages Index|Index]]
+  [[Macros List]] - [[Function/Method List]] - [[API List]]
+  <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora-if.tumblr.com/ask]]</center>
 <</if>>
 
 :: PassageHeader {"position":"1900,200","size":"100,100"}
@@ -49,7 +51,7 @@ SugarCube Guide
 
 
 :: Start [noreturn menu] {"position":"1500,100","size":"200,200"}
-<div style="text-align:right;font-size:85%;">Last Updated: 10 Dec '23</div>
+<div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div>
 <h1>100% Good Twine SugarCube Guide</h1>\
 This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
 
@@ -64,45 +66,45 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 
 > ''The Basics''
 * [[About Twine and SugarCube|About]]
-* [[Starting with SugarCube|Basics]] [ ★ UPDATE ★ ]
+* [[Starting with SugarCube|Basics]] 
 \
 > ''The Basics+''
-* [[SugarCube Markup and Basic Styling|Markup]] [ ★ UPDATE ★ ]
-* [[Going Further with the Basics|Macro-Basic]] [ ★ UPDATE ★ ]
-* [[Adding some Interactivity|Macro-Interact]] [ ★ UPDATE ★ ]
-* [[Basic Special Passages|Special-Passage]] [ ★ UPDATE ★ ]
-* [[About JavaScript and the StyleSheet|Base-JS-CSS]] [ ★ UPDATE ★ ]
-* [[ULRs for Assets and Testing|URL-Types]] [ ★ UPDATE ★ ]
+* [[SugarCube Markup and Basic Styling|Markup]] 
+* [[Going Further with the Basics|Macro-Basic]] 
+* [[Adding some Interactivity|Macro-Interact]] 
+* [[Basic Special Passages|Special-Passage]] 
+* [[About JavaScript and the StyleSheet|Base-JS-CSS]] 
+* [[ULRs for Assets and Testing|URL-Types]] 
 \
 > ''Intermediate Use''
-* [[More SugarCube Markup|Markup-Int]] [ ★ NEW ★ ]
-* [[More Interactivity Macros|Macro-Interact-Adv]] [ ★ UPDATE ★ ]
-* [[Macros of Convenience|Macro-Conv]] [ ★ UPDATE ★ ]
-* [[More Special Passages and Tags|Special-Tags]] [ ★ UPDATE ★ ]
-* [[Harness the Power of Functions|Functions]] [ ★ UPDATE ★ ]
+* [[More SugarCube Markup|Markup-Int]] 
+* [[More Interactivity Macros|Macro-Interact-Adv]] 
+* [[Macros of Convenience|Macro-Conv]] 
+* [[More Special Passages and Tags|Special-Tags]] 
+* [[Harness the Power of Functions|Functions]] 
 * [[Using Methods to change Variables|Methods]] 
 * [[Adding Sound with the Audio Macros|Macro-Audio]]
-* [[Going further in Styling with CSS and JavaScript|Int-JS-CSS]] [ ★ UPDATE ★ ]
-* [[Some Useful Basic APIs|Basic-API]] [ ★ UPDATE ★ ]
+* [[Going further in Styling with CSS and JavaScript|Int-JS-CSS]] 
+* [[Some Useful Basic APIs|Basic-API]] 
 * [[Edit the Built-In Text or Change the Game's Language|Localization]]
 \
 > ''Advanced Mode''
 > ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processed of SugarCube.
 * [[Advanced Macros|Macro-Adv]]
-* [[More Variable and Interaction Methods|Methods-Adv]] [ ★ NEW ★ ]
-* [[Going Further with Basic APIs and More|API-Adv]] [ ★ NEW ★ ]
-* [[The Settings APIs|Settings]] [ ★ NEW ★ ]
-* [[The Save APIs and Further Saving Configurations|SaveAPI]] [ ★ NEW ★ ]
+* [[More Variable and Interaction Methods|Methods-Adv]] 
+* [[Going Further with Basic APIs and More|API-Adv]] 
+* [[The Settings APIs|Settings]] 
+* [[The Save APIs and Further Saving Configurations|SaveAPI]] 
 * [[Going Further with the Engine API|Engine-API]]
-* [[More Configuration APIs to Customise Interaction|Config-API]] [ ★ NEW ★ ]
-* [[Getting the FullScreen Experience|FullScreen]] [ ★ NEW ★ ]
-* [[Trigger Code with Special Events|Events]] [ ★ UPDATE ★ ]
-* [[Creating your Own Macro|Macro]] [ ★ NEW ★ ]
-* [[Managing Story Elements with APIs|StoryAPI]] [ ★ NEW ★ ]
-* [[Managing Passage Properties with APIs|PassageAPI]] [ ★ NEW ★ ]
-* [[Dealing with the State of Play|StateAPI]] [ ★ NEW ★ ]
+* [[More Configuration APIs to Customise Interaction|Config-API]] 
+* [[Getting the FullScreen Experience|FullScreen]] 
+* [[Trigger Code with Special Events|Events]] 
+* [[Creating your Own Macro|Macro]] 
+* [[Managing Story Elements with APIs|StoryAPI]] 
+* [[Managing Passage Properties with APIs|PassageAPI]] 
+* [[Dealing with the State of Play|StateAPI]] 
 /*
- -> to finish
+[ ★ UPDATE ★ ] - [ ★ NEW ★ ]
 * Key Binding - An Alternative|KeyBinding HIEV SETTING TO FIX
 */
 

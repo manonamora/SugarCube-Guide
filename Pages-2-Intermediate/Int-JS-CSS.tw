@@ -4,16 +4,16 @@ When wanting to change how a page looks or behave, you will need to edit either 
 
 While editing the StyleSheet, you may find the Inspect Tool of your browser to be a useful thing. From testing for different screen sizes and accessibility, to view the source code (HTML/CSS) of the displayed passage, or even messing with the CSS rules without going back and forth between the StyleSheet and the file, the tool will let you ensure a great visual for your project.
 
-* [[The Different Targetable Elements|Int-JS-CSS-Elements]] [ ★ UPDATE ★ ]
-** [[The Full List of Targetable Elements|HTML-Full-List]] [ ★ NEW ★ ]
+* [[The Different Targetable Elements|Int-JS-CSS-Elements]] 
+** [[The Full List of Targetable Elements|HTML-Full-List]] 
 * [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
-* [[Import and Change the Font|Int-JS-CSS-Font]] [ ★ UPDATE ★ ]
-* [[Using the Root and CSS var|Int-JS-CSS-Root]] [ ★ UPDATE ★ ]
-* [[Formating for Different Screen Size|Int-JS-CSS-Media]] [ ★ UPDATE ★ ]
+* [[Import and Change the Font|Int-JS-CSS-Font]] 
+* [[Using the Root and CSS var|Int-JS-CSS-Root]] 
+* [[Formating for Different Screen Size|Int-JS-CSS-Media]] 
 * [[Intro to Animation|Int-JS-CSS-Animation]]
-* [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) [ ★ NEW ★ ]
-* [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] [ ★ NEW ★ ]
-* [[A Note on Interface Accessibility|Accessibility]] [ ★ NEW ★ ]
+* [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) 
+* [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] 
+* [[A Note on Interface Accessibility|Accessibility]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 

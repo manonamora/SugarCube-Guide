@@ -4,10 +4,10 @@ To configure even more how your project should run, like saving playthroughs or 
 
 Those APIs are JavaScript-based code that should be included in the JavaScript (though some can be used along with the {{{<<run>>}}} or {{{<<script>>}}} macros inside a passage).
 
-* [[Macro-relevant Configurations|Confic-Macro]] [ ★ NEW ★ ]
-* [[Editing the Behaviour and Display of Passage Elements|Config-Passage]] [ ★ NEW ★ ]
-* [[Save Configurations|Config-Saves]] [ ★ NEW ★ ]
-* [[Other Config APIs|Config-Misc]] [ ★ NEW ★ ]
+* [[Macro-relevant Configurations|Confic-Macro]] 
+* [[Editing the Behaviour and Display of Passage Elements|Config-Passage]] 
+* [[Save Configurations|Config-Saves]] 
+* [[Other Config APIs|Config-Misc]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 
@@ -83,8 +83,8 @@ In the Saves and Jump To menus, passages are described by an excerpt of the pass
     };
 → similar to the object, but as a function
 }}}
-> ''Note:'' for the Save menu, there is an alternative approach with the {{{Save.onSave.add()}}} [[API]]
-TODO
+> ''Note:'' for the Save menu, there is an alternative approach with the {{{Save.onSave.add()}}} [[API|SaveAPI-Events]]
+
 \
 <h3>{{{Config.passages.displayTitles}}}</h3>\
 This API can display the title of the passage, along with the story title, in the browser/tab's titlebar:
@@ -154,7 +154,6 @@ It is still recommended to add more rules for it to be pleasing to the eye. The 
 <h1>Save Configurations</h1>
 The APIs below will allow you to enable autosaves, as well as restricting the player's ability to saves, or set up save versions.
 > ''Note:'' you may need to use some [[Save API|SaveAPI]] along with these Config.
-TODO
 \
 <h3>{{{Config.saves.autoload}}}</h3>\
 This API will check if an autosave exists, and will load said autosave during startup. You can load autosaves automatically, prompt the player about it with a popup, or include a function that could load autosaves at start.

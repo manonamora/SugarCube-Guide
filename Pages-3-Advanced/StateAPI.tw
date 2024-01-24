@@ -2,10 +2,10 @@
 <h1>Dealing with the State of Play</h1>
 Any started playthrough will contain a State, which will include moments (states) created during play used to navigate the history (undo/redo) and to save the (potentially changed) value of variables. If relevant, the State will include Metadata and a Seedable PRNG.
 
-* [[Managing the State of Variables|StateAPI-Variable]] [ ★ NEW ★ ]
-* [[Exploring the Different Moments inside the State|StateAPI-State]] [ ★ NEW ★ ]
-* [[Using the Story Metadata|StateAPI-Metadata]] [ ★ NEW ★ ]
-* [[Initialising a Seedable PRNG|StateAPI-PRNG]] [ ★ NEW ★ ]
+* [[Managing the State of Variables|StateAPI-Variable]] 
+* [[Exploring the Different Moments inside the State|StateAPI-State]] 
+* [[Using the Story Metadata|StateAPI-Metadata]] 
+* [[Initialising a Seedable PRNG|StateAPI-PRNG]] 
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 
@@ -91,10 +91,10 @@ This API will return the topmost (most recent) moment, within the full in-play h
 \
 > //Examples://
 {{{
-    State.topmost.title      
+    State.top.title      
 → title of the topmost moment
 
-    State.topmost.variables  
+    State.top.variables  
 → variables of the topmost moment
 }}}
 \
