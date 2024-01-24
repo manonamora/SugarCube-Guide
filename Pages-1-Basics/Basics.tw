@@ -46,12 +46,12 @@ In a basic SugarCube project, there are essentially 3 main elements on the page:
 \
 The content inside the ''passage'' is generated from the story passages created in Twine. Every time the player clicks on a link to advance the story, the passage will refresh to display the new content.
 
-In the ''UI-Bar'', you will find arrows to go back and forth in the Game History (the visited pissages), an arrow to hide/show the UI-Bar/sidebar, and the //Save// and //Restart// buttons. 
+In the ''UI-Bar'', you will find arrows to go back and forth in the Game History (the visited passages), an arrow to hide/show the UI-Bar/sidebar, and the //Save// and //Restart// buttons. 
 The content of the sidebar can be edited through the [[Special Passages|SP-UIBar]], or when adding [[Settings]].
 
 ''Dialog boxes'' are elements that will appear at the forefront of the page. It is used by the Menu buttons (//Save// and //Restart//), but can also contain content from a story passage (like the Lexicon link below) or coded through the passage. To create a dialog box, [[visit this page|Basic-API-Dialog]].
 
-To edit how those element looks, you will need to edit the [[Stylesheet|Int-JS-CSS-Elements]] (intermediate).
+To edit how those elements look, you will need to edit the [[Stylesheet|Int-JS-CSS-Elements]] (intermediate).
 
 <div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
 
@@ -62,7 +62,7 @@ To move the player from one part of the story to the next, you need to link the 
 \
 <h3>The {{{[[Link]]}}} markup</h3>\
 To create a link with the {{{[[Link]]}}} markup, you need to wrap the relevant text with double square brackets {{{[[ ]]}}}.
-> ''Note:'' in the Twine application, wrapping a bit of text with the square brackers will automatically create a passage with the text inside the brakets as that passage's name.
+> ''Note:'' in the Twine application, wrapping a bit of text with the square brackers will automatically create a passage with the text inside the brackets as that passage's name.
 {{{
 [[Go to the Garden]] 
     → will send the player to the passage called "Go to the Garden"
@@ -78,7 +78,7 @@ If you want to display something else than the Passage name in the link, you can
 
 [[Go to the Garden->Garden]] 
 [[Garden<-Go to the Garden]] 
-    → the arrow should be pointing towards the passagen's name
+    → the arrow should be pointing towards the passage's name
 }}}
 > For more advanced uses of the link markup, see [[the Link Markup page|Markup-Link]].
 \
