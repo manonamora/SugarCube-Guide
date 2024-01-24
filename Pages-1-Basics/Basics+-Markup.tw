@@ -128,9 +128,9 @@ or
 
 :: Markup-Styling [page] {"position":"800,900","size":"100,100"}
 <h1>Basic Text Styling</h1>
-From using headers to chanding the colour of one word, you can use some HTML (coupled with som CSS) OR use some formatting markup...
+From using headers to changing the colour of one word, you can use some HTML (coupled with some CSS) OR use some formatting markup...
 > ''Note:'' when {{{Beginning a line with...}}} is indicated, that character has to be the first on the line. If you have a space or an intentation at the start of the line, the text will not transform. 
-> Also, if the text, passage, or project uses one of the [[Line-Break features|Markup-Nobr]], the Style Markup will not work. However, the HTML markul will!
+> Also, if the text, passage, or project uses one of the [[Line-Break features|Markup-Nobr]], the Style Markup will not work. However, the HTML markup will!
 \
 <h3>Headings</h3>\
 Beginning a line with an exclamation point {{{!}}}, you can define different levels of headings. Starting with one (for the largest heading), all the way to 6 (for the smallest one), each new exclamation point will decrease the importance and size of the header.
