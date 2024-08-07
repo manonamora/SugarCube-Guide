@@ -205,6 +205,8 @@ The method has 2 parameters:
 ** {{{one}}}, if indicated, the clickable is single-use 
 ** {{{selector}}}, if indicated, the selector will filter the descendants that triggered the event.
 ** {{{data}}}, to be passed to the handler 
+** {{{tabindex}}}, value to make element selectable with the TAB key.
+*** If omitted, defaults to 0 (always tab-able).
 ** {{{controls}}}, value for {{{aria-controls}}}
 ** {{{pressed}}}, value for {{{aria-pressed}}}
 ** {{{label}}}, value for {{{aria-label}}} and {{{title}}}
@@ -275,7 +277,7 @@ $('#so-clicky').ariaIsDisabled()
 }}}
 \
 <h3>{{{jQuery.wiki()}}}</h3>\
-This methos will wikify the indicated content source(s) and discard the result (unless there are errors). This is only useful when you want to invoke a macro for its side-effects but don't need the output.
+This method will wikify the indicated content source(s) and discard the result (unless there are errors). This is only useful when you want to invoke a macro for its side-effects but don't need the output.
 {{{
     jQuery.wiki()
 }}}
@@ -284,7 +286,7 @@ It has 1 parameter:
 > //Example://
 {{{
     $.wiki('<<somemacro>>');  
-→ Invokes the <<somemacro>> macro, discarding any output
+→ Invokes the <<somemacro>> macro, not printing any output
 }}}
 \
 <h3>{{{<jQuery>.wiki()}}}</h3>\
@@ -294,11 +296,37 @@ This method is similar to the previous one, except it will append the output of 
 }}}
 It has 1 parameter:
 * {{{sources}}}: the list of content sources 
-> //Examplem given the element:// {{{<div id="the-box"></div>}}}
+> //Example given the element:// {{{<div id="the-box"></div>}}}
 {{{
     $('#the-box').wiki('Who //are// you?'); 
 → will append to {#the-box}
     "Who <em>are</em> you?"
+}}}
+\
+<h3>{{{jQuery.wikiPassage()}}}</h3>\
+This method will wikify the content of the indicated passage and discard the result (unless there are errors). This is only useful when you want to invoke a passage full of code but don't need to display output.
+{{{
+    jQuery.wikiPassage()
+}}}
+It has 1 parameter:
+* {{{name}}}: the name of the Passage 
+> //Example://
+{{{
+    $.wikiPassage('TheSuperDuperLongHiddenCode');  
+→ Runs the code inside the "TheSuperDuperLongHiddenCode" passage, not printing any output
+}}}
+\
+<h3>{{{<jQuery>.wikiPassage()}}}</h3>\
+This method is similar to the previous one, except it will append the output of the indicated passage to the targetted element(s).
+{{{
+    <jQuery>.wikiPassage(name)
+}}}
+It has 1 parameter:
+* {{{name}}}: the name of the Passage 
+> //Example given the element:// {{{<div id="the-box"></div>}}}
+{{{
+    $('#the-box').wikiPassage('ASuperLongImportantText'); 
+→ will append the content to {#the-box}
 }}}
 
 <div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>

@@ -32,7 +32,7 @@ The most common use for CSS in a project is:
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 
 :: URL-Types [chapter page] {"position":"2000,600","size":"200,100"}
-<h1>ULRs for Assets and Testing</h1>
+<h1>URLs for Assets and Testing</h1>
 When including any external element into a project (e.g. image, sound, font, etc...), you will need the URL of the file. Twine does not have an import function for assets (and neither does Tweego). This means the URL will be the link between the Twine project and the asset, as it will tell the code where find it and (dis)play it when the game is in use.
 There are essentially two locations for assets:
 * ''Online'' assets, requiring an Online URL ({{{html://website/file}}})

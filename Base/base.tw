@@ -5,7 +5,7 @@ SugarCube Guide
 {
   "ifid": "C15CE33F-61F6-4909-BB59-73EE7A3D57B1",
   "format": "SugarCube",
-  "format-version": "2.36.1",
+  "format-version": "2.37.3",
   "start": "Start",
   "tag-colors": {
     "chapter": "purple",
@@ -14,6 +14,7 @@ SugarCube Guide
   },
   "zoom": 0.3
 }
+// TODO: need to download new version to compile!!
 
 :: StoryAuthor {"position":"2300,400","size":"100,100"}
 <<if tags().includes("sp-demo")>>This is made by me! Manon :D<</if>>
@@ -38,6 +39,7 @@ SugarCube Guide
 
 :: StorySubtitle {"position":"2300,300","size":"100,100"}
 <<if tags().includes("sp-demo")>>The bestest of guides!<<else>>Version 1.2.1<</if>>
+/*TODO: Remember this*/
 
 :: PassageFooter {"position":"2000,200","size":"100,100"}
 <<if tags().includes("sp-demo")>><hr>The Footer in action! included in a horizontal bar<<else>><hr>
@@ -56,7 +58,7 @@ SugarCube Guide
 This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
 
 The guide covers the different aspects of the SugarCube format, from its particular markup, to its macros, functions, and APIs. It also touches upon possible customisation of SugarCube projects, with editing the StyleSheet with CSS or the JavaScript passage. And, it brushes upon aspects of accessibility in terms of code, design, and formatting.
-> This guide is based on the [[official SugarCube documentation|https://www.motoslave.net/sugarcube/2/docs/]], and is up to date as of the ''version 2.36.1''. For later version, please refer to the official documentation. /* Though, I will update this guide when SG updates, as soon as I am able */
+> This guide is based on the [[official SugarCube documentation|https://www.motoslave.net/sugarcube/2/docs/]], and is up to date as of the ''version 2.37.2''. For later version, please refer to the official documentation. /* Though, I will try to update this guide when SG updates, as soon as I am able */
 \
 The guide is separated in different categories: ''The Basics(+)'', ''Intermediate Use'', and ''Advanced Mode''. 
 Only the Basics are necessary to be able to create a game with SugarCube. 
@@ -70,33 +72,33 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 \
 > ''The Basics+''
 * [[SugarCube Markup and Basic Styling|Markup]] 
-* [[Going Further with the Basics|Macro-Basic]] 
-* [[Adding some Interactivity|Macro-Interact]] 
-* [[Basic Special Passages|Special-Passage]] 
+* [[Going Further with the Basics|Macro-Basic]] [ ★ UPDATE ★ ]
+* [[Adding some Interactivity|Macro-Interact]] [ ★ UPDATE ★ ]
+* [[Basic Special Passages|Special-Passage]] [ ★ UPDATE ★ ]
 * [[About JavaScript and the StyleSheet|Base-JS-CSS]] 
-* [[ULRs for Assets and Testing|URL-Types]] 
+* [[URLs for Assets and Testing|URL-Types]] 
 \
 > ''Intermediate Use''
-* [[More SugarCube Markup|Markup-Int]] 
-* [[More Interactivity Macros|Macro-Interact-Adv]] 
-* [[Macros of Convenience|Macro-Conv]] 
-* [[More Special Passages and Tags|Special-Tags]] 
+* [[More SugarCube Markup|Markup-Int]] [ ★ UPDATE ★ ]
+* [[More Interactivity Macros|Macro-Interact-Adv]] [ ★ UPDATE ★ ]
+* [[Macros of Convenience|Macro-Conv]] [ ★ UPDATE ★ ]
+* [[More Special Passages and Tags|Special-Tags]] [ ★ UPDATE ★ ]
 * [[Harness the Power of Functions|Functions]] 
-* [[Using Methods to change Variables|Methods]] 
+* [[Using Methods to change Variables|Methods]] [ ★ UPDATE ★ ]
 * [[Adding Sound with the Audio Macros|Macro-Audio]]
-* [[Going further in Styling with CSS and JavaScript|Int-JS-CSS]] 
-* [[Some Useful Basic APIs|Basic-API]] 
+* [[Going further in Styling with CSS and JavaScript|Int-JS-CSS]] [ ★ UPDATE ★ ]
+* [[Some Useful Basic APIs|Basic-API]] [ ★ UPDATE ★ ]
 * [[Edit the Built-In Text or Change the Game's Language|Localization]]
 \
 > ''Advanced Mode''
 > ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processed of SugarCube.
 * [[Advanced Macros|Macro-Adv]]
-* [[More Variable and Interaction Methods|Methods-Adv]] 
-* [[Going Further with Basic APIs and More|API-Adv]] 
-* [[The Settings APIs|Settings]] 
+* [[More Variable and Interaction Methods|Methods-Adv]] [ ★ UPDATE ★ ]
+* [[Going Further with Basic APIs and More|API-Adv]] [ ★ UPDATE ★ ]
+* [[The Settings APIs|Settings]] [ ★ UPDATE ★ ]
 * [[The Save APIs and Further Saving Configurations|SaveAPI]] 
 * [[Going Further with the Engine API|Engine-API]]
-* [[More Configuration APIs to Customise Interaction|Config-API]] 
+* [[More Configuration APIs to Customise Interaction|Config-API]] [ ★ UPDATE ★ ]
 * [[Getting the FullScreen Experience|FullScreen]] 
 * [[Trigger Code with Special Events|Events]] 
 * [[Creating your Own Macro|Macro]] 
@@ -109,6 +111,7 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 */
 
 If something is unclear, if you find an error in this guide, if you think I missing an important element, or if I did not provide enough examples, please [[let me know|https://manonamora-if.tumblr.com/ask]]!
+/*TODO: change to the itch.io page directly*/
 
 :: Lexicon [side popup] {"position":"1500,400","size":"100,100"}
 __Types of Values__

@@ -36,14 +36,6 @@ As the name suggest, this tag is meant to create a special passage to set up {{{
 }}}
 > ''Note:'' while you can have multiple passages with this tag, it is recommended to keep it to a minimum.
 \
-<h3>{{{bookmark}}}</h3>\
-This widget is meant to populate the [[JumpTo Functionlity|Basic-API-UI]], to go back in the player history.
-{{{
-    :: Passage [bookmark]
-    If the player read this passages, it will appear in the JumpTo dialog box.
-}}}
-> ''Note:'' if JumpTo is not used in a project, you can also use this tag as if it were a "regular" tag.
-\
 <h3>{{{script}}}</h3>\
 This tag is meant to tell Twine that this passage only contains JavaScript code. It is not necessary for Twine users, as JavaScript code should be placed in the {{{Edit JavaScript}}} passage, in the //Story// menu. 
 

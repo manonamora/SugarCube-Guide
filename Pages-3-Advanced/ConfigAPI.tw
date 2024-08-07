@@ -187,8 +187,8 @@ It will accept:
     Config.saves.autosave = false;
 → only manual saving
 
-    Config.saves.autosave = ["bookmark", "autosave"];
-→ autosave only on passages taged "bookmark" and "autosave"
+    Config.saves.autosave = ["chapter", "autosave"];
+→ autosave only on passages taged "chapter" and "autosave"
 
     Config.saves.autosave = function () {
         /* code */

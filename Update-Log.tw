@@ -1,9 +1,28 @@
 :: Update Log [side] {"position":"1700,400","size":"100,100"}
 <h1>100% Good Twine SugarCube Guide</h1>
 > //Next Update// (TBA)
-Edits to take into account changes in the new SugarCube version 
 Potentially the Audio API
+Also change the layout so people can toggle from single page to view all. -> On macro
+    -> or maybe just a toggle to show it all in one page or send back to "Main Menu"
+        -> it would save as a setting too
+    -> popup with warning (need to check loading time)
+    -> also change the end of passages with Passage Footer. So it doesn't appear in the one page? OR copy-paste all in one page? (would make editing mistakes double though...)
+    -> Also StoryCaption in the OnePage to have the headers? With a click to scrollto?
+        -> Index becomes a popup then -> scroll to again.
 <hr>
+> ''Version 2.0.0''
+[??-Aug] - Completed updating the guide for SG v2.37.2 
+[TODO] - Edited the {Save API} chapter
+[06-Aug] - Updated the {jQuery Methods} with new information ({.wikiPassage()})
+[06-Aug] - Edited the {Array Methods} page to replace deprecated code and update information ({.deleteFirst/Last()}, {.toShuffled()}, {.toUnique()})
+[06-Aug] - Updated information about {Config.cleanupWikifierOutput}
+[06-Aug] - Updated information about the {back} and {return} macro
+[06-Aug] - Updated information about the {unset} macro
+[06-Aug] - Edited the {Dialog API} page to replace deprecated code and updated new information ({.create()}, {.empty()}, {.wikiPassage()})
+[06-Aug] - Deleted deprecated information. This includes: {UI.jumpto()} and {bookmark} tag, {UI.share()} and {StoryShare} SP, and {UIBar.update()}, {action} and {choice} macros
+[05-Aug] - Fixed typos previously raised 
+[05-Aug] - Edited {Slider Setting} example for consistency 
+[05-Aug] - Added example to {Include Macro}
 > ''Version 1.2.1''
 [24-Jan] - Added Function/Method Index + API Index
 [24-Jan] - Completed the TODO comments

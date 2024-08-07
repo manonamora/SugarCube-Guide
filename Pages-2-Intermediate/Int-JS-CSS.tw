@@ -146,7 +146,6 @@ Inside the {{{html}}} wrapper you will find:
 ****** {{{li#menu-item-saves}}}
 ****** {{{li#menu-item-settings}}}
 ****** {{{li#menu-item-restart}}}
-****** {{{li#menu-item-share}}}
 ** {{{#story}}}
 *** {{{#passages}}}
 *** {{{.passage}}}

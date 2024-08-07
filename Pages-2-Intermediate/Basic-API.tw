@@ -7,7 +7,7 @@ Those APIs are JavaScript-based code that should either be included in the JavaS
 * [[Moving back and forth in the History|Basic-API-Engine]]
 * [[Create a PopUp|Basic-API-Dialog]] 
 * [[Handle the SideBar|Basic-API-UIBar]]
-* [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
+* [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
 * [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
 * [[Some Useful Configuration API for your Project|Basic-API-Config]]
 
@@ -37,26 +37,41 @@ Instead of moving to another passage to show a bit of text to the player, the Di
 \
 <h3>The Basics of Popups</h3>\
 To create a popup, you will need 3 APIs, in this order:
-* {{{Dialog.setup()}}}, to prepare the popup, and add a title (optional) and a class (optional)
+* {{{Dialog.create()}}}, to prepare the popup, and add a title (optional) and a class (optional)
 * {{{Dialog.wiki()}}}, to include text in the popup
 * {{{Dialog.open()}}}, to open the dialog box
 \
 {{{
-    Dialog.setup('This a PopUp');
+    Dialog.create('This a PopUp');
     Dialog.wiki("And here is the text. Even some //italics// and ''bold''!");
     Dialog.open();
+
+    Dialog
+        .create('This a PopUp')
+        .wiki("And here is the text. Even some //italics// and ''bold''!")
+        .open();
 }}}
 >'' Note:'' be mindful of quotes in {{{Dialog.wiki()}}}, as it could start issues.
 
-For longer popups, you can use {{{Story.get().processText()}}} to pull the content of a separate passage. This is quite handy when you want to avoid messy code blocks, have a bit more control over the text (like line breaks), or when including interactive macros.
+For longer popups, you can use {{{Dialog.wikiPassage();}}} to pull the content of a separate passage. This is quite handy when you want to avoid messy code blocks, have a bit more control over the text (like line breaks), or when including interactive macros.
 {{{
-    Dialog.wiki(Story.get("Passage Name").processText());
+    Dialog.wikiPassage("PassageName");
+}}}
+
+If you need to empty the content of a popup before displaying something new, you can use {{{Dialog.empty();}}}:
+{{{
+    Dialog.empty();
+
+ → in combination with a new wiki:
+    Dialog
+        .empty()
+        .wikiPassage("AnotherPassage");     
 }}}
 \
 <h3>Customise the Popup</h3>\
-For {{{Dialog.setup()}}} and {{{Dialog.open()}}}, it is possible to add parameters to customise a popup further. This can take multiple forms, from adding a CSS class to the whole popup, changing where the popup is positioned, or triggering a function when closing the popup.
+For {{{Dialog.create()}}} and {{{Dialog.open()}}}, it is possible to add parameters to customise a popup further. This can take multiple forms, from adding a CSS class to the whole popup, changing where the popup is positioned, or triggering a function when closing the popup.
 
-The {{{Dialog.setup()}}} has 2 parameters:
+The {{{Dialog.create()}}} has 2 parameters:
 * {{{title}}} (optional): the title displayed for the popup
 * {{{classNames}}} (optional): classes to attach to the popup, separated with a space
 {{{
@@ -90,6 +105,7 @@ If the popup has interactive elements, especially some triggering more code (e.g
     <</button>>
 }}}
 
+
 <div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
 
 :: Basic-UI-Dialog [popup] {"position":"700,200","size":"100,100"}
@@ -109,15 +125,12 @@ Similarly, {{{UIBar.stow()}}} will stow the SideBar to the side (but still visib
 <div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
 
 :: Basic-API-UI [page] {"position":"3600,1300","size":"100,100"}
-<h1>Open the JumpTo, Restart, Saves, and Settings PopUp</h1>
+<h1>Open the Restart, Saves, and Settings PopUp</h1>
 The elements above are included in the base SugarCube UI, as buttons in the menu (if they are populated), but can be called at any time with the APIs below:
-* {{{UI.jumpto()}}}, will open the JumpTo Menu, allowing the player to go back in the History to a [[bookmarked passage|Tags-Built]].
-** This will ''undo any action'' made by the player since the bookmark. 
 * {{{UI.restart()}}}, will open a popup asking the player if they would like to Restart the Game.
 ** To restart without a popup, you will want to use the [[Engine API|Engine-Restart]].
 * {{{UI.saves()}}}, will open the Save popup.
 * {{{UI.settings()}}}, will open the Settings popup.
-* {{{UI.share()}}}, will open the Share popup.
 
 Those APIs are most useful inside a {{{<<link>>}}} or {{{<<button>>}}} when:
 * the UI of the project doesn't include the built-in SideBar 
@@ -214,8 +227,7 @@ With a default of 8 save slots (+ autosave and export), players have many opport
 <h3>Removing Unwanted Blank Space</h3>\
 Aside from using the {{{<<nobr>>}}} macro or {{{nobr}}} tag, there are two Config APIs which will remove the unnecessary blank space in your project: {{{Config.cleanupWikifierOutput}}} and {{{Config.passages.nobr}}}.
 
-{{{Config.cleanupWikifierOutput}}} will transform any {{{<br>}}} on the page into empty {{{<p>}}} (thus, "disappear"), as well as wrap any non {{{<div>}}} elements with {{{<p>}}}.
->'' Note:'' {{{Config.cleanupWikifierOutput}}} runs into strange issues sometimes, like working strangely with the {{{<<cycle>>}}} macro ([[this can be fixed|Accessibility-Cycle]]).
+{{{Config.cleanupWikifierOutput}}} will remove any line breaks ({{{<br>}}}) created during compiling, as well as wrap any non {{{<div>}}} elements with {{{<p>}}}, creating paragraphs.
 
 On the other hand, {{{Config.passages.nobr}}} will only remove any break on the page. This means that you will need to wrap every paragraph or bit of text with a block HTML makrup (i.e. {{{<p>}}}, {{{<div>}}}, {{{<h1>}}}, etc...) manually.
 {{{
@@ -223,6 +235,7 @@ On the other hand, {{{Config.passages.nobr}}} will only remove any break on the 
     Config.passages.nobr = true;
 }}}
 >'' Note:'' if both are included, no matter the order, {{{Config.passages.nobr}}} will remove all breaks on the page. 
+> As well, if the {{{nobr}}} tag is used in a passage, it too will override {{{Config.cleanupWikifierOutput}}}
 
 <div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
 

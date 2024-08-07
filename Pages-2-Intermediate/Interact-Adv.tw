@@ -3,7 +3,6 @@
 While a previous chapter touched upon the [[Base Interactive Macros|Macro-Interact]], SugarCube also includes more intermediate interactive macros. These will give the project a different kind of interactivity, or more flexibility in said interactivity.
 
 * [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]] 
-* [[Single-Use Choice Lists|Macro-Action-Choice]]
 * [[Delaying Displaying Text or Running Code|Macro-Timed]]
 * [[Displaying Text Letter by Letter|Macro-Type]] 
 * [[Using Custom Macro|Custom-Macro]]
@@ -104,36 +103,6 @@ Since the macros require the targeted element to be on the page, they ''cannot''
 * use the {{{<<done>>}}} [[macro|Macro-Done]], which will trigger when the page is fully rendered,
 * use the {{{<<timed>>}}} [[macro|Macro-Timed]], which will delay the trigger long after the page is rendered,
 * code it inside the {{{PassageDone}}} [[special passage|SP-PassageReady-Done]] (same as the {{{<<done>>}}} macro, but will trigger at every passage render).
-
-<div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
-
-:: Macro-Action-Choice [page] {"position":"1500,1200","size":"100,100"}
-<h1>Single-Use Choice Lists</h1>
-SugarCube has two macros that will automatically create lists of links, which will disappear when used: the {{{<<actions>>}}} and the {{{<<choice>>}}} macros. 
-<<actions [[You won't be able to go there|LOL]] [[This one also doesn't work|LOL]] [[But here is a list of actions|LOL]]>>\
-\
-While both macros are coded and are formatted  the same, they actually work differently:
-* {{{actions}}} will only remove the links where the passages have already been visited by the player.
-* {{{choice}}} will deactivate all listed links when one of them is clicked.
-
-The macros have only 1 argument:
-* the passage(s) you want listed
-{{{
-Indicating the passages names only:  
-	<<actions "Home" "Garden" "Cinema">>
-→ this will list the passages as links 
-
-Using the Link Markup:
-	<<choice [[Go Home|Home]] [[Go to the Garden|Garden]] [[Go to the Cinema|Cinema]]>>
-
-Using the Image Markup:
-	<<actions [img[URL][PassageName]]>>
-}}}
-
-> ''Note:'' Both macros are quite limiting, both in terms of coding and player use. 
-> If the player needs to go back to the passage where the macro is coded, or has visited every passage of the listed options, they will get stuck.
-> If the code required is more complex than the base Link Markup (i.e. setting variables or conditional display of a link), you will get an error.
-> In general, using regular links and manually formatting them into a list (with potential conditional statements) will be preferable. 
 
 <div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
 

@@ -122,7 +122,7 @@ The API has 2 parameters:
 * {{{name}}}, the name (or array of names) of the template
 ** it must consist of basic Latin characters (A → Z) and start with a letter.
 ** it can include numbers, underscores, or hyphens
-* {{{definitition}}}, what could be outputed when the template is used
+* {{{definition}}}, what could be outputed when the template is used
 ** this can be a function, a string, or an array of either 
 ** if the definition is an array, the output will be randomly selected between all listed options
 ** functions should always produce string values

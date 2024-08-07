@@ -36,7 +36,7 @@
 ** [[Setting Important Variables before Start|SP-Init]]
 ** [[Special Passage Demo|SP-Demo]]
 * ''[[About JavaScript and the StyleSheet|Base-JS-CSS]]''
-* ''[[ULRs for Assets and Testing|URL-Types]]''
+* ''[[UrLs for Assets and Testing|URL-Types]]''
 \
 <h3>Intermediate Use</h3>\
 * ''[[More SugarCube Markup|Markup-Int]]''
@@ -50,7 +50,6 @@
 ** [[(Un)Locking the Loading Screen|API-Lock]]
 * ''[[More Interactivity Macros|Macro-Interact-Adv]]''
 ** [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
-** [[Single-Use Choice Lists|Macro-Action-Choice]]
 ** [[Delaying Displaying Text or Running Code|Macro-Timed]]
 ** [[Displaying Text Letter by Letter|Macro-Type]]
 ** [[Using Custom Macro|Custom-Macro]]
@@ -99,7 +98,7 @@
 ** [[Moving back and forth in the History|Basic-API-Engine]]
 ** [[Create a PopUp|Basic-API-Dialog]]
 ** [[Handle the SideBar|Basic-API-UIBar]]
-** [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]]
+** [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]]
 ** [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
 ** [[Some Useful Configuration API for your Project|Basic-API-Config]]
 * ''[[Edit the Built-In Text or Change the Game's Language|Localization]]''
@@ -273,7 +272,7 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{Dialog.close()}}} : [[Create a PopUp|Basic-API-Dialog]] 
 * {{{Dialog.isOpen()}}} : [[More Popups APIs|API-Dialog]] 
 * {{{Dialog.open()}}} : [[Create a PopUp|Basic-API-Dialog]]
-* {{{Dialog.setup()}}} : [[Create a PopUp|Basic-API-Dialog]]
+* {{{Dialog.create()}}} : [[Create a PopUp|Basic-API-Dialog]]
 * {{{Dialog.wiki()}}} : [[Create a PopUp|Basic-API-Dialog]]
 
 <h3>Engine API</h3>
@@ -436,11 +435,9 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 
 <h3>UI API</h3>
 * {{{UI.alert()}}} : [[More Popups APIs|API-Dialog]] 
-* {{{UI.jumpto()}}} : [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
-* {{{UI.restart()}}} : [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
-* {{{UI.saves()}}} : [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
-* {{{UI.settings()}}} : [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
-* {{{UI.share()}}} : [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
+* {{{UI.restart()}}} : [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
+* {{{UI.saves()}}} : [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
+* {{{UI.settings()}}} : [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
 
 <h3>UIBar API</h3>
 * {{{UIBar.destroy()}}} : [[Handle the SideBar|Basic-API-UIBar]]
@@ -458,7 +455,6 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 <h1>Macro List</h1>
 Below, you will find the alphabetical list of SugarCube macro, and where they are discussed in this guide.
 
-* {{{<<actions>>}}}: [[Single-Use Choice Lists|Macro-Action-Choice]]
 * {{{<<addclass>>}}}: [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]]
 * {{{<<append>>}}}: [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
 * {{{<<audio>>}}}: [[Playing Tracks in a Passage|Audio-Macro]]
@@ -468,7 +464,6 @@ Below, you will find the alphabetical list of SugarCube macro, and where they ar
 * {{{<<cacheaudio>>}}}: [[Setting up the Audio Tracks|CacheAudio]]
 * {{{<<capture>>}}}: [[Capturing the Value of a Variable|Macro-Capture]]
 * {{{<<checkbox>>}}}: [[Multi or Single Option Choices|Macro-CheckRadio]]
-* {{{<<choice>>}}}: [[Single-Use Choice Lists|Macro-Action-Choice]]
 * {{{<<continue>>}}}: [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
 * {{{<<copy>>}}}: [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
 * {{{<<createaudiogroup>>}}}: [[Create Track Groups and Playlists|Macro-Group-Playlist]]

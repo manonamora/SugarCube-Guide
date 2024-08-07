@@ -91,12 +91,6 @@ This Special Passage adds a block of links, formatted in the same way as the //S
 }}}
 > ''Note:'' this element has some special formatting, which you change in the StyleSheet by targeting the element {{{#menu-story}}}. The //Save// and //Restart// buttons are located inside the element {{{#menu-core}}}.
 \
-<h3>{{{StoryShare}}}</h3>\
-This Special Passage creates a //Share// button below the //Restart// button and is meant to display social media links in a dialog box. However it can only be filled with links. If you want to display text with your links, I would recommend creating a regular passage and add that to the //StoryMenu// instead.
-{{{
-    :: StoryShare
-    [[itch|https://manonamora.itch.io/]]
-}}}
 
 <div id="link-menu">[[Back to the Special Passages Menu|Special-Passage]] - [[Back to the Start Menu|Start]]</div>
 

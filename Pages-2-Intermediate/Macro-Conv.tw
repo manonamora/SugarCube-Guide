@@ -94,12 +94,24 @@ The {{{<<include>>}}} macro is quite helpful when it comes to including a bit of
 
 The macro has 2 arguments:
 * the passage name 
+** this can be done plainly by indicating the name of the passage, or through a variable.
 * the HTML element type (optional) to wrap the included passage (ex: h1, div, p, etc...)
 {{{
+
     <<include "Passage Name">>
-    <<include [[Passage Name]]>> ← will create an arrow in Twine
-    <<include "Passage Name" "div">> ← will wrap the passage in a 'div'
-    <<include [[Passage Name]] "h1">> ← will wrap the passage in the largest header 
+    <<include [[Passage Name]]>> ← creates an arrow in Twine
+→ will display the content of //Passage Name//
+
+    <<include $var>>
+→ will display the content of the passage, whose name has to be saved
+    in the variable, or it will display an error.
+
+    <<include "Passage Name" "div">> ← 
+→ will display the passage inside a 'div'
+
+    <<include [[Passage Name]] "h1">>
+→ will display the passage in the largest header 
+     (and create an arrow in Twine)
 }}}
 
 You can use {{{<<include>>}}} in any passage you want, even the [[Special Passages|Special-Passage]]! It can be pretty practical for {{{StoryInit}}} if you have a lot of variables or macros to set up and want to organise them.
@@ -266,6 +278,10 @@ Both macros are formatted the same way and only requires 1 argument:
 → Going back one passage, showing the text "Home" in the link:
     <<back "Home">>
     <<return "Home">>
+
+→ Going back to the passage "Home", showing the text "Going Home" in the link:
+    <<back "Going Home" "Home">>
+    <<return "Going Home"  "Home">>
 
 → Going back to a passage with the Link Markup:
     <<back [[Home]]>>

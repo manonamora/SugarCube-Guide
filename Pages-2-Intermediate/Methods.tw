@@ -180,27 +180,68 @@ The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
 \
 <h3>Remove elements from an array</h3>\
 There are multiple ways to remove elements from an array, but the methods listed below will do so differently.
-The examples below will assume that {{{_array = ['Apple', 'Apple', 'Potatoe', 'Sausage', 1, 2, 3]}}} and {{{_array2 = [1, 2, 3]}}}
+The examples below will assume that {{{_array = ['Apple', 'Apple', 'Potatoe', 'Sausage', 1, 2, 3]}}} and {{{_array2 = [1, 2, 3]}}}.
 \
-<h4>{{{<Array>.delete()}}}</h4>\
-{{{<Array>.delete()}}} will remove any instance of the targeted value.
+<h4>{{{<Array>.deleteAll()}}}</h4>\
+{{{<Array>.deleteAll()}}} will remove any instance of the targeted value.
 {{{
-    _array.delete(value/variable)
+    _array.deleteAll(value/variable)
 }}}
 {{{
-    _array.delete(_array2)
+    _array.deleteAll(_array2)
         → ['Apple', 'Apple', 'Potatoe', 'Sausage']
-    _array.delete(_array2, 'Apple')
+    _array.deleteAll(_array2, 'Apple')
         → ['Potatoe', 'Sausage']
-    _array.delete('Apple')
+    _array.deleteAll('Apple')
         → ['Potatoe', 'Sausage', 1, 2, 3]
 }}}
 The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
 {{{
-    <<set _array to _array.delete(_array2)>>
-    <<set _array.delete(_array2)>>
-    <<run _array.delete(_array2)>>
+    <<set _array to _array.deleteAll(_array2)>>
+    <<set _array.deleteAll(_array2)>>
+    <<run _array.deleteAll(_array2)>>
 }}}
+\
+<h4>{{{<Array>.deleteFirst()}}}</h4>\
+{{{<Array>.deleteFirst()}}} will work similarly to the previous method, except that it will only delete the first instance of the indicated value.
+{{{
+    _array.deleteFirst(value/variable)
+}}}
+{{{
+    _array.deleteFirst('Apple')
+        → ['Apple', 'Potatoe', 'Sausage', 1, 2, 3]
+    _array.deleteFirst('Potatoe', 1)
+        → ['Apple', 'Apple', 'Sausage', 2, 3]
+    _array.deleteFirst(_array2)
+        → ['Apple', 'Apple', 'Potatoe', 'Sausage']
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.deleteFirst(_array2)>>
+    <<set _array.deleteFirst(_array2)>>
+    <<run _array.deleteFirst(_array2)>>
+}}}
+\
+<h4>{{{<Array>.deleteLast()}}}</h4>\
+{{{<Array>.deleteLast()}}} will work similarly to the previous method, except that it will only delete the last instance of the indicated value.
+{{{
+    _array.deleteLast(value/variable)
+}}}
+{{{
+    _array.deleteLast('Apple')
+        → ['Apple', 'Potatoe', 'Sausage', 1, 2, 3]
+    _array.deleteLast('Apple', 1)
+        → ['Apple', 'Potatoe', 'Sausage', 2, 3]
+    _array.deleteLast(_array2)
+        → ['Apple', 'Apple', 'Potatoe', 'Sausage']
+}}}
+The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
+{{{
+    <<set _array to _array.deleteFirst(_array2)>>
+    <<set _array.deleteFirst(_array2)>>
+    <<run _array.deleteFirst(_array2)>>
+}}}
+\
 <h4>{{{<Array>.deleteAt()}}}</h4>\
 {{{<Array>.deleteAt()}}} will work similarly to the previous method, but will target the element at a certain position in the array.
 > ''Note:'' the first element in an array starts at 0.
@@ -214,7 +255,7 @@ The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
     _array.deleteAt(0, _array2)
         → [1, 2, 3]
     _array.deleteAt(6)
-        → ['Apple', 'Apple', 'Potatoe', 'Sausage', 1, 2,]
+        → ['Apple', 'Apple', 'Potatoe', 'Sausage', 1, 2]
 }}}
 The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
 {{{
@@ -282,7 +323,7 @@ The method is best used in conditional statements:
     <<if _array.includesAny(_array2, 4)>>...<</if>>
 → since the array has those elements, it will run the content
 
-Using a non-variable array as the receiver:
+Using a non-variable array as the reciever:
     <<if ["John", "Jane", "Sylvia"].includes($var)>>...<</if>>
 → if the value of the variable is included in this array, the code will run.
 }}}
@@ -331,8 +372,9 @@ You can use these methods in conditional statements, to set variable, or simply 
     <<= _array.randomMany(3)>>
     <<if _array.random() is "Apple">>...<</if>>
 }}}
+\
 <h4>{{{<Array>.shuffle()}}}</h4>\
-{{{<Array>.shuffle()}}} wiill shuffle the order of the values in the array, at random.
+{{{<Array>.shuffle()}}} will shuffle the order of the values in the array, at random.
 {{{
     _array.shuffle()
 }}}
@@ -342,6 +384,43 @@ The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
     <<set _array.shuffle()>>
     <<run _array.shuffle()>>
 }}}
+\
+<h4>{{{<Array>.toShuffled()}}}</h4>\
+{{{<Array>.toShuffled()}}} will shuffle the order of the values in the array, at random, without modifying the original array. It is particularly useful when needing a shuffled copy of the original array saved in another variable.
+{{{
+    _array.toShuffled()
+}}}
+The example below will assume that {{{_array = ['Apple', 'Apple', 'Potatoe', 'Sausage']}}}.
+{{{
+    <<set _array.toShuffled()>>
+→ Nothing will happen
+
+    <<set $var to _array.toShuffled()>>
+→ A potential output for $var: ['Potatoe', 'Apple', 'Sausage', 'Apple']
+  _array will not change
+
+    <<set _array to _array.toShuffled()>>
+→ will work the same way as {.shuffle()} above
+}}}
+\
+<h4>{{{<Array>.toUnique()}}}</h4>\
+{{{<Array>.toUnique()}}} will return the list of unique elements from an array, without modifying the original array. It is particularly useful when wanting to remove duplicates.
+{{{
+    _array.toUnique()
+}}}
+The example below will assume that {{{_array = ['Apple', 'Apple', 'Potatoe', 'Sausage']}}}.
+{{{
+    <<set _array.toUnique()>>
+→ Nothing will happen
+
+    <<set $var to _array.toUnique()>>
+→ will save in $var: ['Apple', 'Potatoe', 'Sausage']
+  _array will not change
+
+    <<set _array to _array.toUnique()>>
+→ will do the same as above, but save in _array.
+}}}
+\
 <h4>{{{<Array>.flat()}}}</h4>\
 {{{<Array>.flat()}}} will flatten an array containing sub-arrays.
 {{{

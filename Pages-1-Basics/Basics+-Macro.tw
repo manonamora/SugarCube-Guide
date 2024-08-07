@@ -188,24 +188,30 @@ To avoid bloating the loading time of passages (lag), it is recommended to keep 
 
 → multiple at once:
     <<unset $var, $var2, $var3>>
+
+→ properties of objects:
+    <<unset $object.property1, $object.property2>>
 }}}
 The macro can be used as is, or inside other container macros, like a {{{<<link>>}}} or a {{{<<button>>}}}.
 \
 <h3>Using the {{{<<run>>}}} macro.</h3>\
-The {{{<<run>>}}} macro will, as the name suggest, [[run|Macro-Script-Run]] any one-line JavaScript/jQuery code given. It can also help unset (or delete) variables from the game state. This is particularly helpful in cases where the {{{<<unset>>}}} macro doesn't work: like unseting a property of an opject ({{{$object.property}}}).
-
-Currently, trying to unset a property inside an object ({{{<<unset $object.property>>}}}) will not just delete that property, but also unset the whole object variables (so all the other properties saved inside). To resolve this, you should use the {{{<<run>>}}} macro coupled with the JavaScript {{{delete}}} operator:  
-{{{<<run delete $object.property>>}}}
-
-Assuming that {{{$mc = {name: "Jane", nickname: "Janie", age: 10} }}}:
+The {{{<<run>>}}} macro will, as the name suggest, [[run|Macro-Script-Run]] any one-line JavaScript/jQuery code given. It can also help unset (or delete) variables from the game state. To do this, you should use the {{{<<run>>}}} macro coupled with the JavaScript {{{delete}}} operator:  
 {{{
+    <<run delete $var>>
+    <<run delete $object.property>>
+}}}
+
+Assuming that {{{$count = 1}}} and {{{$mc = {name: "Jane", nickname: "Janie", age: 10} }}}:
+{{{
+    <<run delete $count>>
+→ will remove the value of $count
+
     <<run delete $mc.nickname>>
-→ will only remove the {nickname} property from the object
+→ will only remove the {nickname} property from $mc
 
     <<run delete $mc.nickname, delete $mc.age>>
-→ this will remove both the {nickname} and {age} properties from the object 
+→ this will remove both the {nickname} and {age} properties from $mc 
 }}}
-> ''Note'': you can also unset any other variable with this method.
 
 <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
 

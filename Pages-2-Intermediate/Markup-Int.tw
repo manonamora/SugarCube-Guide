@@ -89,7 +89,7 @@ The Code Markup will take two forms: an in-line one (HTML: {{{<code></code>}}}) 
 {{{
     {{{<<set $var to true>>}}}
 
-→ will be rended into:
+→ will be rendered into:
 
     <code><<set $var to true>></code>
 }}}
@@ -99,7 +99,7 @@ The Code Markup will take two forms: an in-line one (HTML: {{{<code></code>}}}) 
         <<set $var to true>>
     }}}
 
-→ will be rended into:
+→ will be rendered into:
 
     <pre><code><<set $var to true>></code></pre>
 }}}
@@ -109,7 +109,7 @@ The Verbatim Markup will require triple quotes {{{ " " }}} (HTML: {{{<nowiki></n
 {{{
     """No //format//"""
 
-→ will be rended into:
+→ will be rendered into:
     <nowiki>No //format//</nowiki>
 }}}
 
@@ -117,7 +117,7 @@ The Verbatim Markup will require triple quotes {{{ " " }}} (HTML: {{{<nowiki></n
 
 :: Markup-Template [page] {"position":"800,1300","size":"100,100"}
 <h1>Display Small Variation with Templates</h1>
-The Template makrup is essentially a text replacement code that will display small variation (usually of one word). It works in combination with the [[Template API|TemplateAPI]], where the variation is defined. It is most useful for displaying pronouns, especially pronoun sets defined before player input.
+The Template markup is essentially a text replacement code that will display small variation (usually of one word). It works in combination with the [[Template API|TemplateAPI]], where the variation is defined. It is most useful for displaying pronouns, especially pronoun sets defined before player input.
 > ''Note:'' For an example of Pronoun Template, see [[Chapel's Macro|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/pronoun-templates.md]] or [[HiEv's Widget|https://hiev-heavy-ind.com/Sample_Code/Sample_Code.html#Pronoun%20Templates]]. 
 
 The markup is set with a question mark {{{?}}} before the defined template name ({{{?this}}}). If a Template has been defined in JavaScript, the code will look for any template markup on the page, and display the relevant element on the screen.
@@ -126,7 +126,7 @@ The markup is set with a question mark {{{?}}} before the defined template name 
 Assuming that the template sets {{{?He}}} into //She// and {{{?his}}} into //her://
 {{{
     ?He was always willing to lend ?his ear to anyone.
-→ will be rended into:
+→ will be rendered into:
     She was always willing to lend her ear to anyone.
 }}}
 

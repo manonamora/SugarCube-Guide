@@ -321,8 +321,8 @@ The macro has three arguments:
 → this will not be in focus, and will not show any text, but the final input will be saved in $variable
 }}}
 
-> ''Note on autofocus:'' As of SugarCube 2.36.1, the autofocus function has some issues when: it is located outside of a passage, the passage with those macros is the first one loaded (also during page refresh), more than one macros on the page has autofocus on.
-> This can be fixed(-ish) with some [[jQuery]].
+> ''Note on autofocus:'' there are instances where the {{{autofocus}}} will not trigger, mainly: on the first passage loaded when opening the game and when multiple {{{autofocus}}} are coded on one page. In this last case, it will focus ''on the last one''.
+> You can, however, fixed this with some [[jQuery]], to targer a specific element or time to autofocus.
 
 <div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
 /* TODO!! TODO WAHT? of the jQuery....*/
