@@ -9,6 +9,7 @@ Whether for a more convinent way to format code and passages, send players to a 
 * [[Going Back or Returning to a Passage with a Special Link|Macro-Back-Return]]
 ** [[Arbitrarily Long Returns|Long-Return-JS]]
 * [[Sending the Player to a Passage|Macro-Goto]]
+* [[Updating Parts of the Passage|Macro-Do-Redo]]
 * [[Using JavaScript in the Passage|Macro-Script-Run]]  
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
@@ -51,14 +52,14 @@ The Macro has one argument for the container, and one for the submacro:
 
 :: Macro-Nobr-Silent [page] {"position":"1800,1200","size":"100,100"}
 <h1>Removing Blank Space and Hiding Code</h1>
-It can be //very// frustrating to code and format a whole passage, only to realise when playing it that unwanted blank space is everywhere. While some of it can be resolved with the [[nobr Markup|Markup-Nobr]], for longer block of text or code, you may want to use the {{{<<nobr>>}}} and {{{<<silently>>}}} macros. 
+It can be //very// frustrating to code and format a whole passage, only to realise when playing it that unwanted blank space is everywhere. While some of it can be resolved with the [[nobr Markup|Markup-Nobr]], for longer block of text or code, you may want to use the {{{<<nobr>>}}} and {{{<<silent>>}}} macros. 
 \
-<h3>{{{<<nobr>>}}} or {{{<<silently>>}}}</h3>\
+<h3>{{{<<nobr>>}}} or {{{<<silent>>}}}</h3>\
 Both macros will remove any blank space created by the code inside its container, making them quite useful when indenting the code for a clearer read through (especially for complex code).
 
 The main difference between the macros is whether an output is expected within the macro. As in: is there text inside the container that should appear on the screen where the macro is coded?
 
-{{{<<silently>>}}} will run any code inside the macro, but will not print anything on the page (unless you play the game in //Test/Debug// mode). {{{<<nobr>>}}} will run the code inside the macro, as well show any output on the page, without any linebreak (like the [[nobr Markup|Markup-Nobr]]). 
+{{{<<silent>>}}} will run any code inside the macro, but will not print anything on the page (unless you play the game in //Test/Debug// mode). {{{<<nobr>>}}} will run the code inside the macro, as well show any output on the page, without any linebreak (like the [[nobr Markup|Markup-Nobr]]). 
 > //An example for// {{{<<nobr>>}}}
 {{{
     I'd like a <<nobr>>
@@ -71,15 +72,15 @@ The main difference between the macros is whether an output is expected within t
 
 → will show the result in one line
 }}}
-> //An example for// {{{<<silently>>}}}
+> //An example for// {{{<<silent>>}}}
 {{{
-    <<silently>>
+    <<silent>>
     	You'll never see any of this! But this code will run...
         <<set _time to "9s">>
         <<timed _time>>
             <<goto "END">>
         <</timed>>
-    <</silently>>
+    <</silent>>
 
 → will send you to the passage "END" but nothing will appear on the page
 }}}
@@ -138,6 +139,8 @@ So {{{Passage Name}}} will have the class {{{passage-passage-name}}}, or {{{To t
 :: Macro-Widget [page] {"position":"1800,1300","size":"100,100"}
 <h1>Creating and Using a Widget</h1>
 Widgets are a pretty practical macro that lets you create "special macros" with basic SugarCube. You can call bits of texts or codes as many times as you want, or create containers to format text, without cluttering the code of the passage. A defined widget can be used as many times as you want inside a project, or even within a passage.
+> ''Note:'' this macro differs from the {{{<<include>>}}} [[macro|Macro-Include]], in that {{{<<include>>}}} will include the whole passage on the page, while {{{<<widget>>}}} will only call what is defined inside the macro.
+
 The {{{<<widget>>}}} macro is also useful for: creating shortcuts for pronouns, grouping list of links to appear on multiple passages (e.g. exposition conversation), adding special hovertext of elements (e.g. images, translation), formatting dialogue with character portraits...
 
 For widgets to work they need to be:
@@ -178,8 +181,10 @@ The macro has 2 arguments:
 <h3>Arguments and Contents</h3>\
 Aside from using basic SugarCube code (or even JavaScript/jQuery inside a {{{<<run>>}}} or {{{<<script>>}}} [[macro|Macro-Script-Run]]), widgets allows the use of exta arguments when called, as well as becoming containers.
 This is possible thanks to the special temporary variables: {{{_args[]}}} and {{{_contents}}} 
-
+\
+<h4>{{{_args[]}}} widgets</h4>\
 An argumented widget is used to create more complex but general macros. Arguments can be in the form of base value or variables, and will be stored in an array called {{{_args[]}}} (starting with the position 0).
+\
 > //Example://
 {{{
     :: Widget [widget]
@@ -199,7 +204,10 @@ An argumented widget is used to create more complex but general macros. Argument
 }}}
 > Simon says: <<SimonSpecialSay>>
 > Simon says: <<SimonSpecialSay "Fooled you!">>
-
+\
+You can also use the {{{_args.name}}} property to access the widget's name.
+\
+<h4>{{{_contents}}} widgets</h4>\
 A container widget will create a special "macro", with an opening and closing brackets that can be wrapped around some text in the main passage to format it in a special way. It uses the variable {{{_contents}}} to link that text with the macro. 
 > //Example://
 {{{
@@ -230,7 +238,8 @@ A container widget will create a special "macro", with an opening and closing br
 }}}
 <<SimonDoes>>And so he does!<</SimonDoes>>
 \
-It is also possible to combine both types of widgets, making is an argumented container widget.
+<h4>Combining {{{_args}}} and {{{_contents}}}</h4>\
+If needed, you can combine both types of widgets, making is an argumented container widget.
 > //Example from the Documentation://
 {{{
     <<widget "say" container>>
@@ -245,8 +254,9 @@ It is also possible to combine both types of widgets, making is an argumented co
     <</say>>
 }}}
 This code will create a dialogue box ({{{<div>}}}), showing an image ({{{<img>}}}) next to the text ({{{<p>}}}). The url of image is pulled by the argument ({{{images/chapel.png}}}).
-
-Though it should not be abused, you can call a widget inside another widget:
+\
+<h4>Nesting Widgets</h4>\
+Though ''it should not be abused'', it is possible to call different widgets inside one another. This method can be useful when organising code, and merging duplicate blocks of code.
 {{{
     <<widget "Test">>This is a test<</widget>>
 
@@ -258,8 +268,36 @@ Though it should not be abused, you can call a widget inside another widget:
         <</if>>
     <</widget>>
 }}}
+\
+<h4>Warnings with Nesting and Contents</h4>\
+Calling widgets inside another widget must be done with care, as it can throw errors. This is the case when nesting {{{_contents}}} inside widgets:
+{{{
+    <<widget "inner" container>>
+        _contents
+    <</widget>>
 
-> ''Note:'' this macro differs from the {{{<<include>>}}} [[macro|Macro-Include]], in that {{{<<include>>}}} will include the whole passage on the page, while {{{<<widget>>}}} will only call what is defined inside the macro.
+    <<widget "outer" container>>
+        <<inner>>_contents<</inner>>
+    <</widget>>
+
+    <<outer>>ford<</outer>>
+}}}
+Though it might seem logical, this code will cause uncontrolled recursion, and only display an error on screen. Instead, it is better to do nest the macros on the passage directly, like this:
+{{{
+    <<widget "inner" container>>
+        _contents
+    <</widget>>
+
+    <<widget "outer" container>>
+        _contents
+    <</widget>>
+
+    <<outer>>
+        <<inner>>
+            ford
+        <</inner>>
+    <</outer>>
+}}}
 
 <div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
 
@@ -429,3 +467,6 @@ If added as is on the page, the code will triggers as soon at the passage is loa
 > ''Note:'' the {{{<<script>>}}} macro has the same use as the {{{<script>}}} HTML markup, though the latter will only work inside the {{{StoryInterface}}} passage.
 
 <div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
+
+:: Macro-Do-Redo
+TODO:

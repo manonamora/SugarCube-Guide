@@ -203,7 +203,7 @@ This can be done with either {{{data-passage}}} or {{{data-init-passage}}}.
 > ''Note:'' any text coded inside the elements in {{{StoryInterface}}} will be overriden by the content of the linked passage.
 \
 While these two links seem interchangeable, there is a major difference between the two: {{{data-init-passage}}} will load at the start of the game and ''never'' change, while {{{data-passage}}} will update with every new passage visited (if an update is necessary).
-> ''Note:'' you can also use {{{data-passages}} with [[Special Asset Passages|Tags-Asset]]: {{{<img data-passage="TheCube">}}}
+> ''Note:'' you can also use {{{data-passages}}} with [[Special Asset Passages|Tags-Asset]]: {{{<img data-passage="TheCube">}}}
 
 <div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
 

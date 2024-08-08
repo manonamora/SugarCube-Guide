@@ -45,7 +45,7 @@
 ** [[Display Small Variation with Templates|Markup-Template]]
 * ''[[Going Further with Basic APIs and More|API-Adv]]''
 ** [[More Popups APIs|API-Dialog]]
-** [[More UIBar APIs|API-UIBar]]
+** [[More SideBar APIs|API-UIBar]]
 ** [[The Template APIs|TemplateAPI]]
 ** [[(Un)Locking the Loading Screen|API-Lock]]
 * ''[[More Interactivity Macros|Macro-Interact-Adv]]''
@@ -117,11 +117,12 @@
 ** [[More Methods to change Variables|Method-Variables]]
 ** [[jQuery Methods and Interactivity|Method-jQuery]]
 * ''[[The Settings API|Settings]]''
-** [[Adding Headers|SettingsHeader]]
+** [[Creating a Setting|SettingsBasics]]
 ** [[Creating a Toggle Setting|SettingsToggle]]
 ** [[Creating a List Setting|SettingsList]]
 ** [[Creating a Slider|SettingsRange]]
 ** [[Going Further with Settings|Settings-More]]
+** [[Adding Headers|SettingsHeader]]
 * ''[[Going further with the Engine API|Engine-API]]''
 ** [[Checking the State of the Game|Engine-State]]
 ** [[Move through the Player's History|Engine-Go]]
@@ -376,14 +377,17 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{Save.onSave.size}}} : [[Using Save-related Events|SaveAPI-Events]] 
 
 <h3>Setting API</h3>
-* {{{Setting.addHeader()}}} : [[Adding Headers|SettingsHeader]]
+* {{{Setting.addValue}}}: [[Creating a Setting|SettingsBasics]]
 * {{{Setting.addToggle()}}} : [[Creating a Toggle Setting|SettingsToggle]]
 * {{{Setting.addList()}}} : [[Creating a List Setting|SettingsList]]
 * {{{Setting.addRange()}}} : [[Creating a Slider|SettingsRange]]
+* {{{Setting.getValue}}} : [[Going Further with Settings|Settings-More]]
+* {{{Setting.setValue}}} : [[Going Further with Settings|Settings-More]]
 * {{{Setting.load()}}} : [[Going Further with Settings|Settings-More]]
 * {{{Setting.reset()}}} : [[Going Further with Settings|Settings-More]]
 * {{{Setting.save()}}} : [[Going Further with Settings|Settings-More]]
 * {{{settings}}} : [[Going Further with Settings|Settings-More]]
+* {{{Setting.addHeader()}}} : [[Adding Headers|SettingsHeader]]
 
 <h3>State API</h3>
 * {{{State.active}}} : [[Exploring the Different Moments inside the State|StateAPI-State]] 
@@ -442,12 +446,12 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 <h3>UIBar API</h3>
 * {{{UIBar.destroy()}}} : [[Handle the SideBar|Basic-API-UIBar]]
 * {{{UIBar.hide()}}} : [[Handle the SideBar|Basic-API-UIBar]]
-* {{{UIBar.isHidden()}}} : [[More UIBar APIs|API-UIBar]] 
-* {{{UIBar.isStowed()}}} : [[More UIBar APIs|API-UIBar]] 
+* {{{UIBar.isHidden()}}} : [[More SideBar APIs|API-UIBar]] 
+* {{{UIBar.isStowed()}}} : [[More SideBar APIs|API-UIBar]] 
 * {{{UIBar.show()}}} : [[Handle the SideBar|Basic-API-UIBar]]
 * {{{UIBar.stow()}}} : [[Handle the SideBar|Basic-API-UIBar]]
 * {{{.unstow()}}} : [[Handle the SideBar|Basic-API-UIBar]]
-* {{{UIBar.update()}}} : [[More UIBar APIs|API-UIBar]] 
+* {{{UIBar.update()}}} : [[More SideBar APIs|API-UIBar]] 
 
 <div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
 
@@ -496,7 +500,7 @@ Below, you will find the alphabetical list of SugarCube macro, and where they ar
 * {{{<<run>>}}}: [[Unsetting Variables|Macro-Unset]], [[Using JavaScript in the Passage|Macro-Script-Run]]
 * {{{<<script>>}}}: [[Using JavaScript in the Passage|Macro-Script-Run]]
 * {{{<<set>>}}}: [[Tracking Information|Macro-Set-Basic]], [[Setting and Changing Variables|Macro-Set]]
-* {{{<<silently>>}}}: [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
+* {{{<<silent>>}}}: [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
 * {{{<<stop>>}}}: [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
 * {{{<<switch>>}}}: [[An Alternative to Conditional Statements|Macro-Switch]]
 * {{{<<textarea>>}}}: [[Player Input in three macros|Macro-Input]]

@@ -98,6 +98,7 @@ The following events allow the execution of JavaScript code at specific points d
     StoryAuthor 
     StoryCaption 
     StoryMenu
+    :uiupdate event
     
 6- Passage end (end of passage navigation)
     :passageend event
@@ -175,6 +176,7 @@ You can include any JavaScript code inside the following container:
 	    /* JavaScript code */
     });
 }}}
+> ''Note:'' this event is only triggered ''once''.
 \
 <h3>{{{:enginerestart}}}</h3>\
 This is a global event that will be triggered just before the page is reloaded when using {{{Engine.restart()}}}.
@@ -184,8 +186,16 @@ You can include any JavaScript code inside the following container:
 	    /* JavaScript code */
     });
 }}}
-
-> ''Note:'' these events are only triggered ''once''.
+> ''Note:'' this event is only triggered ''once''.
+\
+<h3>{{{:uiupdate}}}</h3>\
+This is a global event that will be triggered everytime the user interface is updated, either through the manual use of the {{{UI.update()}}} [[API]] or when the player moves to a new passage.
+You can include any JavaScript code inside the following container:
+{{{
+    $(document).on(':uiupdate', function (ev) {
+	    /* JavaScript code */
+    });
+}}}
 
 <div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
 

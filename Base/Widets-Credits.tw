@@ -19,6 +19,15 @@
         <p class="simon-does">_contents</p>
     </div>
 <</widget>>
+<<widget "ChapterDependentTags">>
+    <<if tags().includes("chapter")>>
+        <div id="link-menu">[[Back to the Start Menu|Start]]</div>
+    <<elseif tags().includes("settingsapi")>>
+        <div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
+    <</if>>
+    //TODO: this obviously
+<</widget>>
+
 
 :: TheCube [Twine.image] {"position":"2100,400","size":"100,100"}
 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAAAB3RJTUUH5AMQDQ4vazJd/wAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAAN1wAADdcBQiibeAAAAzdJREFUeNrt3M1rGkEUAHDb/jO9tce20B5bUKOiLpqIH/9Gbh4CvQQCnsV6r7d4rh9gY8EYjYk5qQcPBmM8iB6E7E7nyS5Yu36s7uzne/BYFnZ25v2cdZaFXYfDgHF0dPTWgbE5XC7XN6/XW6VYxOPxXNHtV1SRQfL5fH8A6fj4WEilUiQcDguwL+LZHu0VnT0cxbgHlFgsxufzeTKbzch8Pl9sYT8ajfIi2j0cD+0QSURaTQkNjrMT2gKJXm7tXZBsiZZMJl+73e7Yvkjb0OC8pkdTG2kXNOgP+kUkK6FpjWRKNI7j3iwjxeNxTZFMgSYh0VXpwQhI69BgXMtoMG7dkBKJhKGQtqHBuJmjycwkwchI69Dgx2WGZnakDTNNUA3NakjM0GjDTzTrcJJIJCLkcjkymUwsgbSaUBfUd3JyIqHVoX4lD9++Q8N0Ov1oVSQ5tGw2+wh1Q/2KsarVKmk0GrdPT091K0PRS7L+/Px8OxgMyEFYtVptkVZEk5BGoxGBVA1rBe3GSkjMsMyMRpFu5JCYY5kJbRuSZlhGRtsVSXMsI6EpRdINaxltOBw2zICkO5aUzWbzmhZwxxJpOp02DkEyDBZLNDqT7sbj8fWhSIbDUhNNbSTDYh2CxgrJ8FhK0FgjmQZrE5pWSKbDEpNvtVq/KVCVwl3RAnitoMyItch2u13UEgmxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEMsaWOVy2VZYvV5POZbH4zmFRhzHvVxcXJBKpWJprH6/TzKZDAmFQi/iZxJOFb044Ha7P9KGl9DY7/fzZ2dnpFQqWQqr2+0S+CxCIBDgxRl1CXXv/VqKHmissVRH0hONFRZzJD3Q1MbSHElLNLWwOp3Of0g0P+j2+i90TleP/DJasVjUFWsVSRyffkgs0fbFMjwSCzSlWCtIguGRNqAJStF2xTI9khpo27AkpGAwKCH9dDqd7y3zAR8oBoraBW0dlhwSXZXfOawaUNw2tFUs2yEpQZOwbI8k84TjC4UowOoJf9Tn5+ekUChU0+k0PPWQbgF+wXEOjH/QiuKdNpGQXC7XZ9TZjPYDkTDsE38BhSF0jgiMpUIAAAAASUVORK5CYII=
@@ -45,22 +54,22 @@ You can also find resources and help with Twine and SugarCube:
 * on the [[IntFiction Forum|https://intfiction.org/c/authoring/twine/46]]
 * on the [[Twine Subreddit|https://www.reddit.com/r/twinegames/]]
 * in the [[Twine Discord|https://discord.gg/n5dJvPp]]
-* and more listed in this [[Masterlist|https://manonamora-if.tumblr.com/post/700577877042888704/]] ([[IntFiction Forum copy|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]])
+* and more listed in this [[Masterlist|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]]
 
 <h3>HTML, CSS, JavaScript</h3>\
 There are many online courses to learn the basics (or further) of the Twine-adjacent languages: HTML, CSS, JavaScript/jQuery.
 * the [[W3 School|https://www.w3schools.com/]] has the most beginner explanations, and lets you test and edit their examples.
 * [[MDN Web Docs|https://developer.mozilla.org/en-US/]] is more technical but provides a more extensive documentation.
-* [[jQuery|https://jquery.com/]] has also a special documentation website.
+* [[jQuery|https://jquery.com/]] has also a specialist documentation website.
 
 <h3>This Guide also uses...</h3>\
-The {{{<<message>>}}} and {{{Dialog API}}} macros from [[Chapel|https://github.com/ChapelR/custom-macros-for-sugarcube-2/]].
-The Accessibility Fix for the {{{<<cycle>>}}} macro by [[HiEv|https://www.patreon.com/HiEv]].
+* the {{{<<message>>}}} and {{{Dialog API}}} macros from [[Chapel|https://github.com/ChapelR/custom-macros-for-sugarcube-2/]].
+* the Accessibility Fix for the {{{<<cycle>>}}} macro by [[HiEv|https://www.patreon.com/HiEv]].
 
 <h3>A Special Thanks to...</h3>\
-* Chris Klimas for creating Twine, and TME for making the SugarCube format and the Tweego compiler.
-* Cycy for making the Twee 3 Language Tool extension for VScode.
-* The Twine Discord, especially Crepes, TRBRY, Gwen, Cyrus, Sjoerd, SleepyFool, TME, for their help and sharing examples when I forgot what certain macros were supposed to do!
+* ''Chris Klimas'' for creating Twine, and ''TheMadExile/TME'' for making the SugarCube format and the Tweego compiler.
+* ''Cycy'' for making the Twee 3 Language Tool extension for VScode.
+* The Twine Discord, especially ''Crepes'', ''TRBRY'', ''Gwen'', ''Cyrus'', ''Sjoerd'', ''SleepyFool'', and ''TME'' for their help and sharing examples when I forgot what certain macros were supposed to do!
 
 :: Organise {"position":"2475,100","size":"100,100"}
 <h1>Some Random Stuff That will be Organised Later</h1>

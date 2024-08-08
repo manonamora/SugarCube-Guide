@@ -23,7 +23,17 @@ SugarCube Guide
 <<if tags().includes("sp-demo")>><img data-passage="TheCube"><</if>>
 
 :: StoryCaption {"position":"2300,500","size":"100,100"}
-<<if tags().includes("sp-demo")>>I can't think of a good caption... so here's some text<</if>>
+<<if tags().includes("sp-demo")>>I can't think of a good caption... so here's some text<<else>>\
+One Page Toggle
+<span id="fancy-button"><<button `(settings.onePage) ? "On" : "Off"`>>
+  <<if settings.onePage>>
+    <<run Setting.setValue("onePage", false);>>
+    <<goto "Start">>
+  <<else>>
+    <<run Setting.setValue("onePage", true);>>
+    <<goto "OnePage">>
+  <</if>>
+<</button>></span>
 
 :: StoryDisplayTitle {"position":"2300,200","size":"100,100"}
 <<if tags().includes("sp-demo")>>SG SUPER GUIDE YO@!<<else>>100% Good Twine SugarCube Guide<</if>>
@@ -33,7 +43,7 @@ SugarCube Guide
 	[[But this one will send you back to the main menu!|Start]]
 	And this won't appeat, because it's not a link.
 	<<button [[And neither will this, because a button is not a link]]>><</button>>
-	<<else>>[[Index]]
+	<<else>><<if !settings.onePage>>[[Index]]<<else>><<link "Index">><<popup "IndexOnePage" "Index">><</link>>
 	<<link "Credits">><<popup "Credits" "Credits">><</link>>
 	[[Update Log]]<</if>>
 
@@ -43,6 +53,7 @@ SugarCube Guide
 
 :: PassageFooter {"position":"2000,200","size":"100,100"}
 <<if tags().includes("sp-demo")>><hr>The Footer in action! included in a horizontal bar<<else>><hr>
+  <<ChapterDependentTags>>
 	<center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - [[Pages Index|Index]]
   [[Macros List]] - [[Function/Method List]] - [[API List]]
   <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora-if.tumblr.com/ask]]</center>
@@ -53,7 +64,7 @@ SugarCube Guide
 
 
 :: Start [noreturn menu] {"position":"1500,100","size":"200,200"}
-<div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div>
+<div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div> /*TODO: change the date here*/
 <h1>100% Good Twine SugarCube Guide</h1>\
 This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
 

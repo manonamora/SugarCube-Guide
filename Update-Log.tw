@@ -1,18 +1,37 @@
 :: Update Log [side] {"position":"1700,400","size":"100,100"}
 <h1>100% Good Twine SugarCube Guide</h1>
 > //Next Update// (TBA)
-Potentially the Audio API
-Also change the layout so people can toggle from single page to view all. -> On macro
-    -> or maybe just a toggle to show it all in one page or send back to "Main Menu"
-        -> it would save as a setting too
-    -> popup with warning (need to check loading time)
-    -> also change the end of passages with Passage Footer. So it doesn't appear in the one page? OR copy-paste all in one page? (would make editing mistakes double though...)
-    -> Also StoryCaption in the OnePage to have the headers? With a click to scrollto?
-        -> Index becomes a popup then -> scroll to again.
+- Potentially the Audio API
+- Add Toggle to switch from Chapter to One Page view 
+    -> add popup warning when clicking to button 
+        -> return to Chapter Menu / Show all in one page (check if loading time is hella long or not)
+    -> add popup warning One Page about links sending to shorter passage instead of scroll 
+        -> need to change passage footer to send back to One Page 
+        -> Except for indexes 
+    -> One Page is almost all <<include>>, and headers had Id for scroll
+        -> Indexes are popups 
+            -> need to change the links to do the scroll or send the passage depending on mode
+                -> avoid two sets of Indexes 
+    -> Edit PassageFooter to include the links back to Sub-Chapters
+        -> all in the mega widget 
+        -> toggle between tags or setting.OnePage
 <hr>
-> ''Version 2.0.0''
+> ''Version 2.0.0'' - ??-Aug-24
 [??-Aug] - Completed updating the guide for SG v2.37.2 
+[??-Aug] - Created the {One Page View}
+[??-Aug] - Rephrased some explanations for clarity and consistency
 [TODO] - Edited the {Save API} chapter
+[TOFINISH] - Added the {triggerEvent} function
+[08-Aug] - .........................
+[07-Aug] - Added the {:uiupdate} to {System Events}
+[07-Aug] - Edited the {silently} macro to its new {silent} name
+[07-Aug] - Edited the {Widget} macro page
+[07-Aug] - Edited the {Loop - Two Ways} page to update the {for} macro
+[07-Aug] - Replaced {UIBar.update()} with {UI.update()}
+[07-Aug] - Rephrased some explanations for clarity and consistency
+[07-Aug] - Fixed typos and formatting errors
+[07-Aug] - Edited the {Settings API} with new information. This includes: {Setting.addValue()}, {Setting.getValue()}, {Setting.setValue()}
+[06-Aug] - Fixed typos and formatting errors 
 [06-Aug] - Updated the {jQuery Methods} with new information ({.wikiPassage()})
 [06-Aug] - Edited the {Array Methods} page to replace deprecated code and update information ({.deleteFirst/Last()}, {.toShuffled()}, {.toUnique()})
 [06-Aug] - Updated information about {Config.cleanupWikifierOutput}
@@ -23,13 +42,15 @@ Also change the layout so people can toggle from single page to view all. -> On 
 [05-Aug] - Fixed typos previously raised 
 [05-Aug] - Edited {Slider Setting} example for consistency 
 [05-Aug] - Added example to {Include Macro}
-> ''Version 1.2.1''
+<hr>
+> ''Version 1.2.1'' - 24-Jan-24
 [24-Jan] - Added Function/Method Index + API Index
 [24-Jan] - Completed the TODO comments
 [24-Jan] - Removed the //New// and //Updated// signs
 [24-Jan] - Fixed typos, broken links
 [24-Jan] - Reformatted the Macro Index
-> ''Version 1.2.0''
+<hr>
+> ''Version 1.2.0'' - 10-Dec-23
 [10-Dec] - Released a Downloadable Form
 [10-Dec] - Completed the SugarCube Theme 
 [10-Dec] - Completed the Settings Options
@@ -67,7 +88,7 @@ Also change the layout so people can toggle from single page to view all. -> On 
 [28-Nov] - Fixed some external links
 [28-Nov] - Added more links (internal guide)
 <hr>
-> ''Version 1.1.0''
+> ''Version 1.1.0'' - 05-Aug-23
 [05-Aug] - Clean up and check for update
 [02-Aug] - Added the {Event} pages
 [02-Aug] - Added the {Intro to Animation} page
@@ -75,7 +96,7 @@ Also change the layout so people can toggle from single page to view all. -> On 
 [01-Aug] - Added the {Engine API} pages
 [01-Aug] - Added the {Localization} pages
 <hr>
-> ''Version 1.0.2''
+> ''Version 1.0.2'' - 30-Jul-23
 [30-Jul] - Fixed broken links
 [30-Jul] - Added external links
 [30-Jul] - Added extra explanation on the {Back vs Return} macros, and the {Conditional Statements}.
@@ -85,14 +106,14 @@ Also change the layout so people can toggle from single page to view all. -> On 
 [30-Jul] - Completed the {Macro List} Page
 [30-Jul] - Updated the {Lexicon}
 <hr>
-> ''Version 1.0.1''
+> ''Version 1.0.1'' - 29-Jul-23
 [29-Jul] - Fixed errors in Method code (array, string)
 [29-Jul] - Fixed broken links
 [29-Jul] - Fixed markup errors
 [29-Jul] - Fixed inconsistencies in formatting
 [29-Jul] - Cleaned up TODO notes on published pages
 <hr>
-> ''Version 1.0.0''
+> ''Version 1.0.0'' - 20-Jun-23
 [30-Jun] - Pre-Release
 
 <<back>>

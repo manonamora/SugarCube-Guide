@@ -5,6 +5,7 @@ Functions are JavaScript blocks of code designed to do a specific task, from imp
 * [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
 * [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
 * [[Memorizing Information and Metadata|Function-Metadata]]
+* [[Triggering Events|Function-Trigger]]
 * [[JavaScript-only Functions|Function-JS]]
 
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
@@ -271,4 +272,57 @@ Sometimes, your JavaScript code will need a variable set in SugarCube to run. Th
 }}}
 
 <div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
+
+:: Function-Trigger [page]
+<h1>Triggering Events</h1>
+Dispatches a synthetic event with the given name, optionally on the given targets and with the given options.
+History:
+
+    v2.37.0: Introduced.
+
+Parameters:
+
+Tip: If dispatching custom events, it is recommended that you limit your custom event names to the following characters: letters, digits, periods (.), hyphens (-), underscores (_), and colons (:).
+
+    name: (string) The name of the event to trigger. Both native and custom events are supported.
+    targets: (optional, Document | HTMLElement | jQuery | NodeList | Array<HTMLElement>) The target(s) to trigger the event on. If omitted, will default to document.
+    options: (optional, object) The options to be used when dispatching the event. See below for details.
+
+Options object:
+
+Warning: Adding additional properties directly to event options objects is not recommended. Instead, use the detail property.
+
+An event options object should have some of the following properties:
+
+    bubbles: (optional, boolean) Whether the event bubbles (default: true).
+    cancelable: (optional, boolean) Whether the event is cancelable (default: true).
+    composed: (optional, boolean) Whether the event triggers listeners outside of a shadow root (default: false).
+    detail: (optional, any) Custom data sent with the event (default: undefined). Although any type is allowable, an object is often the most practical.
+
+Returns: none
+Throws: none
+Examples:
+Dispatch a custom fnord event on document
+
+triggerEvent('fnord');
+
+Dispatch a click event on the element bearing the ID some-menu
+
+triggerEvent('click', document.getElementById('some-menu'));
+
+Dispatch a custom update-meter event on document while specifying some options
+
+triggerEvent('update-meter', document, {
+	detail : {
+		tags : ['health', 'magick']
+	}
+});
+
+Various ways to dispatch a mouseover event on all elements bearing the class flippable
+
+triggerEvent('mouseover', document.getElementsByClassName('flippable'));
+
+triggerEvent('mouseover', document.querySelectorAll('.flippable'));
+
+triggerEvent('mouseover', jQuery('.flippable'));
 

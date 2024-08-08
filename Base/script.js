@@ -5,6 +5,8 @@ $(document).on(":passagedisplay", function() {
 });
 //----SETTINGS----
 
+Setting.addValue("onePage");
+
 Setting.addHeader("Visual Setting");
 
 var settingThemeNames = ["Base SC", "SC Docu"];

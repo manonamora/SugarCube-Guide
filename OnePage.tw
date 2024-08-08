@@ -1,0 +1,7 @@
+:: OnePage
+-> do a whole list of include to "include" the passages, 
+    except for the Chapter pages
+        -> those are done manually to avoid the links.
+-> Make a popup that clicking on links will send people to a specific page instead of a section?
+    -> indicate this won't apply to the indexes popup
+    -> make macro/function/methods/API popups 

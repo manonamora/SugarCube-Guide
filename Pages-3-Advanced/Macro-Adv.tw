@@ -136,40 +136,29 @@ For this form, the macro has three arguments:
 }}}
 \
 <h4>The Range form</h4>\
-This form will go through all entries of a given collection (ex: values of an array), and stop executing the content when the collection has run out.
+This form will go through all entries of a given collection, and stop executing when the collection has run out. The collection can have a multitude of form, from arrays to a simple number.
 
 There are 4 arguments for this form:
 * {{{keyVariable}}} (optional), a temporary variable holding the loop iteration number (starting at 0)
-* {{{valueVariable}}}, as a {{{$var}}} or {{{_temp}}}, holding the value of the current loop iteration
+* {{{valueVariable}}} (optional), as a {{{$var}}} or {{{_temp}}}, holding the value of the current loop iteration
 * {{{range}}}, required to tell the system this is a range form
 * {{{collection}}}, the variable holding as many entries are there will be iterations
-** among others, it will accept: arrays, objects, strings (as an array of characters)
+** among others, it will accept: arrays, objects, strings (as an array of characters) and integer
+> //Using an array://
 {{{
     <<set $dwarves to ["Doc", "Dopey", "Bashful", "Grumpy", "Sneezy", "Sleepy", "Happy"]>>
 
     <<for _i, _name range $dwarves>>
         <<print _i + 1>>. _name
     <</for>>
-
 → will print the content of the array as a list (#. value)
 }}}
-\
-<h4>Using a set number as the amount of iteration</h4>\
-While it is not possible to simply do {{{<<for 4>>}}} to have the loop onyl run four times, you can circumvent this in two ways:
-* use Maliface's {{{<<times>>}}} [[Custom Macro|https://github.com/MalifaciousGames/Mali-s-Macros#the-times-macro]]
-* use a widget to "hide" the 3-part contidional form (below)
+> //Using a number//:
 {{{
-    :: Widget [widget]
-    <<widget "times" container>>
-        <<for _i = 0; _i lt _args[0]; _i++>>
-            _contents
-        <</for>>
-    <</widget>>
-
-    :: Story Passage
-    <<times 5>>
-        → Run code or output stuff five times
-    <</times>>
+    <<for _value range 7>>
+        <<set $hp -= random(2-10)>>
+    <</for>>
+→ will run the code 7 times
 }}}
 \
 <h4>Using {{{<<break>>}}} and {{{<<continue>>}}}</h4>\

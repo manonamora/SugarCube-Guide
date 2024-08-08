@@ -5,7 +5,7 @@ While most of the Basic API were listed [[here|Basic-API]], this chapter will co
 Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
 
 * [[More Popups APIs|API-Dialog]] 
-* [[More UIBar APIs|API-UIBar]] 
+* [[More SideBar APIs|API-UIBar]] 
 * [[The Template APIs|TemplateAPI]] 
 * [[(Un)Locking the Loading Screen|API-Lock]] 
 
@@ -79,14 +79,15 @@ The API has 3 parameters:
 <div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
 
 :: API-UIBar [page] {"position":"1200,1200","size":"100,100"}
-<h1>More UIBar APIs</h1>
+<h1>More SideBar APIs</h1>
 \
-<h3>{{{UIBar.update()}}}</h3>\
-This API will let you update the whole of the SideBar outside of [[Navigation Update|Events-Passage]]. Runing this API will refresh any element coded in [[Special Passages|SP-UIBar]] (e.g. {{{StoryBanner}}}, {{{StoryCaption}}}, etc...).
+<h3>{{{UI.update()}}}</h3>\
+This API triggers the {{{:uiupdate}}} [[event]] to update the Built-In SideBar, refreshing any element coded in [[Special Passages|SP-UIBar]] of the SideBar (e.g. {{{StoryBanner}}}, {{{StoryCaption}}}, etc...).
+> ''Note:'' this API is automatically called when moving to a new passage.
 {{{
-    UIBar.update();
+    UI.update();
 }}}
-> ''Note:'' this should be used sparingly, as the refresh does not target a single element. If you need to update the SideBar, it is recommended to target that specific element instead of the whole, or move the player to a new passage. 
+> ''Note:'' this should be used ''sparingly'', as the refresh does not target a single element. If you need to update the SideBar, it is recommended to target that specific element instead of the whole, or move the player to a new passage. 
 \
 <h3>{{{UIBar.isHidden()}}} and {{{UIBar.isStowed()}}}</h3>\
 These API will check whether the SideBar is currently hidden or stowed respectively, using boolean values as results. These states are particularly useful when wanting to trigger code, whether in JavaScript or with SugarCube macros.
