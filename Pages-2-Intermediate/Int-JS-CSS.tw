@@ -129,8 +129,7 @@ Inside the {{{html}}} wrapper you will find:
 *** {{{#ui-bar-tray}}}
 **** {{{button#ui-bar-toggle}}}
 **** {{{#ui-bar-history}}}
-***** {{{button#history-backward}}}
-***** {{{button#history-jumpto}}}
+***** {{{button#history-backward}}}/***** {{{button#history-jumpto}}}*/
 ***** {{{button#history-forward}}}
 *** {{{#ui-bar-body}}}
 **** {{{#title}}}
@@ -143,13 +142,14 @@ Inside the {{{html}}} wrapper you will find:
 **** {{{nav#menu}}}
 ***** {{{ul#menu-story}}}
 ***** {{{ul#menu-core}}}
+****** {{{li#menu-item-continue}}}
 ****** {{{li#menu-item-saves}}}
 ****** {{{li#menu-item-settings}}}
 ****** {{{li#menu-item-restart}}}
 ** {{{#story}}}
 *** {{{#passages}}}
 *** {{{.passage}}}
-** {{{#debug-bar}}} (for Testing/Debug Mode)
+** {{{#debug-bar}}} (for Testing/Debug Mode, if [[enabled|DebugAPI]])
 \
 > ''Note:'' when targetting a base element, you don't have to indicate the type of element ({{{div}}}/{{{h1}}}/{{{button}}}/etc...). However, their specific default CSS settings may affect how they look (e.g. margin).
 \
@@ -157,6 +157,7 @@ Inside the {{{html}}} wrapper you will find:
 The targetable elements below can be found in the //Saves//, //Settings//, and //Restart// menus.
 \
 <h4>The Saves Menu</h4>\
+TODO: EDIT THIS!!!
 In the body of the //Saves// menu ({{{.saves}}} class), you will find:
 * {{{table#saves-list}}}
 ** {{{ ... }}}
@@ -171,6 +172,7 @@ In the body of the //Saves// menu ({{{.saves}}} class), you will find:
 > Other targetable elements includes the rows and cells of the save tables, and the {{{li}}} elements for the buttons.
 \
 <h4>The Settings Menu</h4>\
+TODO: DOUBLE CHECK THIS!!!
 The elements inside the //Settings// Menu will depend on what settings were coded in the project's JavaScript. 
 Each setting will be coded as follow, with [setting] being the defined name of the setting:
 * {{{#setting-body-[setting]}}}
@@ -187,6 +189,7 @@ The bottom of the //Settings// Menu also includes:
 ** {{{button#settings-reset}}}
 \
 <h4>The Restart Menu</h4>\
+TODO: DOUBLE CHECK THIS!!!
 The //Restart// Menu only includes on main block inside the body of the popup ({{{.restart}}} class):
 * {{{ul.buttons}}}
 ** {{{button#restart-ok}}}

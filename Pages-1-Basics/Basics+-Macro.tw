@@ -267,6 +267,7 @@ While the {{{is}}} operator will often cover many situations where you would nee
         </tr>
     </table>
 <</nobr>>\
+> ''Attention:'' As of 2.37.0, SugarCube will not display an error if {{{=}}} is used instead of {{{is/eq}}} or {{{===/==}}}, and will display the variation even if false. You will need to turn the {{{Config.enableOptionalDebugging}}} [[API|DebugAPI]] if you want to see those errors while testing/playing.
 <h3>Ordering your Conditional Statements</h3>\
 When checking for multiple conditions with one {{{<<if>>}}} block, you need to order the conditional statements from ''most strict'' to //least//. This is because Twine reads code from top to bottom, so the program will stop at the first fulfilled condition, even if there is a more fitting situation below. For example:
 {{{

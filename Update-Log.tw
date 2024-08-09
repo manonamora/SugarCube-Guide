@@ -21,8 +21,10 @@
 [??-Aug] - Created the {One Page View}
 [??-Aug] - Rephrased some explanations for clarity and consistency
 [TODO] - Edited the {Save API} chapter
-[TOFINISH] - Added the {triggerEvent} function
-[08-Aug] - .........................
+[TODO] - Remove all the TODOS
+[08-Aug] - do/redo + explnations rephrased + double check the changelogs for the rest
+[08-Aug] - Added the {triggerEvent} function
+[08-Aug] - Rephrased some explanations for clarity and consistency
 [07-Aug] - Added the {:uiupdate} to {System Events}
 [07-Aug] - Edited the {silently} macro to its new {silent} name
 [07-Aug] - Edited the {Widget} macro page

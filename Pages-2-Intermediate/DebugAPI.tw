@@ -1,0 +1,4 @@
+:: DebugAPI
+<h1>Testing and Debugging your Game</h1>
+
+Config.enableOptionalDebugging

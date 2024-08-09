@@ -103,6 +103,7 @@ Since the macros require the targeted element to be on the page, they ''cannot''
 * use the {{{<<done>>}}} [[macro|Macro-Done]], which will trigger when the page is fully rendered,
 * use the {{{<<timed>>}}} [[macro|Macro-Timed]], which will delay the trigger long after the page is rendered,
 * code it inside the {{{PassageDone}}} [[special passage|SP-PassageReady-Done]] (same as the {{{<<done>>}}} macro, but will trigger at every passage render).
+> ''Note:'' an alternative to the {{{<<replace>>}}} macro can be found in the {{{<<do/redo>>}}} [[macro set|Macro-Do-Redo]].
 
 <div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
 

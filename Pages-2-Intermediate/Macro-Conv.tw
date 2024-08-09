@@ -468,5 +468,69 @@ If added as is on the page, the code will triggers as soon at the passage is loa
 
 <div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
 
-:: Macro-Do-Redo
-TODO:
+:: Macro-Do-Redo [page]
+<h1>Updating Parts of the Passage</h1>
+There comes times when you may want to update certain elements on the page, without having the player go to a new passage or refresh the whole page. Working similarly to the {{{<<replace>>}}} [[macro|Macro-ApPreRepCopy]], the {{{<<do/redo>>}}} macro set lets you update specific and targetted elements of the page with minimal code. However, unlike the DOM macros, you will not need to include {{{<<redo>>}}}
+> ''Note:'' users of the {{{<<liveupdate>>}}} [[custom macro|https://github.com/cyrusfirheir/cycy-wrote-custom-macros/tree/master/live-update]] will be familiar with the logic of this macro, it was based on Cycy's work.
+{{{
+    <<do [tag tags] [element tag]>> … <</do>>
+    <<redo [tags]>>
+}}}
+The Macro has two argument for the container, and one for the submacro:
+* {{{<<do>>}}}, wrapped around the block to update.
+** {{{tag}}} (optional), a list of tags to identify the blocks and helps filtering 
+** {{{element}}} (optional), the HTML elements which will wrap the whole block.
+*** if ommitted, {{{<span>}}} will be the default
+* {{{<<redo>>}}}, which will trigger the update.
+** {{{tag}}} (optional), the list of tags to target when updating
+*** if ommitted, it will target all available {{{<<do>>}}} on the screen
+\
+{{{
+→ Basic use:
+    ''Apples:'' <<do>>$apples<</do>>
+    <<link "Pick up Apples">>
+        <<set $apples += 10>>
+        <<redo>>
+    <</link>>
+
+    <<do>>
+        <<if $key>>
+            You have the $key key.
+            [[Open the Door!]]
+        <<else>>
+            You do not have a key.
+            <<link "Pick Up the Key!">>
+                <<set $key to ["", "red", "blue", "skull"].random()>>
+                <<redo>>
+            <</link>>
+        <</if>>
+    <</do>>
+
+
+→ Use with tags:
+    ''Apples:'' <<do tag "apple">>$apples<</do>>
+    ''Money:'' <<do tag "money">>$apples<</do>>
+
+    <<link "Pick up Apples">>
+        <<set $apples += 10>>
+        <<redo "money">>
+    <</link>>
+    <<link "Buy Apples">>
+        <<set $apples += 10, $money -= 100>>
+        <<redo "apple money">>
+    <</link>>
+
+→ Use with tags and elements:
+    <<do tag "inventory" element "div">>
+        <<if $InventoryAmount gt 5>>
+            [[Open Bag]]
+        <</if>>
+    <</do>>
+
+    <<button "Stuff Bag">><<redo>><</button>>
+}}}
+> ''Note:'' In HTML, the block inside a {{{<<do>>}}} will look like this:
+{{{
+    <[element] class="macro-do redo-target" data-do-tags="[indicated tags]">1</[element]>
+}}}
+> For styling, you will be able to target a tagged {{{<<do>>}}} with {{{[data-do-tags~="YOUR-TAG"]}}} in the CSS.

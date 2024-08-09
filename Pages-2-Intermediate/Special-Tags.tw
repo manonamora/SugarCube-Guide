@@ -111,6 +111,11 @@ If the value of {{{$var}}} is changed inside {{{PassageReady}}}, the code above 
 If you want to ditch the basic SugarCube UI and have something more custom for your project, you will need to use the Special Passage {{{StoryInterface}}}. This passage only accepts HTML, and JavaScript inside a {{{<script>}}} markup at the bottom of the passage.
 > ''Note:'' while knowledge of HTML and CSS is necessary to create your own UI, there are many templates available to use as is. See <<link "Credits">><<popup "Credits" "Credits">><</link>> for the Masterlist. Still, it is heavily recommended to understand the basics of both languages, when starting on your own.
 
+Any code added to {{{StoryInterface}}} will:
+* remove the SideBar element {{{#ui-bar}}} and its nested children
+* be included inside {{{<div id="story">}}}
+> ''Note:'' If you include an element with the ID {{{#story}}} in {{{StoryInterface}}}, you will get an error during loading.
+
 This passage only has one requirement to run properly: include the {{{#passages}}} element.
 {{{
     :: StoryInterface 
