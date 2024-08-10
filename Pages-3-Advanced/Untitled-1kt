@@ -1,0 +1,39 @@
+
+    Browser Saves: General
+        Save.browser.size
+        Save.browser.clear()
+        Save.browser.continue()
+        Save.browser.isEnabled()
+    Browser Saves: Auto
+        Save.browser.auto.size
+        Save.browser.auto.clear()
+        Save.browser.auto.delete()
+        Save.browser.auto.entries()
+        Save.browser.auto.get()
+        Save.browser.auto.has()
+        Save.browser.auto.isEnabled()
+        Save.browser.auto.load()
+        Save.browser.auto.save()
+    Browser Saves: Slot
+        Save.browser.slot.size
+        Save.browser.slot.clear()
+        Save.browser.slot.delete()
+        Save.browser.slot.entries()
+        Save.browser.slot.get()
+        Save.browser.slot.has()
+        Save.browser.slot.isEnabled()
+        Save.browser.slot.load()
+        Save.browser.slot.save()
+    Disk Saves
+        Save.disk.export()
+        Save.disk.import()
+        Save.disk.load()
+        Save.disk.save()
+    Base64 Saves
+        Save.base64.export()
+        Save.base64.import()
+        Save.base64.load()
+        Save.base64.save()
+
+
+

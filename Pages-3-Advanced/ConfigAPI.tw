@@ -61,6 +61,7 @@ This API will attempt to preload the metadata of any track [[cached|CacheAudio]]
 The APIs listed below will affect how a passage could behave or how its different elements are displayed.
 \
 <h3>{{{Config.passages.descriptions}}}</h3>\
+-> Config.saves.descriptions
 In the Saves and Jump To menus, passages are described by an excerpt of the passage's content. This API will allow you to provide an alternate description, like the passage's title. This can be defined through:
 * the {{{true}}} boolean value, which will use the passage's title
 ** you should ensure the title of the passages are meaningful!
@@ -156,6 +157,7 @@ The APIs below will allow you to enable autosaves, as well as restricting the pl
 > ''Note:'' you may need to use some [[Save API|SaveAPI]] along with these Config.
 \
 <h3>{{{Config.saves.autoload}}}</h3>\
+// ->  Save.browser.continue()
 This API will check if an autosave exists, and will load said autosave during startup. You can load autosaves automatically, prompt the player about it with a popup, or include a function that could load autosaves at start.
 If an autosave cannot be loaded, the player will be shown the starting passage instead.
 {{{
@@ -172,6 +174,7 @@ If an autosave cannot be loaded, the player will be shown the starting passage i
 }}}
 \
 <h3>{{{Config.saves.autosave}}}</h3>\
+-> isAllowed + Config.saves.maxAutoSaves
 This API will determine whether and when a autosave is triggered when passages are displayed. 
 It will accept:
 * boolean values
@@ -235,6 +238,7 @@ With a defined function, this API will determine saving is allowed depending on 
 > ''Note:'' this API will affect both manual and auto- saves.
 \
 <h3>{{{Config.saves.tryDiskOnMobile}}}</h3>\
+-> DELETED
 This API will determine whether you can download a savefile on mobile devices (i.e. smartphones, tablets, ...). It is enabled by default.
 > ''Note:'' mobile browsers can be fickle, saving to disk at times may lead to unexpected results. 
 {{{
