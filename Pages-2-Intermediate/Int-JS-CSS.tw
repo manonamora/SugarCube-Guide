@@ -129,7 +129,7 @@ Inside the {{{html}}} wrapper you will find:
 *** {{{#ui-bar-tray}}}
 **** {{{button#ui-bar-toggle}}}
 **** {{{#ui-bar-history}}}
-***** {{{button#history-backward}}}/***** {{{button#history-jumpto}}}*/
+***** {{{button#history-backward}}}
 ***** {{{button#history-forward}}}
 *** {{{#ui-bar-body}}}
 **** {{{#title}}}

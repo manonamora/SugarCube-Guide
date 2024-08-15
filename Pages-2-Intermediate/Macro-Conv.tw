@@ -471,11 +471,14 @@ If added as is on the page, the code will triggers as soon at the passage is loa
 :: Macro-Do-Redo [page]
 <h1>Updating Parts of the Passage</h1>
 There comes times when you may want to update certain elements on the page, without having the player go to a new passage or refresh the whole page. Working similarly to the {{{<<replace>>}}} [[macro|Macro-ApPreRepCopy]], the {{{<<do/redo>>}}} macro set lets you update specific and targetted elements of the page with minimal code. However, unlike the DOM macros, you will not need to include {{{<<redo>>}}}
-> ''Note:'' users of the {{{<<liveupdate>>}}} [[custom macro|https://github.com/cyrusfirheir/cycy-wrote-custom-macros/tree/master/live-update]] will be familiar with the logic of this macro, it was based on Cycy's work.
+> ''Note:'' users of the {{{<<liveupdate>>}}} [[custom macro|https://github.com/cyrusfirheir/cycy-wrote-custom-macros/tree/master/live-update]] will be familiar with the logic of this macro, it was based on Cycy's work. 
 {{{
     <<do [tag tags] [element tag]>> … <</do>>
     <<redo [tags]>>
 }}}
+<<do tag "guide">><<if _clicked>>Hey! You clicked the button!<<else>>Don't click the button...<</if>><</do>>
+<<button "//THE// button">><<set _clicked to true>><<redo "guide">><</button>>
+
 The Macro has two argument for the container, and one for the submacro:
 * {{{<<do>>}}}, wrapped around the block to update.
 ** {{{tag}}} (optional), a list of tags to identify the blocks and helps filtering 

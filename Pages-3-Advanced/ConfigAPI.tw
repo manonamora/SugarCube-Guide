@@ -301,24 +301,5 @@ The added class is called {{{.link-visited}}}, and you may edit it however you l
         text-decoration: line-through;
     } 
 }}}
-\
-<h3>{{{Config.debug}}}</h3>\
-This API will indicate whether SugarCube is running in the Test Mode/Debug View. This mode is useful to test code, as it makes the coding markup (i.e. macros) visible on the screen.
-> ''Note:'' the Twine app already has a way to trigger the Debug view by either clicking the //Test From Here// button in an passage or the //Test// button under the //Build// menu. In Tweego, you can compile a debug view with {{{-t}}} or {{{--test}}}.
-{{{
-    Config.debug = true;
-}}}
-> //Other Examples of use://
-{{{
-→ Pure JavaScript
-    if (Config.debug) {
-	    /* do something debug related */
-    }
-
-→ TwineScript
-    <<if Config.debug>>
-        /* do something debug related */
-    <</if>>
-}}}
 
 <div id="link-menu">[[Back to the Config API Menu|Config-API]] - [[Back to the Start Menu|Start]]</div>

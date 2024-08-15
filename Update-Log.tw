@@ -15,14 +15,18 @@
     -> Edit PassageFooter to include the links back to Sub-Chapters
         -> all in the mega widget 
         -> toggle between tags or setting.OnePage
+    double check the changelogs for the rest
 <hr>
 > ''Version 2.0.0'' - ??-Aug-24
 [??-Aug] - Completed updating the guide for SG v2.37.2 
 [??-Aug] - Created the {One Page View}
 [??-Aug] - Rephrased some explanations for clarity and consistency
-[TODO] - Edited the {Save API} chapter
+[TODO] - 
 [TODO] - Remove all the TODOS
-[08-Aug] - do/redo + explnations rephrased + double check the changelogs for the rest
+[14-Aug] - Rephrased some explanations for clarity and consistency
+[14-Aug] - Edited the {Save API} chapter with new information (due to complete re-work of the API)
+[08-Aug] - Rephrased some explanations for clarity and consistency
+[08-Aug] - Added the {Do/Redo} macro 
 [08-Aug] - Added the {triggerEvent} function
 [08-Aug] - Rephrased some explanations for clarity and consistency
 [07-Aug] - Added the {:uiupdate} to {System Events}
