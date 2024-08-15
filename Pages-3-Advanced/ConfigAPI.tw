@@ -60,31 +60,44 @@ This API will attempt to preload the metadata of any track [[cached|CacheAudio]]
 <h1>Editing the Behaviour and Display of Passage Elements</h1>
 The APIs listed below will affect how a passage could behave or how its different elements are displayed.
 \
-<h3>{{{Config.passages.descriptions}}}</h3>\
--> Config.saves.descriptions
-In the Saves and Jump To menus, passages are described by an excerpt of the passage's content. This API will allow you to provide an alternate description, like the passage's title. This can be defined through:
-* the {{{true}}} boolean value, which will use the passage's title
-** you should ensure the title of the passages are meaningful!
-* an object, which will replace the description for all listed passages 
-* a function, which will either indicate the new description for the passage or use the passage's excerpt
+<h3>{{{Config.saves.descriptions}}}</h3>\
+In the Saves menus, passages are described by an excerpt of the passage's content. This API will allow you to provide an alternate description, like the passage's title. 
+
+This can be defined through a function, which will either indicate the new description for the passage or use the passage's excerpt
+> //Examples from the Documentation://
 {{{
-    Config.passages.descriptions = true;
-→ will use the passage title as description
-
-    Config.passages.descriptions = {
-        "PassageName" : "the new description",
-        "DeadOAlex"   : "Where Alex will end up dying lol"
+    Config.saves.descriptions = function (saveType) {
+        return passage();
     };
-→ will use the new description for the listed passages
+→ Using passages' names
 
-    Config.passages.descriptions = function () {
-        if (this.title === "title") {
-            return "description";
+    var saveDescriptions = {
+        "passage_title_a" : "description text a…",
+        "passage_title_b" : "description text b…",
+        "passage_title_c" : "description text c…"
+    };
+    Config.saves.descriptions = function (saveType) {
+        return saveDescriptions[passage()];
+    };
+→ Use a custom description for each listed passage
+
+    Config.saves.descriptions = function (saveType) {
+        const base = `(${L10n.get("turn")} ${State.turns})`;
+
+        switch (saveType) {
+            case Save.Type.Auto:
+                return `${base} A browser auto save…`;
+            case Save.Type.Base64:
+                return `${base} A base64 save…`;
+            case Save.Type.Disk:
+                return `${base} A local disk save…`;
+            case Save.Type.Slot:
+                return `${base} A browser slot save…`;
         }
     };
-→ similar to the object, but as a function
+→ Displaying the amounts of turns during the playthrough, per type of save
 }}}
-> ''Note:'' for the Save menu, there is an alternative approach with the {{{Save.onSave.add()}}} [[API|SaveAPI-Events]]
+> ''Note:'' there is an alternative approach with the {{{Save.onSave.add()}}} [[API|SaveAPI-Events]]
 
 \
 <h3>{{{Config.passages.displayTitles}}}</h3>\
@@ -156,57 +169,6 @@ It is still recommended to add more rules for it to be pleasing to the eye. The 
 The APIs below will allow you to enable autosaves, as well as restricting the player's ability to saves, or set up save versions.
 > ''Note:'' you may need to use some [[Save API|SaveAPI]] along with these Config.
 \
-<h3>{{{Config.saves.autoload}}}</h3>\
-// ->  Save.browser.continue()
-This API will check if an autosave exists, and will load said autosave during startup. You can load autosaves automatically, prompt the player about it with a popup, or include a function that could load autosaves at start.
-If an autosave cannot be loaded, the player will be shown the starting passage instead.
-{{{
-    Config.saves.autoload = true;
-→ will load the autosave automatically 
-
-    Config.saves.autoload = "prompt";
-→ will prompt the player about loading saves
-
-    Config.saves.autoload = function () {
-        /* code */
-    };
-→ will load the autosave if the function returns truthy
-}}}
-\
-<h3>{{{Config.saves.autosave}}}</h3>\
--> isAllowed + Config.saves.maxAutoSaves
-This API will determine whether and when a autosave is triggered when passages are displayed. 
-It will accept:
-* boolean values
-** //true// to autosave at every passage
-** //false// to never autosave
-* an array of strings of tags 
-** the autosave will be triggered when a passage with a listed tag is visited
-* a function with truthy/falsy values
-{{{
-    Config.saves.autosave = true;
-→ autosave on every passage
-
-    Config.saves.autosave = false;
-→ only manual saving
-
-    Config.saves.autosave = ["chapter", "autosave"];
-→ autosave only on passages taged "chapter" and "autosave"
-
-    Config.saves.autosave = function () {
-        /* code */
-    };
-→ autosaves only when the function returns truthy
-}}}
-> //Example://
-{{{
-    Config.saves.autosave = function () {
-        if (settings.autosave) {
-            return true
-    }};
-}}}
-> ''Note:'' when using a {{{true}}} value (first example), you may want to use {{{Config.saves.isAllowed}}} to disallow saving on the starting passage (or any non-story screens) to enable the player to load the autosave, or any new playthrough will override the previous one.
-\
 <h3>{{{Config.saves.id}}}</h3>\
 This API will set a story ID for the saves. Every save is associated with a story ID with Twine, which is automatically generated from the title of the project.
 However, if you would like to use a different IF, you can use this API.
@@ -217,13 +179,13 @@ Config.saves.id = "here-is-a-new-ID-because-who-cares-part-40394857";
 <h3>{{{Config.saves.isAllowed}}}</h3>\
 With a defined function, this API will determine saving is allowed depending on the context. It will be triggered every time a save is requested, and will only save if the function allows it.
 {{{
-    Config.saves.isAllowed = function () {
+    Config.saves.isAllowed = function (saveType) {
         /* code */
     };
 }}}
 > //Example://
 {{{
-    config.saves.isAllowed = function () {
+    config.saves.isAllowed = function (saveType) {
         if (passage() === "Start" || tags().contains("nosave") || State.variables.test > 5) {
             return false;
         }
@@ -233,17 +195,18 @@ With a defined function, this API will determine saving is allowed depending on 
 → this won't allow saving:
     → on the passage called "Start"
     → with any passage tagged with "nosave"
-    → if the variable $test is greated than 5
+    → if the variable $test is greater than 5
 }}}
-> ''Note:'' this API will affect both manual and auto- saves.
-\
-<h3>{{{Config.saves.tryDiskOnMobile}}}</h3>\
--> DELETED
-This API will determine whether you can download a savefile on mobile devices (i.e. smartphones, tablets, ...). It is enabled by default.
-> ''Note:'' mobile browsers can be fickle, saving to disk at times may lead to unexpected results. 
+While this API will affect both manual and auto saves, you can choose to restrict a certain type of save. For example:
 {{{
-    Config.saves.tryDiskOnMobile = false;
-→ will disable saving to disk
+   Config.saves.isAllowed = function (saveType) {
+        if (saveType === Save.Type.Auto) {
+            return tags().includes("autosave");
+        }
+
+        return true;
+    }; 
+→ will only autosave if the passage is tagged "autosave"
 }}}
 \
 <h3>{{{Config.saves.version}}}</h3>\

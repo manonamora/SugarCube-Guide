@@ -103,7 +103,6 @@ The method alone will not change the value of a variable, this needs to be done 
     <<set $stoic to Math.clamp($stoic, 0, 100)>>
     <<set $stoic to Math.clamp(($stoic + 4) * 5, 0, 100)>>
 }}}
-> ''Note:'' for simple clamping without further calculation, this can also be done with {{{<Number>.clamp()}}}, {{{<<set $stoic to $stoic.clamp(0, 100)>>}}}.
 
 <div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
 

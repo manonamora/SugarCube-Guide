@@ -3,10 +3,10 @@
 The APIs below deal with properties of the Passage object, which is returned by the {{{Story.get()}}} [[API|StoryAPI]].
 > ''Note:'' the information in those properties should be treated as ''read-only'', as modifying them can lead to unexpected behaviour.
 \
-<h3>{{{<Passage>.domId}}}</h3>\
+<h3>{{{<Passage>.id}}}</h3>\
 This API keeps the DOM ID of the passage, created from the slugified passage title.
 {{{
-    <Passage>.domId
+    <Passage>.id
 }}}
 \
 <h3>{{{<Passage>.tags}}}</h3>\
@@ -21,19 +21,10 @@ This API will return the raw text of the passage.
     <Passage>.text
 }}}
 \
-<h3>{{{<Passage>.title}}}</h3>\
+<h3>{{{<Passage>.name}}}</h3>\
 This API keeps the title of the passage.
 {{{
-    <Passage>.title
-}}}
-\
-<h3>{{{<Passage>.description()}}}</h3>
-This API returns the description of the passage, created from either an excerpt of the passage or defined by the {{{Config.passages.descriptions}}} [[setting|Config-Passage]].
-> //Example://
-{{{
-    var passage = Story.get("The Ducky");
-    passage.description()  
-→ returns the description of "The Ducky" passage
+    <Passage>.name
 }}}
 \
 <h3>{{{<Passage>.processText()}}}</h3>\

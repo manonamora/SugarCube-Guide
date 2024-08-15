@@ -1,7 +1,10 @@
 :: Update Log [side] {"position":"1700,400","size":"100,100"}
-<h1>100% Good Twine SugarCube Guide</h1>
+<h1>Update Log</h1>
+This is the update log of the ''100% Good SugarCube Guide'', containing all the changes made for each update of the guide.
+> ''Note:'' with development of SugarCube 2 ending, this guide will probably not receive further substancial updates.
+
 > //Next Update// (TBA)
-- Potentially the Audio API
+- The ways to format the objects
 - Add Toggle to switch from Chapter to One Page view 
     -> add popup warning when clicking to button 
         -> return to Chapter Menu / Show all in one page (check if loading time is hella long or not)
@@ -16,19 +19,30 @@
         -> all in the mega widget 
         -> toggle between tags or setting.OnePage
     double check the changelogs for the rest
+    -> AUDIO APIs inside Message (test, if not -> details/summary)
 <hr>
 > ''Version 2.0.0'' - ??-Aug-24
 [??-Aug] - Completed updating the guide for SG v2.37.2 
 [??-Aug] - Created the {One Page View}
 [??-Aug] - Rephrased some explanations for clarity and consistency
-[TODO] - 
 [TODO] - Remove all the TODOS
+[15-Aug] - Created the {Audio API} chapter
+[15-Aug] - Edited the {Basic API} page to edit deprecated code ({Config.saves.maxSlotSaves/maxAutoSaves})
+[15-Aug] - Edited the {Config API} page to edit and remove deprecated code ({Config.saves.descriptions}, {Config.saves.isAllowed} - removed {Config.saves.autoload}, {Config.saves.tryDiskOnMobile}, {Config.saves.autosave})
+[15-Aug] - Edited the {Passage API} page to edit and remove deprecated code ({<Passage>.id}, {<Passage>.name})
+[15-Aug] - Edited the {Methods} page to remove deprecated code ({<Number> .clamp()})
+[15-Aug] - Edited the {Story API} page to replace deprecated code ({.id}, {.title})
+[15-Aug] - Edited the {Macro API} page to replace deprecated code ({.contextSome()}, {.contextFind()}, {.contextFilter()})
+[15-Aug] - Added the {SC-Icon Font} page
+[15-Aug] - Added the {Debug API} page
 [14-Aug] - Rephrased some explanations for clarity and consistency
-[14-Aug] - Edited the {Save API} chapter with new information (due to complete re-work of the API)
+[14-Aug] - Edited the {Save API} chapter with new information (due to complete re-work of the API) 
+[08-Aug] - Created the {One Page View} page (unfilled)
 [08-Aug] - Rephrased some explanations for clarity and consistency
 [08-Aug] - Added the {Do/Redo} macro 
 [08-Aug] - Added the {triggerEvent} function
 [08-Aug] - Rephrased some explanations for clarity and consistency
+[08-Aug] - Edited the {StoryInterface} page to update with new information
 [07-Aug] - Added the {:uiupdate} to {System Events}
 [07-Aug] - Edited the {silently} macro to its new {silent} name
 [07-Aug] - Edited the {Widget} macro page

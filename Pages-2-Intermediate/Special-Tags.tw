@@ -113,7 +113,7 @@ If you want to ditch the basic SugarCube UI and have something more custom for y
 
 Any code added to {{{StoryInterface}}} will:
 * remove the SideBar element {{{#ui-bar}}} and its nested children
-* be included inside {{{<div id="story">}}}
+* be included inside {{{<div id="story"></div>}}}
 > ''Note:'' If you include an element with the ID {{{#story}}} in {{{StoryInterface}}}, you will get an error during loading.
 
 This passage only has one requirement to run properly: include the {{{#passages}}} element.
@@ -225,14 +225,15 @@ Adding a tag to a passage creates:
 
 Both the data-tag and class can be used in the Stylesheet to edit aspects of the page, but are coded differently. The data-tag will keep the formatting of the inserted tag (case-sensitive and punctuation), while the class will transform it into a lowercase string and without punctuation (save for {{{-}}}).
 {{{
-For a tag called: The-Name-Of-The-Tag:
+→ For a tag called: The-Name-Of-The-Tag:
     [data-tags~="The-Name-Of-The-Tag"]
     .the-name-of-the-tag
 
-For a tag called: Super!
+→ For a tag called: Super!
     [data-tags~="Super!"]
     .super
-For a tag called: This-1
+
+→ For a tag called: This-1
     [data-tags~="This-1"]
     .this-1
 }}}

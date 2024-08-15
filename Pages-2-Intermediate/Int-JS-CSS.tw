@@ -7,7 +7,8 @@ While editing the StyleSheet, you may find the Inspect Tool of your browser to b
 * [[The Different Targetable Elements|Int-JS-CSS-Elements]] 
 ** [[The Full List of Targetable Elements|HTML-Full-List]] 
 * [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
-* [[Import and Change the Font|Int-JS-CSS-Font]] 
+* [[Import and Change the Font|Int-JS-CSS-Font]]
+** [[Using the SG Icons|Int-JS-CSS-Icons]]
 * [[Using the Root and CSS var|Int-JS-CSS-Root]] 
 * [[Formating for Different Screen Size|Int-JS-CSS-Media]] 
 * [[Intro to Animation|Int-JS-CSS-Animation]]
@@ -302,7 +303,9 @@ Depending on the services used, the URL for the font may look differently. For c
 {{{
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css’);
 }}}
-> ''Note:'' you should ensure to always get the official import URL.
+> ''Note:'' SugarCube already uses a restricted version of FontAwesome, built in the format. You can read more about it [[here|Int-JS-CSS-Icons]].
+
+> ''IMPORTANT'' When using an online import, you should ensure to always get the official import URL.
 
 On the other hand, local import will use the {{{@font-face}}}, with a relative URL, and require a few more information. This will include the name of the font-family, the URL, the format of the file, the style (normal/italic) and the weight (400-normal/700-bold).
 > ''Note:'' while it requires a few more lines of code, local imports are not dependent on server up-times or shared user information.
@@ -397,13 +400,592 @@ Assuming that a font //Georgia//, //Montserrat// and //OpenDyslexic// have been 
 }}}
 And in the CSS:
 {{{
-    .sansserif body {font-family: var(–sansserif);}
-    .opendyslexic body {font-family: var(–opendyslexic);}
-    .serif body {font-family: var(–serif);}
+    .sansserif body {font-family: var(--sansserif);}
+    .opendyslexic body {font-family: var(--opendyslexic);}
+    .serif body {font-family: var(--serif);}
 }}}
 > ''Note:'' this will affect all elements on the page. Change the {{{body}}} to another element.
 
 <div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+
+:: Int-JS-CSS-Icons [page]
+<h1>Using the SG Icons</h1>
+
+SugarCube includes a custom icon font within the format, created as a subset of the Free Solid [[Font Awesome|https://fontawesome.com]] icon font (v.5.15.2). Named {{{sc-icons}}}, the font is responsible for all the icons of the interface. You can find all the elements using the icon font in the [[Built-In StyleSheets|http://www.motoslave.net/sugarcube/2/docs/#css-built-ins]].
+\
+> //From the SideBar stylesheet://
+{{{
+    #ui-bar-tray button::before {
+        @mixin sc-icons-properties;
+    }
+ → Assigns the icon font as font-family (see below)
+
+    #ui-bar-tray #history-backward::before {
+        content: "\f060";
+    }
+ → Displays the Left Arrow icon 
+
+    #ui-bar-tray #history-jumpto::before {
+        content: "\f0e7";
+    }
+ → Displays the Rigth Arrow icon
+}}}
+> ''Note:'' {{{@mixin sc-icons-properties;}}} only works in the Built-in StyleSheet, see below for the correct properties to use.
+\
+<h3>Set up the Icon Font in the StyleSheet</h3>\
+While the Built-in StyleSheet use {{{@mixin sc-icons-properties;}}} to load the icon font properties, this line will ''not'' work in your project StyleSheet (because it is technically SASS and not not CSS). As such, if you want to use {{{sc-icon}}} for any element of the interface, built-in or custom, you will need to include the font CSS properties for all needed elements to display those icons properly. 
+
+To do so, simply add the following where necessary:
+{{{
+    font-family: sc-icons !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    speak: never;
+    text-rendering: auto;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}}}
+> //Example://
+{{{
+    #ui-dialog-title::before {
+        font-family: sc-icons !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        line-height: 1;
+        speak: never;
+        text-rendering: auto;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+ → to add an icon before the title of a popup 
+
+    .icons {
+        font-family: sc-icons !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        line-height: 1;
+        speak: never;
+        text-rendering: auto;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+ → to display icons in elements with class {.icons}
+}}}
+\
+<h3>Use the Icons</h3>\
+Each icon has a hexadecimal reference ID, which you can use to include them where you need it. However, depending on where you are using the icon, you will need a different prefix before the reference. For example:
+* {{{\uf004}}} in JavaScript, with the prefix {{{\u}}} 
+* {{{\f004}}} in the StyleSheet, with the prefix {{{\}}} 
+* {{{&#xf004;}}} in HTML (the passagE), with the prefix {{{&#x}}} ''AND'' the postfix {{{ ; }}} 
+** 
+This formatting is also what you can use for other icon fonts, as well as [[Unicode characters|https://en.wikipedia.org/wiki/Unicode]].
+\
+> //Examples://
+{{{
+  → in JavaScript
+    var Omega = '\uf0e7';
+
+  → in the StyleSheet
+    content: "\f0e7";
+
+  → in a passage
+    <span class="icons">&#xf0e7</span>
+}}}
+> ''Note:'' in HTML, you will need to wrap the icon with an element with a defined class, which includes the icon font property. For example, this last example would look like: <span class="icons">&#xf0e7</span>
+\
+<h3>Icon Font References<h3>\
+The {{{sc-icon}}} includes 120 icons, displayed and referenced below:
+<<nobr>>
+<div id="icons-wrap">
+    <span class="icons">
+        <x>&#xf002;</x>
+        {{{f002}}}
+    </span>
+    <span class="icons">
+        <x>&#xf004;</x>
+        {{{f004}}}
+    </span>
+    <span class="icons">
+        <x>&#xf005;</x>
+        {{{f005}}}
+    </span>
+    <span class="icons">
+        <x>&#xf00c;</x>
+        {{{f00c}}}
+    </span>
+    <span class="icons">
+        <x>&#xf00d;</x>
+        {{{f00d}}}
+    </span>
+    <span class="icons">
+        <x>&#xf00e;</x>
+        {{{f00e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf010;</x>
+        {{{f010}}}
+    </span>
+    <span class="icons">
+        <x>&#xf011;</x>
+        {{{f011}}}
+    </span>
+    <span class="icons">
+        <x>&#xf013;</x>
+        {{{f013}}}
+    </span>
+    <span class="icons">
+        <x>&#xf015;</x>
+        {{{f015}}}
+    </span>
+    <span class="icons">
+        <x>&#xf019;</x>
+        {{{f019}}}
+    </span>
+    <span class="icons">
+        <x>&#xf023;</x>
+        {{{f023}}}
+    </span>
+    <span class="icons">
+        <x>&#xf026;</x>
+        {{{f026}}}
+    </span>
+    <span class="icons">
+        <x>&#xf027;</x>
+        {{{f027}}}
+    </span>
+    <span class="icons">
+        <x>&#xf028;</x>
+        {{{f028}}}
+    </span>
+    <span class="icons">
+        <x>&#xf02e;</x>
+        {{{f02e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf048;</x>
+        {{{f048}}}
+    </span>
+    <span class="icons">
+        <x>&#xf049;</x>
+        {{{f049}}}
+    </span>
+    <span class="icons">
+        <x>&#xf04a;</x>
+        {{{f04a}}}
+    </span>
+    <span class="icons">
+        <x>&#xf04b;</x>
+        {{{f04b}}}
+    </span>
+    <span class="icons">
+        <x>&#xf04c;</x>
+        {{{f04c}}}
+    </span>
+    <span class="icons">
+        <x>&#xf04d;</x>
+        {{{f04d}}}
+    </span>
+    <span class="icons">
+        <x>&#xf04e;</x>
+        {{{f04e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf050;</x>
+        {{{f050}}}
+    </span>
+    <span class="icons">
+        <x>&#xf051;</x>
+        {{{f051}}}
+    </span>
+    <span class="icons">
+        <x>&#xf052;</x>
+        {{{f052}}}
+    </span>
+    <span class="icons">
+        <x>&#xf053;</x>
+        {{{f053}}}
+    </span>
+    <span class="icons">
+        <x>&#xf054;</x>
+        {{{f054}}}
+    </span>
+    <span class="icons">
+        <x>&#xf055;</x>
+        {{{f055}}}
+    </span>
+    <span class="icons">
+        <x>&#xf056;</x>
+        {{{f056}}}
+    </span>
+    <span class="icons">
+        <x>&#xf057;</x>
+        {{{f057}}}
+    </span>
+    <span class="icons">
+        <x>&#xf058;</x>
+        {{{f058}}}
+    </span>
+    <span class="icons">
+        <x>&#xf059;</x>
+        {{{f059}}}
+    </span>
+    <span class="icons">
+        <x>&#xf05a;</x>
+        {{{f05a}}}
+    </span>
+    <span class="icons">
+        <x>&#xf05e;</x>
+        {{{f05e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf060;</x>
+        {{{f060}}}
+    </span>
+    <span class="icons">
+        <x>&#xf061;</x>
+        {{{f061}}}
+    </span>
+    <span class="icons">
+        <x>&#xf062;</x>
+        {{{f062}}}
+    </span>
+    <span class="icons">
+        <x>&#xf063;</x>
+        {{{f063}}}
+    </span>
+    <span class="icons">
+        <x>&#xf065;</x>
+        {{{f065}}}
+    </span>
+    <span class="icons">
+        <x>&#xf066;</x>
+        {{{f066}}}
+    </span>
+    <span class="icons">
+        <x>&#xf067;</x>
+        {{{f067}}}
+    </span>
+    <span class="icons">
+        <x>&#xf068;</x>
+        {{{f068}}}
+    </span>
+    <span class="icons">
+        <x>&#xf06a;</x>
+        {{{f06a}}}
+    </span>
+    <span class="icons">
+        <x>&#xf06e;</x>
+        {{{f06e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf070;</x>
+        {{{f070}}}
+    </span>
+    <span class="icons">
+        <x>&#xf071;</x>
+        {{{f071}}}
+    </span>
+    <span class="icons">
+        <x>&#xf077;</x>
+        {{{f077}}}
+    </span>
+    <span class="icons">
+        <x>&#xf078;</x>
+        {{{f078}}}
+    </span>
+    <span class="icons">
+        <x>&#xf089;</x>
+        {{{f089}}}
+    </span>
+    <span class="icons">
+        <x>&#xf08d;</x>
+        {{{f08d}}}
+    </span>
+    <span class="icons">
+        <x>&#xf093;</x>
+        {{{f093}}}
+    </span>
+    <span class="icons">
+        <x>&#xf09c;</x>
+        {{{f09c}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0a0;</x>
+        {{{f0a0}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0c1;</x>
+        {{{f0c1}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0c2;</x>
+        {{{f0c2}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0c7;</x>
+        {{{f0c7}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0c9;</x>
+        {{{f0c9}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0d0;</x>
+        {{{f0d0}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0d7;</x>
+        {{{f0d7}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0d8;</x>
+        {{{f0d8}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0d9;</x>
+        {{{f0d9}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0da;</x>
+        {{{f0da}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0e7;</x>
+        {{{f0e7}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0eb;</x>
+        {{{f0eb}}}
+    </span>
+    <span class="icons">
+        <x>&#xf0fe;</x>
+        {{{f0fe}}}
+    </span>
+    <span class="icons">
+        <x>&#xf10d;</x>
+        {{{f10d}}}
+    </span>
+    <span class="icons">
+        <x>&#xf10e;</x>
+        {{{f10e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf110;</x>
+        {{{f110}}}
+    </span>
+    <span class="icons">
+        <x>&#xf127;</x>
+        {{{f127}}}
+    </span>
+    <span class="icons">
+        <x>&#xf137;</x>
+        {{{f137}}}
+    </span>
+    <span class="icons">
+        <x>&#xf138;</x>
+        {{{f138}}}
+    </span>
+    <span class="icons">
+        <x>&#xf139;</x>
+        {{{f139}}}
+    </span>
+    <span class="icons">
+        <x>&#xf13a;</x>
+        {{{f13a}}}
+    </span>
+    <span class="icons">
+        <x>&#xf13e;</x>
+        {{{f13e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf141;</x>
+        {{{f141}}}
+    </span>
+    <span class="icons">
+        <x>&#xf142;</x>
+        {{{f142}}}
+    </span>
+    <span class="icons">
+        <x>&#xf144;</x>
+        {{{f144}}}
+    </span>
+    <span class="icons">
+        <x>&#xf146;</x>
+        {{{f146}}}
+    </span>
+    <span class="icons">
+        <x>&#xf14a;</x>
+        {{{f14a}}}
+    </span>
+    <span class="icons">
+        <x>&#xf150;</x>
+        {{{f150}}}
+    </span>
+    <span class="icons">
+        <x>&#xf151;</x>
+        {{{f151}}}
+    </span>
+    <span class="icons">
+        <x>&#xf152;</x>
+        {{{f152}}}
+    </span>
+    <span class="icons">
+        <x>&#xf185;</x>
+        {{{f185}}}
+    </span>
+    <span class="icons">
+        <x>&#xf186;</x>
+        {{{f186}}}
+    </span>
+    <span class="icons">
+        <x>&#xf188;</x>
+        {{{f188}}}
+    </span>
+    <span class="icons">
+        <x>&#xf191;</x>
+        {{{f191}}}
+    </span>
+    <span class="icons">
+        <x>&#xf1ab;</x>
+        {{{f1ab}}}
+    </span>
+    <span class="icons">
+        <x>&#xf1dd;</x>
+        {{{f1dd}}}
+    </span>
+    <span class="icons">
+        <x>&#xf1e0;</x>
+        {{{f1e0}}}
+    </span>
+    <span class="icons">
+        <x>&#xf1f8;</x>
+        {{{f1f8}}}
+    </span>
+    <span class="icons">
+        <x>&#xf204;</x>
+        {{{f204}}}
+    </span>
+    <span class="icons">
+        <x>&#xf205;</x>
+        {{{f205}}}
+    </span>
+    <span class="icons">
+        <x>&#xf240;</x>
+        {{{f240}}}
+    </span>
+    <span class="icons">
+        <x>&#xf241;</x>
+        {{{f241}}}
+    </span>
+    <span class="icons">
+        <x>&#xf242;</x>
+        {{{f242}}}
+    </span>
+    <span class="icons">
+        <x>&#xf243;</x>
+        {{{f243}}}
+    </span>
+    <span class="icons">
+        <x>&#xf244;</x>
+        {{{f244}}}
+    </span>
+    <span class="icons">
+        <x>&#xf28b;</x>
+        {{{f28b}}}
+    </span>
+    <span class="icons">
+        <x>&#xf28d;</x>
+        {{{f28d}}}
+    </span>
+    <span class="icons">
+        <x>&#xf2ea;</x>
+        {{{f2ea}}}
+    </span>
+    <span class="icons">
+        <x>&#xf2ed;</x>
+        {{{f2ed}}}
+    </span>
+    <span class="icons">
+        <x>&#xf2f1;</x>
+        {{{f2f1}}}
+    </span>
+    <span class="icons">
+        <x>&#xf2f9;</x>
+        {{{f2f9}}}
+    </span>
+    <span class="icons">
+        <x>&#xf31e;</x>
+        {{{f31e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf35d;</x>
+        {{{f35d}}}
+    </span>
+    <span class="icons">
+        <x>&#xf381;</x>
+        {{{f381}}}
+    </span>
+    <span class="icons">
+        <x>&#xf382;</x>
+        {{{f382}}}
+    </span>
+    <span class="icons">
+        <x>&#xf410;</x>
+        {{{f410}}}
+    </span>
+    <span class="icons">
+        <x>&#xf55a;</x>
+        {{{f55a}}}
+    </span>
+    <span class="icons">
+        <x>&#xf56d;</x>
+        {{{f56d}}}
+    </span>
+    <span class="icons">
+        <x>&#xf56e;</x>
+        {{{f56e}}}
+    </span>
+    <span class="icons">
+        <x>&#xf56f;</x>
+        {{{f56f}}}
+    </span>
+    <span class="icons">
+        <x>&#xf574;</x>
+        {{{f574}}}
+    </span>
+    <span class="icons">
+        <x>&#xf5c0;</x>
+        {{{f5c0}}}
+    </span>
+    <span class="icons">
+        <x>&#xf6a9;</x>
+        {{{f6a9}}}
+    </span>
+    <span class="icons">
+        <x>&#xf78c;</x>
+        {{{f78c}}}
+    </span>
+    <span class="icons">
+        <x>&#xf7d9;</x>
+        {{{f7d9}}}
+    </span>
+    <span class="icons">
+        <x>&#xf829;</x>
+        {{{f829}}}
+    </span>
+    <span class="icons">
+        <x>&#xf82a;</x>
+        {{{f82a}}}
+    </span>
+</div>
+<</nobr>>
 
 :: Int-JS-CSS-Root [page] {"position":"3200,1400","size":"100,100"}
 <h1>Using the Root and CSS var</h1>

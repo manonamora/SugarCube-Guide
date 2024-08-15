@@ -2,10 +2,10 @@
 <h1>Managing Story Elements with APIs</h1>
 The APIs listed below will help you check and manage different elements of your Story.
 \
-<h3>{{{Story.domId}}}</h3>
+<h3>{{{Story.id}}}</h3>
 This API keeps the DOM ID of the project, created from the slugified story title.
 {{{
-    Story.domId
+    Story.id
 → sugarcube-guide is the DOM ID of this project.
 }}}
 \
@@ -17,10 +17,10 @@ This API keeps the IFID ([[Interactive Fiction IDentifier|https://ifdb.org/help-
   is the IFID of this project
 }}}
 \
-<h3>{{{Story.title}}}</h3>
+<h3>{{{Story.name}}}</h3>
 This API keeps the title of the project.
 {{{
-    Story.title
+    Story.name
 → {SugarCube Guide} is the title of this project
 }}}
 \

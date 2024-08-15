@@ -1,3 +1,4 @@
+/*Need to change all these links into either goto or scroll to part of the page (+test)*/
 :: Index {"position":"1200,200","size":"200,100"}
 <h1>Index</h1>\
 <h3>The Basics</h3>\

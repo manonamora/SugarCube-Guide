@@ -65,7 +65,7 @@ The Markup code to display an image works similarly to the [[Link Markup|Markup-
 {{{[img[URL]]}}}
 > ''Note:'' When compiling the code into an HTML file, the code will transorm the SugarCube markup into the HTML version: {{{<img src="URL">}}}
 
-This required URL can be an absolute, relative or online [[URL|URL-Types]]:
+This required URL can be an absolute, relative or online [[URL|URL-Types]], or even the name of an [[image passage|Tags-Asset]]:
 {{{
 → absolute URL:
     [img[C:/Users/YourAcount/Documents/Folder/image/garden.png]]
@@ -75,25 +75,30 @@ This required URL can be an absolute, relative or online [[URL|URL-Types]]:
 
 → online URL:
     [img[https://your-domain.com/garden.png]]
+
+→ image Passage:
+    [img[PassageName]]
 }}}
 > ''Note:'' I do not recommend using absolute URLs, especially if you are sharing your project with others, as it is easy for the link to break.
-/* Using the external image "forest.png" as the <body> background. */
-body {
-	background-image: [img[forest.png]];
-}
+\
+You can use this formatting in any passage of Twine as well as the StyleSheet:
+{{{
+→ URL:
+    body {
+        background-image: [img[images/garden.png]];
+    }
 
-/* Using the image passage "lagoon" as the <body> background. */
-body {
-	background-image: [img[lagoon]];
-}
-
-
+→ image Passage:
+    body {
+        background-image: [img[PassageName]];
+    }
+}}}
 
 The URL of the image can also be stored inside a variable. Assuming that {{{$url = "garden.png"}}}:
 {{{
-[img[$url]]
-    → will work the same way as
-[img[garden.png]]
+    [img[$url]]
+        → will work the same way as
+    [img[garden.png]]
 }}}
 
 You can also turn the image into a clickable one, sending the player to another passage, like you would have with the [[Link Markup|Markup-Link]]. For example, the image below will send you to the Wikipedia website:
@@ -103,39 +108,28 @@ You can also turn the image into a clickable one, sending the player to another 
 }}}
 > //using variables//: {{{$passage = "Garden"}}} and {{{$url = "garden.png"}}}
 {{{
-[img[$url][$passage]]
-    → will work the same way as
-[img[garden.png][Garden]]
+    [img[$url][$passage]]
+        → will work the same way as
+    [img[garden.png][Garden]]
 }}}
 You can go even further and set a variable inside that Image Link:
 {{{[img[URL][PASSAGE][$var to true]]}}}
-
 > ''Note:'' for the Image Link, I would recomment using the {{{<<link>>}}} macro with the {{{<img>}}} HTML markup instead.
 
-TODO: 
-[img[Title|Image]]
+And for extra accessibility, you can add a "title" to the image, to show what it is supposed to represent:
+{{{
+ → Basic Use:
+    [img[Title|URL]]
 
-	
+ → As a link:
+    [img[Title|URL][PASSAGE]]
 
-[img[Go home|home.png]]
+ → Setting a variable:
+   [img[Title|URL][PASSAGE][$var to true]] 
 
-[img[$show|$src]]
-
-[img[Title|Image][Link]]
-
-	
-
-[img[Go home|home.png][Home]]
-
-[img[$show|$src][$go]]
-
-[img[Title|Image][Link][Setter]]
-
-	
-
-[img[Go home|home.png][Home][$done to true]]
-
-[img[$show|$src][$go][$done to true]]
+ → Only using varialbes:
+    [img[$imageTitle|$imageURL][$NextPassage][$done to true]]
+}}}
 
 <div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
 

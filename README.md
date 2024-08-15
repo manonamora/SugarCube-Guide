@@ -1,4 +1,4 @@
-# ========* 100% Good SugarCube-Guide *========
+# 100% Good SugarCube-Guide
 Welcome to the Git Repository for the **100% Good Twine SugarCube Guide**.
 
 ## *What is this?*

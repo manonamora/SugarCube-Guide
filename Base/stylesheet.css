@@ -135,6 +135,7 @@ h5 {
     margin-left: 3em;
     text-decoration: underline dotted;
 }
+
 /* Blockcode */
 blockquote {
     border-left: 4px #0b1f0b solid;
@@ -289,4 +290,35 @@ hr.before-simon {
 
 #bad-idea {
     color: #444;
+}
+
+
+.icons x, .icons {
+    font-family: sc-icons !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    speak: never;
+    text-rendering: auto;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#icons-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+#icons-wrap .icons {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid;
+    padding: 1%;
+    border-radius: 1em;
+    margin: 5px;
+} 
+.icons x {
+    font-size: 200%;
 }

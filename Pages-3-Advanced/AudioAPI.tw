@@ -1,0 +1,97 @@
+:: AudioAPI [page chapter]
+<h1>Going Further with Audio with APIs</h1>
+
+The Audio API is the largest group of APIs included in SugarCube, enabling you to have more control over sound in your project. It is the subsystem and backend for the [[audio macros]].
+> ''Note:'' this chapter is for //very// advanced users. It is unlikely they will be of use for 99% of projects.
+
+Because the SugarCube Audio system is based on the HTML Media Elements APIs, it comes with limitations:
+* no true gapless transitions between tracks
+* on mobile, playback volume is controlled ONLY by the device hardware (except for muting)
+* playback at the start of the game must be initiated by player through a click/touch (it won't work otherwise)
+
+* [[|AudioAPI-General]]
+
+:: AudioAPI-General [page]
+<h1> TITLE </h1> SIMPLE AUDIO API 
+
+<h3>General SimpleAudio APIs</h3>\
+<h4>{{{SimpleAudio.load()}}} and {{{SimpleAudio.loadWithScreen()}}}</h4>\
+These APIs are used to load tracks up to playable state, anytime it is called, with the latter adding a loading screen untill all tracks are loaded (or aborts due to errors).
+> ''Note:'' these APIs should not be abused, as it forces players to download the tracks if they are sourced on the network.
+{{{
+    SimpleAudio.load();
+    SimpleAudio.loadWithScreen();
+}}}
+\
+<h4>{{{SimpleAudio.mute()}}} and {{{SimpleAudio.muteOnHidden()}}}</h4>\
+The general logic of the APIs is to (un)mute the master volume for the game, with {{{SimpleAudio.muteOnHidden()}}} going further as it will mute/unmute depending on the visibility of the page (i.e. //is the browser page in focus?//). You can also use those API as a variable to check whether the master volume is muted or not.
+{{{
+    SimpleAudio.mute([state])
+    SimpleAudio.muteOnHidden([state])
+}}}
+It has 1 parameter: 
+* {{{state}}} (optional, boolean), whether the game is/should be muted or not 
+\
+> ''Note:''  
+{{{
+ → as a variable:
+    var isMuted = SimpleAudio.mute();
+    var isMuteOnHidden = SimpleAudio.muteOnHidden();
+
+ → Mute (master volume)
+    SimpleAudio.mute(true);
+    SimpleAudio.muteOnHidden(true);
+
+ → Unmute (master volume)
+    SimpleAudio.mute(false);
+    SimpleAudio.muteOnHidden(flase);
+}}}
+\
+<h4>{{{SimpleAudio.select()}}}</h4>\
+This API will allow you to select tracks and/or groups of tracks, which you can then manipulate with track functions.
+{{{
+    SimpleAudio.select(selector)
+}}}
+This API has 1 parameter:
+* {{{selector}}}: the list of audio track(s) and/or group ID(s), separated by spaces
+** this includes pre-defined group IDs like {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:paused}}}, {{{:playing}}} and {{{:stopped}}}
+** you can also unselect tracks/groups from a larger selection with {{{:not()}}}
+\
+> //Examples://
+{{{
+    SimpleAudio.select(":paused").play();
+    SimpleAudio.select(":playing").stop();
+    SimpleAudio.select(":playing:not(:ui)").stop();
+}}}
+\
+<h4>{{{SimpleAudio.stop()}}}</h4>\
+This API will stop the playback of all registered tracks.
+{{{
+    SimpleAudio.stop();
+}}}
+\
+<h4>{{{SimpleAudio.unload()}}}</h4>\
+This API will both stop the playback of registered tracks and drop their information.
+> ''Note:'' unloaded tracks won't be playable until they are loaded again.
+{{{
+    SimpleAudio.unload();
+}}}
+\
+<h4>{{{SimpleAudio.volume()}}}</h4>\
+This API can be used to both get the current master volume level and change it.
+{{{
+    SimpleAudio.volume([level])
+}}}
+It has 1 parameter:
+* {{{level}}}: (optional, number) the volume level to set, between 0 (silent) and 1 (loudest)
+\
+> //Examples://
+{{{
+    var currentMasterVolume = SimpleAudio.volume();
+
+    SimpleAudio.volume(0.75);
+}}}
+<h3>Tracks SimpleAudio APIs</h3>\
+<h3>Groups SimpleAudio APIs</h3>\
+<h3>Lists SimpleAudio APIs</h3>\
+

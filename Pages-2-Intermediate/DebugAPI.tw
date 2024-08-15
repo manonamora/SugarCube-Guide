@@ -1,14 +1,18 @@
 :: DebugAPI [page chapter]
 <h1>Testing and Debugging your Game</h1>\
-Testing is an important part of game creation, as it will ensure players will not run into issues and bugs during their experiences. For this, SugarCube includes a "Debug Mode".
+Testing is an important part of game creation, as to avoid having the player run into issues or bugs during their playthrough. To help with this, SugarCube includes a "Debug Mode", which allows you to:
+* see coding markup when Macros or Markup is used (e.g. {{{<<set>>}}} or {{{[img[]]}}})
+** hovering on those elements will show extra information about the code behind it
+* track passages encountered and move through the history or any wanted passage
+* track variable changes between actions
 
-The debugging feature is native to the Twine program, as you can both //Test// the whole project or //Test From Here// (one specific passage). This will display the Debug Bar in the bottom right corner of the page, which allows you to track passages seen and variable changes, as well as display coding markup (i.e. macros, TwineScript markup, etc...) and give extra information about those markup (hover).
+The debugging feature is native to the Twine program, as you can both //Test// the whole project or //Test From Here// (one specific passage). This will display the Debug Bar in the bottom right corner of the page.
 > ''Note:'' with Tweego, you will need to add some extra characters in your compiling command ({{{-t}}} or {{{--test}}}).
 
-However, if you require testing outside of the Twine environment (e.g. external beta-testing) or run some code only when this Debug Mode is active, you will need the following APIs.
+However, if you require testing outside of the Twine environment (e.g. external beta-testing) or run code only when this Debug Mode is active, you will need the following APIs.
 
 <h3>{{{Config.enableOptionalDebugging}}}</h3>
-As of SugarCube 2.37, the {{{<<if>>}}} macro will not display an error when the {{{ = }}} operator is used by default, and run the code erronously (as in pick the condition when it shouldn't). While the players won't see the error warning, it may lead to issues for their playthroughs.
+As of SugarCube 2.37, the {{{<<if>>}}} macro will not by default display an error when the {{{ = }}} operator is used instead of {{{ === }}} or {{{{ == }}}}, and run the code erronously (as in pick the condition when it shouldn't). While the players won't see the error warning, it may lead to issues for their playthroughs.
 
 As such, during testing, especially with external beta-tester, it is recommended to enable this API, to display the errors.
 {{{
@@ -17,7 +21,7 @@ As such, during testing, especially with external beta-tester, it is recommended
 > ''Note:'' It is possible this API would expand in the future, and include further errors to be suppressed when not enabled.
 \
 <h3>{{{Config.debug}}}</h3>\
-This API can be used to both enable Debug Mode for testing outside of Twine, and run special code only when the Debug Mode is enabled. 
+This API can be used to both enable the Debug Mode, and create a condition to only run code when Debug is enabled. {{{Congif.debug}}} is particularly useful when wanting to use the Debug Mode outside of the //Test// state in Twine./*like if you don't want to add -t in the command on Tweego because you're lazy like meeeee...*/
 > //Enabling Debug Mode://
 {{{
     Config.debug = true;
@@ -37,8 +41,23 @@ This API can be used to both enable Debug Mode for testing outside of Twine, and
         <<print `passage()`>>
     <</if>>
 }}}
-This way is particularly useful for ongoing projects requiring testing and release at multiple stage, as you can keep the code between releases without the need to delete it, since the code will become invisible outside of the Debug Mode.
+This latter use can be quite practical for longer projects with periodical releases requiring testing at multiple stages. Using {{{Config.debug}}} as a condition allows you to create invisible code that will only run when Debug Mode is active, which means you will not need to delete it between releases.
+\
+<h4>Creating a "Hidden" Debug Mode</h4>\
+If you would like to create a testing instance for external beta-testers, by enabling the Debug Mode but restricting their use of the Debug controls, you can do so by hiding the Debug bar with some CSS.
+{{{
+    .debug {
+        display: none;
+    }
+ → this will hide the coding markup 
 
-THIS SHOULD BE ITS OWN CHAPTER
-> ''Note:'' You can enable {{{Config.debug}}} for testing purposes without the Debug Mode being visible to beta testers
-TODO -> it's removing it in the CSS
+    #debug-bar {
+        display: none;
+    }
+ → this will hide the debug bar
+
+    #debug-bar-hint {
+        display: none;
+    }
+ → this will hide the debug icon
+}}}

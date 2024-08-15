@@ -185,11 +185,11 @@ This property is only useful for container macros, and will not work otherwise. 
 \
 <h3>Macro Context Methods</h3>\
 \
-<h4>{{{<MacroContext>.contextHas()}}}</h4>\
+<h4>{{{<MacroContext>.contextSome()}}}</h4>\
 This method will look at whether the macro's parent(s) passed the test implemented by the defined filter function.
 > //Example for// {{{<<break>>}}}:
 {{{
-    if (this.contextHas(ctx => ctx.name === 'for')) {
+    if (this.contextSome(ctx => ctx.name === 'for')) {
         TempState.break = this.name === 'continue' ? 1 : 2;
     }
     else {
@@ -198,22 +198,22 @@ This method will look at whether the macro's parent(s) passed the test implement
 → if <<break>> is not used inside a <<for>>, you will get an error
 }}}
 \
-<h4>{{{<MacroContext>.contextSelect()}}} and {{{<MacroContext>.contextSelectAll()}}}</h4>\
-These two methods work similarly to {{{<MacroContext>.contextHas()}}}, in that it will check whether the macro's ancestor(s) passed the test implemented byt the given filter function.
+<h4>{{{<MacroContext>.contextFind()}}} and {{{<MacroContext>.contextFilter()}}}</h4>\
+These two methods work similarly to {{{<MacroContext>.contextSome()}}}, in that it will check whether the macro's ancestor(s) passed the test implemented byt the given filter function.
 If passed:
-* {{{<MacroContext>.contextSelect()}}} will return an object of the first ancestor 
-* {{{<MacroContext>.contextSelectAll()}}} will return an array of objects of all ancestors 
+* {{{<MacroContext>.contextFind()}}} will return an object of the first ancestor 
+* {{{<MacroContext>.contextFilter()}}} will return an array of objects of all ancestors 
 If failed:
-* {{{<MacroContext>.contextSelect()}}} will return NULL
-* {{{<MacroContext>.contextSelectAll()}}} will return an empty array 
+* {{{<MacroContext>.contextFind()}}} will return NULL
+* {{{<MacroContext>.contextFilter()}}} will return an empty array 
 > //Examples://
 {{{
     var includeAncestor = function (ctx) { return ctx.name === "include"; };
-    this.contextSelect(includeAncestor);  
+    this.contextFind(includeAncestor);  
 → Returns the first <<include>> macro ancestor
 
     var includeAncestor = function (ctx) { return ctx.name === "include"; };
-    this.contextSelectAll(includeAncestor);  
+    this.contextFilter(includeAncestor);  
 → Returns an array of all <<include>> macro ancestors
 }}}
 \

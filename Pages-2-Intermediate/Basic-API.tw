@@ -217,11 +217,14 @@ To avoid the player rewinding too much, you change the maximum number of state t
 >'' Note:'' the larger the {{{maxStates}}}, the bigger the chance of lag when loading new passages.
 \
 <h3>Change the Number of Save Slots</h3>\
-->  Config.saves.maxSlotSaves
-With a default of 8 save slots (+ autosave and export), players have many opportunities to save a play through. Still, the number of save slots can be modified:
+With a default of 8 save slots (+ export), players have many opportunities to save a play through. Still, the number of save slots can be modified:
 {{{
-    Config.saves.slots = 4;
+    Config.saves.maxSlotSaves = 4;
 }}}
+You can also modify the number of autosave slots available for players with:
+{{{
+    Config.saves.maxAutoSaves = 4;
+}}} 
 >'' Note:'' the higher the number, the more the game will save in the player's cache. 
 > For more Save Config, see [[this page|Config-Saves]].
 \
