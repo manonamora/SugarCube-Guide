@@ -2,7 +2,7 @@
 <h1>Going Further with Audio with APIs</h1>
 
 The Audio API is the largest group of APIs included in SugarCube, enabling you to have more control over sound in your project. It is the subsystem and backend for the [[audio macros]].
-> ''Note:'' this chapter is for //very// advanced users. It is unlikely they will be of use for 99% of projects.
+> ''Note:'' this chapter is for pretty advanced users. It is unlikely they will be of use for 99% of projects, as the audio macros will already cover most use.
 
 Because the SugarCube Audio system is based on the HTML Media Elements APIs, it comes with limitations:
 * no true gapless transitions between tracks
@@ -92,6 +92,132 @@ It has 1 parameter:
     SimpleAudio.volume(0.75);
 }}}
 <h3>Tracks SimpleAudio APIs</h3>\
+<h4>{{{SimpleAudio.tracks.add()}}}</h4>\
+This API will add an audio track and assign it to a given ID. It is similar to {{{<<cacheaudio>>}}}.
+{{{
+    SimpleAudio.tracks.add(trackId, sources…)
+}}}
+This API has 2 parameters:
+* {{{trackId}}} (string): the ID of the track, to be referenced in other code.
+* {{{sources}}} (string/arrays): the source(s) of the track
+** only one is required, but you can supply additional formats (none is supported by all browsers)
+** the string must be the file's URL, an [[audio passage]] or a data URI
+** you can also format it as {{{format|URL}}}, if the file's extension cannot be detected
+> //Examples://
+{{{
+    SimpleAudio.tracks.add("boom", "asset/file.mp3");
+    SimpleAudio.tracks.add("boom", "AudioPassageName");
+    SimpleAudio.tracks.add("bgm_space", "asset/file.mp3", "asset/file.ogg");
+    SimpleAudio.tracks.add("what", "mp3|http://an-audio-service.com/a-user/a-track-id");
+}}}
+\
+<h4>{{{SimpleAudio.tracks.clear()}}}</h4>\
+This API will delete all audio tracks.
+{{{
+    SimpleAudio.tracks.clear()
+}}}
+> ''Note:'' it won't delete tracks solely under the control of a playlist.
+\
+<h4>{{{SimpleAudio.tracks.delete()}}}</h4>\
+This API will delete audio tracks given the track ID.
+> ''Note:'' it won't delete tracks solely under the control of a playlist.
+{{{
+    SimpleAudio.tracks.delete(trackId)
+}}}
+This API has 1 parameter:
+* {{{trackId}}}: (string) the ID of the track 
+> //Example://
+{{{
+    SimpleAudio.tracks.delete("bgm_space");
+}}}
+> ''Note:'' any playlist or group containing the track will need to be rebuilt.
+\
+<h4>{{{SimpleAudio.tracks.get()}}}</h4>\
+This API will return the AudioTrack instance of the given track ID. You can also use this API to manipulate singular tracks.
+{{{
+    SimpleAudio.tracks.get(trackId)
+}}}
+This API has 1 parameter:
+* {{{trackId}}}: (string) the ID of the track 
+> //Examples://
+{{{
+    SimpleAudio.tracks.get("bgm_space");
+    SimpleAudio.tracks.get("swamped").volume(1).play();
+}}}
+<h4>{{{SimpleAudio.tracks.has()}}}</h4>\
+This API will check if an audio track exists within the game given a track ID.
+{{{
+    SimpleAudio.tracks.has(trackId)
+}}}
+This API has 1 parameter:
+* {{{trackId}}}: (string) the ID of the track 
+> //Examples://
+{{{
+    <<if SimpleAudio.tracks.has("bgm_space")>>
+        /* Do things */
+    <</if>>
+}}}
+\
 <h3>Groups SimpleAudio APIs</h3>\
+<h4>{{{SimpleAudio.groups.add()}}}</h4>\
+This API lets you create an audio group of track, which can be useful to manipulate multiple tracks at once, or to exclude from a larger set when applying actions.
+{{{
+    SimpleAudio.groups.add(groupId, trackIds…)
+}}}
+This API has 2 parameter:
+* {{{groupId}}}: (string) the ID of the group, starting with a colon {{{ : }}}
+** the name cannot be any of the following {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:not}}}, {{{:paused}}}, {{{:playing}}}, {{{:stopped}}}
+> //Example://
+{{{
+    SimpleAudio.groups.add(":ui", "ui_beep", "ui_boop", "ui_swish");
+}}}
+\
+<h4>{{{SimpleAudio.groups.clear()}}}</h4>\
+This API will delete all audio groups.
+{{{
+    SimpleAudio.groups.clear()
+}}}
+> ''Note:'' this won't affect the tracks.
+\
+<h4>{{{SimpleAudio.groups.delete()}}}</h4>
+This API will delete the indicated audio group.
+> ''Note:'' this won't affect the tracks.
+{{{
+    SimpleAudio.groups.delete(groupId)
+}}}
+This API has 1 parameter:
+* {{{groupId}}}: (string) the ID of the group
+> //Example://
+{{{
+    SimpleAudio.groups.delete(":ui");
+}}}
+\
+<h4>{{{SimpleAudio.groups.get()}}}</h4>\
+This API will return the array of audio tracks given a group ID. You can also use this API to manipulate multiple tracks (of a single group).
+> ''Note:'' to select multiple tracks and/or groups, you will need {{{SimpleAudio.select()}}}.
+{{{
+    SimpleAudio.groups.get(groupsId)
+}}}
+This API has 1 parameter:
+* {{{groupsId}}}: (string) the ID of the group. 
+> //Examples://
+{{{
+    SimpleAudio.groups.get(":ui");
+    SimpleAudio.groups.get(":ui").volume(1).play();
+}}}
+<h4>{{{SimpleAudio.groups.has()}}}</h4>\
+This API will check if an audio group exists within the game given a group ID.
+{{{
+    SimpleAudio.groups.has(groupsId)
+}}}
+This API has 1 parameter:
+* {{{groupsId}}}: (string) the ID of the group 
+> //Examples://
+{{{
+    <<if SimpleAudio.groups.has(":ui")>>
+        /* Do things */
+    <</if>>
+}}}
+\
 <h3>Lists SimpleAudio APIs</h3>\
 
