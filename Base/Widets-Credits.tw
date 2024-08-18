@@ -22,6 +22,8 @@
 <<widget "ChapterDependentTags">>
     <<if tags().includes("chapter")>>
         <div id="link-menu">[[Back to the Start Menu|Start]]</div>
+    <<elseif tags().includes("basics")>>
+        <div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
     <<elseif tags().includes("settingsapi")>>
         <div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
         <div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>

@@ -24,7 +24,7 @@ SugarCube Guide
 
 :: StoryCaption {"position":"2300,500","size":"100,100"}
 <<if tags().includes("sp-demo")>>I can't think of a good caption... so here's some text<<else>>\
-One Page Toggle
+''//One Page Toggle//''
 <span id="fancy-button"><<button `(settings.onePage) ? "On" : "Off"`>>
   <<if settings.onePage>>
     <<run Setting.setValue("onePage", false);>>
@@ -53,14 +53,13 @@ One Page Toggle
 :: PassageFooter {"position":"2000,200","size":"100,100"}
 <<if tags().includes("sp-demo")>><hr>The Footer in action! included in a horizontal bar<<else>><hr>
   <<ChapterDependentTags>>
-	<center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - [[Pages Index|Index]]
+	<<if !settings.onePage>><center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - [[Pages Index|Index]]
   [[Macros List]] - [[Function/Method List]] - [[API List]]
-  <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora-if.tumblr.com/ask]]</center>
+  <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora-if.tumblr.com/ask]]</center><</if>>
 <</if>>
 
 :: PassageHeader {"position":"1900,200","size":"100,100"}
 <<if tags().includes("sp-demo")>>The Header in action! included in a horizontal bar<hr><</if>>
-
 
 :: Start [noreturn menu] {"position":"1500,100","size":"200,200"}
 <div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div> /*TODO: change the date here*/
@@ -68,7 +67,7 @@ One Page Toggle
 This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
 
 The guide covers the different aspects of the SugarCube format, from its particular markup, to its macros, functions, and APIs. It also touches upon possible customisation of SugarCube projects, with editing the StyleSheet with CSS or the JavaScript passage. And, it brushes upon aspects of accessibility in terms of code, design, and formatting.
-> This guide is based on the [[official SugarCube documentation|https://www.motoslave.net/sugarcube/2/docs/]], and is up to date as of the ''version 2.37.2''. For later version, please refer to the official documentation. /* It is unlikely this guide will get further updates, as SugarCube 2 is moving to maintaining-only state. Always refer to the documentation anyway */
+> This guide is based on the [[official SugarCube documentation|https://www.motoslave.net/sugarcube/2/docs/]], and is up to date as of the ''version 2.37.3''. For later version, please refer to the official documentation. /* It is unlikely this guide will get further updates, as SugarCube 2 is moving to maintaining-only state. Always refer to the documentation anyway when unsure about something*/
 \
 The guide is separated in different categories: ''The Basics(+)'', ''Intermediate Use'', and ''Advanced Mode''. 
 Only the Basics are necessary to be able to create a game with SugarCube. 
@@ -115,10 +114,6 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 * [[Managing Story Elements with APIs|StoryAPI]] 
 * [[Managing Passage Properties with APIs|PassageAPI]] 
 * [[Dealing with the State of Play|StateAPI]] 
-/*
-[ ★ UPDATE ★ ] - [ ★ NEW ★ ]
-* Key Binding - An Alternative|KeyBinding HIEV SETTING TO FIX
-*/
 
 If something is unclear, if you find an error in this guide, if you think I missing an important element, or if I did not provide enough examples, please [[let me know|https://manonamora-if.tumblr.com/ask]]!
 /*TODO: change to the itch.io page directly or an email*/

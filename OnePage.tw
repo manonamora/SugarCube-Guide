@@ -1,4 +1,51 @@
-:: OnePage
+:: OnePage [one-page]
+<div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div> /*TODO: change the date here*/
+<h1 class="the-chapter">100% Good Twine SugarCube Guide</h1>\
+This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
+
+The guide covers the different aspects of the SugarCube format, from its particular markup, to its macros, functions, and APIs. It also touches upon possible customisation of SugarCube projects, with editing the StyleSheet with CSS or the JavaScript passage. And, it brushes upon aspects of accessibility in terms of code, design, and formatting.
+> This guide is based on the [[official SugarCube documentation|https://www.motoslave.net/sugarcube/2/docs/]], and is up to date as of the ''version 2.37.3''. For later version, please refer to the official documentation. /* It is unlikely this guide will get further updates, as SugarCube 2 is moving to maintaining-only state. Always refer to the documentation anyway when unsure about something*/
+\
+The guide is separated in different categories: ''The Basics(+)'', ''Intermediate Use'', and ''Advanced Mode''. 
+Only the Basics are necessary to be able to create a game with SugarCube. 
+Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
+> ''Note:'' any coding done in SugarCube is case and character sensitive, meaning that 
+> {{{name ≠ Name}}} or {{{" " ≠ “ ”}}}.
+
+<<include "About">>
+<hr>
+<h1 id="basic-chapter" class="the-chapter">Starting with SugarCube</h1>
+When setting up your first project with SugarCube, it is best to start with the Basics. 
+This means creating links between story pages, allowing the player to move from one passage to another, saving information and player's choices inside variables, and tracking the value of those variables to display variations down the line.
+
+To do this, you essentially only need the 3 following macros: {{{<<link>>}}}, {{{<<set>>}}}, and {{{<<if>>}}}.
+> ''Note:'' Twine reads passages from top to bottom, so any code at the top of the passage can affect any code below.
+> Want to see this in action? Try this [[Demo|Demo-Basic]]!
+<hr class="small-section">
+<h1 id="basic-ui-element">The Elements on the Page</h1>
+In a basic SugarCube project, there are essentially 3 main elements on the page:
+* the passage (where this text is)
+* the UI-Bar (on the left)
+* the dialog box (<<link "click here">><<popup "Basic-UI-Dialog" "Dialog Box">><</link>>)
+\
+The content inside the ''passage'' is generated from the story passages created in Twine (i.e. any non-special passage). Every time the player clicks on a link to advance the story, the passage will refresh to display the new content.
+
+In the ''UI-Bar'', also called //SideBar//, you will find arrows to go back and forth in the Game History (the visited passages), an arrow to hide/show the UI-Bar/sidebar, and, at the mininmum, the //Save// and //Restart// buttons. 
+The content of the sidebar can be edited through the [[Special Passages|SP-UIBar]], or when adding [[Settings]] or [[Saves|Config-Saves]].
+
+''Dialog boxes'' are elements that will appear at the forefront of the page (like a popup). It is used by the Menu buttons (like //Save// and //Restart//), but can also contain content from a story passage (like the Index link in the SideBar) or coded through the passage. To create a dialog box, [[visit this page|Basic-API-Dialog]].
+
+To edit how those elements look, you will need to edit the [[Stylesheet|Int-JS-CSS-Elements]] (intermediate).
+\
+<hr class="small-section">
+<<include "Macro-Link-Basic">>
+<hr class="small-section">
+<<include "Variables-Base">>
+<hr class="small-section">
+<<include "Macro-Set-Basic">>
+<hr class="small-section">
+<<include "Macro-If-Basic">>
+<hr>
 -> do a whole list of include to "include" the passages, 
     except for the Chapter pages
         -> those are done manually to avoid the links.

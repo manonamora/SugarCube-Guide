@@ -1,0 +1,12 @@
+:: Popup-Index [index]
+<h1>Index</h1>\
+/*This is only because I am lazy as heck and didn't want to create huge conditional statements....*/\
+<h3>The Basics</h3>\
+* ''<<link "About Twine and SugarCube">>ID: about-twine<</link>>''
+* ''<<link "Starting with SugarCube">>ID: basic-chapter<</link>>''
+** <<link "The Elements on the Page">>ID: basic-ui-element<</link>>
+** <<link "Linking Passages">>ID: basic-links<</link>>
+** <<link "The Basics of Variables">>ID: basic-variable<</link>>
+** <<link "Tracking Information">>ID: basic-set<</link>>
+** <<link "Display Variation">>ID: basic-if<</link>>
+** [[Basic Demo|Demo-Basic]]

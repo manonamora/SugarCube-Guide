@@ -9,7 +9,7 @@ Each event is formatted as an object and contains information about the state at
 * [[Passage and Navigation Events|Events-Passage]]
 * [[System Events|Events-System]]
 * [[Type Macro Events|Events-Type]] 
-/* [[Audio Events|Events-Audio]]*/
+* [[Audio Events|Events-Audio]]
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 
 :: Events-Dialog [page] {"position":"2600,1900","size":"100,100"}
@@ -252,5 +252,63 @@ You can include any JavaScript code inside the following container:
 	    /* JavaScript code */
     });
 }}}
+
+<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
+
+:: Events-Audio
+<h1>Audio Events</h1>
+The following events allows the execution of JavaScript code at specific points during [[audio playback|Macro-Audio]]. These work in combination with the advanced [[SimpleAudio API|AudioAPI]].
+{{{
+    :fading
+    :faded
+    :stopped
+}}}
+\
+<h3>{{{:fading}}}</h3>\
+This event is triggered when a track fade starts.
+> //Examples://
+{{{
+ → using <AudioTrack>
+    aTrack.on(':fading', function (ev) {
+        /* JavaScript code */
+    });
+
+ → using <AudioRunner>
+    someTracks.on(':fading', function (ev) {
+        /* do something */
+    });
+}}}
+\
+<h3>{{{:faded}}}</h3>\
+This event is triggered when a fade on a track is completed.
+> //Examples://
+{{{
+ → using <AudioTrack>
+    aTrack.on(':faded', function (ev) {
+        /* JavaScript code */
+    });
+
+ → using <AudioRunner>
+    someTracks.on(':faded', function (ev) {
+        /* do something */
+    });
+}}}
+\
+<h3>{{{:stopped}}}</h3>\
+This event is triggered when playback is stopped after {{{<AudioTrack>.stop()}}} or {{{<AudioRunner>.stop()}}} is called (either manually or part of another process).
+> //Examples://
+{{{
+ → using <AudioTrack>
+    aTrack.on(':stopped', function (ev) {
+        /* JavaScript code */
+    });
+
+ → using <AudioRunner>
+    someTracks.on(':stopped', function (ev) {
+        /* do something */
+    });
+}}}
+
+> ''Note:'' You can also create custom events with the [[AudioRunner|AudioAPI-Runner]] and [[AudioTrack|AudioAPI-Track]] APIs.
 
 <div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>

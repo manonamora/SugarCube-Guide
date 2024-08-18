@@ -20,14 +20,22 @@ This is the update log of the ''100% Good SugarCube Guide'', containing all the 
         -> toggle between tags or setting.OnePage
     double check the changelogs for the rest
     -> AUDIO APIs inside Message (test, if not -> details/summary)
+    -> REMOVE TUMBLR LINKS 
+    -> TRIPLE CHECK LINKS
+    -> Style the OnePage Button
 <hr>
 > ''Version 2.0.0'' - ??-Aug-24
-[??-Aug] - Completed updating the guide for SG v2.37.2 
-[??-Aug] - Created the {One Page View}
+[??-Aug] - Completed the {One Page View}
 [??-Aug] - Rephrased some explanations for clarity and consistency
 [TODO] - Remove all the TODOS
+[17-Aug] - Rephrased some explanations for clarity and consistency
+[17-Aug] - Fixed typos and formatting errors 
+[17-Aug] - Started the {One Page View}
+[17-Aug] - ''Completed updating the guide for SG v2.37.3''
+[17-Aug] - Added the {Audio Events} page
+[17-Aug] - Completed the {Audio API} chapter
 [16-Aug] - Rephrased some explanations for clarity and consistency
-[16-Aug] - Continued ton the {Audio API} chapter
+[16-Aug] - Continued the {Audio API} chapter
 [15-Aug] - Created the {Audio API} chapter
 [15-Aug] - Edited the {Basic API} page to edit deprecated code ({Config.saves.maxSlotSaves/maxAutoSaves})
 [15-Aug] - Edited the {Config API} page to edit and remove deprecated code ({Config.saves.descriptions}, {Config.saves.isAllowed} - removed {Config.saves.autoload}, {Config.saves.tryDiskOnMobile}, {Config.saves.autosave})
