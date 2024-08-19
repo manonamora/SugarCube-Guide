@@ -9,4 +9,12 @@
 ** <<link "The Basics of Variables">>ID: basic-variable<</link>>
 ** <<link "Tracking Information">>ID: basic-set<</link>>
 ** <<link "Display Variation">>ID: basic-if<</link>>
-** [[Basic Demo|Demo-Basic]]
+** [[Basic Demo|Demo-Basic]] (new page)
+\
+<h3> The Basics+</h3>\
+* ''<<link "SugarCube Markup and Basic Styling">> ID: basics-markup<</link>>''
+** <<link "Basic Text Styling">> ID: basics-muvariable<</link>> (long)
+** <<link "Display an Image, and turn an Image into a Link">> ID: basics-mulink<</link>>
+** <<link "Showing the Value of a Variable">> ID: basics-muimage<</link>>
+** <<link "Using a Variable inside a Link">> ID: basics-munobr<</link>>
+** <<link "Removing a Line-break">> ID: basics-mustyling<</link>>

@@ -46,6 +46,31 @@ To edit how those elements look, you will need to edit the [[Stylesheet|Int-JS-C
 <hr class="small-section">
 <<include "Macro-If-Basic">>
 <hr>
+\
+<h1 id="basics-markup" class="the-chapter">SugarCube Markup and Basic Styling</h1>
+To format your text or code in a specific way, SugarCube includes some special code, called ''markup'', separate from HTML and macros. 
+There are different types of markups, from formating your text (''bold'', //italics//, etc...) to more complex interactions between HTML and variables. This section will cover the basics, used in most projects. For more advanced Markup, see [[this page|Markup-Int]].
+\
+<hr class="small-section">
+<<include "Markup-Styling">>
+<hr class="small-section">
+<<include "Markup-Image">>
+<hr class="small-section">
+<<include "Markup-Variable">>
+<hr class="small-section">
+<<include "Markup-Link">>
+<hr class="small-section">
+<<include "Markup-Nobr">>
+<hr>
+\
+<h1 id="basics-macros" class="the-chapter">Going Further with the Basics</h1>
+With [[linking passages|Macro-Link-Basic]], [[setting variables|Macro-Set-Basic]], and creating some simple [[conditional statements|Macro-If-Basic]], you would have the basics required to make a textual game. However, if you want to push your project a bit further, and add onto that base, this section will cover slightly more complex uses for these macros, as well as include a few more related ones.
+\
+<hr class="small-section">
+<<include "">>
+
+
+
 -> do a whole list of include to "include" the passages, 
     except for the Chapter pages
         -> those are done manually to avoid the links.

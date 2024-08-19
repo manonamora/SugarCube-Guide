@@ -8,20 +8,20 @@
 ** [[The Basics of Variables|Variables-Base]]
 ** [[Tracking Information|Macro-Set-Basic]]
 ** [[Display Variation|Macro-If-Basic]]
-** [[Basic Demo|Demo-Basic]] /*CHECKED!*/
+** [[Basic Demo|Demo-Basic]]
 \
 <h3> The Basics+</h3>\
 * ''[[SugarCube Markup and Basic Styling|Markup]]''
+** [[Basic Text Styling|Markup-Styling]] (long)
+** [[Display an Image, and turn an Image into a Link|Markup-Image]]
 ** [[Showing the Value of a Variable|Markup-Variable]]
 ** [[Using a Variable inside a Link|Markup-Link]]
-** [[Display an Image, and turn an Image into a Link|Markup-Image]]
-** [[Removing a Line-break|Markup-Nobr]]
-** [[Basic Text Styling|Markup-Styling]] (long)
+** [[Removing a Line-break|Markup-Nobr]] /*CHECKED!*/
 * ''[[Going Further with the Basics|Macro-Basic]]''
-** [[Displaying more than text in Links|Macro-Link]]
 ** [[Setting and Changing Variables|Macro-Set]]
 ** [[Unsetting Variables|Macro-Unset]]
 ** [[More Conditional Statements|Macro-If]]
+** [[Displaying more than text in Links|Macro-Link]]
 ** [[Display Variables, the Print Macro and Variants|Macro-Print]]
 * ''[[Adding some Interactivity|Macro-Interact]]''
 ** [[Multi or Single Option Choices|Macro-CheckRadio]]

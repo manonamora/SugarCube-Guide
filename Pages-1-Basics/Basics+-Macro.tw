@@ -1,31 +1,27 @@
 :: Macro-Basic [chapter menu] {"position":"1100,600","size":"200,100"}
 <h1>Going Further with the Basics</h1>
-After [[linking passages|Macro-Link-Basic]], [[setting variables|Macro-Set-Basic]], and creating some simple [[conditional statements|Macro-If-Basic]], you would have the basis required to make a textual game. You can add onto this base, with more complex use of those macros, as well as including a few more related ones. This chapter is meant to expand the use of the basic macros.
+With [[linking passages|Macro-Link-Basic]], [[setting variables|Macro-Set-Basic]], and creating some simple [[conditional statements|Macro-If-Basic]], you would have the basics required to make a textual game. However, if you want to push your project a bit further, and add onto that base, this section will cover slightly more complex uses for these macros, as well as include a few more related ones.
 
-* [[Displaying more than text in Links|Macro-Link]]  
 * [[Setting and Changing Variables|Macro-Set]]
-* [[Unsetting Variables|Macro-Unset]]  
-* [[More Conditional Statements|Macro-If]]   
+* [[Unsetting Variables|Macro-Unset]]
+* [[More Conditional Statements|Macro-If]]
+* [[Displaying more than text in Links|Macro-Link]]
 * [[Display Variables, the Print Macro and Variants|Macro-Print]]
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+:: Macro-Link [page basic-macro] {"position":"1100,700","size":"100,100"}
+<h1 id="basics-malinks">Displaying more than text in Links</h1>
+Just like the [[Link Markup|Markup-Link]], you can display more than just plain text as links. This includes the content of variables, widgets, or even images (similar to the [[Image Markup|Markup-Image]]). 
 
-:: Macro-Link [page] {"position":"1100,700","size":"100,100"}
-<h1>Displaying more than text in Links</h1>
-Like the [[Link Markup|Markup-Link]], you can display more than just plain text as links. This includes the content of variables, widgets, or even images (similar to the [[Image Markup|Markup-Image]]). 
-
-You can use variables to display the text of the link, or send the player to a certain passage.
-Assuming that {{{$passage = "Garden"}}} and {{{$text = "Go take a walk"}}}:
+You can use variables to display the entirety of the link's text, or send the player to a certain passage. Assuming that {{{$passage = "Garden"}}} and {{{$text = "Go take a walk"}}}:
 {{{
     <<link $text $passage>><</link>>
-
-→ will work the same way as
+ → will work the same way as
     <<link [[Go take a walk|Garden]]>><</link>> 
-→ or 
+ → or 
     <<link "Go take a walk" "Garden">><</link>>
 }}}
 
-Displaying ''the value of a variable'' is a bit more straightforward than with the [[Link Markup|Markup-Link]]. 
+Displaying ''the value of a variable'' is a bit more straightforward than with the [[Link Markup|Markup-Link]], as you won't need to separate text with quotes and pluses ({{{ + }}}).
 Assuming that {{{$name = "Jane"}}} and {{{$location = "Garden"}}}:<<set $name to "Jane">>
 {{{<<link "I am $name" "Passage">><</link>>}}} → <<link "I am $name" "Passage">><</link>>
 
@@ -73,7 +69,7 @@ However, this can become an issue if the wrapped text/element contains apostroph
 
 <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
 
-:: Macro-Set [page] {"position":"1100,800","size":"100,100"}
+:: Macro-Set [page basic-macro] {"position":"1100,800","size":"100,100"}
 <h1>Setting and Changing Variables</h1>
 To first [[set a variable|Macro-Set-Basic]], you would most commonly use the {{{to}}} operator, as the example below:
 {{{<<set $var to "a value">>}}}
@@ -180,7 +176,7 @@ They are most useful when changing the formatting of a string (upper/lowercase),
 
 <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
 
-:: Macro-Unset [page] {"position":"1200,800","size":"100,100"}
+:: Macro-Unset [page basic-macro] {"position":"1200,800","size":"100,100"}
 <h1>Unsetting Variables with {{{<<unset>>}}}</h1>
 To avoid bloating the loading time of passages (lag), it is recommended to keep the number of variables set at any time to a minimum. One way is to use [[temporary variables|Variables-Base]] {{{_temp}}}, which disappear automatically when the player moves to another passage, another is to rely more on [[functions|Functions]]. The one covered here focuses on unseting permanant variables {{{$var}}} you don't need anymore, with the {{{<<unset>>}}} macro.
 {{{
@@ -215,7 +211,7 @@ Assuming that {{{$count = 1}}} and {{{$mc = {name: "Jane", nickname: "Janie", ag
 
 <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
 
-:: Macro-If [page] {"position":"1200,700","size":"100,100"}
+:: Macro-If [page basic-macro] {"position":"1200,700","size":"100,100"}
 <h1>More Conditional Statements</h1>
 While the {{{is}}} operator will often cover many situations where you would need a [[conditional statement|Macro-If-Basic]], there are other operators that can include more than one specific condition at a time. Since SugarCube is based on JavaScript, you can use either form, or mix-n-match:
 <<nobr>>
@@ -347,7 +343,7 @@ Note:
 <style>.ifses td:nth-child(1), .ifses td:nth-child(2) {text-align:center;}.ifses th:nth-child(3), .ifses td:nth-child(3) {width: 33%;} #truthy td:first-child {width: 260px;}</style>
 <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
 
-:: Macro-Print [page] {"position":"1100,900","size":"100,100"}
+:: Macro-Print [page basic-macro] {"position":"1100,900","size":"100,100"}
 <h1>Display Variables, the {{{<<print>>}}} Macro and Variants</h1>
 There are essentially four ways of displaying a variable:
 * [[bare|Markup-Variable]]: {{{$variable}}}
