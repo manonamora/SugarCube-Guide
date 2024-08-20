@@ -1,15 +1,13 @@
 :: Markup-Int [chapter menu] {"position":"800,1100","size":"200,100"}
 <h1>More SugarCube Markup</h1>
-While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like stats bars), or display small variation (like pronouns).
+While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like updating stats bars), or display small variation (like changing pronouns). And, if you are trying to make a guide or tutorials in SugarCube, it will help display code!
 
 * [[Special Attributes and Directives|Markup-Attribute]] 
 * [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]] 
 * [[Display Small Variation with Templates|Markup-Template]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Markup-Attribute [page] {"position":"800,1200","size":"100,100"}
-<h1>Special Attributes and Directives</h1>
+:: Markup-Attribute [page int-markup] {"position":"800,1200","size":"100,100"}
+<h1 id="int-maattri">Special Attributes and Directives</h1>
 While macros allow for interaction or affect elements on the page, it is also possible to link variables or passages directly to HTML elements, and enable special behaviour unatainable with built-in macros.
 \
 <h3>Special Attributes</h3>\
@@ -75,11 +73,9 @@ Assuming that {{{$stat = 45}}}
 → will display a simple stats bar
 }}}
 
-<div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
-
 
 :: Markup-Code-Verbatim [page] {"position":"900,1200","size":"100,100"}
-<h1>Displaying Code and Verbatim Text</h1>
+<h1 id="int-macode">Displaying Code and Verbatim Text</h1>
 This page might not be the most useful for game projects, as it involve displaying code or text without formatting. However, for projects like this guide, the markup below will prove quite helpful.
 
 To do so, you can follow the Code Markup, with triple curvy brakets {{{ { } }}}, or the Verbatim Markup with triple quotes {{{ " " }}}. The difference between the markups will be on how it is translated into HTML.
@@ -113,10 +109,8 @@ The Verbatim Markup will require triple quotes {{{ " " }}} (HTML: {{{<nowiki></n
     <nowiki>No //format//</nowiki>
 }}}
 
-<div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
-
 :: Markup-Template [page] {"position":"800,1300","size":"100,100"}
-<h1>Display Small Variation with Templates</h1>
+<h1 id="int-matemp">Display Small Variation with Templates</h1>
 The Template markup is essentially a text replacement code that will display small variation (usually of one word). It works in combination with the [[Template API|TemplateAPI]], where the variation is defined. It is most useful for displaying pronouns, especially pronoun sets defined before player input.
 > ''Note:'' For an example of Pronoun Template, see [[Chapel's Macro|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/pronoun-templates.md]] or [[HiEv's Widget|https://hiev-heavy-ind.com/Sample_Code/Sample_Code.html#Pronoun%20Templates]]. 
 
@@ -129,6 +123,4 @@ Assuming that the template sets {{{?He}}} into //She// and {{{?his}}} into //her
 → will be rendered into:
     She was always willing to lend her ear to anyone.
 }}}
-
-<div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
 

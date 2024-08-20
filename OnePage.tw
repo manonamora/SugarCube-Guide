@@ -1,6 +1,6 @@
 :: OnePage [one-page]
 <div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div> /*TODO: change the date here*/
-<h1 class="the-chapter">100% Good Twine SugarCube Guide</h1>\
+<h1 class="the-super-head">100% Good Twine SugarCube Guide</h1>\
 This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
 
 The guide covers the different aspects of the SugarCube format, from its particular markup, to its macros, functions, and APIs. It also touches upon possible customisation of SugarCube projects, with editing the StyleSheet with CSS or the JavaScript passage. And, it brushes upon aspects of accessibility in terms of code, design, and formatting.
@@ -12,6 +12,9 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 > ''Note:'' any coding done in SugarCube is case and character sensitive, meaning that 
 > {{{name ≠ Name}}} or {{{" " ≠ “ ”}}}.
 
+<hr class="categorybreak">
+<h1 class="the-super-head">The Basics</h1>
+<hr>
 <<include "About">>
 <hr>
 <h1 id="basic-chapter" class="the-chapter">Starting with SugarCube</h1>
@@ -45,6 +48,8 @@ To edit how those elements look, you will need to edit the [[Stylesheet|Int-JS-C
 <<include "Macro-Set-Basic">>
 <hr class="small-section">
 <<include "Macro-If-Basic">>
+<hr class="categorybreak">
+<h1 class="the-super-head">The Basics(+)</h1>
 <hr>
 \
 <h1 id="basics-markup" class="the-chapter">SugarCube Markup and Basic Styling</h1>
@@ -67,8 +72,65 @@ There are different types of markups, from formating your text (''bold'', //ital
 With [[linking passages|Macro-Link-Basic]], [[setting variables|Macro-Set-Basic]], and creating some simple [[conditional statements|Macro-If-Basic]], you would have the basics required to make a textual game. However, if you want to push your project a bit further, and add onto that base, this section will cover slightly more complex uses for these macros, as well as include a few more related ones.
 \
 <hr class="small-section">
-<<include "">>
+<<include "Macro-Set">>
+<hr class="small-section">
+<<include "Macro-Unset">>
+<hr class="small-section">
+<<include "Macro-If">>
+<hr class="small-section">
+<<include "Macro-Link">>
+<hr class="small-section">
+<<include "Macro-Print">>
+<hr>
+\
+<h1 id="basics-interact" class="the-chapter">Adding some Interactivity</h1>
+While links make up for the majority of interactions in Twine games, SugarCube includes other types of interactivity through macros, which can help add different kinds of gameplay elements. The macros mentioned in this section are particularly useful for character creation, puzzles, and even combat systems.
+\
+<hr class="small-section">
+<<include "Macro-CheckRadio">>
+<hr class="small-section">
+<<include "Macro-Cycle">>
+<hr class="small-section">
+<<include "Accessibility-Cycle">>
+<hr class="small-section">
+<<include "Macro-Listbox">>
+<hr class="small-section">
+<<include "Macro-Input">>
+<hr class="small-section">
+<<include "Macro-Link-AppPreRep">>
+<hr>
+\
+<h1 id="basics-sp" class="the-chapter">Basic Special Passages</h1>
+Your project can be customised further thanks to Special Passages. These passages are made special as they will affect how the page looks, where the content of the passage is displayed on the page, or when the code is triggered during loading. SugarCube includes 14 Special Passage names that, when use, will trigger those special properties. The ones included in this section will focus on Headers, Footers, the SideBar, and Initialisation.
+> ''Note:'' You can check [[the demo|SP-Demo]] to see the Special Passages of this section in action!
 
+To use a Special Passage in your project you will need to:
+* create a new passage
+* name it with the wanted Special Passage Name 
+** it should be exactly as indicated in the [[Documentation|http://www.motoslave.net/sugarcube/2/docs/#special-passages]]! or it will not work 
+* fill the passage however you want
+** some Special Passages have restriction in content
+> ''Note:'' you cannot have more that one of each Special Passage per project.
+\
+<hr class="small-section">
+<<include "SP-HeaderFooter">>
+<hr class="small-section">
+<<include "SP-UIBar">>
+<hr class="small-section">
+<<include "SP-Init">>
+<hr>
+<<include "Base-JS-CSS">>
+<hr>
+<<include "URL-Types">>
+<hr class="categorybreak">
+<h1 class="the-super-head">The Basics(+)</h1>
+<hr>
+\
+<h1 id="int-markup">More SugarCube Markup</h1>
+While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like updating stats bars), or display small variation (like changing pronouns). And, if you are trying to make a guide or tutorials in SugarCube, it will help display code!
+\
+<hr class="small-section">
+<<include "">>
 
 
 -> do a whole list of include to "include" the passages, 

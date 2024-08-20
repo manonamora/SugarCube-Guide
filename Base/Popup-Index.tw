@@ -13,8 +13,29 @@
 \
 <h3> The Basics+</h3>\
 * ''<<link "SugarCube Markup and Basic Styling">> ID: basics-markup<</link>>''
-** <<link "Basic Text Styling">> ID: basics-muvariable<</link>> (long)
+** <<link "Basic Text Styling">> ID: basics-muvariable<</link>>
 ** <<link "Display an Image, and turn an Image into a Link">> ID: basics-mulink<</link>>
 ** <<link "Showing the Value of a Variable">> ID: basics-muimage<</link>>
 ** <<link "Using a Variable inside a Link">> ID: basics-munobr<</link>>
 ** <<link "Removing a Line-break">> ID: basics-mustyling<</link>>
+* ''<<link "Going Further with the Basics">> ID: basics-macros<</link>>''
+** <<link "Setting and Changing Variables">> ID: basics-maset<</link>>
+** <<link "Unsetting Variables">> ID: basics-maunset<</link>>
+** <<link "More Conditional Statements">> ID: basics-maif<</link>>
+** <<link "Displaying more than text in Links">> ID: basics-malinks<</link>>
+** <<link "Display Variables, the Print Macro and Variants">> ID: basics-maprint<</link>>
+* ''<<link "Adding some Interactivity">> ID: basics-maprint<</link>>''
+** <<link "Multi or Single Option Choices">> ID: basics-maprint<</link>>
+** <<link "Cycles and Conditional Options">> ID: basics-maprint<</link>>
+*** <<link "Make the Cycle Macro Accessible">> ID: basics-maprint<</link>>
+** <<link "Listboxes and Conditional Options">> ID: basics-maprint<</link>>
+** <<link "Player Input in three macros">> ID: basics-maprint<</link>>
+** <<link "Revealing Extra Text and Disappearing Links">> ID: basics-maprint<</link>>
+* ''<<link "Basic Special Passages">> ID: basics-maprint<</link>>''
+** <<link "Headers and Footers">> ID: basics-maprint<</link>>
+** <<link "Special Passages for the UI Bar">> ID: basics-maprint<</link>>
+** <<link "Setting Important Variables before Start">> ID: basics-maprint<</link>>
+** [[Special Passage Demo|SP-Demo]] (new page)
+* ''<<link "About JavaScript and the StyleSheet">> ID: basics-maprint<</link>>''
+* ''<<link "URLs for Assets and Testing">> ID: basics-maprint<</link>>''
+\

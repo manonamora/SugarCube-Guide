@@ -16,7 +16,7 @@
 ** [[Display an Image, and turn an Image into a Link|Markup-Image]]
 ** [[Showing the Value of a Variable|Markup-Variable]]
 ** [[Using a Variable inside a Link|Markup-Link]]
-** [[Removing a Line-break|Markup-Nobr]] /*CHECKED!*/
+** [[Removing a Line-break|Markup-Nobr]]
 * ''[[Going Further with the Basics|Macro-Basic]]''
 ** [[Setting and Changing Variables|Macro-Set]]
 ** [[Unsetting Variables|Macro-Unset]]
@@ -27,19 +27,19 @@
 ** [[Multi or Single Option Choices|Macro-CheckRadio]]
 ** [[Cycles and Conditional Options|Macro-Cycle]]
 *** [[Make the Cycle Macro Accessible|Accessibility-Cycle]]
-** [[Revealing Extra Text and Disappearing Links|Macro-Link-AppPreRep]]
 ** [[Listboxes and Conditional Options|Macro-Listbox]]
 ** [[Player Input in three macros|Macro-Input]]
+** [[Revealing Extra Text and Disappearing Links|Macro-Link-AppPreRep]]
 * ''[[Basic Special Passages|Special-Passage]]''
 ** [[Headers and Footers|SP-HeaderFooter]]
 ** [[Special Passages for the UI Bar|SP-UIBar]]
 ** [[Setting Important Variables before Start|SP-Init]]
 ** [[Special Passage Demo|SP-Demo]]
 * ''[[About JavaScript and the StyleSheet|Base-JS-CSS]]''
-* ''[[UrLs for Assets and Testing|URL-Types]]''
+* ''[[URLs for Assets and Testing|URL-Types]]''  /*CHECKED!*/
 \
 <h3>Intermediate Use</h3>\
-* ''[[More SugarCube Markup|Markup-Int]]''
+* ''[[More SugarCube Markup|Markup-Int]]''  /*CHECKED! but not below*/
 ** [[Special Attributes and Directives|Markup-Attribute]]
 ** [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]]
 ** [[Display Small Variation with Templates|Markup-Template]]

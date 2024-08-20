@@ -1,27 +1,25 @@
 :: Macro-Interact [chapter menu] {"position":"1400,600","size":"200,100"}
 <h1>Adding some Interactivity</h1>
-Aside from links, there are other macros to make your project a bit more interactive. SugarCube is built with multiple that can help add different kinds of gameplay elements. The macros mentioned in the pages listed below are quite useful for character creation, including puzzles, or even a combat system!
+While links make up for the majority of interactions in Twine games, SugarCube includes other types of interactivity through macros, which can help add different kinds of gameplay elements. The macros mentioned in this section are particularly useful for character creation, puzzles, and even combat systems.
 \
 * [[Multi or Single Option Choices|Macro-CheckRadio]]
 * [[Cycles and Conditional Options|Macro-Cycle]] 
 ** [[Make the Cycle Macro Accessible|Accessibility-Cycle]]
-* [[Revealing Extra Text and Disappearing Links|Macro-Link-AppPreRep]]
 * [[Listboxes and Conditional Options|Macro-Listbox]] 
 * [[Player Input in three macros|Macro-Input]]
+* [[Revealing Extra Text and Disappearing Links|Macro-Link-AppPreRep]]
 \
-> ''Note:'' For a concrete example of interactive character creator, see the [[Character Creator Template|https://manonamora.itch.io/twine-sugarcube-templates]].
-\
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+> ''Note:'' For a concrete example of interactive character creator, see my [[Character Creator Template|https://manonamora.itch.io/twine-sugarcube-templates]].
 
-:: Macro-CheckRadio [page] {"position":"1500,800","size":"100,100"}
-<h1>Multi or Single Option Choices</h1>
-Anoter way to display choice options aside from link can be found with the {{{<<checkbox>>}}} and {{{<<radiobutton>>}}} macros. The first allows the player to choose multiple options from a list, while the second only give the player one option to select. Both let player make choices without moving to a new passage.
+:: Macro-CheckRadio [page basic-interact] {"position":"1500,800","size":"100,100"}
+<h1 id="basics-checkradio">Multi or Single Option Choices</h1>
+Aside from links (in-text or as a list), there are other ways to display choice options, such as using the {{{<<checkbox>>}}} and {{{<<radiobutton>>}}} macros. The first allows the player to choose multiple options from a list, while the second only give the player one option to select. Both let player make choices without moving to a new passage.
 These macros are great for customising characters!
 \
 <h3>{{{<<checkbox>>}}}</h3>\
 The {{{<<checkbox>>}}} creates a visual checkbox, which will modify the value of a variable, depending on whether the box is checked or not.
 
-<<checkbox "_warning" false true>> I've read the warnings...
+<<checkbox "_warning" false true>> //Yes, I've read the warnings...//
 
 This macro has 5 arguments:
 * the variable saving the player's choice
@@ -38,7 +36,7 @@ This macro has 5 arguments:
 > ''Note:'' unlike {{{<<radiobutton>>}}}, you cannot use the same variable (or array position or object property) for more than one {{{<<checkbox>>}}}. Otherwsie, the last iteration with that re-used variable will override any previous choice.
 \
 <h3>{{{<<radiobutton>>}}}</h3>\
-The {{{<<radiobutton>>}}} creates a visual radio button, which will modify the value of a variable. You can use multiple of these linked to one variable to create a group of options.
+The {{{<<radiobutton>>}}} creates a visual radiobutton, which will modify the value of a variable. You can use multiple of these linked to one variable to create a group of options, where only one of these options can be chosen.
 
 <<radiobutton "_pieBlueberry" false>> I've read the warnings...
 
@@ -67,13 +65,12 @@ For accessiblity reasons, it is recommended to wrap each option of the macros ab
 }}}
 <label><<checkbox "_example" false true autocheck>> Displayed Text</label>
 <label><<radiobutton "_exmaple" false>> Displayed Text</label>
+\
+> ''Note:'' styling a checkbox or a radiobutton is pretty limited, as these elements are styled by the browser used (without a third-party plug-in or building it from scratch). 
 
-<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
-
-
-:: Macro-Cycle [page] {"position":"1400,700","size":"100,100"}
-<h1>Cycles and Conditional Options</h1>
-Cycles can be a fun way to have the player interact with the story, and give a different way to format choices or display different variations. The {{{<<cycle>>}}} macro can be useful to lists MC characteristics options, or environmental observations.
+:: Macro-Cycle [page basic-interact] {"position":"1400,700","size":"100,100"}
+<h1 id="basics-cycle">Cycles and Conditional Options</h1>
+Cycles can be a fun way to have the player interact with the story, as they give a different way to format choices or display different variations on the screen. The {{{<<cycle>>}}} macro can be useful to lists MC characteristics options, or changing environmental observations.
 
 I looked at her and she <<cycle "_example">>
 	<<option "seemed fine">>
@@ -101,24 +98,28 @@ Assuming that the array {{{_pieOptions = ["blueberry", "cherry", "coconut cream"
         <<option "was in tears" 0>>
         <<option "smiled" "bad">>
     <</cycle>>
-→ this cycle is the same as shown above, aside from most options having different values from their labels.
+ → the example, aside from some values.
 
     <<cycle "$pie" once autoselect>>
         <<optionsfrom _pieOptions>>
     <</cycle>>
-→ this cycle will display the options from the array _pieOptions, and will stop when reaching the end.
+ → display the options from the array _pieOptions, and stop when reaching the end.
 }}}
 \
 <h3>Why {{{<<optionfrom>>}}} instead of {{{<<option>>}}}?</h3>\
-The reason for choosing one rather than the other will depend on preferences and situations. 
+The {{{<<cycle>>}}} macro provides two ways of getting the source of options to display, with {{{<<option>>}}} and {{{<<optionfrom>>}}}. Whether to choose one rather than the other will depend on preferences and situations.
 
-{{{<<optionfrom>>}}} allows for cleaner/less code on the page, as well as giving the option to provide different options to players depending on how the list variable is set before use. While the {{{<<cycle>>}}} macro is a container, it will not accept any other macros inside, except the option ones. This means you cannot add or remove options within the cycle code (i.e. you cannot do {{{<<if $var>><<option "value">><</if>>}}}).
-> ''Note:'' you can also hide all your cycles inside [[widgets|Macro-Widget]].
+{{{<<option>>}}} allows for an easier read of the code, as all options and their respective values are explicitely displayed in the code. However, due to how the {{{<<cycle>>}}} macro is built, it won't let you add or remove options depending on situations (i.e. you can't do {{{<<if $var>><<option "value">><</if>>}}}).
+> ''Note:'' You can also have different {{{<<cycle>>}}}/{{{<<option>>}}} combo for each situation...  which you can hide inside [[widgets|Macro-Widget]]!
 \
-If the list of options is set ahead of the passage, and unchanging, {{{<<option>>}}} might be the easiest way to go. If the list's content is conditional on specific paths, then {{{<<optionfrom>>}}} might be more fitting.
-> ''Note:'' You can also have different {{{<<cycle>>}}}/{{{<<option>>}}} combo for each situation...
+On the other hand, {{{<<optionfrom>>}}} will only display the sourcing variable, allowing for cleaner but more obtuse code (see examples above). However, this means you can show different options depending on the situation by modifying the source variable ahead of time.
+
+So, if the list of options is supposed to be the same, regardless of conditions, {{{<<option>>}}} will be the easiest way to do. However, if the options are conditional on a specific situation, then {{{<<optionfrom>>}}} might be more fitting.
 \
-With {{{<<optionfrom>>}}}, you also have two options to set the cycle: using an array or an object. The first is the simplest, as you set a list of options inside an array, but it will mean the displayed text will also be the value of the cycled variable. On the other hand, objects seem a bit more complex to set up, but will allow you to display a different text than the value. 
+<h4>Objects or Arrays?</h4>\
+As you can indicate either an array or object in {{{<<optionfrom>>}}}, choosing one or the other will depend on whether you wan the displayed text to match the value of the option. 
+With an array {{{ [] }}}, what you see is what you ==get== save in the variable (just like {{{<<option "smiled">>}}}). On the other hand, an object {{{ {} }}} might seem a bit more complex to set up, but it allows you so save a different value for each option to display (like {{{<<option "smiled" true>>}}}). 
+
 For example, assuming that:
 {{{
     _pieOptionsArray = ["blueberry", "cherry", "coconut cream"]
@@ -133,13 +134,13 @@ While the object will show: <<cycle "_pie2" autoselect>>
 	<<optionsfrom _pieOptions2>>
 <</cycle>> (value of the first option: _pie2)
 
-> ''Note on the cycle macro:'' this macro has some issues with accessiblity (screen readers). While this can be remedied with some [[extra code|Accessibility-Cycle]], this should be taken into account when creating a project.
+> ''Note on the macro:'' this macro has some issues with accessiblity (among others, with screen readers). While this can be remedied with some [[extra code|Accessibility-Cycle]], this should be taken into account when creating a project.
 
-<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+:: Accessibility-Cycle [page basic-interact] {"position":"1500,700","size":"100,100"}
+<h1 id="basics-cycleacc">Make the Cycle Macro Accessible</h1>
+While the {{{cycle}}} [[macro|Macro-Cycle]] can be a fun way to include interactivity in a project, it comes with the caveat that it is not particularly accessible. For one, it looks exactly like a regular {{{<<link>>}}}, both visually and for screen reader.
 
-:: Accessibility-Cycle [page] {"position":"1500,700","size":"100,100"}
-<h1>Make the Cycle Macro Accessible</h1>
-While it can be a fun way to have Interactivity in your project, the {{{<<cycle>>}}} [[macro|Macro-Cycle]] has some issues with accessiblity (especially screen readers). This can be remedied with the code below, created by [[HiEv|https://www.reddit.com/r/twinegames/comments/qo1p1j/cycling_links_and_accessibility/]], which you must include in your JavaScript.
+The latter issue (i.e. screen readers) can be remedied with the following code, created by [[HiEv|https://www.reddit.com/r/twinegames/comments/qo1p1j/cycling_links_and_accessibility/]], which needs to go in your JavaScript.
 {{{
     $(document).on(":passagerender", function (event) {
         var clinks = $(event.content).find(".macro-cycle");
@@ -158,11 +159,41 @@ While it can be a fun way to have Interactivity in your project, the {{{<<cycle>
 }}}
 > ''Note:'' if you are not using the {{{Config.cleanupWikifierOutput}}} [[API|Basic-API-Config]] in your project, the Fix Bug code line can be removed.
 
-<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+As for the visual aspect, this will happen in the StyleSheet, by targetting the {{{.macro-cycle}}} element. There are multiple ways to help player distinguish between a regular link and the {{{<<cycle>>}}} macro:
+* change the formatting of the link itself (through colours or font)
+* add an indicator before/after the link 
+{{{
+ → changing the link
+    .macro-cycle {
+        color: yellow;
+        font-size: 125%;
+        font-family: 'Comic Sans';
+    }
 
-:: Macro-Link-AppPreRep [page] {"position":"1500,900","size":"100,100"}
-<h1>Revealing Extra Text and Disappearing Links</h1>
-Instead of forcing the player to another passage to continue the story, or if you want to add extra flavour text, SugarCube includes three link macros with a twist: {{{<<linkappend>>}}}, {{{<<linkprepend>>}}} and {{{<<linkreplace>>}}}. Like their name suggests, when the link is clicked, the macro will add text after the link ({{{<<linkappend>>}}}), add text before the link ({{{<<linkprepend>>}}}), or replace the link with a new text ({{{<<linkreplace>>}}}).
+ → adding an indicator
+    .macro-cycle::before {
+        content: "↪";
+        color: green;
+    }
+
+    .macro-cycle::after {
+        content: "↴";
+        color: blue;
+    }
+}}}
+Example of the last option:
+<span class="accs">\
+    <<cycle "_example" autoselect>>
+        <<option "seemed fine" false>>
+        <<option "was distraught">>
+        <<option "was in tears" 0>>
+        <<option "smiled" "bad">>
+    <</cycle>>\
+</span>\
+
+:: Macro-Link-AppPreRep [page basic-interact] {"position":"1500,900","size":"100,100"}
+<h1 id="basics-appprerep">Revealing Extra Text and Disappearing Links</h1>
+Rather than moving the player to another passage to continue the story, or if you want to insert extra flavour text through interactivity, SugarCube has three link macros with a twist: {{{<<linkappend>>}}}, {{{<<linkprepend>>}}} and {{{<<linkreplace>>}}}. Like their name suggests, when the link is clicked, the macro will add text //after// the link ({{{<<linkappend>>}}}), add text //before// the link ({{{<<linkprepend>>}}}), or //replace// the link with a new text ({{{<<linkreplace>>}}}).
 
 The three container macros have each 2 arguments:
 * the text to display in the link
@@ -171,7 +202,9 @@ The three container macros have each 2 arguments:
 <h3>{{{<<linkappend>>}}}</h3>\
 This macro is essentially a combination of the {{{<<link>>}}} and {{{<<append>>}}} macros, by creating a one-time use link that deactivates itself when clicked and prints the content coded inside the container ''after'' that link.
 {{{
-    <<linkappend "text in link" t8n>>text to appear after the link<</linkappend>>
+    <<linkappend "text in link" t8n>>
+        text to appear after the link
+    <</linkappend>>
     <<linkappend "text in link" t8n>>/* Code */<</linkappend>>
 }}}
 Ex: I ate a <<linkappend "cookie" t8n>>, which was filled with chocolate<</linkappend>>.
@@ -179,7 +212,9 @@ Ex: I ate a <<linkappend "cookie" t8n>>, which was filled with chocolate<</linka
 <h3>{{{<<linkprepend>>}}}</h3>\
 This macro is essentially a combination of the {{{<<link>>}}} and {{{<<prepend>>}}} macros, by creating a one-time use link that deactivates itself when clicked and displays the content coded inside the container ''before'' that link.
 {{{
-    <<linkprepend "text in link" t8n>>text to appear before the link<</linkprepend>>
+    <<linkprepend "text in link" t8n>>
+        text to appear before the link
+    <</linkprepend>>
     <<linkprepend "text in link" t8n>>/* Code */<</linkprepend>>
 }}}
 Ex: I ate a <<linkprepend "cookie" t8n>>delicious <</linkprepend>>.
@@ -193,12 +228,12 @@ This macro is essentially a combination of the {{{<<link>>}}} and {{{<<replace>>
 Ex: I ate a <<linkreplace "cookie" t8n>>slice of pie<</linkreplace>>.
 
 > ''Note:'' if you are looking for more flexibility in the placement of the link and/or the display of the added text, you may want to use their respective [[DOM macros|Macro-ApPreRepCopy]] nested inside a {{{<<link>>}}} instead.
+\
+> ''Note on customisation:'' these macros will look exactly like regular links to the player. You can help the player differentiate between those to by targetting the following elements in the StyleSheet: {{{.macro-linkappend}}}, {{{.macro-linkprepend}}} and {{{.macro-linkreplace}}}.
 
-<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
-
-:: Macro-Listbox [page] {"position":"1400,800","size":"100,100"}
-<h1>Listboxes and Conditional Options</h1>
-Listboxes are an easy way to have the player interact with the story, and give a different way to format choices. The {{{<<listbox>>}}} can be useful to lists options for a character's characteristics, or choosing a location to travel to.
+:: Macro-Listbox [page basic-interact] {"position":"1400,800","size":"100,100"}
+<h1 id="basics-listbox">Listboxes and Conditional Options</h1>
+Listboxes are an easy way to have the player interact with the story, and give a different way to format choices. The {{{<<listbox>>}}} macro can be useful to lists options for a character's characteristics, or choosing a location to travel to.
 
 Where to go next? <<listbox "_example">>
 	<<option "Home">>
@@ -225,24 +260,27 @@ Assuming that the array {{{_pieOptions = ["blueberry", "cherry", "coconut cream"
         <<option "Cinema" 0>>
         <<option "School" "bad">>
     <</listbox>>
-→ this list is the same as shown above, aside from most options having different values from their labels.
+→ same as example, aside for some values.
 
     <<listbox "$pie" autoselect>>
         <<optionsfrom _pieOptions>>
     <</listbox>>
-→ this list will display the options from the array _pieOptions.
+→ isplay the options from the array _pieOptions.
 }}}
 \
 <h3>Why {{{<<optionfrom>>}}} instead of {{{<<option>>}}}?</h3>\
-The reason for choosing one rather than the other will depend on preferences and situations. 
+The {{{<<listbox>>}}} macro provides two ways of getting the source of options to display, with {{{<<option>>}}} and {{{<<optionfrom>>}}}. Whether to choose one rather than the other will depend on preferences and situations.
 
-{{{<<optionfrom>>}}} allows for cleaner/less code on the page, as well as giving the option to provide different options to players depending on how the list variable is set before use. While the {{{<<listbox>>}}} macro is a container, it will not accept any other macros inside, except the option ones. This means you cannot add or remove options within the listbox code (i.e. you cannot do {{{<<if $var>><<option "value">><</if>>}}}).
-> ''Note:'' you can also hide all your cycles inside [[widgets|Macro-Widget]].
+{{{<<option>>}}} allows for an easier read of the code, as all options and their respective values are explicitely displayed in the code. However, due to how the {{{<<listbox>>}}} macro is built, it won't let you add or remove options depending on situations (i.e. you can't do {{{<<if $var>><<option "value">><</if>>}}}).
+> ''Note:'' You can also have different {{{<<listbox>>}}}/{{{<<option>>}}} combo for each situation...  which you can hide inside [[widgets|Macro-Widget]]!
 \
-If the list of options is set ahead of the passage, and unchanging, {{{<<option>>}}} might be the easiest way to go. If the list's content is conditional on specific paths, then {{{<<optionfrom>>}}} might be more fitting.
-> ''Note:'' You can also have different {{{<<listbox>>}}}/{{{<<option>>}}} combo for each situation...
+On the other hand, {{{<<optionfrom>>}}} will only display the sourcing variable, allowing for cleaner but more obtuse code (see examples above). However, this means you can show different options depending on the situation by modifying the source variable ahead of time.
+
+So, if the list of options is supposed to be the same, regardless of conditions, {{{<<option>>}}} will be the easiest way to do. However, if the options are conditional on a specific situation, then {{{<<optionfrom>>}}} might be more fitting.
 \
-With {{{<<optionfrom>>}}}, you also have two options to set the cycle: using an array or an object. The first is the simplest, as you set a list of options inside an array, but it will mean the displayed text will also be the value of the cycled variable. On the other hand, objects seem a bit more complex to set up, but will allow you to display a different text than the value. 
+<h4>Objects or Arrays?</h4>
+As you can indicate either an array or object in {{{<<optionfrom>>}}}, choosing one or the other will depend on whether you wan the displayed text to match the value of the option. 
+With an array {{{ [] }}}, what you see is what you ==get== save in the variable (just like {{{<<option "smiled">>}}}). On the other hand, an object {{{ {} }}} might seem a bit more complex to set up, but it allows you so save a different value for each option to display (like {{{<<option "smiled" true>>}}}). 
 For example, assuming that:
 {{{
     _pieOptionsArray = ["blueberry", "cherry", "coconut cream"]
@@ -257,11 +295,10 @@ While the object will show: <<listbox "_pie2" autoselect>>
 	<<optionsfrom _pieOptions2>>
 <</listbox>> (value of the first option: _pie2)
 
-<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+> ''Note:'' While the {{{<<listbox>>}}} is customisable in the StyleSheet, there may be aspects that cannot be modified (like the arrow), as it is forced by the browser itself.
 
-
-:: Macro-Input [page] {"position":"1400,900","size":"100,100"}
-<h1>Player Input in three macros</h1>
+:: Macro-Input [page basic-interact] {"position":"1400,900","size":"100,100"}
+<h1 id="basics-input">Player Input in three macros</h1>
 SugarCube offers three variations of input boxes: the {{{<<textbox>>}}}, the {{{<<textarea>>}}}, and the {{{<<numberbox>>}}}. The latter deals with integer (numbers), while the other two save inputs into strings (words).
 \
 <h3>The {{{<<textbox>>}}} macro</h3>\
@@ -270,8 +307,9 @@ The textbox allows the player to indicate a string of word(s). This can be usefu
 <<textbox "_wager" "Jane">>
 
 The macro has four arguments:
-* the variable to save the player input (must be wrapped inside quotes/apostrophes)
+* the variable to save the player input
 * the default text visible to the player
+** this can be empty ({{{ "" }}})
 * {{{"PassageName"}}} (optional) whether the player will be sent to another passage when pressing //Enter//
 * {{{autofocus}}} (optional) whether the area is automatically in focus when the passage loads
 {{{
@@ -279,7 +317,7 @@ The macro has four arguments:
 → this will be in focus, showing "Default Text", with the final value saved in $variable, and the player sent to "NextPassage" when pressing Enter.
 
     <<textbox "$variable" "">>
-→ this will not be in focus, showing 0 as the default value, and saving the input in $variable.
+→ this will not be in focus, showing nothing as the default value, and saving the input in $variable.
 }}}
 > ''Note:'' if you need to check the value of the {{{<<textbox>>}}} before the player moves to another passage, I would not recommend indicating a passage name in the macro, but use a separate button/link.
 \
@@ -289,8 +327,9 @@ The macro works similarly to the {{{<<textbox>>}}}, aside from saving the input 
 <<numberbox "_wager" 100>>
 
 The macro has four arguments:
-* the variable to save the player input (must be wrapped in quotes/apostrophes)
+* the variable to save the player input
 * the default number visible to the player
+** if ({{{ "" }}}) is indicated, it will default to 0
 * {{{PassageName}}} (optional) whether the player will be sent to another passage when presseing //Enter//
 * {{{autofocus}}} (optional) whether the area is automatically in focus 
 {{{
@@ -310,7 +349,7 @@ Unlike the two previous macros, the {{{<<textarea>>}}} allows the player to resi
 <<textarea "_example" "This is an example of a text area.">>
 
 The macro has three arguments:
-* the variable to save the player input (must be wrapped in quotes/apostrophes)
+* the variable to save the player input
 * the default text visible to the player
 * {{{autofocus}}} (optional) whether the area is automatically in focus 
 {{{
@@ -321,8 +360,6 @@ The macro has three arguments:
 → this will not be in focus, and will not show any text, but the final input will be saved in $variable
 }}}
 
-> ''Note on autofocus:'' there are instances where the {{{autofocus}}} will not trigger, mainly: on the first passage loaded when opening the game and when multiple {{{autofocus}}} are coded on one page. In this last case, it will focus ''on the last one''.
-> You can, however, fixed this with some [[jQuery]], to targer a specific element or time to autofocus.
-
-<div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
-/* TODO!! TODO WAHT? of the jQuery....*/
+> ''Note on autofocus:'' there are instances where the {{{autofocus}}} will not trigger. 
+> For example, on the first passage loaded when opening the game (or on refreshing the page), which you can fix this by forcing focus with some jQuery on the specific textbox (though it may be unnecessary if its clear the input should be interacted with). 
+> Another example is when multiple {{{autofocus}}} are coded on one page. In this case, the autofocus will only trigger ''on the last one''.

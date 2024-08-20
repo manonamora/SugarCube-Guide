@@ -28,6 +28,12 @@
         <div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
     basic-macro
         <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
+    basic-interact
+        <div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
+    basic-sp
+        <div id="link-menu">[[Back to the Special Passages Menu|Special-Passage]] - [[Back to the Start Menu|Start]]</div>
+    int-markup
+        <div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
     <<elseif tags().includes("settingsapi")>>
         <div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
         <div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>

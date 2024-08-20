@@ -322,3 +322,10 @@ hr.before-simon {
 .icons x {
     font-size: 200%;
 }
+table.basma-set td:first-of-type {width: 15%;text-align: center;}
+.ifses td:nth-child(1), .ifses td:nth-child(2) {text-align:center;}.ifses th:nth-child(3), .ifses td:nth-child(3) {width: 33%;} #truthy td:first-child {width: 260px;}
+
+.accs .macro-cycle::after {
+    content: "↴";
+    color: blue;
+}
