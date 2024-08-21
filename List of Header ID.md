@@ -39,9 +39,46 @@ List of Header ID
 
 /Intermediate/
 - int-markup
-    - int-maattri
-    - int-macode
-    - int-matemp
+    - int-muattri
+    - int-mucode
+    - int-mutemp
+- int-macro
+    - int-madom
+    - int-timed
+    - int-type
+    - int-custommacro
+- int-conv
+    - int-switch
+    - int-nobrsilent
+    - int-include
+    - int-widget
+    - int-backreturn
+    - int-long-return
+    - int-goto
+    - int-scriptrun
+    - int-doredo
+- sp-tags
+    - sp-tagsbuilt
+    - sp-readydone
+    - sp-interface
+    - sp-tagscss
+    - sp-tagsasset
+    - sp-variables
+- functions
+    - function-clone
+    - function-info
+    - function-meta
+    - function-js
+    - function-event
+- methods
+    - methods-string
+    - methods-numbers
+    - methods-array
+- audioma
+    - audio-cache
+    - audio-groupplay
+    - audio-macro
+    - audio-othermacro
 
 /Advanced/
 
@@ -51,5 +88,3 @@ class="the-chapter"
 
 <hr class="small-section">
 class="categorybreak"
-
-Left off at start of attribute

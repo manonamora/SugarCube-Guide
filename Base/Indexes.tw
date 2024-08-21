@@ -36,43 +36,40 @@
 ** [[Setting Important Variables before Start|SP-Init]]
 ** [[Special Passage Demo|SP-Demo]]
 * ''[[About JavaScript and the StyleSheet|Base-JS-CSS]]''
-* ''[[URLs for Assets and Testing|URL-Types]]''  /*CHECKED!*/
+* ''[[URLs for Assets and Testing|URL-Types]]''
 \
 <h3>Intermediate Use</h3>\
-* ''[[More SugarCube Markup|Markup-Int]]''  /*CHECKED! but not below*/
+* ''[[More SugarCube Markup|Markup-Int]]''  
 ** [[Special Attributes and Directives|Markup-Attribute]]
 ** [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]]
 ** [[Display Small Variation with Templates|Markup-Template]]
-* ''[[Going Further with Basic APIs and More|API-Adv]]''
-** [[More Popups APIs|API-Dialog]]
-** [[More SideBar APIs|API-UIBar]]
-** [[The Template APIs|TemplateAPI]]
-** [[(Un)Locking the Loading Screen|API-Lock]]
 * ''[[More Interactivity Macros|Macro-Interact-Adv]]''
-** [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
 ** [[Delaying Displaying Text or Running Code|Macro-Timed]]
 ** [[Displaying Text Letter by Letter|Macro-Type]]
+** [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
 ** [[Using Custom Macro|Custom-Macro]]
 * ''[[Macros of Convenience|Macro-Conv]]''
 ** [[An Alternative to Conditional Statements|Macro-Switch]]
-** [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
-** [[Including a Passage inside another|Macro-Include]]
-** [[Creating and Using a Widget|Macro-Widget]]
+** [[Sending the Player to a Passage|Macro-Goto]]
 ** [[Going Back or Returning to a Passage with a Special Link|Macro-Back-Return]]
 *** [[Arbitrarily Long Returns|Long-Return-JS]]
-** [[Sending the Player to a Passage|Macro-Goto]]
+** [[Updating Parts of the Passage|Macro-Do-Redo]]
+** [[Including a Passage inside Another|Macro-Include]] 
+** [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
+** [[Creating and Using a Widget|Macro-Widget]] 
 ** [[Using JavaScript in the Passage|Macro-Script-Run]]
 * ''[[More Special Passages and Tags|Special-Tags]]''
 ** [[Special Tags creating Special Passages and Functionalities|Tags-Built]]
 ** [[Process Code Before and After Rendering a Passage|SP-PassageReady-Done]]
-** [[Changing the UI of the Project|SP-StoryInterface]]
+** [[Changing the UI/Interface of the Project|SP-StoryInterface]]
 ** [[Customising Passages with Tags|Tags-CSS]]
 ** [[Including Assets with Tags|Tags-Asset]]
 ** [[The Special Variables|SP-Variables]]
 * ''[[Harness the Power of Functions|Functions]]''
 ** [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
-** [[Using Play, Passage, and Tags information|Function-Pass-Tag]]
+** [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
 ** [[Memorizing Information and Metadata|Function-Metadata]]
+** [[Triggering Events|Function-Trigger]]
 ** [[JavaScript-only Functions|Function-JS]]
 * ''[[Using Methods to change Variables|Methods]] ''
 ** [[Methods and String Variables|Method-String]]
@@ -82,7 +79,7 @@
 ** [[Setting up the Audio Tracks|CacheAudio]]
 ** [[Create Track Groups and Playlists|Macro-Group-Playlist]]
 ** [[Playing Tracks in a Passage|Audio-Macro]]
-** [[Other Audio Macros|Audio-Other]]
+** [[Other Audio Macros|Audio-Other]] /*CHECKED!*/
 * ''[[Going further in Styling with CSS and JavaScript|Int-JS-CSS]]''
 ** [[The Different Targetable Elements|Int-JS-CSS-Elements]]
 *** [[The Full List of Targetable Elements|HTML-Full-List]]
@@ -105,6 +102,7 @@
 ** [[l10nStrings, and How to Edit Them|Local-L10n]]
 ** [[Localization, and Pre-Translated Templates|Local-Trans]]
 ** [[Providing Multiple Languages In-Game|Local-Setting]]
+/*The debug page here*/
 \
 <h3>''Advanced Mode''</h3>\
 > ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processed of SugarCube.
@@ -116,6 +114,11 @@
 * ''[[More Variable and Interaction Methods|Methods-Adv]]''
 ** [[More Methods to change Variables|Method-Variables]]
 ** [[jQuery Methods and Interactivity|Method-jQuery]]
+* ''[[Going Further with Basic APIs and More|API-Adv]]''
+** [[More Popups APIs|API-Dialog]]
+** [[More SideBar APIs|API-UIBar]]
+** [[The Template APIs|TemplateAPI]]
+** [[(Un)Locking the Loading Screen|API-Lock]]
 * ''[[The Settings API|Settings]]''
 ** [[Creating a Setting|SettingsBasics]]
 ** [[Creating a Toggle Setting|SettingsToggle]]

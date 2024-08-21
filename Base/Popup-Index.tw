@@ -39,3 +39,39 @@
 * ''<<link "About JavaScript and the StyleSheet">> ID: basics-maprint<</link>>''
 * ''<<link "URLs for Assets and Testing">> ID: basics-maprint<</link>>''
 \
+<h3>Intermediate Use</h3>\
+* ''[[More SugarCube Markup|Markup-Int]]''  
+** [[Special Attributes and Directives|Markup-Attribute]]
+** [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]]
+** [[Display Small Variation with Templates|Markup-Template]] 
+* ''[[More Interactivity Macros|Macro-Interact-Adv]]''
+** [[Delaying Displaying Text or Running Code|Macro-Timed]]
+** [[Displaying Text Letter by Letter|Macro-Type]]
+** [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
+** [[Using Custom Macro|Custom-Macro]]
+* ''[[Macros of Convenience|Macro-Conv]]''
+** [[An Alternative to Conditional Statements|Macro-Switch]]
+** [[Sending the Player to a Passage|Macro-Goto]]
+** [[Going Back or Returning to a Passage with a Special Link|Macro-Back-Return]]
+*** [[Arbitrarily Long Returns|Long-Return-JS]]
+** [[Updating Parts of the Passage|Macro-Do-Redo]]
+** [[Including a Passage inside Another|Macro-Include]] 
+** [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
+** [[Creating and Using a Widget|Macro-Widget]] 
+** [[Using JavaScript in the Passage|Macro-Script-Run]]
+* ''[[More Special Passages and Tags|Special-Tags]]''
+** [[Special Tags creating Special Passages and Functionalities|Tags-Built]]
+** [[Process Code Before and After Rendering a Passage|SP-PassageReady-Done]]
+** [[Changing the UI/Interface of the Project|SP-StoryInterface]]
+** [[Customising Passages with Tags|Tags-CSS]]
+** [[Including Assets with Tags|Tags-Asset]]
+** [[The Special Variables|SP-Variables]]
+* ''[[Using Methods to change Variables|Methods]] ''
+** [[Methods and String Variables|Method-String]]
+** [[Methods and Numbers|Method-Number]]
+** [[Methods and Arrays|Method-Array]]
+* ''[[Adding Sound with the Audio Macros|Macro-Audio]]''
+** [[Setting up the Audio Tracks|CacheAudio]]
+** [[Create Track Groups and Playlists|Macro-Group-Playlist]]
+** [[Playing Tracks in a Passage|Audio-Macro]]
+** [[Other Audio Macros|Audio-Other]]

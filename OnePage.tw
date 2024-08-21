@@ -123,15 +123,123 @@ To use a Special Passage in your project you will need to:
 <hr>
 <<include "URL-Types">>
 <hr class="categorybreak">
-<h1 class="the-super-head">The Basics(+)</h1>
+<h1 class="the-super-head">Intermediate Use</h1>
 <hr>
 \
-<h1 id="int-markup">More SugarCube Markup</h1>
+<h1 id="int-markup" class="the-chapter">More SugarCube Markup</h1>
 While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like updating stats bars), or display small variation (like changing pronouns). And, if you are trying to make a guide or tutorials in SugarCube, it will help display code!
 \
 <hr class="small-section">
-<<include "">>
+<<include "Markup-Attribute">>
+<hr class="small-section">
+<<include "Markup-Code-Verbatim">>
+<hr class="small-section">
+<<include "Markup-Template">>
+<hr>
+\
+<h1 id="int-macro" class="the-chapter">More Interactivity Macros</h1>
+While a previous section touched upon the [[Base Interactive Macros|Macro-Interact]], SugarCube still has more interactive macros, of a more intermediate use level. These macros will add different kinds of interactivity to the project, or more flexibility in said interactivity.
+\
+<hr class="small-section">
+<<include "Macro-Timed">>
+<hr class="small-section">
+<<include "Macro-Type">>
+<hr class="small-section">
+<<include "Macro-ApPreRepCopy">>
+<hr class="small-section">
+<<include "Custom-Macro">>
+<hr>
+\
+<h1 id="int-conv" class="the-chapter">Macros of Convenience</h1>
+Whether you need a more convenient way to format your code or the text in passages, to send players to a specific varying story passage, or include more JavaScript in the game, SugarCube has a couple of very convenient macros.
+\
+<hr class="small-section">
+<<include "Macro-Switch">>
+<hr class="small-section">
+<<include "Macro-Goto">>
+<hr class="small-section">
+<<include "Macro-Back-Return">>
+<hr class="small-section">
+<<include "Long-Return-JS">>
+<hr class="small-section">
+<<include "Macro-Do-Redo">>
+<hr class="small-section">
+<<include "Macro-Include">>
+<hr class="small-section">
+<<include "Macro-Nobr-Silent">>
+<hr class="small-section">
+<<include "Macro-Widget">>
+<hr class="small-section">
+<<include "Macro-Script-Run">>
+\
+<h1 id="sp-tags" class="the-chapter">More Special Passages and Tags</h1>
+Aside from the [[Basic Special Passages|Special-Passage]], you can customise your project even further with more Special Passage Names and Special tags.
+\
+<hr class="small-section">
+<<include "Tags-Built">>
+<hr class="small-section">
+<<include "SP-PassageReady-Done">>
+<hr class="small-section">
+<<include "SP-StoryInterface">>
+<hr class="small-section">
+<<include "Tags-CSS">>
+<hr class="small-section">
+<<include "Tags-Asset">>
+<hr class="small-section">
+<<include "SP-Variables">>
+<hr>
+\
+<h1 id="functions" class="the-chapter">Harness the Power of Functions</h1>
+Functions are JavaScript blocks of code designed to do a specific task, from importing outside scripts, to save information, or setting variables. While some of the functions explained in this section can be used in any passage in combination with SugarCube macros, some should be restricted to the JavaScript passage only.
+\
+<hr class="small-section">
+<<include "Function-Clone-Random">>
+<hr class="small-section">
+<<include "Function-Pass-Tag">>
+<hr class="small-section">
+<<include "Function-Metadata">>
+<hr class="small-section">
+<<include "Function-Trigger">>
+<hr class="small-section">
+<<include "Function-JS">>
+<hr>
+\
+<h1 id="methods" class="the-chapter">Using Methods to change Variables</h1>
+Methods are [[functions|Functions]], JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run.
+{{{
+    <reciever>.method()
+ → Example:
+    $var.first()
+}}}
 
+In SugarCube, they are mainly used to handle arrays, change the formatting of strings values, or handle numbers.
+> ''Note:'' Other native JavaScript or jQuery methods can be used with SugarCube, but requires knowledge of those languages. The ones listed in this guide would be the most useful.
+\
+<hr class="small-section">
+<<include "Method-String">>
+<hr class="small-section">
+<<include "Method-Number">>
+<hr class="small-section">
+<<include "Method-Array">>
+<hr>
+\
+<h1 id="audioma" class="the-chapter">Adding Sound with the Audio Macros</h1>
+Adding any asset to a project can be daunting, especially when it can involve so many macros. But adding audio is actually quite simple and, at the minimum, only requires the use of 2 macros: {{{<<audio>>}}} and {{{<<cacheaudio>>}}}.
+\
+<hr class="small-section">
+<<include "CacheAudio">>
+<hr class="small-section">
+<<include "Macro-Group-Playlist">>
+<hr class="small-section">
+<<include "Audio-Macro">>
+<hr class="small-section">
+<<include "Audio-Other">>
+\
+
+
+<hr class="categorybreak">
+<h1 class="the-super-head">Advanced Mode</h1>
+<hr>
 
 -> do a whole list of include to "include" the passages, 
     except for the Chapter pages

@@ -3,24 +3,23 @@
 Methods are [[functions|Functions]], JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run.
 {{{
     <reciever>.method()
-Example:
+ → Example:
     $var.first()
 }}}
 
 In SugarCube, they are mainly used to handle arrays, change the formatting of strings values, or handle numbers.
+\
 * [[Methods and String Variables|Method-String]]
 * [[Methods and Numbers|Method-Number]]
 * [[Methods and Arrays|Method-Array]] (long!)
 > ''Note:'' Other native JavaScript or jQuery methods can be used with SugarCube, but requires knowledge of those languages. The ones listed in this guide would be the most useful.
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Method-String [page] {"position":"2600,1300","size":"100,100"}
-<h1>Methods and String Variables</h1>
-The methods below are mainly useful to change the formatting of string variables, or see if certain characters are included in the strings. With the methods below, the code will look at a string as if it was an array of character (including space and punctuation), with the first having the position 0.
+:: Method-String [page methods] {"position":"2600,1300","size":"100,100"}
+<h1 id="methods-string">Methods and String Variables</h1>
+The methods below are mainly useful to change the formatting of string variables, or see if certain characters are included in the strings. With those methods, the code will look at a string as if it was an array of character (including space and punctuation), with the first having the position 0.
 \
 <h3>Changing the Formatting of Strings.</h3>\
-Whether to change the string to its upper or lowercase version, or just tranform the frist character, you would need to use one of the following methods: {{{.toLowerCase()}}}/{{{.toLocaleLowerCase()}}}, {{{.toUpperCase()}}}/{{{.toLocaleUpperCase()}}}, {{{.toUpperFirst()}}}/{{{.toLocaleUpperFirst()}}}
+Whether to change the string to its upper or lowercase version, or just capitalise the first character, you would need to use one of the following methods: {{{.toLowerCase()}}}/{{{.toLocaleLowerCase()}}}, {{{.toUpperCase()}}}/{{{.toLocaleUpperCase()}}}, {{{.toUpperFirst()}}}/{{{.toLocaleUpperFirst()}}}
 > ''Note:'' the {{{.toLocale-()}}} method transforms the string in accordance to the user's language and region in their device.
 Assuming that {{{$jane = "jane"}}} and {{{$john = "John"}}} 
 {{{
@@ -58,10 +57,8 @@ On the other hand, {{{.count()}}} will look at how many times a substring is inc
 }}}
 > ''Note:'' the method cannot be left empty. If you are looking to check the length of a string, you should use {{{.length}}} instead.
 
-<div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
-
-:: Method-Number [page] {"position":"2700,1200","size":"100,100"}
-<h1>Methods and Numbers</h1>
+:: Method-Number [page methods] {"position":"2700,1200","size":"100,100"}
+<h1 id="methods-numbers">Methods and Numbers</h1>
 Mathematical methods can be quite useful in a project, especially when dealing with player statistics and stat bars, to ensure a value does not exceed or go below a certain range.
 \
 <h3>{{{Math.round()}}} </h3>\
@@ -104,16 +101,15 @@ The method alone will not change the value of a variable, this needs to be done 
     <<set $stoic to Math.clamp(($stoic + 4) * 5, 0, 100)>>
 }}}
 
-<div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
-
-:: Method-Array [page] {"position":"2600,1200","size":"100,100"}
-<h1>Methods and Arrays</h1>
-Arrays are where the methods are the most useful, as they are the main way to edit them or check its content. These methods can be used with the {{{<<set>>}}}/{{{<<run>>}}} macros, or in conditional statements.
+:: Method-Array [page methods] {"position":"2600,1200","size":"100,100"}
+<h1 id="methods-array">Methods and Arrays</h1>
+Arrays are where the methods are the most useful, as they are the main way to edit them or check their content. These methods can be used with the {{{<<set>>}}}/{{{<<run>>}}} macros, or in conditional statements.
 > ''Note:'' These methods do not need to be attached to a variable, they can be attached to a non-saved array (see the {{{<Array>.includes()}}} examples).
 \
 <h2>Add elements to an array</h2>\
 There are multiple ways to add elements to an array, but the methods listed below will do so differently.
 The examples below will assume that {{{_array = ['Apple', 'Potatoe', 'Sausage']}}} and {{{_array2 = [1, 2, 3]}}}
+\
 <h4>{{{<Array>.concat()}}}</h4>\
 {{{<Array>.concat()}}} will merge other arrays or lists of values to the original array, with the new values added at the end of the orginal array:
 {{{
@@ -132,6 +128,7 @@ The examples below will assume that {{{_array = ['Apple', 'Potatoe', 'Sausage']}
 As the method will not edit the original variable, you would need to use the {{{<<set>>}}} macro for the change the stay constant:
 {{{<<set _array to _array.concat(_array2)>>}}}
 > ''Note:'' if you want to only include new values to the array, you would need to use {{{<Array>.concatUnique()}}}
+\
 <h4>{{{<Array>.push()}}}</h4>\
 {{{<Array>.push()}}} will add values to the original array, with the new values to be added at the end of the orignal array:
 {{{
@@ -154,6 +151,7 @@ The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
     <<run _array.push(_array2)>>
 }}}
 > ''Note:'' if you want to only include new values to the array, you would need to use {{{<Array>.pushUnique()}}}
+\
 <h4>{{{<Array>.unshift()}}}</h4>\
 {{{<Array>.unshift()}}} will add values to the original array, with the new values to be added at the ''beginning'' of the orignal array:
 {{{
@@ -262,13 +260,14 @@ The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
     <<set _array.deleteAt(_array2)>>
     <<run _array.deleteAt(_array2)>>
 }}}
+\
 <h4>{{{<Array>.pluck()}}}</h4>\
 {{{<Array>.pluck()}}} and {{{<Array>.pluckMany()}}} are two methods what will respectively remove an element/multiple elements from the array in a random manner.
-> ''Note:'' for {{{<Array>.pluckMany()}}}, you can use an integer variable to indicate the number of elements you want to remove.
 {{{
     _array.pluck()
     _array.pluckMany(number/variable)
 }}}
+> ''Note:'' for {{{<Array>.pluckMany()}}}, you can use an integer variable to indicate the number of elements you want to remove.
 {{{
     _array.pluckMany(3)
     _array.pluckMany(_var)
@@ -279,6 +278,7 @@ These methods can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
     <<set _array.pluckMany(_array2)>>
     <<run _array.pluck(_array2)>>
 }}}
+\
 <h4>{{{<Array>.pop()}}} and {{{<Array>.shift()}}}</h4>\
 {{{<Array>.pop()}}} and {{{<Array>.shift()}}} will remove respectively the last and first element in an array.
 {{{
@@ -296,7 +296,8 @@ These methods can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
 }}}
 \
 <h3>Check the properties of an array</h3>\
-There are multiple ways to check the properties of an array. Depending on what you are looking for, you may find one method working better than another. 
+There are multiple ways to check the properties of an array. Depending on what you are looking for, you may find one method working better than another.
+\
 <h4>{{{<Array>.includes()}}} and its alternatives</h4>\
 {{{<Array>.includes()}}} will check whether an element is included in the array. It also comes in two other flavours: {{{<Array>.includesAll()}}}, which will check if all listed elements are included in an array, and {{{<Array>.includesAny()}}}, which will check whether one of the elements listed is included in an array.
 {{{
@@ -338,6 +339,7 @@ Among other, they can be used in conditional statements or setting another varia
 {{{
     <<if _array.first() is "Apple">>...<</if>>
 → this will run, since the first element of the array is "Apple"
+
     <<if _array.first() is 1>>...<</if>>
 → this won't run
 
@@ -437,6 +439,3 @@ The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
     <<set _array.flat(2)>>
     <<run _array.flat(3)>>
 }}}
-
-<div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
-
