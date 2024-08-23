@@ -46,6 +46,10 @@
         <div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
     audio-macro
         <div id="link-menu">[[Back to the Audio Macros Menu|Macro-Audio]] - [[Back to the Start Menu|Start]]</div>
+    int-jscss
+        <div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
+    basic-apis
+        <div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
     <<elseif tags().includes("settingsapi")>>
         <div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
         <div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>

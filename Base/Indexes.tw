@@ -79,17 +79,18 @@
 ** [[Setting up the Audio Tracks|CacheAudio]]
 ** [[Create Track Groups and Playlists|Macro-Group-Playlist]]
 ** [[Playing Tracks in a Passage|Audio-Macro]]
-** [[Other Audio Macros|Audio-Other]] /*CHECKED!*/
+** [[Other Audio Macros|Audio-Other]]
 * ''[[Going further in Styling with CSS and JavaScript|Int-JS-CSS]]''
-** [[The Different Targetable Elements|Int-JS-CSS-Elements]]
-*** [[The Full List of Targetable Elements|HTML-Full-List]]
+** [[The Unique Targetable Elements|Int-JS-CSS-Elements]] 
+*** [[The Full List of Targetable Elements|HTML-Full-List]] 
 ** [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
 ** [[Import and Change the Font|Int-JS-CSS-Font]]
-** [[Using the Root and CSS var|Int-JS-CSS-Root]]
-** [[Formating for Different Screen Size|Int-JS-CSS-Media]]
+*** [[Using the SG Icons|Int-JS-CSS-Icons]]
+** [[Using the Root and CSS var|Int-JS-CSS-Root]] 
+** [[Formating for Different Screen Size|Int-JS-CSS-Media]] 
 ** [[Intro to Animation|Int-JS-CSS-Animation]]
-** [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long)
-** [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]]
+** [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) 
+** [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] 
 ** [[A Note on Interface Accessibility|Accessibility]]
 * ''[[Some Useful Basic APIs|Basic-API]]''
 ** [[Moving back and forth in the History|Basic-API-Engine]]
@@ -97,7 +98,7 @@
 ** [[Handle the SideBar|Basic-API-UIBar]]
 ** [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]]
 ** [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
-** [[Some Useful Configuration API for your Project|Basic-API-Config]]
+** [[Some Useful Configuration API for your Project|Basic-API-Config]]  /*CHECKED!*/
 * ''[[Edit the Built-In Text or Change the Game's Language|Localization]]''
 ** [[l10nStrings, and How to Edit Them|Local-L10n]]
 ** [[Localization, and Pre-Translated Templates|Local-Trans]]
@@ -162,6 +163,7 @@
 <div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
 
 :: Function/Method List {"position":"1200,400","size":"200,100"}
+/*NEED TO EDIT THIS*/
 <h1>Functions and Methods List</h1>
 Below, you will find the list of Functions and Methods included in SugarCube, and where they are discussed in this guide.
 > ''Note:'' As SugarCube is built on JavaScript, you can use any JavaScript and jQuery functions and methods, even ones you create and define yourself.
@@ -229,6 +231,7 @@ Below, you will find the list of Functions and Methods included in SugarCube, an
 <div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
 
 :: API List {"position":"1200,500","size":"200,100"}
+/*NEED TO EDIT THIS*/
 <h1>APIs List</h1>
 Below, you will find the list of SugarCube APIs, and where they are discussed in this guide.
 > ''Note:'' Most of the elements below are meant for Advanced users.
@@ -459,6 +462,7 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 <div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
 
 :: Macros List {"position":"1200,300","size":"200,100"}
+/*NEED TO EDIT THIS -> do redo*/
 <h1>Macro List</h1>
 Below, you will find the alphabetical list of SugarCube macro, and where they are discussed in this guide.
 

@@ -1,10 +1,10 @@
 :: Int-JS-CSS [chapter menu] {"position":"3200,1100","size":"200,100"}
 <h1>Going further in Styling with CSS and JavaScript</h1>
-When wanting to change how a page looks or behave, you will need to edit either the StyleSheet, the JavaScript or a combination of both. If it is behaviour that needs setting, then you will most likely need the JavaScript. For most visual elements, you should turn to the StyleSheet.
+If you want to change how a page looks or behaves, you will need to edit either the StyleSheet, the JavaScript, or a combination of both. If it is behaviour that needs setting, then you will most likely need the JavaScript. For most visual elements, you should turn to the StyleSheet.
 
 While editing the StyleSheet, you may find the Inspect Tool of your browser to be a useful thing. From testing for different screen sizes and accessibility, to view the source code (HTML/CSS) of the displayed passage, or even messing with the CSS rules without going back and forth between the StyleSheet and the file, the tool will let you ensure a great visual for your project.
 
-* [[The Different Targetable Elements|Int-JS-CSS-Elements]] 
+* [[The Unique Targetable Elements|Int-JS-CSS-Elements]] 
 ** [[The Full List of Targetable Elements|HTML-Full-List]] 
 * [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
 * [[Import and Change the Font|Int-JS-CSS-Font]]
@@ -16,14 +16,12 @@ While editing the StyleSheet, you may find the Inspect Tool of your browser to b
 * [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] 
 * [[A Note on Interface Accessibility|Accessibility]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+:: Int-JS-CSS-Elements [page int-jscss] {"position":"3200,1200","size":"100,100"}
+<h1 id="intstyle-elements">The Unique Targetable Elements</h1>
+With every project created in SugarCube, the [[base UI|http://www.motoslave.net/sugarcube/2/docs/#html]] diplays many elements on the page by default, as well extra when [[Special Passages|Special-Passage]] are used. These elements can be targeted in the StyleSheet with some CSS or in JavaScript.
 
-:: Int-JS-CSS-Elements [page] {"position":"3200,1200","size":"100,100"}
-<h1>The Different Targetable Elements</h1>
-With its [[base UI|http://www.motoslave.net/sugarcube/2/docs/#html]], SugarCube creates multiple elements on the page, which can be targeted in the StyleSheet with some CSS or in the JavaScript.
-
-The elements have also relationships with one another, as they are nested within one another. Depending on where they are located within the nesting, and how the Built-In StyleSheet targets them, any edit made may affect more than the targeted elements.
-> ''Note:'' when an element is located inside another, the first is called a child of the second, while the second is the parent of the first. CSS rules in the parent element may affect the child element.
+The elements also have relationships with one another, when they are nested within one another. Depending on where they are located within the nesting, and how the Built-In StyleSheet targets them, any edit made may not just affect the targeted elements but others as well.
+> ''Note:'' when an element {{{A}}} is located inside another {{{B}}}, {{{A}}} will be called a child of {{{B}}}, while {{{B}}} is the parent of {{{A}}}. CSS rules in the parent element may affect the child element.
 \
 <h3>Main Block Elements</h3>\
 <table>
@@ -32,7 +30,7 @@ The elements have also relationships with one another, as they are nested within
     </tr>
     <tr>
         <td>{{{html}}}</td>
-        <td>The document element, necessary to set up the HTML page. ''Should not be included inside'' {{{StoryInterface}}}.
+        <td>The document element, necessary to set up the HTML page. ''Cannot be included inside'' {{{StoryInterface}}}.
         If a story-passage is tagged, {{{data-tags}}} will be added to this element.
         If the project includes Settings, classes and attributes will be added to this element. 
         The element sets the font size for the whole document.</td>
@@ -40,25 +38,25 @@ The elements have also relationships with one another, as they are nested within
     </tr>
     <tr>
         <td>{{{body}}}</td>
-        <td>The body of the page. ''Should not be included in'' {{{StoryInterface}}}.
+        <td>The body of the page. ''Cannot be included in'' {{{StoryInterface}}}.
         If a story-passage is tagged, the {{{data-tags}}} and special classes will be added to this element.
         The element sets the default background and font colours.</td>
         <td>{{{body}}} is the child element of {{{html}}}, and the parent element of all the elements below, most closely {{{#ui-dialog}}}, {{{#ui-bar}}}, and {{{#story}}}.</td>
     </tr>
     <tr>
         <td>{{{#ui-dialog}}}</td>
-        <td>The popup element container. ''Should not be included in'' {{{StoryInterface}}}.</td>
+        <td>The popup element container. ''Cannot be included in'' {{{StoryInterface}}}.</td>
         <td>{{{#ui-dialog}}} is the child element of {{{body}}}, and the parent element of {{{#ui-dialog-titlebar}}} and {{{#ui-dialog-body}}}. </td>
     </tr>
     <tr>
         <td>{{{#ui-bar}}}</td>
-        <td>The left sidebar. Can be included in {{{StoryInterface}}}, if want to be kept.
+        <td>The left sidebar. Can be included in {{{StoryInterface}}}, if wanted.
         This element will affect how {{{#story}}} is positionned on the page.</td>
         <td>{{{#ui-bar}}} is a child element of {{{body}}}, and the parent element of the Special Passage elements, among others.</td>
     </tr>
     <tr>
         <td>{{{#story}}}</td>
-        <td>Container for the {{{#passages}}} element.
+        <td>Container for the {{{#passages}}} element. ''Cannot be included inside'' {{{StoryInterface}}}.
         This element's width and position is affected by {{{#ui-bar}}}'s position on the page.</td>
         <td>{{{#story}}} is the child element of {{{body}}}, and the parent of {{{#passages}}}</td>
     </tr>
@@ -70,13 +68,13 @@ The elements have also relationships with one another, as they are nested within
     </tr>
     <tr>
         <td>{{{.passage}}}</td>
-        <td>The passage element. ''Should not really be included'' in {{{StoryInterface}}}.
+        <td>The passage element. ''Cannot really be included'' in {{{StoryInterface}}}.
         The active story-passage will determine the ID of this element.
         If a story-passage is tagged, the {{{data-tags}}} and special classes will be added to this element.</td>
         <td>{{{.passage}}} is the child element of {{{#passages}}}, and the parent element of any element coded in the story-passage.</td>
     </tr>
 </table>
-> ''Note:'' When using the base UI, the {{{StoryInterface}}} [[Special Passage|SP-StoryInterface]] is not a necessary passage to have in your project.
+> ''Note:'' When using the base UI, you won't need to use the {{{StoryInterface}}} [[Special Passage|SP-StoryInterface]].
 > You can find the complete list of targetable elements in a base UI [[here|HTML-Full-List]].
 \
 <h3>Notes on the Links Elements and Special Link Classes</h3>\
@@ -93,18 +91,13 @@ To change how a link looks when hovered/in focus/being clicked on, compared to t
 If the {{{a}}} has not been modified in the StyleSheet, you may notice some links going nowhere will be formatted differently than working links. This is because those "broken" links have a special class: {{{.link-broken}}}.
 If you did modify {{{a}}} in the StyleSheet, you can always add {{{a.link-broken}}} to it to be able to see those broken link during testing/playing.
 
-When using the macro {{{<<choice>>}}}, links will become disabled, and get the class {{{.link-disabled}}} attached to them. It is possible to add this class to other links on the screen with a [[DOM Macro|Macro-DOM-Adv]].
-> ''Note:'' this should not be mistaken for the {{{.disabled}}} class added by the {{{<<disable>>}}} [[Custom Macro from Chapel|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/disable-macro.md]].
-
 If the project should display to the player whether a passage has been visited through the link, you can target the {{{.link-visited}}} class.
 > ''Note:'' the class is not enabled by default, but should be unlocked with {{{Config.addVisitedLinkClass = true;}}} in the JavaScript. See more about it, [[here|Config-Misc]].
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: HTML-Full-List [page] {"position":"3300,1200","size":"100,100"}
-<h1>The Full List of Targetable Elements</h1>\
+:: HTML-Full-List [page int-jscss] {"position":"3300,1200","size":"100,100"}
+<h1 id="intstyle-htmlfull">The Full List of Targetable Elements</h1>\
 This page includes the full list of targetable elements (with a defined {{{#id}}} or {{{.class}}}) in a Basic SugarCube project (i.e. no custom UI, macro, elements). The HTML page contains other "hidden" element, like the Story date, which are not visible on the page.
-> ''Note:'' you can also find the wanted element to target by using the Inspect Tool.
+> ''Note:'' you can also find the wanted element to target by using the Inspect Tool of your browser.
 \
 The targetable elements are organised as follow:
 * the base elements of a page
@@ -115,7 +108,7 @@ The targetable elements are organised as follow:
 To see how all these elements are styled by default or when special events happen, see the [[Built-In StyleSheets|http://www.motoslave.net/sugarcube/2/docs/#css-built-ins]].
 \
 <h3>The Base Elements of the Page</h3>\
-Assuming that you have not changed the Base UI with {{{StoryInterface}}} and are using all SideBar Special Passages, here are the base targetable elements inside a basic page, including the parent/child order.
+Assuming that you have not changed the Base UI with {{{StoryInterface}}} and are using all SideBar [[Special Passages|SP-UIBar]], here are the base targetable elements inside a basic page, including the parent/child order.
 Inside the {{{html}}} wrapper you will find:
 * {{{body}}}
 ** {{{#init-screen}}} (hidden after the game is loaded)
@@ -126,6 +119,7 @@ Inside the {{{html}}} wrapper you will find:
 **** {{{h1#ui-dialog-title}}}
 **** {{{button#ui-dialog-close}}}
 *** {{{#ui-dialog-body}}}
+**** (see below for special elements)
 ** {{{#ui-bar}}}
 *** {{{#ui-bar-tray}}}
 **** {{{button#ui-bar-toggle}}}
@@ -158,18 +152,22 @@ Inside the {{{html}}} wrapper you will find:
 The targetable elements below can be found in the //Saves//, //Settings//, and //Restart// menus.
 \
 <h4>The Saves Menu</h4>\
-TODO: EDIT THIS!!!
 In the body of the //Saves// menu ({{{.saves}}} class), you will find:
+* {{{h2}}} (In Browser)
 * {{{table#saves-list}}}
 ** {{{ ... }}}
 *** {{{button#saves-load-[i]}}} or {{{button#saves-save-[i]}}}
-*** {{{div.datestamp}}}
+*** {{{div}}} (Save Name) and {{{div.datestamp}}}
 *** {{{button#saves-delete-[i]}}}
 * {{{ul.buttons}}}
 ** {{{button#saves-export}}}
 ** {{{button#saves-import}}}
 ** {{{button#saves-clear}}}
-> ''Note:'' since the //Saves// menu includes more than one save slot (and the autosave), replace the [1] with the number of the relevant save slot (starting with 0) or {{{auto}}} (for autosave).
+* {{{h2}}} (On Disk)
+* {{{ul.buttons}}}
+** {{{button#saves-disk-save}}}
+** {{{button#saves-disk-load}}}
+> ''Note:'' since the //Saves// menu includes more than one save slot (and the autosave), replace the [1] with the number of the relevant save slot (starting with 0).
 > Other targetable elements includes the rows and cells of the save tables, and the {{{li}}} elements for the buttons.
 \
 <h4>The Settings Menu</h4>\
@@ -190,8 +188,8 @@ The bottom of the //Settings// Menu also includes:
 ** {{{button#settings-reset}}}
 \
 <h4>The Restart Menu</h4>\
-TODO: DOUBLE CHECK THIS!!!
 The //Restart// Menu only includes on main block inside the body of the popup ({{{.restart}}} class):
+* {{{p}}}
 * {{{ul.buttons}}}
 ** {{{button#restart-ok}}}
 ** {{{button#restart-cancel}}}
@@ -233,7 +231,6 @@ For linking macros and markups, the element can be defined with these classes:
     .link-external
 
     .link-broken
-    .link-disabled
     .link-visited
 }}}
 Similarly, some macros may see their class change depending on their use.
@@ -261,12 +258,10 @@ Similarly, some macros may see their class change depending on their use.
   when {t8n} is an argument
 }}}
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: Int-JS-CSS-Events [page] {"position":"3200,1300","size":"100,100"}
-<h1>Ensuring that Elements Start at the Top when Opened</h1>
-When going from one long passage to another, or opening a multiple popups whose content does not fit the container, the system might not automatically scroll the element to the top of the page/element. 
-> ''Note:'' This should mainly apply to modified UI.
+:: Int-JS-CSS-Events [page int-jscss] {"position":"3200,1300","size":"100,100"}
+<h1 id="intstyle-events">Ensuring that Elements Start at the Top when Opened</h1>
+When displaying elements requiring scrolling, like going from one long passage to another, or opening multiple long popups one after the other, the system might not automatically scroll the element to the top of the page/element. 
+> ''Note:'' This should only apply to a modified UI.
 
 However, this can be easily fixed with a bit of jQuery in the JavaScript passage, and [[Events]]:
 {{{
@@ -282,12 +277,9 @@ However, this can be easily fixed with a bit of jQuery in the JavaScript passage
 }}}
 > ''Note:'' you can change {{{#passages}}} with any other relevant container, like {{{#story}}}.
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-
-:: Int-JS-CSS-Font [page] {"position":"3300,1300","size":"100,100"}
-<h1>Import and Change the Font</h1>
-As different device come with different fonts, you may want to have a unified experience accross the playerbase through one-same font. For this, you will need to import the chosen font(s) and set it in the StyleSheet.
+:: Int-JS-CSS-Font [page int-jscss] {"position":"3300,1300","size":"100,100"}
+<h1 id="intstyle-fonts">Import and Change the Font</h1>
+As different devices come with different fonts, you may want to have a unified experience accross the playerbase, through one-same font. For this, you will need to import the chosen font(s) and define it(them) in the StyleSheet.
 As with [[images|URL-Types]], how to import fonts will depend on the location of the font. A local import will require a different rule than an import from a third-party server (e.g. Google).
 
 > ''IMPORTANT:'' the import of a font should be ''the first thing'' in your StyleSheet, before any other CSS rules!
@@ -337,7 +329,7 @@ For example, trying to import an OpenDyslexic font (normal, italics, bold, bold+
         font-weight: 700;
     }
 }}}
-> ''Note:'' a new {{{@font-face}}} is required for each new font type.
+> ''Note:'' a new {{{@font-face}}} is required for each new font type/style.
 \
 <h3>Changing the Font of the project</h3>\
 In the Base UI, the font is defined inside the {{{html}}} element. If the new font should apply to the whole project, you can simply do: 
@@ -369,7 +361,7 @@ For example, if you want to change the font of the header:
 *from a preset list of fonts that you set up in the code.
 
 To accomodate players, you can let them change the reading font through a [[List Setting|SettingsList]], within which you have indicated a list of imported fonts (serif, sans-serif, monospace) to choose from.
-For accessibility, it is recommended to have multiple legible //serif// and //sans-serif// fonts, especially for story text.
+For accessibility, it is recommended to have multiple legible //serif// and //sans-serif// fonts, especially for story text (//monospaces// are pretty good too!).
 > ''Note:'' you can find a Font setting in my [[Setting Template|https://manonamora.itch.io/twine-sugarcube-templates]].
 
 Assuming that a font //Georgia//, //Montserrat// and //OpenDyslexic// have been imported, the code below could be added to the JavaScript:
@@ -404,13 +396,10 @@ And in the CSS:
     .opendyslexic body {font-family: var(--opendyslexic);}
     .serif body {font-family: var(--serif);}
 }}}
-> ''Note:'' this will affect all elements on the page. Change the {{{body}}} to another element.
+> ''Note:'' this will affect all elements on the page. Change the {{{body}}} to another element, if you want to target only one spot.
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: Int-JS-CSS-Icons [page]
-<h1>Using the SG Icons</h1>
-
+:: Int-JS-CSS-Icons [page int-jscss]
+<h1 id="intstyle-icons">Using the SG Icons</h1>
 SugarCube includes a custom icon font within the format, created as a subset of the Free Solid [[Font Awesome|https://fontawesome.com]] icon font (v.5.15.2). Named {{{sc-icons}}}, the font is responsible for all the icons of the interface. You can find all the elements using the icon font in the [[Built-In StyleSheets|http://www.motoslave.net/sugarcube/2/docs/#css-built-ins]].
 \
 > //From the SideBar stylesheet://
@@ -987,8 +976,8 @@ The {{{sc-icon}}} includes 120 icons, displayed and referenced below:
 </div>
 <</nobr>>
 
-:: Int-JS-CSS-Root [page] {"position":"3200,1400","size":"100,100"}
-<h1>Using the Root and CSS var</h1>
+:: Int-JS-CSS-Root [page int-jscss] {"position":"3200,1400","size":"100,100"}
+<h1 id="intstyle-root">Using the Root and CSS var</h1>
 As the UI gets more complex, whether because of its base customisation, or with the addition of [[Settings]], you may want to organise certain values within the StyleSheet, like colours, fonts, or asset URL. This can be done through the creation of CSS variables ({{{--var}}}) inside the {{{:root}}} selector.
 > ''Note:'' this is used quite often in templates, to make changing colours of the UI easier for the user. Instead of finding all the different iterations of a value, there is only one to change!
 \
@@ -1036,10 +1025,8 @@ Setting a CSS variables can also be done outside of {{{:root}}}:
     }
 }}}
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: Int-JS-CSS-Media [page] {"position":"3300,1400","size":"100,100"}
-<h1>Formating for Different Screen Size</h1>
+:: Int-JS-CSS-Media [page int-jscss] {"position":"3300,1400","size":"100,100"}
+<h1 id="intstyle-media">Formating for Different Screen Size</h1>
 While the Base UI of SugarCube is already optimised for different screens/devices, any change in the interface, whether it be changing the size and display of elements in the StyleSheet or in {{{StoryInterface}}}, will need to be fitted for those different screen sizes. 
 
 This can be done with the {{{@media}}} rule inside the StyleSheet.
@@ -1050,7 +1037,7 @@ This can be done with the {{{@media}}} rule inside the StyleSheet.
         }
     }
 }}}
-Inside the {{{(size)}}}, you can target a specific range or screen size or ratio to apply different CSS rules. You will need to use as many {{{@media}}} rules as your interface would require (it will depend on the elements on the page). Each iteraction of this rule should be ordered from most-restrictive size/ratio range to most-inclusive.
+Inside the {{{(size)}}}, you can target a specific range or screen size or ratio to apply different CSS rules. You will need to use as many {{{@media}}} rules as your interface would require (it will depend on the elements on the page). Each iteraction of this rule should be ordered from most-restrictive size/ratio range to most-inclusive (you're essentially creating contidional statements).
 > //Example://
 {{{
     #passages {
@@ -1071,16 +1058,15 @@ Inside the {{{(size)}}}, you can target a specific range or screen size or ratio
 }}}
 If the screen used is 585px wide or smaller, the width of the passage will take the whole screen. For screen size is larger than wider than 585px but 800px wide or smaller, the width of the passage will take 85% of the screen. If the screen size is larger than 800px, the width of the passage will be half of the screen width.
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: Int-JS-CSS-Animation [page] {"position":"3200,1500","size":"100,100"}
-<h1>Intro to Animation</h1>
+:: Int-JS-CSS-Animation [page int-jscss] {"position":"3200,1500","size":"100,100"}
+<h1 id="intstyle-animation">Intro to Animation</h1>
 To elevate your project and customize it further, you can decide to animate elements on the page of your game (e.g. text, images, other...). Animations can be as simple as a flicker, to more complex movement over the page. 
-It might seem daunting to create animations, as animation code published on CodePen and the like can look quite complicated. But, animations rests only on three essential elements in the StyleSheet:
+\
+It might seem daunting to create animations, as animation code published on CodePen and the like can look quite complicated. But, animations rests on only three essential elements in the StyleSheet:
 * the {{{@keyframes}}}: defining the trajectory of the animation (e.g. change of position, or colour, or opacity, etc...)
 * the {{{animation}}} CSS rule: linking and setting the animation to the relevant block (e.g. length, looping, delay, etc...)
 * the element targeted: which can be an HTML markup ({{{h1}}}, {{{span}}}), a class ({{{.class}}}), or an ID ({{{#id}}})
-> ''Note:'' certain animations may require the element to have {{{display: block}}}, {{{display: inline-block}}}, {{{display: absolute}}} to work.
+> ''Note:'' certain animations may require the element to have {{{display: block}}}, {{{display: inline-block}}}, {{{position: absolute}}} to work.
 \
 <h3>{{{@keyframes}}}</h3>\
 Every keyframe is set up in the same way:
@@ -1101,8 +1087,8 @@ As such, you will need to indicate the following:
 If we combine it all, we get the following example:
 {{{
     @keyframes flicker {
-        0% { opacity:1; }
-        50% { opacity:0; } 
+          0% { opacity:1; }
+         50% { opacity:0; } 
         100% { opacity:1; }
     }
 }}}
@@ -1155,16 +1141,14 @@ Finally, we need to add the {{{animation}}} rule in an element, to make it flick
 <h3>A note on Accessibility</h3>\
 While animations can be quite fun to have, giving some spice to the displayed elements, some players may not find it comfortable. Fast moving elements, flickering animation, or bright flashes, may causes sensory issues for some. It is generally a good idea to warn player of such animation before they start the game, as well as create an [[Accessible Setting|SettingsToggle]], so player can toggle on/off the animation.
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: Int-JS-CSS-Stat [page] {"position":"3300,1500","size":"100,100"}
-<h1>Creating Stats, Meter, and Progress Bars</h1>
+:: Int-JS-CSS-Stat [page int-jscss] {"position":"3300,1500","size":"100,100"}
+<h1 id="intstyle-stats">Creating Stats, Meter, and Progress Bars</h1>
 Whether to show a character's abilities or affections, or a visual timer for quick-time event actions, these bars will allows for a meaningful visual to display the value of a variable, aside from a number.
 There are different ways of achieving this, namely:
 * using the {{{<progress>}}} or the {{{<meter>}}} HTML elements 
 * building it from scratch with {{{<div>}}} or {{{<span>}}} elements 
 * using custom macros (like [[Chapel's|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/meter-macros.md]]), which often ends up doing one of the options above but with more pazaaz and less HTML to deal with.
-** See the macro's documentation for use.
+** See the custom macro's documentation for use.
 \
 <h3>The {{{<progress>}}} HTML element</h3>\
 Like it's name suggests, {{{<progress>}}} is an HTML element used to create a progress bar. While it //can// be used for static bars, this element is more meant to represent the completion of a task/a timer.
@@ -1213,32 +1197,32 @@ To edit the value bar however, you will need to use browser specific Pseudo-Code
 ** {{{::-moz-progress-bar}}} to edit the appearance of the value bar
 > //Example, if the progress bar has the id:// {{{#test-bar}}}
 {{{
-#test-bar {
-    background: #0b1f0b;
-    width: 100%;
-    height: 2em;
-    border-radius: 20px;
-    border: 2px solid #013c01;
-}
+    #test-bar {
+        background: #0b1f0b;
+        width: 100%;
+        height: 2em;
+        border-radius: 20px;
+        border: 2px solid #013c01;
+    }
 → will set the base for the whole element
   + the background for Firefox
 
-#test-bar::-moz-progress-bar {
-  background: linear-gradient(-90deg, #00800078, #6ecfff, #00800078);
-  border-radius: 20px;
-}
+    #test-bar::-moz-progress-bar {
+        background: linear-gradient(-90deg, #00800078, #6ecfff, #00800078);
+        border-radius: 20px;
+    }
 → will set the appearance of the value bar in Firefox
 
-#test-bar::-webkit-progress-bar {
-	background: #0b1f0b;
-    border-radius: 20px;
-}
+    #test-bar::-webkit-progress-bar {
+        background: #0b1f0b;
+        border-radius: 20px;
+    }
 → will set the appearance of the background in Chromium
 
-#test-bar::-webkit-progress-value {
-    background: linear-gradient(-90deg, #00800078, #6ecfff, #00800078);
-    border-radius: 20px;
-}
+    #test-bar::-webkit-progress-value {
+        background: linear-gradient(-90deg, #00800078, #6ecfff, #00800078);
+        border-radius: 20px;
+    }
 → will set the appearance of the value bar in Chromium
 }}}
 <progress id="test-bar" @value="$intext" max="100"></progress>
@@ -1300,34 +1284,34 @@ To edit the value bar however, you will need to use browser specific Pseudo-Code
 \
 > //Example, if the progress bar has the id:// {{{#test-metbar}}}
 {{{
-#test-metbar {
-    background: #1d0b1f;
-    width: 100%;
-    height: 2em;
-    border-radius: 20px;
-    border: 2px solid #3a013c;
-}
+    #test-metbar {
+        background: #1d0b1f;
+        width: 100%;
+        height: 2em;
+        border-radius: 20px;
+        border: 2px solid #3a013c;
+    }
 → will set the base for the whole element
   + the background for Firefox
 
-#test-metbar::-moz-meter-bar {
-    background: linear-gradient(-90deg, #76008078, #ffe26e, #76008078);
-    border-radius: 20px;
-}
+    #test-metbar::-moz-meter-bar {
+        background: linear-gradient(-90deg, #76008078, #ffe26e, #76008078);
+        border-radius: 20px;
+    }
 → will set the appearance of the value bar in Firefox
 
-#test-metbar::-webkit-meter-bar {
-    background: #1d0b1f;
-    border-radius: 20px;
-    height: 2em;
-    border: 2px solid #3a013c;
-}
+    #test-metbar::-webkit-meter-bar {
+        background: #1d0b1f;
+        border-radius: 20px;
+        height: 2em;
+        border: 2px solid #3a013c;
+    }
 → will set the appearance of the background in Chromium
 
-#test-metbar::-webkit-meter-optimum-value {
-    background: linear-gradient(-90deg, #76008078, #ffe26e, #76008078);
-    border-radius: 20px;
-}
+    #test-metbar::-webkit-meter-optimum-value {
+        background: linear-gradient(-90deg, #76008078, #ffe26e, #76008078);
+        border-radius: 20px;
+    }
 → will set the appearance of the value bar in Chromium
 }}}
 <meter id="test-metbar" @value="$intext" min="0" max="100"></meter>
@@ -1384,8 +1368,8 @@ The example below assumes the stat-bar is coded as follow:
         $("#intext").attr("style", "width: " + attributeStat);
     });
 }}}
-
-<h3>Using a {{{<<widget>>}}}</h3>
+\
+<h3>Using a {{{<<widget>>}}}</h3>\
 If you are planning on adding multiple stat bars in one spot and want to avoid cluttering a passage with code, you can use the {{{<<widget>>}}} [[macro|Macro-Widget]].
 
 Assuming we want to use the {{{<div>}}} stat bar introduced above, but want to assign a different {{{#id}}} and link it to the relevant stat variable:
@@ -1408,10 +1392,8 @@ The widget could look something like this, requiring 2 arguments, one for the {{
 }}}
 > ''Note:'' this is a basic example. You could add more {{{<div>}}} to include a label for the bar, or the numerical value of the stat.
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: Int-JS-CSS-LoadingScreen [page] {"position":"3200,1600","size":"100,100"}
-<h1>Editing the Loading Screen</h1>
+:: Int-JS-CSS-LoadingScreen [page int-jscss] {"position":"3200,1600","size":"100,100"}
+<h1 id="intstyle-load">Editing the Loading Screen</h1>
 If you are looking to change how the Loading Screen looks, to fit your project better, you will need to use a combination of JavaScript/jQuery and CSS. Since there is not Special Passage to edit the content of the Loading Screen, JavaScript/jQuery will help you empty the Built-In elements and add the one you wish.
 \
 <h3>The Loading Screen</h3>\
@@ -1513,10 +1495,8 @@ In SugarCube, you can create a Splash screen which would fade in-and-out, with s
     }
 }}}
 
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-
-:: Accessibility [page] {"position":"3300,1600","size":"100,100"}
-<h1>A Note on Interface Accessibility</h1>
+:: Accessibility [page int-jscss] {"position":"3300,1600","size":"100,100"}
+<h1 id="intstyle-access">A Note on Interface Accessibility</h1>
 While SugarCube was deliberately built with ARIA (Accessibility) support, any change in the Interface or inclusion of external elements will affect the accessibility of your project. Below are some elements to take into account when creating a project and editing the Built-In Interface.
 \
 <h3>Colour Compatibility and Contrast</h3>\
@@ -1524,7 +1504,7 @@ As fun as it is to create crazy interface with strange palettes, some colours ar
 
 To help figure out what colour work best together, the WCAG has set [[standards|https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html]] in the minimum contrast for text readability. The minimum contrast of plain text should be of 4.5 between the text colour and the background. For even better contrast, a ration of 7.0 should be reached.
 To check whether you achieved those ratio, you can use an [[online contrast checker|https://app.contrast-finder.org/?lang=en]] or use the Inspect Tool of your browser.
-> ''Note:'' this [[checker|https://www.myndex.com/APCA/]] goes even further that the WCAG minimum, by including font size and weight into the mix.
+> ''Note:'' this [[checker|https://www.myndex.com/APCA/]] goes even further that the WCAG minimum, by including font size and weight into the mix (which are both important).
 \
 <h4>Colour Contrast and Image Background</h4>\
 This contrast is even more important when the text is brought before an image background. Due to the often varied range of colours in images, it is sometimes difficult to find the correct text colour for a good contrast.
@@ -1552,7 +1532,7 @@ An even easier option is to add a "sreen" between the image and the text:
 > ''Note:'' it is not recommended to add a background to {{{.passage}}} as it will refresh along with the content of the passage (flash).
 \
 <h4>Light and Dark Themes</h4>\
-Because your project may be played by others, you may want to consider adding multiple themes for comfort. Light mode (bright colours closer to white) tend to be superior for readability and provising less eye straints in bright environment. On the other hand, dark mode (darker colours closer to black) make it easier to the eyes in darker environment, and reduces exposure to blue screen light. Individuals also have their personal preference between light and dark mode.
+If your project will be played by others, you may want to consider adding multiple themes for comfort. Light mode (bright colours closer to white) tend to be superior for readability and provising less eye straints in bright environment. On the other hand, dark mode (darker colours closer to black) make it easier to the eyes in darker environment, and reduces exposure to blue screen light. Individuals also have their personal preference between light and dark mode.
 > ''Note:'' many SugarCube templates will include a Theme [[Setting|SettingsList]] within its code, with a light and dark mode.
 \
 <h3>Font Choices and Alternatives</h3>\
@@ -1560,7 +1540,7 @@ We all love Papyrus as a font, but it does not make for a legible font for plain
 
 So decorative and overly stylized fonts, such as cursive fonts, which can be difficult to read even for non-impaired users, should be avoided (or an alternative should be provided). Serif fonts, like Times New Roman or Calibri, are preferred for printed items (i.e. books), but doesn't display as nicely on screens as sans-serif fonts do (though those two are still very legible).
 
-Fonts like {{{Arial}}} (sans-serif), {{{Calibri}}} (serif), {{{Georgia}}} (serif), {{{Helvetica}}} (sans-serif), {{{Lucida Sans}}}/{{{Lucida Grande}}} (sans-serif), {{{Tahoma}}} (sans-serif), {{{Times New Roman}}} (serif), and {{{Verdana}}} (sans-serif) are often among lists of recommended fonts. 
+Fonts like {{{Arial}}} (sans-serif), {{{Calibri}}} (serif), {{{Georgia}}} (serif), {{{Helvetica}}} (sans-serif), {{{Lucida Sans}}}/{{{Lucida Grande}}} (sans-serif), {{{Tahoma}}} (sans-serif), {{{Times New Roman}}} (serif), and {{{Verdana}}} (sans-serif) are often among lists of recommended fonts. Monospace fonts tend to help with legibility of letters as well.
 There are also fonts created specifically for dyslexic and visually impared users, though many are under copyright or are not free for use. [[OpenDyslexic|https://opendyslexic.org/]] and [[Atkinson Hyperlegible|https://brailleinstitute.org/freefont]] are two freely available sans-serif fonts.
 
 For Twine projects, you may want to consider adding multiple serif and sans-serif fonts, letting the player decided which one they would prefer to use, through a [[Setting|SettingsList]].
@@ -1592,5 +1572,3 @@ For inconsequential elements, such as a fancy paragraph break as an image, you c
 * [[Game Accessibility Guidelines|https://gameaccessibilityguidelines.com/]]
 * [[Can I Use ?|https://caniuse.com/]] (features accepted by which browser)
 * [[APCA Contrast Simulator|https://www.myndex.com/APCA/]]
-
-<div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>

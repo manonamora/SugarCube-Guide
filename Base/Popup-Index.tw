@@ -75,3 +75,22 @@
 ** [[Create Track Groups and Playlists|Macro-Group-Playlist]]
 ** [[Playing Tracks in a Passage|Audio-Macro]]
 ** [[Other Audio Macros|Audio-Other]]
+* ''[[Going further in Styling with CSS and JavaScript|Int-JS-CSS]]''
+** [[The Unique Targetable Elements|Int-JS-CSS-Elements]] 
+*** [[The Full List of Targetable Elements|HTML-Full-List]] 
+** [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
+** [[Import and Change the Font|Int-JS-CSS-Font]]
+*** [[Using the SG Icons|Int-JS-CSS-Icons]]
+** [[Using the Root and CSS var|Int-JS-CSS-Root]] 
+** [[Formating for Different Screen Size|Int-JS-CSS-Media]] 
+** [[Intro to Animation|Int-JS-CSS-Animation]]
+** [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) 
+** [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] 
+** [[A Note on Interface Accessibility|Accessibility]]
+* ''[[Some Useful Basic APIs|Basic-API]]''
+** [[Moving back and forth in the History|Basic-API-Engine]]
+** [[Create a PopUp|Basic-API-Dialog]]
+** [[Handle the SideBar|Basic-API-UIBar]]
+** [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]]
+** [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
+** [[Some Useful Configuration API for your Project|Basic-API-Config]] 

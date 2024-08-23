@@ -235,7 +235,52 @@ Adding any asset to a project can be daunting, especially when it can involve so
 <hr class="small-section">
 <<include "Audio-Other">>
 \
+<h1 id="intjscss" class="the-chapter">Going further in Styling with CSS and JavaScript</h1>
+If you want to change how a page looks or behaves, you will need to edit either the StyleSheet, the JavaScript, or a combination of both. If it is behaviour that needs setting, then you will most likely need the JavaScript. For most visual elements, you should turn to the StyleSheet.
 
+While editing the StyleSheet, you may find the Inspect Tool of your browser to be a useful thing. From testing for different screen sizes and accessibility, to view the source code (HTML/CSS) of the displayed passage, or even messing with the CSS rules without going back and forth between the StyleSheet and the file, the tool will let you ensure a great visual for your project.
+\
+<hr class="small-section">
+<<include "Int-JS-CSS-Elements">>
+<hr class="small-section">
+<<include "HTML-Full-List">>
+<hr class="small-section">
+<<include "Int-JS-CSS-Events">>
+<hr class="small-section">
+<<include "Int-JS-CSS-Font">>
+<hr class="small-section">
+<<include "Int-JS-CSS-Icons">>
+<hr class="small-section">
+<<include "Int-JS-CSS-Root">>
+<hr class="small-section">
+<<include "Int-JS-CSS-Media">>
+<hr class="small-section">
+<<include "Int-JS-CSS-Animation">>
+<hr class="small-section">
+<<include "Int-JS-CSS-Stat">>
+<hr class="small-section">
+<<include "Int-JS-CSS-LoadingScreen">>
+<hr class="small-section">
+<<include "Accessibility">>
+\
+<h1 id="basic-apis" class="the-chapter">Some Useful Basic APIs</h1>
+Along with macros, there are basic APIs that can trigger an event in the game, such as undoing an action, opening a popup, or configuring some functionalities in the engine. 
+
+Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
+\
+<hr class="small-section">
+<<include "Basic-API-Engine">>
+<hr class="small-section">
+<<include "Basic-API-Dialog">>
+<hr class="small-section">
+<<include "Basic-API-UIBar">>
+<hr class="small-section">
+<<include "Basic-API-UI">>
+<hr class="small-section">
+<<include "Basic-Config-Navig">>
+<hr class="small-section">
+<<include "Basic-API-Config">>
+\
 
 <hr class="categorybreak">
 <h1 class="the-super-head">Advanced Mode</h1>

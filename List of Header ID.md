@@ -79,6 +79,25 @@ List of Header ID
     - audio-groupplay
     - audio-macro
     - audio-othermacro
+- intjscss
+    - intstyle-elements
+    - intstyle-htmlfull
+    - intstyle-events
+    - intstyle-fonts
+    - intstyle-icons
+    - intstyle-root
+    - intstyle-media
+    - intstyle-animation
+    - intstyle-stats
+    - intstyle-load
+    - intstyle-access
+- basic-apis
+    - basicapis-engine
+    - basicapis-dialog
+    - basicapis-sidebar
+    - basicapis-ui
+    - basicapis-navig
+    - basicapis-config
 
 /Advanced/
 
