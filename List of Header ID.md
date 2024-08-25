@@ -98,8 +98,26 @@ List of Header ID
     - basicapis-ui
     - basicapis-navig
     - basicapis-config
+- localization
+    - local-strings
+    - local-translate
+    - local-langsetting
+- debug-api
 
 /Advanced/
+- adv-macros
+    - adv-DOM
+    - adv-forrepeat
+    - adv-capture
+    - adv-done
+- adv-methods
+    - advmeth-var
+    - advmeth-jq
+- adv-apis
+    - adv-dialog
+    - adv-sidebar
+    - adv-template
+    - adv-lockload
 
 Class [one-page]
 class="the-super-head"

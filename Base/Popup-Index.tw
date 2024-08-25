@@ -94,3 +94,29 @@
 ** [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]]
 ** [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
 ** [[Some Useful Configuration API for your Project|Basic-API-Config]] 
+* ''[[Edit the Built-In Text or Change the Game's Language|Localization]]''
+** [[l10nStrings, and How to Edit Them|Local-L10n]]
+** [[Localization, and Pre-Translated Templates|Local-Trans]]
+** [[Providing Multiple Languages Options In-Game|Local-Setting]]
+* ''[[Testing and Debugging your Game|DebugAPI]]''
+* ''[[Advanced Macros|Macro-Adv]]''
+** [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]] 
+** [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
+** [[Capturing the Value of a Variable|Macro-Capture]]
+** [[Emulating PassageDone for one Passage|Macro-Done]]
+\
+<h3>''Advanced Mode''</h3>\
+> ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processes of SugarCube.
+* ''[[Advanced Macros|Macro-Adv]]''
+** [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]] 
+** [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
+** [[Capturing the Value of a Variable|Macro-Capture]]
+** [[Emulating PassageDone for one Passage|Macro-Done]]
+* ''[[More Variable and Interaction Methods|Methods-Adv]]''
+** [[More Methods to change Variables|Method-Variables]]
+** [[jQuery Methods and Interactivity|Method-jQuery]]  
+* ''[[Going Further with Basic APIs and More|API-Adv]]''
+** [[More Popups APIs|API-Dialog]]
+** [[More SideBar APIs|API-UIBar]]
+** [[The Template APIs|TemplateAPI]]
+** [[(Un)Locking the Loading Screen|API-Lock]]

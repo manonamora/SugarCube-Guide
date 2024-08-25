@@ -1,15 +1,12 @@
 :: Methods-Adv [chapter menu] {"position":"1100,1800","size":"200,100"}
 <h1>More Variable and Interaction Methods</h1>
-In the [[Methods]] chapter, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. 
-This chapter includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
+In the [[Methods]] section, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. This section includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
 
 * [[More Methods to change Variables|Method-Variables]] 
 * [[jQuery Methods and Interactivity|Method-jQuery]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Method-Variables [page] {"position":"1100,1900","size":"100,100"}
-<h1>More Methods to change Variables</h1>
+:: Method-Variables [page adv-methods] {"position":"1100,1900","size":"100,100"}
+<h1 id="advmeth-var">More Methods to change Variables</h1>
 The methods below should be used with other macros, such as {{{<<set>>}}}, {{{<<run>>}}}, {{{<<print>>}}} or even {{{<<if>>}}}, as well as JavaScript.
 \
 <h3>String-related Methods</h3>\
@@ -108,7 +105,7 @@ This will return as 3, since there are 3 counts of full numbers in the array.
     { name : 'Dead rat', kind : 'junk' },
     { name : 'Endurance potion', kind : 'potion' },
     { name : 'Shortbow', kind : 'weapon' }
-    ]
+  ]
 
     $items.countWith(
         function (item) { 
@@ -188,14 +185,12 @@ It has 2 parameters:
     → $npa = ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot"]
 }}}
 
-<div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
 
-
-:: Method-jQuery [page] {"position":"1200,1900","size":"100,100"}
-<h1>jQuery Methods and Interactivity</h1>
+:: Method-jQuery [page adv-methods] {"position":"1200,1900","size":"100,100"}
+<h1 id="advmeth-jq">jQuery Methods and Interactivity</h1>
 \
 <h3>{{{<jQuery>.ariaClick()}}}</h3>\
-This method will make the target element WAI-ARIA-compatible clickable. This means the element will get accessibility attributes and can be activated with a mouse click, or key press (enter/return/spacebar).
+This method will make the target element [[WAI-ARIA-compatible|https://www.w3.org/WAI/standards-guidelines/aria/]] clickable. This means the element will get accessibility attributes and can be activated with a mouse click, or key press (enter/return/spacebar).
 {{{
     <jQuery>.ariaClick([options ,] handler)
 }}}
@@ -328,5 +323,3 @@ It has 1 parameter:
     $('#the-box').wikiPassage('ASuperLongImportantText'); 
 → will append the content to {#the-box}
 }}}
-
-<div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>

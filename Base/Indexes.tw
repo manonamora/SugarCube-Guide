@@ -98,15 +98,15 @@
 ** [[Handle the SideBar|Basic-API-UIBar]]
 ** [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]]
 ** [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
-** [[Some Useful Configuration API for your Project|Basic-API-Config]]  /*CHECKED!*/
+** [[Some Useful Configuration API for your Project|Basic-API-Config]]
 * ''[[Edit the Built-In Text or Change the Game's Language|Localization]]''
 ** [[l10nStrings, and How to Edit Them|Local-L10n]]
 ** [[Localization, and Pre-Translated Templates|Local-Trans]]
-** [[Providing Multiple Languages In-Game|Local-Setting]]
-/*The debug page here*/
+** [[Providing Multiple Languages Options In-Game|Local-Setting]]
+* ''[[Testing and Debugging your Game|DebugAPI]]''
 \
 <h3>''Advanced Mode''</h3>\
-> ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processed of SugarCube.
+> ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processes of SugarCube.
 * ''[[Advanced Macros|Macro-Adv]]''
 ** [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]] 
 ** [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
@@ -119,7 +119,7 @@
 ** [[More Popups APIs|API-Dialog]]
 ** [[More SideBar APIs|API-UIBar]]
 ** [[The Template APIs|TemplateAPI]]
-** [[(Un)Locking the Loading Screen|API-Lock]]
+** [[(Un)Locking the Loading Screen|API-Lock]]  /*CHECKED!*/
 * ''[[The Settings API|Settings]]''
 ** [[Creating a Setting|SettingsBasics]]
 ** [[Creating a Toggle Setting|SettingsToggle]]
@@ -138,6 +138,7 @@
 ** [[Managing the Save Slots|SaveAPI-Slots]]
 ** [[Managing the Autosave Slot|SaveAPI-Autosave]]
 ** [[Using Save-related Events|SaveAPI-Events]]
+/*This needs to be edited*/
 * ''[[More Configuration APIs to Customise Interaction|Config-API]]''
 ** [[Macro-relevant Configurations|Confic-Macro]]
 ** [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
@@ -159,6 +160,7 @@
 ** [[Exploring the Different Moments inside the State|StateAPI-State]]
 ** [[Using the Story Metadata|StateAPI-Metadata]]
 ** [[Initialising a Seedable PRNG|StateAPI-PRNG]]
+/*Need to add the Audio APIs*/
 
 <div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
 

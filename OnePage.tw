@@ -48,6 +48,7 @@ To edit how those elements look, you will need to edit the [[Stylesheet|Int-JS-C
 <<include "Macro-Set-Basic">>
 <hr class="small-section">
 <<include "Macro-If-Basic">>
+\
 <hr class="categorybreak">
 <h1 class="the-super-head">The Basics(+)</h1>
 <hr>
@@ -122,6 +123,7 @@ To use a Special Passage in your project you will need to:
 <<include "Base-JS-CSS">>
 <hr>
 <<include "URL-Types">>
+\
 <hr class="categorybreak">
 <h1 class="the-super-head">Intermediate Use</h1>
 <hr>
@@ -171,6 +173,7 @@ Whether you need a more convenient way to format your code or the text in passag
 <<include "Macro-Widget">>
 <hr class="small-section">
 <<include "Macro-Script-Run">>
+<hr>
 \
 <h1 id="sp-tags" class="the-chapter">More Special Passages and Tags</h1>
 Aside from the [[Basic Special Passages|Special-Passage]], you can customise your project even further with more Special Passage Names and Special tags.
@@ -234,6 +237,7 @@ Adding any asset to a project can be daunting, especially when it can involve so
 <<include "Audio-Macro">>
 <hr class="small-section">
 <<include "Audio-Other">>
+<hr>
 \
 <h1 id="intjscss" class="the-chapter">Going further in Styling with CSS and JavaScript</h1>
 If you want to change how a page looks or behaves, you will need to edit either the StyleSheet, the JavaScript, or a combination of both. If it is behaviour that needs setting, then you will most likely need the JavaScript. For most visual elements, you should turn to the StyleSheet.
@@ -262,6 +266,7 @@ While editing the StyleSheet, you may find the Inspect Tool of your browser to b
 <<include "Int-JS-CSS-LoadingScreen">>
 <hr class="small-section">
 <<include "Accessibility">>
+<hr>
 \
 <h1 id="basic-apis" class="the-chapter">Some Useful Basic APIs</h1>
 Along with macros, there are basic APIs that can trigger an event in the game, such as undoing an action, opening a popup, or configuring some functionalities in the engine. 
@@ -280,11 +285,63 @@ Those APIs are JavaScript-based code that should either be included in the JavaS
 <<include "Basic-Config-Navig">>
 <hr class="small-section">
 <<include "Basic-API-Config">>
+<hr>
 \
-
+<h1 id="localization" class="the-chapter">Edit the Built-In Text or Change the Game's Language</h1>
+Further customisation of a SugarCube project can be done with the {{{l10nStrings}}}, bits of JavaScript code that will change what text the Built-In elements will show. This can affect the buttons on the Sidebar, as well as the //Restart//, //Saves//, and //Settings// Popup. You can edit these strings to fit the vibe of your project, change its language entirely, or link them to a function to provide translation of your work. 
+\
+<hr class="small-section">
+<<include "Local-L10n">>
+<hr class="small-section">
+<<include "Local-Trans">>
+<hr class="small-section">
+<<include "Local-Setting">>
+<hr>
+\
+<<include "DebugAPI">>
+\
 <hr class="categorybreak">
 <h1 class="the-super-head">Advanced Mode</h1>
+> ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processes of SugarCube.
 <hr>
+<h1 id="adv-macros" class="the-chapter">Advanced Macros</h1>
+Below, you will find the last of the macros that haven't been discussed in the previous sections. These macros are considered advanced, as they will either require some HTML/CSS knowledge, or full control of coding logics. They are usually not needed for basic projects. 
+\
+<hr class="small-section">
+<<include "Macro-DOM-Adv">>
+<hr class="small-section">
+<<include "Macro-For-Repeat">>
+<hr class="small-section">
+<<include "Macro-Capture">>
+<hr class="small-section">
+<<include "Macro-Done">>
+<hr>
+\
+<h1 id="adv-methods" class="the-chapter">More Variable and Interaction Methods</h1>
+In the [[Methods]] section, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. This section includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
+\
+<hr class="small-section">
+<<include "Method-Variables">>
+<hr class="small-section">
+<<include "Method-jQuery">>
+<hr>
+\
+<h1 id="adv-apis" class="the-chapter">Going Further with Basic APIs and More</h1>
+While most of the Basic API were listed [[here|Basic-API]], this section will cover more advanced elements for the Dialog Box and the UI SideBar, as well as extra APIs dealing with elements on the screen.
+
+Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
+\
+<hr class="small-section">
+<<include "API-Dialog">>
+<hr class="small-section">
+<<include "API-UIBar">>
+<hr class="small-section">
+<<include "TemplateAPI">>
+<hr class="small-section">
+<<include "API-Lock">>
+<hr>
+\
+
 
 -> do a whole list of include to "include" the passages, 
     except for the Chapter pages
