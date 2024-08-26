@@ -120,3 +120,23 @@
 ** [[More SideBar APIs|API-UIBar]]
 ** [[The Template APIs|TemplateAPI]]
 ** [[(Un)Locking the Loading Screen|API-Lock]]
+* ''[[The Settings API|Settings]]''
+** [[Creating a Setting|SettingsBasics]]
+** [[Creating a Toggle Setting|SettingsToggle]]
+** [[Creating a List Setting|SettingsList]]
+** [[Creating a Slider|SettingsRange]]
+** [[Going Further with Settings|Settings-More]]
+** [[Adding Headers|SettingsHeader]]
+* ''[[Going further with the Engine API|Engine-API]]''
+** [[Checking the State of the Game|Engine-State]]
+** [[Move through the Player's History|Engine-Go]]
+** [[(Re-)Play a Passage|Engine-Play]]
+** [[Restarting without the Built-In PopUp|Engine-Restart]]
+* ''[[The Save APIs and Further Saving Configurations|SaveAPI]]''
+** [[Save Objects and Their Contents|SaveAPI-Objects]] 
+** [[The Basic APIs of the Save Elements|SaveAPI-General]] 
+** [[Managing the Save Slots|SaveAPI-Slots]] 
+** [[Managing the Autosave Slot|SaveAPI-Autosave]]
+** [[Managing Disk Import and Export|SaveAPI-Disk]]
+** [[Managing Base64 saves|SaveAPI-Base64]]
+** [[Using Save-related Events|SaveAPI-Events]]

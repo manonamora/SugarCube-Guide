@@ -1,9 +1,9 @@
 :: SaveAPI [chapter menu] {"position":"2000,1800","size":"200,100"}
 <h1>The Save APIs and Further Saving Configurations</h1>
-While the Config APIs have [[configuration settings|Config-Saves]], it may not be enough for the customisation you may want to achieve. This is where the Save APIs come in.
+While the Config APIs have [[configuration settings|Config-Saves]] for saving playthroughs, it may not be enough for the customisation you may want to achieve. This is where the Save APIs come in.
 
-The Save APIs can be grouped into different categories: Browsers (which will save in browser's caches), Disk, and Base64. The latter two will allow for import/export of saves from the user.
-> ''Note:'' Browser saves (autosave/slot saves) are largely incompatible with Private Browsing Mode and Cookies/Cache blockers. Users may get an error message on start in those cases.
+The Save APIs can be grouped into different categories: Browsers (which will save in browser's [[cache|https://www.pcmag.com/encyclopedia/term/browser-cache]]), Disk (downloadable file), and Base64 (encoded string save). The latter two will allow for import/export of saves from the user.
+> ''Note:'' Browser saves (autosave/slot saves) are largely incompatible with Private Browsing Mode and Cookies/Cache blockers. Users restricting access to cache may get an error message on start.
 \
 * [[Save Objects and Their Contents|SaveAPI-Objects]] 
 * [[The Basic APIs of the Save Elements|SaveAPI-General]] 
@@ -13,8 +13,8 @@ The Save APIs can be grouped into different categories: Browsers (which will sav
 * [[Managing Base64 saves|SaveAPI-Base64]]
 * [[Using Save-related Events|SaveAPI-Events]] 
 
-:: SaveAPI-Objects [page] {"position":"2000,1900","size":"100,100"}
-<h1>Save Objects and Their Contents</h1>
+:: SaveAPI-Objects [page saveapi] {"position":"2000,1900","size":"100,100"}
+<h1 id="saveapis-object">Save Objects and Their Contents</h1>
 When saved, a playthrough resides in a save object, with multiple property defined specifically for that playthrough.
 > ''Note:'' the exported save (Save to Disk) is encoded by default
 
@@ -39,10 +39,10 @@ The save object has 6 properties:
 > ''Note:'' adding additional properties is not recommended. Instead use the metadata property.
 
 
-:: SaveAPI-General [page] {"position":"2100,1900","size":"100,100"}
-<h1>The Basic APIs of the Save Elements</h1>
+:: SaveAPI-General [page saveapi] {"position":"2100,1900","size":"100,100"}
+<h1 id="saveapi-general">The Basic APIs of the Save Elements</h1>
 The APIs below are general functions and variable for Browser-based saves, both auto and slot saves.
-
+\
 <h3>General Variable</h3>\
 {{{Save.browser.size}}} is the Save variable that tracks the number of existing browser saves, auto and slot saves combined.
 > //Examples from the Documentation://
@@ -64,6 +64,7 @@ The APIs below are general functions and variable for Browser-based saves, both 
         <</link>>
     <</if>>
 }}}
+\
 <h3>General Functions</h3>\
 \
 <h4>{{{Save.browser.isEnabled()}}}</h4>\
@@ -77,7 +78,7 @@ This API will check whether the project includes slot saves and autosaves.
 
     <<if Save.browser.isEnabled()>> ... <</if>>
 }}}
-
+\
 <h4>{{{Save.browser.continue()}}}</h4>\
 This API will automatically load the most recent browser save (either auto or slot). 
 > ''Note:'' This is the API behind the //Continue// button included in the SideBar of the default UI.
@@ -107,8 +108,8 @@ This API will delete all slot saves and the autosave (if enabled). This is the c
     Save.browser.clear()
 }}}
 
-:: SaveAPI-Slots [page] {"position":"2000,2000","size":"100,100"}
-<h1>Managing the Save Slots</h1>
+:: SaveAPI-Slots [page saveapi] {"position":"2000,2000","size":"100,100"}
+<h1 id="saveapi-slot">Managing the Save Slots</h1>
 The APIs below will allow you to manage the available manual save slots. These can be especially useful when creating your own Save page. For autosave save slots, see [[this page|SaveAPI-Autosave]].
 \
 <h3>{{{Save.browser.slot.size}}}</h3>\
@@ -118,7 +119,7 @@ This API will return the total number of available slots. It will be influenced 
 }}}
 \
 <h3>{{{Save.browser.slot.delete()}}}</h3>\
-This API will delete a save from the given slot. This is what is behind the //Delete// buttons on the Save Popup.
+This API will delete a save from the given slot. This is what is behind the //Delete// buttons on each slot line in the Save Popup.
 {{{
     Save.browser.slot.delete(slot)
 }}}
@@ -132,7 +133,7 @@ It has 1 parameter:
 }}}
 \
 <h3>{{{Save.browser.slot.clear()}}}</h3>\
-This API will delete all the saves in the slots. This is what is behind the //Delete All// buttons on the Save Popup.
+This API will delete all the saves in the slots. This is what is behind the //Delete All// button on the Save Popup.
 {{{
     Save.browser.slot.clear()
 }}}
@@ -143,7 +144,7 @@ This API will delete all the saves in the slots. This is what is behind the //De
 }}}
 \
 <h3>{{{Save.browser.slot.entries()}}}</h3>
-This API will return an array of objects, with information about all the slot saves.
+This API will return an array of save objects, with information about all the slot saves.
 > //Example://
 {{{
     Save.browser.slot.entries().forEach(function (entry) {
@@ -185,7 +186,7 @@ It has 1 parameter:
 }}}
 \
 <h3>{{{Save.browser.slot.isEnabled()}}}</h3>\
-This API will check if slot saves are enabled (done with [[Config API|Basic-API-Config]]).
+This API will check if slot saves are enabled (true by default, can be modified with [[Config API|Basic-API-Config]]).
 > //Examples://
 {{{
 if (Save.browser.slot.isEnabled()) {
@@ -237,8 +238,8 @@ It has 3 parameters:
   + title "Midgar" and metadata someMetadata
 }}}
 
-:: SaveAPI-Autosave [page] {"position":"2000,2000","size":"100,100"}
-<h1>Managing the Autosave Slots</h1>
+:: SaveAPI-Autosave [page saveapi] {"position":"2000,2000","size":"100,100"}
+<h1 id="saveapi-auto">Managing the Autosave Slots</h1>
 The APIs below will allow you to manage the available autosave slots. These can be especially useful when creating your own Save page. For manual save slots, see [[this page|SaveAPI-Slots]].
 \
 <h3>{{{Save.browser.auto.size}}}</h3>\
@@ -262,7 +263,7 @@ It has 1 parameter:
 }}}
 \
 <h3>{{{Save.browser.auto.clear()}}}</h3>\
-This API will delete all the saves in the slots. This is what is behind the //Delete All// buttons on the Save Popup (but only for the Autosaves).
+This API will delete all the saves in the slots. This is what is behind the //Delete All// button on the Save Popup (but only for the Autosaves).
 {{{
     Save.browser.auto.clear()
 }}}
@@ -315,7 +316,7 @@ It has 1 parameter:
 }}}
 \
 <h3>{{{Save.browser.auto.isEnabled()}}}</h3>\
-This API will check if autosaves are enabled (done with [[Config API|Basic-API-Config]]).
+This API will check if autosaves are enabled (no slots by default, can be modified with [[Config API|Basic-API-Config]]).
 > //Examples://
 {{{
 if (Save.browser.auto.isEnabled()) {
@@ -366,11 +367,11 @@ It has 2 parameters:
   + title "Midgar" and metadata someMetadata
 }}}
 
-:: SaveAPI-Disk [page]
-<h1>Managing Disk Import and Export</h1>
+:: SaveAPI-Disk [page saveapi]
+<h1 id="saveapi-disk">Managing Disk Import and Export</h1>
 The following APIs enables you to import and export save files (as to avoid over-burdening the player's Browser Cache). Those APIs are behind the code of the //Save...// and //Load...// (single saves), as well as the //Export...// and //Import...// bundles (multiple saves).
-> ''Note:'' These APIs are fairly advanced, and are most useful for creating your own Save System.
-
+> ''Note:'' These APIs are fairly advanced, and are most useful when creating your own Save System.
+\
 <h3>Save and Load Single Saves</h3>\
 \
 <h4>{{{Save.disk.save()}}}</h4>
@@ -501,7 +502,7 @@ This API will import any given disk save bundle previously created with {{{Save.
 > ''Note:'' this must be used with a change event handler linked to a {{{<input type="file">}}} element (to "upload" the save file to the game).
 \
 If the selected file is valid, it will restore all the saves in the bundle; if not, it will reject with an error.
-> ''IMPORTANT!'' Restoring a bundle will override any existing browser save.
+> ''IMPORTANT!'' Restoring a bundle will override any existing browser saves.
 \
 {{{
     Save.disk.import(event)
@@ -532,11 +533,11 @@ This API has 1 parameter:
 	});
 }}}
 
-:: SaveAPI-Base64 [page]
-<h1>Managing Base64 saves</h1>
+:: SaveAPI-Base64 [page saveapi]
+<h1 id="saveapi-base">Managing Base64 saves</h1>
 The following APIs are similar to the [[Disk Import/Export|SaveAPI-Disk]], except it will save it all in a Base64 string instead of a savefile.
 > ''Note:'' these APIs are not recommended unless you //know// what you are doing. /* Which I do not at all, so you won't see me messing with those. */
-
+\
 <h3>Save and Load Single Saves</h3>\
 \
 <h4>{{{Save.base64.save()}}}</h4>\
@@ -643,8 +644,8 @@ This API has 1 parameter:
 	});
 }}}
 
-:: SaveAPI-Events [page] {"position":"2000,2100","size":"100,100"}
-<h1>Using Save-related Events</h1>
+:: SaveAPI-Events [page saveapi] {"position":"2000,2100","size":"100,100"}
+<h1 id="saveapi-event">Using Save-related Events</h1>
 \
 <h3>Events during Save Load</h3>\
 \
@@ -675,7 +676,7 @@ It has 1 parameter:
         }
     });
 }}}
-> ''Note:'' the {{{save.version}}} will be defined with the relevant [[Config API|Config-Saves]]
+> ''Note:'' the {{{save.version}}} can be defined with the relevant [[Config API|Config-Saves]]
 \
 <h4>{{{Save.onLoad.clear()}}}</h4>\
 This API will delete all currently defined on-load handlers.

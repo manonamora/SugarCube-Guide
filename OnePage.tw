@@ -341,8 +341,69 @@ Those APIs are JavaScript-based code that should either be included in the JavaS
 <<include "API-Lock">>
 <hr>
 \
+<h1 id="settings-apis" class="the-chapter">The Settings APIs</h1>
+Settings can be a great way to customise your project, and make it more accessible for players. Whether it is to change the visual aspect (font, theme, etc), the audio (volume, track), or overall mechanics (difficulty, annimation), there are many ways to reach your goal.
 
+While including settings in a project can feel a bit overwhelming, as they //will// require some knowledge of JavaScript, the Setting APIs are there to make things easier. There are also many UI templates out there including some settings.
+> ''Note:'' Do check the version of SugarCube attached to the template, as older templates may use correct code for their version that would be deprecated in later SugarCube version, requiring users to fix it.
 
+The basic Settings API is built in this format:
+{{{
+    Settings.function(parameters)
+}}}
+> ''Note:'' The order in which you add the settings in the JavaScript passage will be the order you will see in the Settings popup.
+\
+> ''Note 2:'' you can find a Settings-Only Template with the most useful settings for Interactive Fiction on my [[itch page|https://manonamora.itch.io/twine-sugarcube-templates]].
+\
+<hr class="small-section">
+<<include "SettingsBasics">>
+<hr class="small-section">
+<<include "SettingsToggle">>
+<hr class="small-section">
+<<include "SettingsList">>
+<hr class="small-section">
+<<include "SettingsRange">>
+<hr class="small-section">
+<<include "Settings-More">>
+<hr class="small-section">
+<<include "SettingsHeader">>
+<hr>
+\
+<h1 id="engine-apis" class="the-chapter">The Engine APIs</h1>
+Aside from [[moving back and forth|Basic-API-Engine]] in the player history, the Engine APIs include extra functions to customize the gameplay of your project. Some of these APIs are more useful in JavaScript than in passages.
+\
+<hr class="small-section">
+<<include "Engine-State">>
+<hr class="small-section">
+<<include "Engine-Go">>
+<hr class="small-section">
+<<include "Engine-Play">>
+<hr class="small-section">
+<<include "Engine-Restart">>
+<hr>
+\
+<h1 id="save-apis" class="the-chapter">The Save APIs and Further Saving Configurations</h1>
+While the Config APIs have [[configuration settings|Config-Saves]] for saving playthroughs, it may not be enough for the customisation you may want to achieve. This is where the Save APIs come in.
+
+The Save APIs can be grouped into different categories: Browsers (which will save in browser's [[cache|https://www.pcmag.com/encyclopedia/term/browser-cache]]), Disk (downloadable file), and Base64 (encoded string save). The latter two will allow for import/export of saves from the user.
+> ''Note:'' Browser saves (autosave/slot saves) are largely incompatible with Private Browsing Mode and Cookies/Cache blockers. Users restricting access to cache may get an error message on start.
+\
+<hr class="small-section">
+<<include "SaveAPI-Objects">>
+<hr class="small-section">
+<<include "SaveAPI-General">>
+<hr class="small-section">
+<<include "SaveAPI-Slots">>
+<hr class="small-section">
+<<include "SaveAPI-Autosave">>
+<hr class="small-section">
+<<include "SaveAPI-Disk">>
+<hr class="small-section">
+<<include "SaveAPI-Base64">>
+<hr class="small-section">
+<<include "SaveAPI-Events">>
+<hr>
+\
 -> do a whole list of include to "include" the passages, 
     except for the Chapter pages
         -> those are done manually to avoid the links.

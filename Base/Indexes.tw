@@ -119,7 +119,7 @@
 ** [[More Popups APIs|API-Dialog]]
 ** [[More SideBar APIs|API-UIBar]]
 ** [[The Template APIs|TemplateAPI]]
-** [[(Un)Locking the Loading Screen|API-Lock]]  /*CHECKED!*/
+** [[(Un)Locking the Loading Screen|API-Lock]]
 * ''[[The Settings API|Settings]]''
 ** [[Creating a Setting|SettingsBasics]]
 ** [[Creating a Toggle Setting|SettingsToggle]]
@@ -133,12 +133,13 @@
 ** [[(Re-)Play a Passage|Engine-Play]]
 ** [[Restarting without the Built-In PopUp|Engine-Restart]]
 * ''[[The Save APIs and Further Saving Configurations|SaveAPI]]''
-** [[Save Objects and Their Contents|SaveAPI-Objects]]
-** [[The Basic APIs of the Save Elements|SaveAPI-General]]
-** [[Managing the Save Slots|SaveAPI-Slots]]
+** [[Save Objects and Their Contents|SaveAPI-Objects]] 
+** [[The Basic APIs of the Save Elements|SaveAPI-General]] 
+** [[Managing the Save Slots|SaveAPI-Slots]] 
 ** [[Managing the Autosave Slot|SaveAPI-Autosave]]
-** [[Using Save-related Events|SaveAPI-Events]]
-/*This needs to be edited*/
+** [[Managing Disk Import and Export|SaveAPI-Disk]]
+** [[Managing Base64 saves|SaveAPI-Base64]]
+** [[Using Save-related Events|SaveAPI-Events]]   /*CHECKED!*/
 * ''[[More Configuration APIs to Customise Interaction|Config-API]]''
 ** [[Macro-relevant Configurations|Confic-Macro]]
 ** [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]

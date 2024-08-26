@@ -58,8 +58,11 @@
         <div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
     adv-api
         <div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
+    engine
+        <div id="link-menu">[[Back to the Engine API Menu|Engine-API]] - [[Back to the Start Menu|Start]]</div>
     <<elseif tags().includes("settingsapi")>>
         <div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
+    saveapi
         <div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>
     <</if>>
     //TODO: this obviously

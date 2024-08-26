@@ -118,6 +118,26 @@ List of Header ID
     - adv-sidebar
     - adv-template
     - adv-lockload
+- settings-apis
+    - settings-basics
+    - settings-header
+    - settings-toggle
+    - settings-list
+    - settings-range
+    - settings-further
+- engine-apis
+    - engineapi-state
+    - engineapi-go
+    - engineapi-play
+    - engineapi-restart
+- save-apis
+    - saveapis-object
+    - saveapi-general
+    - saveapi-slot
+    - saveapi-auto
+    - saveapi-disk
+    - saveapi-base
+    - saveapi-event
 
 Class [one-page]
 class="the-super-head"
