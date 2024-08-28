@@ -1,7 +1,6 @@
 :: AudioAPI [page chapter]
 <h1>Going Further with Audio with APIs</h1>
-
-The Audio API is the largest group of APIs included in SugarCube, enabling you to have more control over sound in your project. It is the subsystem and backend for the [[audio macros]].
+The Audio API is the largest group of APIs included in SugarCube, enabling you to have more control over sound in your project. It is the subsystem and backend for the [[audio macros|Macro-Audio]].
 > ''Note:'' Aside from the SimpleAudio API, this chapter is for //very// advanced users. It is unlikely they will be of use for 99% of projects, as the audio macros will already cover most use.
 
 Because the SugarCube Audio system is based on the HTML Media Elements APIs, it comes with limitations:
@@ -14,10 +13,9 @@ Because the SugarCube Audio system is based on the HTML Media Elements APIs, it 
 * [[Going further with AudioRunner|AudioAPI-Runner]]
 * [[Going further with AudioList|AudioAPI-List]]
 
-:: AudioAPI-General [page]
-<h1>The SimpleAudio API, the alternative to Audio macros</h1>
-
-The SimpleAudio APIs is the base APIs behind the [[audio macros]], but will let you go further when manipulating the general audio controls, tracks, groups of tracks and playlists. Those APIs are most useful for the master volume control, as well as checking whether certain tracks/groups/playlists are playing.
+:: AudioAPI-General [page audio-api]
+<h1 id="audioapis-base">The SimpleAudio API, the alternative to Audio macros</h1>
+The SimpleAudio APIs is the base APIs behind the [[audio macros|Macro-Audio]], but will let you go further when manipulating the general audio controls, tracks, groups of tracks and playlists. Those APIs are most useful for the master volume control, as well as checking whether certain tracks/groups/playlists are playing.
 \
 <h3>General SimpleAudio APIs</h3>\
 <h4>{{{SimpleAudio.load()}}} and {{{SimpleAudio.loadWithScreen()}}}</h4>\
@@ -26,6 +24,30 @@ These APIs are used to load tracks up to playable state, anytime it is called, w
 {{{
     SimpleAudio.load();
     SimpleAudio.loadWithScreen();
+}}}
+\
+<h4>{{{SimpleAudio.unload()}}}</h4>\
+This API will both stop the playback of registered tracks and drop their information.
+> ''Note:'' unloaded tracks won't be playable until they are loaded again.
+{{{
+    SimpleAudio.unload();
+}}}
+\
+<h4>{{{SimpleAudio.select()}}}</h4>\
+This API will allow you to select tracks and/or groups of tracks, which you can then manipulate with track functions.
+{{{
+    SimpleAudio.select(selector)
+}}}
+This API has 1 parameter:
+* {{{selector}}}: the list of audio track(s) and/or group ID(s), separated by spaces
+** this includes pre-defined group IDs like {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:paused}}}, {{{:playing}}} and {{{:stopped}}}
+** you can also unselect tracks/groups from a larger selection with {{{:not()}}}
+\
+> //Examples://
+{{{
+    SimpleAudio.select(":paused").play();
+    SimpleAudio.select(":playing").stop();
+    SimpleAudio.select(":playing:not(:ui)").stop();
 }}}
 \
 <h4>{{{SimpleAudio.mute()}}} and {{{SimpleAudio.muteOnHidden()}}}</h4>\
@@ -52,36 +74,6 @@ It has 1 parameter:
     SimpleAudio.muteOnHidden(flase);
 }}}
 \
-<h4>{{{SimpleAudio.select()}}}</h4>\
-This API will allow you to select tracks and/or groups of tracks, which you can then manipulate with track functions.
-{{{
-    SimpleAudio.select(selector)
-}}}
-This API has 1 parameter:
-* {{{selector}}}: the list of audio track(s) and/or group ID(s), separated by spaces
-** this includes pre-defined group IDs like {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:paused}}}, {{{:playing}}} and {{{:stopped}}}
-** you can also unselect tracks/groups from a larger selection with {{{:not()}}}
-\
-> //Examples://
-{{{
-    SimpleAudio.select(":paused").play();
-    SimpleAudio.select(":playing").stop();
-    SimpleAudio.select(":playing:not(:ui)").stop();
-}}}
-\
-<h4>{{{SimpleAudio.stop()}}}</h4>\
-This API will stop the playback of all registered tracks.
-{{{
-    SimpleAudio.stop();
-}}}
-\
-<h4>{{{SimpleAudio.unload()}}}</h4>\
-This API will both stop the playback of registered tracks and drop their information.
-> ''Note:'' unloaded tracks won't be playable until they are loaded again.
-{{{
-    SimpleAudio.unload();
-}}}
-\
 <h4>{{{SimpleAudio.volume()}}}</h4>\
 This API can be used to both get the current master volume level and change it.
 {{{
@@ -96,6 +88,13 @@ It has 1 parameter:
 
     SimpleAudio.volume(0.75);
 }}}
+\
+<h4>{{{SimpleAudio.stop()}}}</h4>\
+This API will stop the playback of all registered tracks.
+{{{
+    SimpleAudio.stop();
+}}}
+\
 <h3>Tracks SimpleAudio APIs</h3>\
 <h4>{{{SimpleAudio.tracks.add()}}}</h4>\
 This API will add an audio track and assign it to a given ID. It is similar to {{{<<cacheaudio>>}}}.
@@ -310,8 +309,8 @@ This API has 1 parameter:
     <</if>>
 }}}
 
-:: AudioApi-Track [page]
-<h1>Going further with AudioTrack</h1>
+:: AudioApi-Track [page audio-api]
+<h1 id="audioapis-track">Going further with AudioTrack</h1>
 If the SimpleAudio APIs are too general for use, you can use the following APIs to manipulate or get information on single tracks.
 
 <h3>(Un)Loading and Track Data<h3>\
@@ -521,8 +520,8 @@ These APIs lets you assign event handlers to specific tracks, essentially as sho
 }}}
 > ''Note:'' because the SimpleAudio APIs use events internally, it is recommended to specify custom user namespace, to avoid conflicts.
 
-:: AudioApi-List [page]
-<h1>Going further with AudioList</h1>
+:: AudioApi-List [page audio-api]
+<h1 id="audioapis-list">Going further with AudioList</h1>
 If the SimpleAudio APIs are too general for use, you can use the following APIs to manipulate or get information on playlists.
 \
 <h3>(Un)Loading and Track Data<h3>\
@@ -694,8 +693,9 @@ This API will skip to the next track of the playlist, if available.
 {{{
     someTrack.skip();
 }}}
-:: AudioApi-Runner [page]
-<h1>Going further with AudioRunner</h1>
+
+:: AudioApi-Runner [page audio-api]
+<h1 id="audioapis-runner">Going further with AudioRunner</h1>
 If the SimpleAudio APIs are too general for use, you can use the following APIs to manipulate or get information on multiple tracks.
 
 <h3>(Un)Loading and Track Data<h3>\

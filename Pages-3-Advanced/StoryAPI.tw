@@ -1,5 +1,5 @@
 :: StoryAPI [chapter page] {"position":"3500,1900","size":"200,100"}
-<h1>Managing Story Elements with APIs</h1>
+<h1 id="story-api" class="the-chapter">Managing Story Elements with APIs</h1>
 The APIs listed below will help you check and manage different elements of your Story.
 \
 <h3>{{{Story.id}}}</h3>
@@ -27,71 +27,105 @@ This API keeps the title of the project.
 <h3>{{{Story.get()}}}</h3>\
 This API will return the Passage object of the referenced title (tags, classes, HTML element).
 {{{
-    Story.get(title)
+    Story.get(name)
 }}}
 It has 1 parameter:
-* {{{title}}}, the title of the Passage object (i.e. the Passage Name)
+* {{{name}}}, the title of the Passage object (i.e. the Passage Name)
 > //Example://
 {{{
     Story.get("Start")  
 → returns the Passage object of {:: Start}
 }}}
+> ''Note:'' this method won't return any passage with [[Special Tags|Special-Tags]]
 \
 <h3>{{{Story.has()}}}</h3>\
 This API will check whether the Passage object of the referenced title (tags, classes, HTML element) exists.
+> ''Note:'' this method won't return any passage with [[Special Tags|Special-Tags]]
 {{{
-    Story.has(title)
+    Story.has(name)
 }}}
 It has 1 parameter:
-* {{{title}}}, the title of the Passage object (i.e. the Passage Name)
+* {{{name}}}, the title of the Passage object (i.e. the Passage Name)
 > //Example://
 {{{
     Story.has("Start")  
 → checks that {:: Start} exists 
 }}}
 \
-<h3>{{{Story.lookup()}}}</h3>\
-This API will return an array of Passage objects whose value matches the search value, given a property.
+<h3>{{{Story.add()}}}</h3>\
+This API will let you add a passage to the passage store.
 {{{
-    Story.lookup(propertyName , searchValue [, sortProperty])
+    Story.add(descriptor)
 }}}
-It has 3 parameters:
-* {{{propertyName}}}, the property to check 
-* {{{searchValue}}}, the value wanted related to the property
-* {{{sortProperty}}} (optional), the property used to sort the array 
-** default is the Passage's title lexicographically sorting
+It has 1 parameter:
+* {{{descriptor}}}, the passage descriptor object
+The parameter includes 3 properties:
+* {{{name}}}: the passage's name to add 
+* {{{tags}}}: the passage's tag(s), separated by a space 
+* {{{text}}}: the passage's text
+** this ''cannot'' include [[Special Passages|Special-Passage]], or passages with [[Special Tags|Special-Tags]]
+> //Example://
+{{{
+    const descriptor = {
+        name : "Forest 4",
+        tags : "forest heavy",
+        text : "You can barely see farther than arm's length for all the trees.",
+    };
+
+    if (Story.add(descriptor)) {
+        /* The "Forest 4" passage was added. */
+    }
+}}}
+> ''Note:'' it is unlikely you will ever need this API, as it is much simpler to add story passages outside of JavaScript.
+\
+<h3>{{{Story.delete()}}}</h3>\
+This API will delete the Passage instance of the indicated name.
+{{{
+    Story.delete(name)
+}}}
+It has 1 parameter:
+* {{{name}}}: the name of the passage 
+** this ''cannot'' be any of the [[Special Passages|Special-Passage]], or passages with [[Special Tags|Special-Tags]]
+> //Example://
+{{{
+    if (Story.delete("The Ducky")) {
+        /* The "The Ducky" passage was deleted. */
+    }
+}}}
+\
+<h3>{{{Story.filter()}}}</h3>\
+This API will retrun an array of Passage instances whose value matches the search prediction, given the function.
+{{{
+    Story.filter(predicate [, thisArg])
+}}}
+It has 2 parameters:
+* {{{predicate}}}: the function used to test each passage instance 
+* {{{thisArg}}} (optional) the value to use as {{{this}}} when executing the function
 \
 > //Example://
 {{{
-    Story.lookup("tags", "forest");
-→ will list all Passages tagged 'forest'
-  sorted by title
-}}}
-\
-<h3>{{{Story.lookupWith()}}}</h3>\
-This API will return an array of Passage objects passing the test from a defined predicate function.
-{{{
-    Story.lookupWith(predicate [, sortProperty])
-}}}
-It has 2 properties:
-* {{{predicate}}}, the function used to test each Passage object 
-* {{{sortProperty}}} (optional), the property used to sort the array 
-** default is the Passage's title lexicographically sorting
-\
-> //Examples://
-{{{
-    Story.lookupWith(function (p) {
+    Story.filter(function (p) {
         return p.tags.includes("forest");
     });
 → will list all Passages tagged 'forest'
-  sorted by title
-
+}}}
+> ''Note:'' this method won't accept any of the [[Special Tags|Special-Tags]]
+\
+<h3>{{{Story.find()}}}</h3>\
+This API is similar to the previous, aside from only returning the ''first'' passage that passes the function test.
+{{{
+    Story.find(predicate [, thisArg])
+}}}
+It has 2 properties:
+* {{{predicate}}}: the function used to test each passage instance 
+* {{{thisArg}}} (optional) the value to use as {{{this}}} when executing the function
+\
+> //Example://
+{{{
     var hasWhitespaceRegExp = /\s/;
-    Story.lookupWith(function (p) {
+    Story.find(function (p) {
         return hasWhitespaceRegExp.test(p.title);
     });
-→ will list all Passages containing whitespace
-  sorted by title
+→ will list the first Passage containing whitespace
 }}}
-
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+> ''Note:'' this method won't accept any of the [[Special Tags|Special-Tags]]

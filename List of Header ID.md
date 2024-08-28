@@ -138,6 +138,33 @@ List of Header ID
     - saveapi-disk
     - saveapi-base
     - saveapi-event
+- config-apis
+    - config-macros
+    - config-passage
+    - configs-saves
+    - configs-misc
+- fullscreen-apis
+- events
+    - event-dialog
+    - event-passage
+    - event-system
+    - event-type
+    - event-audio
+- macro-apis
+    - macro-apis-base
+    - macro-apis-context
+- story-api
+- passage-apis
+- state-apis
+    - state-variable
+    - state-state
+    - state-metadata
+    - state-seed
+- audio-apis
+    - audioapis-base
+    - audioapis-track
+    - audioapis-list
+    - audioapis-runner
 
 Class [one-page]
 class="the-super-head"

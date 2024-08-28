@@ -24,48 +24,57 @@
         <div id="link-menu">[[Back to the Start Menu|Start]]</div>
     <<elseif tags().includes("basics")>>
         <div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
-    basic-plus
+    <<elseif tags().includes("basic-plus")>>
         <div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
-    basic-macro
+    <<elseif tags().includes("basic-macro")>>
         <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
-    basic-interact
+    <<elseif tags().includes("basic-interact")>>
         <div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
-    basic-sp
+    <<elseif tags().includes("basic-sp")>>
         <div id="link-menu">[[Back to the Special Passages Menu|Special-Passage]] - [[Back to the Start Menu|Start]]</div>
-    int-markup
+    <<elseif tags().includes("int-markup")>>
         <div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
-    int-macro
+    <<elseif tags().includes("int-macro")>>
         <div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
-    int-conv
+    <<elseif tags().includes("int-conv")>>
         <div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
-    sp-tags
+    <<elseif tags().includes("sp-tags")>>
         <div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
-    functions
+    <<elseif tags().includes("functions")>>
         <div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div> 
-    methods
+    <<elseif tags().includes("methods")>>
         <div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
-    audio-macro
+    <<elseif tags().includes("audio-macro")>>
         <div id="link-menu">[[Back to the Audio Macros Menu|Macro-Audio]] - [[Back to the Start Menu|Start]]</div>
-    int-jscss
+    <<elseif tags().includes("int-jscss")>>
         <div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-    basic-apis
+    <<elseif tags().includes("basic-apis")>>
         <div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
-    translate
+    <<elseif tags().includes("translate")>>
         <div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
-    adv-macro
+    <<elseif tags().includes("adv-macro")>>
         <div id="link-menu">[[Back to the Advanced Macro Menu|Macro-Adv]] - [[Back to the Start Menu|Start]]</div>
-    adv-methods
+    <<elseif tags().includes("adv-methods")>>
         <div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
-    adv-api
+    <<elseif tags().includes("adv-api")>>
         <div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
-    engine
+    <<elseif tags().includes("engine")>>
         <div id="link-menu">[[Back to the Engine API Menu|Engine-API]] - [[Back to the Start Menu|Start]]</div>
     <<elseif tags().includes("settingsapi")>>
         <div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
-    saveapi
+    <<elseif tags().includes("saveapi")>>
         <div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>
+    <<elseif tags().includes("configapi")>>
+        <div id="link-menu">[[Back to the Config API Menu|Config-API]] - [[Back to the Start Menu|Start]]</div>
+    <<elseif tags().includes("events")>>
+        <div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
+    <<elseif tags().includes("macro-apis")>>
+        <div id="link-menu">[[Back to the Macro API Menu|Macro]] - [[Back to the Start Menu|Start]]</div>
+    <<elseif tags().includes("state-api")>>
+        <div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
+    <<elseif tags().includes("audio-api")>>
+        <div id="link-menu">[[Back to Audio API Menu|AudioAPI]] - [[Back to the Start Menu|Start]]</div>
     <</if>>
-    //TODO: this obviously
 <</widget>>
 
 
@@ -83,7 +92,7 @@ You can find:
 ** [[ChoiceScript to SugarCube Guide|https://manonamora.itch.io/choicescript-sugarcube-tweego-folder]]
 * my games and IF experiments on [[Itch|https://manonamora.itch.io/]]
 * me, and ask me questions, over on [[Tumblr|https://manonamora-if.tumblr.com]] or [[my website|https://manonamora.neocities.org/]]
-* my Twine Resource Masterlist [[on Tumbr|https://manonamora-if.tumblr.com/post/700577877042888704/]] or the [[IntFiction Forum|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]] (more up to date).
+* my Twine Resource Masterlist on the [[IntFiction Forum|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]] (a less updated version is rebloggable on [[Tumbr|https://manonamora-if.tumblr.com/post/700577877042888704/]]).
 
 <h3>Twine and SugarCube</h3>\
 [[About Twine and SugarCube|About]]
@@ -110,12 +119,13 @@ There are many online courses to learn the basics (or further) of the Twine-adja
 * ''Chris Klimas'' for creating Twine, and ''TheMadExile/TME'' for making the SugarCube format and the Tweego compiler.
 * ''Cycy'' for making the Twee 3 Language Tool extension for VScode.
 * The Twine Discord, especially ''Crepes'', ''TRBRY'', ''Gwen'', ''Cyrus'', ''Sjoerd'', ''SleepyFool'', and ''TME'' for their help and sharing examples when I forgot what certain macros were supposed to do!
+* every single user who reported issues with the guide, whether it was broken links, wrong examples, or typos, as well as request extra functions.
 
 :: Organise {"position":"2475,100","size":"100,100"}
 <h1>Some Random Stuff That will be Organised Later</h1>
 Here are some SugarCube relevant bits, which I haven't found a good place to put right now.
 The links below won't change but may be located in a different Sub Menu at a later date. See [[Update Log]] for more information.
-
+I should probably add here other examples of stuff I've done ?
 Welp there is nothing there:P
 <div id="link-menu">[[Back to the Start Menu|Start]]</div>
 

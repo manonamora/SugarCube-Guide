@@ -8,29 +8,26 @@ SugarCube has many API to help you build your custom macros, or even chose to ed
 * [[The Base APIs for Macros|Macro-API]] 
 * [[Using Macro Context Objects in the handler|Macro-Context]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-
-:: Macro-API [page] {"position":"2900,1900","size":"100,100"}
-<h1>The Base APIs for Macros</h1>
+:: Macro-API [page macro-apis] {"position":"2900,1900","size":"100,100"}
+<h1 id="macro-apis-base">The Base APIs for Macros</h1>
 \
 <h3>{{{Macro.add()}}}</h3>\
 If you want to create a custom macro in SugarCube, you will need to use this API. Knowledge of JavaScript/jQuery and understanding on how SugarCube works is required.
 
 The API has 2 parameters:
 * {{{name}}}: the name (or array of names) of the macro to add
-** must start with a letter, and consist of characters from the basic Latin alphabet (A → Z)
-** you can also use numbers, underscores, and hyphens after the letter 
+** ''must start with a letter'', and consist of characters from the basic Latin alphabet (A → Z)
+** you can also use numbers (0 → 9), underscores ({{{ _ }}}), and hyphens ({{{ - }}}) after the first letter 
 * {{{definition}}}: how the macro will behave (see below)
-** to copy the definition of an existing macro, you can indicate the name of //that// macro instead.
+** to copy the definition of an existing macro, indicate the name of //that// latter macro.
 {{{
     Macro.add(name , definition)
 
     Macro.add(['link', 'button'] , {/* definition code */})
-→ <<link>> and <<button>> will behave the same
+ → <<link>> and <<button>> will behave the same
 
     Macro.add('run', 'set');
-→ <<run>> is an alias of <<set>>
+ → <<run>> is an alias of <<set>>
 }}}
 
 The definition of a macro will be an object with multiple properties:
@@ -101,11 +98,9 @@ This API will return with the name of the all the macros which have included the
 → will result in ['cycle', 'listbox']
 }}}
 
-<div id="link-menu">[[Back to the Macro API Menu|Macro]] - [[Back to the Start Menu|Start]]</div>
 
-
-:: Macro-Context [page] {"position":"3000,1900","size":"100,100"}
-<h1>Using Macro Context Objects in the handler</h1>
+:: Macro-Context [page macro-apis] {"position":"3000,1900","size":"100,100"}
+<h1 id="macro-apis-context">Using Macro Context Objects in the handler</h1>
 While Macro [[handlers|Macro-API]] are called with no arguments, you can use {{{this}}} and the context object properties below to refer to different components of the macro (e.g. macro arguments and expressions, data, methods).
 \
 <h3>Refering to the Macro Arguments and Expressions</h3>\
@@ -138,13 +133,13 @@ This property will take the unprocessed expression.
 \
 <h4>{{{<MacroContext>.name}}}</h4>\
 This property will refer to the name of the macro.
-> Assuming that {{{<<someMacro...>>}}}
+> Assuming that {{{<<someMacro ...>>}}}
 {{{
     this.name  → 'someMacro'
 }}}
 \
 <h4>{{{<MacroContext>.self}}}</h4>\
-This property will refer to the definition of the macro, indicated in the second property of {{{Macro.add()}}}
+This property will refer to the definition of the macro, indicated in the second property of {{{Macro.add()}}}.
 {{{
     this.self → { /* definition object */ }
 }}}
@@ -154,7 +149,6 @@ This property will refer to the macro's parent (or null, if it does not have a p
 {{{
     this.parent → /* name of parent or NULL */
 }}}
-
 \
 <h4>{{{<MacroContext>.output}}}</h4>\
 This property references the output element, as an HTML Elment object.
@@ -180,7 +174,8 @@ This property is only useful for container macros, and will not work otherwise. 
     this.payload.args 
     this.payload.contents
 
-    this.payload[0] → the text between the first and second tag of the macro
+    this.payload[0] 
+ → the text between the first and second tag of the macro
 }}}
 \
 <h3>Macro Context Methods</h3>\
@@ -217,7 +212,7 @@ If failed:
 → Returns an array of all <<include>> macro ancestors
 }}}
 \
-<h4>{{{<MacroContext>.createShadowWrapper()}}}</h4>\
+<h4>{{{<MacroContext>.shadowHandler()}}}</h4>\
 > ''Forenote:'' this method is only useful when you have asynchronous callback that invokes code/content that needs to access story and/or temporary variables shadowed by {{{<<capture>>}}}. ''Do not use this if you don't know what this means''. /* 
     Honestly, I have no idea what this does really, but it's macro relevant I guess.
     TME (the creator of SugarCube) REALLY does not recommend using this API unless you are absolutely sure what you are doing. And even then, cases where you would need it are super small... 
@@ -231,14 +226,14 @@ This method creates a callback wrapper around the given parameters, which are th
 {{{
     $someElement.on(
         'some_event', 
-        this.createShadowWrapper(function (ev) {
+        this.shadowHandler(function (ev) {
             /* main asynchronous code */
         })
     );
 }}}
 > //With an optional doneCallback//
 {{{
-    $someElement.on('some_event', this.createShadowWrapper(
+    $someElement.on('some_event', this.shadowHandler(
         function (ev) {
             /* main asynchronous code */
         },
@@ -249,7 +244,7 @@ This method creates a callback wrapper around the given parameters, which are th
 }}}
 > //With an optional doneCallback and startCallback//
 {{{
-    $someElement.on('some_event', this.createShadowWrapper(
+    $someElement.on('some_event', this.shadowHandler(
         function (ev) {
             /* main asynchronous code */
         },
@@ -269,7 +264,7 @@ This method creates a callback wrapper around the given parameters, which are th
 			namespace : '.macros',
 			role      : passage != null ? 'link' : 'button', // equality for null
 			one       : passage != null // lazy equality for null
-		}, this.createShadowWrapper(
+		}, this.shadowHandler(
 			this.payload[0].contents !== ''
 				? () => Wikifier.wikifyEval(this.payload[0].contents.trim())
 				: null,
@@ -282,7 +277,6 @@ This method creates a callback wrapper around the given parameters, which are th
 → the code will look at whether there is code to trigger inside the <<link>> macro 
     then it will look at whether there is a passage to go to
 }}}
-
 \
 <h4>{{{<MacroContext>.error()}}}</h4>\
 This property will render an error message for then the macro can't be processed. It requires an error message in the form of a string.
@@ -298,5 +292,3 @@ The message can include full expressions, including pure JavaScript rendering.
 {{{
     return this.error(`whitespace is not allowed between the "else" and "if" in <<elseif>> clause${i > 0 ? ' (#' + i + ')' : ''}`)
 }}}
-
-<div id="link-menu">[[Back to the Macro API Menu|Macro]] - [[Back to the Start Menu|Start]]</div>

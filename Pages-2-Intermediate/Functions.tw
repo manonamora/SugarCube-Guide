@@ -265,6 +265,24 @@ Sometimes, your JavaScript code will need a variable set in SugarCube to run. Th
     }
 → if the variable $hasGoldenKey is true, the code will change the value of _unlock to true
 }}}
+\
+<h3>Rendering a Passage in a Target Element</h3>\
+While this is more of an Advanced function/*but I am too lazy to create a whole section just for this....*/, you may encounter it in special custom code, like Greyelf's [[Right SideBar|http://twinery.org/forum/discussion/comment/17617/]].
+{{{
+    setPageElement(idOrElement , passages [, defaultText])
+}}}
+This function has 3 parameters:
+* {{{idOrElement}}}: The ID of the element or the element itself.
+* {{{passages}}}: The name(s) of the passage(s) to link to the element. 
+** can be a single passage or an array of passages (only the first available will be displayed).
+* {{{defaultText}}}: (optional, string) the default text to use if no passages are found.
+> //Example//:
+{{{
+    setPageElement("my-display", "MyPassage");
+
+    setPageElement('right-ui-bar-body', 'StoryRightSidebar');
+}}}
+
 
 :: Function-Trigger [page functions]
 <h1 id="function-event">Triggering Events</h1>

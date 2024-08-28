@@ -10,10 +10,9 @@ Each event is formatted as an object and contains information about the state at
 * [[System Events|Events-System]]
 * [[Type Macro Events|Events-Type]] 
 * [[Audio Events|Events-Audio]]
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
 
-:: Events-Dialog [page] {"position":"2600,1900","size":"100,100"}
-<h1>Dialog Events</h1>
+:: Events-Dialog [page events] {"position":"2600,1900","size":"100,100"}
+<h1 id="event-dialog">Dialog Events</h1>
 The following events allow the execution of JavaScript code at specific points during the opening and closing of popups. The events will be triggered when using the [[Dialog API|Basic-API-Dialog]]. They happen in the following order:
 {{{
     :dialogopening
@@ -43,6 +42,7 @@ This event is triggered when the popup is fully rendered (as the last step of {{
     });
 }}}
 > ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
+\
 An useful example, where any new popup with overflow will have its text displayed from the top.
 {{{
     $(document).on(':dialogopened', function (ev) {
@@ -68,11 +68,8 @@ This event is triggered when the popup is fully closed (as the last step of {{{D
 }}}
 > ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
 
-<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
-
-
-:: Events-Passage [page] {"position":"2700,1900","size":"100,100"}
-<h1>Passage and Navigation Events</h1>
+:: Events-Passage [page events] {"position":"2700,1900","size":"100,100"}
+<h1 id="event-passage">Passage and Navigation Events</h1>
 The following events allow the execution of JavaScript code at specific points during the rendering of a passage, as well as [[Special Passages|Special-Passage]], a.k.a passage navigation. The order of those events go as follow:
 {{{
 1- Passage initiation (before change in history)
@@ -82,6 +79,8 @@ The following events allow the execution of JavaScript code at specific points d
     PassageReady
     :passagestart event
     PassageHeader
+
+ /* Passage content rendering */
 
 3- Passage render (after passage rendering)
     PassageFooter
@@ -105,7 +104,7 @@ The following events allow the execution of JavaScript code at specific points d
 }}}
 \
 <h3>{{{:passageinit}}}</h3>\
-This event is triggered before the player's history is modified (a.k.a just after the start to navigation is called). It also will contain the elements of the passage to display next.
+This event is triggered before the player's history is modified (a.k.a just after the start to navigation is called - like when a player clicks on a link to a new passage). It also will contain the elements of the passage to display next.
 You can include any JavaScript code inside the following container:
 {{{
     $(document).on(':passageinit', function (ev) {
@@ -115,7 +114,7 @@ You can include any JavaScript code inside the following container:
 > ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
 \
 <h3>{{{:passagestart}}}</h3>\
-This event is triggered before the rendering of the incoming passage. It will also contain the elements of the passage to display next, and the HTML (currently empty) elements to render.
+This event is triggered just before the rendering of the incoming passage. It will also contain the elements of the passage to display next, and the HTML (currently empty) elements to render.
 You can include any JavaScript code inside the following container:
 {{{
     $(document).on(':passagestart', function (ev) {
@@ -125,7 +124,7 @@ You can include any JavaScript code inside the following container:
 > ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
 \
 <h3>{{{:passagerender}}}</h3>\
-This event is triggered after the rendering of the incoming passage. It will also contain the elements of the passage rendering, and the HTML elements rendered.
+This event is triggered just after the rendering of the incoming passage. It will also contain the elements of the passage rendering, and the HTML elements rendered.
 You can include any JavaScript code inside the following container:
 {{{
     $(document).on(':passagerender', function (ev) {
@@ -149,7 +148,7 @@ An example where the incoming passage with overflow will be displayed from the t
         $("#passages").scrollTop(0);
     });
 }}}
-> ''Note:'' this is especially useful with custom UI.
+> ''Note:'' this is especially useful with custom UI. Change {{{#passages}}} with the relevent element.
 \
 <h3>{{{:passageend}}}</h3>\
 This event is triggered at the end of the passage navigation. It will also contain the elements of the passage displayed, and the HTML elements rendered.
@@ -161,11 +160,8 @@ You can include any JavaScript code inside the following container:
 }}}
 > ''Note:'' to execute the code only once throughout the whole game, replace {{{.on}}} by {{{.one}}}.
 
-<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
-
-
-:: Events-System [page] {"position":"2600,2000","size":"100,100"}
-<h1>System Events</h1>
+:: Events-System [page events] {"position":"2600,2000","size":"100,100"}
+<h1 id="event-system">System Events</h1>
 The following events allow the execution of JavaScript code at specific points during story startup and restart.
 \
 <h3>{{{:storyready}}}</h3>\
@@ -176,7 +172,7 @@ You can include any JavaScript code inside the following container:
 	    /* JavaScript code */
     });
 }}}
-> ''Note:'' this event is only triggered ''once''.
+> ''Note:'' this event can only be triggered ''once''.
 \
 <h3>{{{:enginerestart}}}</h3>\
 This is a global event that will be triggered just before the page is reloaded when using {{{Engine.restart()}}}.
@@ -186,7 +182,7 @@ You can include any JavaScript code inside the following container:
 	    /* JavaScript code */
     });
 }}}
-> ''Note:'' this event is only triggered ''once''.
+> ''Note:'' this event can only be triggered ''once''.
 \
 <h3>{{{:uiupdate}}}</h3>\
 This is a global event that will be triggered everytime the user interface is updated, either through the manual use of the {{{UI.update()}}} [[API]] or when the player moves to a new passage.
@@ -197,11 +193,8 @@ You can include any JavaScript code inside the following container:
     });
 }}}
 
-<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
-
-
-:: Events-Type [page] {"position":"2700,2000","size":"100,100"}
-<h1>Type Macro Events</h1>
+:: Events-Type [page events] {"position":"2700,2000","size":"100,100"}
+<h1 id="event-type">Type Macro Events</h1>
 The {{{<<type>>}}} macro has events allowing the execution of JavaScript code at specific points during typing. They are sequenced as follow:
 {{{
     :typingstart
@@ -253,10 +246,9 @@ You can include any JavaScript code inside the following container:
     });
 }}}
 
-<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
 
-:: Events-Audio
-<h1>Audio Events</h1>
+:: Events-Audio [page events]
+<h1 id="event-audio">Audio Events</h1>
 The following events allows the execution of JavaScript code at specific points during [[audio playback|Macro-Audio]]. These work in combination with the advanced [[SimpleAudio API|AudioAPI]].
 {{{
     :fading
@@ -310,5 +302,3 @@ This event is triggered when playback is stopped after {{{<AudioTrack>.stop()}}}
 }}}
 
 > ''Note:'' You can also create custom events with the [[AudioRunner|AudioAPI-Runner]] and [[AudioTrack|AudioAPI-Track]] APIs.
-
-<div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>

@@ -1,7 +1,7 @@
 :: PassageAPI [chapter page] {"position":"3500,2000","size":"200,100"}
-<h1>Managing Passage Properties with APIs</h1>
+<h1 id="passage-apis" class="the-chapter">Managing Passage Properties with APIs</h1>
 The APIs below deal with properties of the Passage object, which is returned by the {{{Story.get()}}} [[API|StoryAPI]].
-> ''Note:'' the information in those properties should be treated as ''read-only'', as modifying them can lead to unexpected behaviour.
+> ''Note:'' the information in those properties should be treated as ''read-only'', as modifying them can lead to unexpected behaviour. /*Really. Don't mess with them.*/
 \
 <h3>{{{<Passage>.id}}}</h3>\
 This API keeps the DOM ID of the passage, created from the slugified passage title.
@@ -35,5 +35,3 @@ This API returns the processed text of the passage,  created from applying {{{no
     passage.processText()  
 → returns the fully processed text of "The Ducky" passage
 }}}
-
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>

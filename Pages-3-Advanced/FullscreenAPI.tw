@@ -1,6 +1,6 @@
 :: FullScreen [chapter page] {"position":"3500,1800","size":"200,100"}
-<h1>Getting the FullScreen Experience</h1>
-The FullScreen API provides you access to the player's browser's fullscreen abilities. It comes with some built-in limitations, namely the fullscreen request having to be initiated by the player, through player interaction with the page (e.g. link, button, etc...). Running the executing APIs listed below in the Browser Console will not work, returning errors instead.
+<h1 id="fullscreen-apis" class="the-chapter">Getting the FullScreen Experience</h1>
+The FullScreen APIs provides you access to the player's browser's fullscreen abilities. It comes with some built-in limitations, namely the fullscreen request having to be initiated by the player, through player interaction with the page (e.g. link, button, etc...). Running the executing APIs listed below in the Browser Console will not work, returning errors instead.
 
 <<link "Toggle FullScreen">><<run Fullscreen.toggle()>><</link>>
 
@@ -55,7 +55,7 @@ This API will request the browser to exit the fullscreen mode.
 > ''Note:'' it may be easier to use {{{Fullscreen.toggle()}}}, as it will merge both this API and {{{Fullscreen.request()}}}
 \
 <h4>{{{Fullscreen.toggle()}}}</h4>\
-This API will toggle the fullscreen mode, entering or exiting the mode depending on the current state.
+This API will toggle the fullscreen mode, entering or exiting the mode depending on the current state. It is particularly useful compared to the previous two APIs, as it takes into account whether the game is already in fullscreen or not.
 {{{
     Fullscreen.toggle([options [, requestedEl]])
 }}}
@@ -76,7 +76,7 @@ It has 2 parameters:
 → Usage with option (show the navigation UI)
   and given an element
 }}}
-This API is the one used in the interactive element at the top of the page:
+This API is the one used in the interactive example above:
 {{{
     <<link "Toggle FullScreen">><<run Fullscreen.toggle()>><</link>>
 }}}
@@ -84,7 +84,7 @@ This API is the one used in the interactive element at the top of the page:
 <h3>FullScreen Mode and Event Handlers</h3>\
 \
 <h4>{{{Fullscreen.onChange()}}}</h4>\
-This API will attach an event handler to the fullscreen.
+This API will attach an event handler to the fullscreen, allowing you to add extra code when the fullscreen is dis/en-abled (like play a sound or change the value of a variable).
 {{{
     Fullscreen.onChange(handlerFn [, requestedEl])
 }}}
@@ -128,7 +128,7 @@ It has 2 parameters:
 > ''Note:'' for each case, the first line will remove ALL handlers
 \
 <h4>{{{Fullscreen.onError()}}}</h4>\
-This API will attach an error handler to the fullscreen mode.
+This API will attach an error handler to the fullscreen mode. It will allow you to add extra code when the fullscreen runs into an error (like displaying an alert).
 {{{
     Fullscreen.onError(handlerFn [, requestedEl])
 }}}
@@ -170,5 +170,3 @@ It has 2 parameters:
 → With a specified element
 }}}
 > ''Note:'' for each case, the first line will remove ALL handlers
-
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>

@@ -139,7 +139,7 @@
 ** [[Managing the Autosave Slot|SaveAPI-Autosave]]
 ** [[Managing Disk Import and Export|SaveAPI-Disk]]
 ** [[Managing Base64 saves|SaveAPI-Base64]]
-** [[Using Save-related Events|SaveAPI-Events]]   /*CHECKED!*/
+** [[Using Save-related Events|SaveAPI-Events]]
 * ''[[More Configuration APIs to Customise Interaction|Config-API]]''
 ** [[Macro-relevant Configurations|Confic-Macro]]
 ** [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
@@ -151,6 +151,7 @@
 ** [[Passage and Navigation Events|Events-Passage]]
 ** [[System Events|Events-System]]
 ** [[Type Macro Events|Events-Type]]
+** [[Audio Events|Events-Audio]]
 * ''[[Creating your Own Macro|Macro]]''
 ** [[The Base APIs for Macros|Macro-API]]
 ** [[Using Macro Context Objects in the handler|Macro-Context]]
@@ -161,12 +162,15 @@
 ** [[Exploring the Different Moments inside the State|StateAPI-State]]
 ** [[Using the Story Metadata|StateAPI-Metadata]]
 ** [[Initialising a Seedable PRNG|StateAPI-PRNG]]
-/*Need to add the Audio APIs*/
+* ''[[Going Further with Audio with APIs|AudioAPI]]''
+** [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+** [[Going further with AudioTrack|AudioApi-Track]]
+** [[Going further with AudioRunner|AudioAPI-Runner]]
+** [[Going further with AudioList|AudioAPI-List]]
 
 <div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
 
 :: Function/Method List {"position":"1200,400","size":"200,100"}
-/*NEED TO EDIT THIS*/
 <h1>Functions and Methods List</h1>
 Below, you will find the list of Functions and Methods included in SugarCube, and where they are discussed in this guide.
 > ''Note:'' As SugarCube is built on JavaScript, you can use any JavaScript and jQuery functions and methods, even ones you create and define yourself.
@@ -185,9 +189,11 @@ Below, you will find the list of Functions and Methods included in SugarCube, an
 * {{{random()}}} : [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
 * {{{randomFloat()}}} : [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
 * {{{recall()}}} : [[Memorizing Information and Metadata|Function-Metadata]]
+* {{{setPageElement()}}} : [[JavaScript-only Functions|Function-JS]]
 * {{{tags()}}} : [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
 * {{{temporary()}}} : [[JavaScript-only Functions|Function-JS]]
 * {{{time()}}} : [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
+* {{{triggerEvent()}}} : [[Triggering Events|Function-Trigger]]
 * {{{turns()}}} : [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
 * {{{variables()}}} : [[JavaScript-only Functions|Function-JS]]
 * {{{visited()}}} : [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
@@ -197,8 +203,12 @@ Below, you will find the list of Functions and Methods included in SugarCube, an
 * {{{<Array>.concat()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.concatUnique()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.count()}}} : [[Methods and Arrays|Method-Array]]
-* {{{<Array>.delete()}}} : [[Methods and Arrays|Method-Array]]
+* {{{<Array>.countWith()}}} : [[More Methods to change Variables|Method-Variables]]
+* {{{<Array>.deleteAll()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.deleteAt()}}} : [[Methods and Arrays|Method-Array]]
+* {{{<Array>.deleteFirst()}}} : [[Methods and Arrays|Method-Array]]
+* {{{<Array>.deleteLast()}}} : [[Methods and Arrays|Method-Array]]
+* {{{<Array>.deleteWith()}}} : [[More Methods to change Variables|Method-Variables]]
 * {{{<Array>.first()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.flat()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.includes()}}} : [[Methods and Arrays|Method-Array]]
@@ -214,14 +224,16 @@ Below, you will find the list of Functions and Methods included in SugarCube, an
 * {{{<Array>.randomMany()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.shift()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.shuffle()}}} : [[Methods and Arrays|Method-Array]]
+* {{{<Array>.toShuffled()}}} : [[Methods and Arrays|Method-Array]]
+* {{{<Array>.toUnique()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.unshift()}}} : [[Methods and Arrays|Method-Array]]
 * {{{<Array>.unshiftUnique()}}} : [[Methods and Arrays|Method-Array]]
 * {{{Math.clamp()}}} : [[Methods and Numbers|Method-Number]]
 * {{{Math.round()}}} : [[Methods and Numbers|Method-Number]]
 * {{{Math.trunc()}}} : [[Methods and Numbers|Method-Number]]
-* {{{<Number>.clamp()}}} : [[Methods and Numbers|Method-Number]]
 * {{{<String>.count()}}} : [[Methods and String Variables|Method-String]]
 * {{{<String>.first()}}} : [[Methods and String Variables|Method-String]]
+* {{{String.format()}}} : [[More Methods to change Variables|Method-Variables]]
 * {{{<String>.includes()}}} : [[Methods and String Variables|Method-String]]
 * {{{<String>.last()}}} : [[Methods and String Variables|Method-String]]
 * {{{<String>.toLocaleLowerCase()}}} : [[Methods and String Variables|Method-String]]
@@ -238,56 +250,62 @@ Below, you will find the list of Functions and Methods included in SugarCube, an
 <h1>APIs List</h1>
 Below, you will find the list of SugarCube APIs, and where they are discussed in this guide.
 > ''Note:'' Most of the elements below are meant for Advanced users.
-
-<h3>Config API</h3>
+\
+<h3>Config API</h3>\
 <h4>Audio Settings</h4>\
 * {{{Config.audio.pauseOnFadeToZero}}} : [[Macro-relevant Configurations|Confic-Macro]] 
 * {{{Config.audio.preloadMetadata}}} : [[Macro-relevant Configurations|Confic-Macro]] 
+\
 <h4>History Settings</h4>\
 * {{{Config.history.controls}}} : [[Some Useful Configuration API for your Project|Basic-API-Config]]
 * {{{Config.history.maxStates}}} : [[Some Useful Configuration API for your Project|Basic-API-Config]]
+\
 <h4>Macros Settings</h4>\
 * {{{Config.macros.maxLoopIterations}}} : [[Macro-relevant Configurations|Confic-Macro]] 
 * {{{Config.macros.typeSkipKey}}} : [[Macro-relevant Configurations|Confic-Macro]] 
 * {{{Config.macros.typeVisitedPassages}}} : [[Macro-relevant Configurations|Confic-Macro]] 
 <h4>Navigation Settings</h4>\
 * {{{Config.navigation.override}}} : [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
+\
 <h4>Passages Settings </h4>\
-* {{{Config.passages.descriptions}}} : [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
 * {{{Config.passages.displayTitles}}} : [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
 * {{{Config.passages.nobr}}} : [[Some Useful Configuration API for your Project|Basic-API-Config]]
 * {{{Config.passages.onProcess}}} : [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
 * {{{Config.passages.start}}} : [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
 * {{{Config.passages.transitionOut}}} : [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
-<h4>Saves Settings  </h4>\
-* {{{Config.saves.autoload}}} : [[Save Configurations|Config-Saves]]
-* {{{Config.saves.autosave}}} : [[Save Configurations|Config-Saves]]
+<h4>Saves Settings</h4>\
+* {{{Config.saves.descriptions}}} : [[Editing the Behaviour and Display of Passage Elements|Config-Passage]]
 * {{{Config.saves.id}}} : [[Save Configurations|Config-Saves]]
 * {{{Config.saves.isAllowed}}} : [[Save Configurations|Config-Saves]]
-* {{{Config.saves.slots}}} : [[Some Useful Configuration API for your Project|Basic-API-Config]]
-* {{{Config.saves.tryDiskOnMobile}}} : [[Save Configurations|Config-Saves]]
+* {{{Config.saves.maxAutoSaves}}} : [[Some Useful Configuration API for your Project|Basic-API-Config]]
+* {{{Config.saves.maxSlotSaves}}} : [[Some Useful Configuration API for your Project|Basic-API-Config]]
 * {{{Config.saves.version}}} : [[Save Configurations|Config-Saves]]
+\
 <h4>UI Settings</h4>\
 * {{{Config.ui.stowBarInitially}}} : [[Other Config APIs|Config-Misc]]
 * {{{Config.ui.updateStoryElements}}} : [[Other Config APIs|Config-Misc]]
+\
 <h4>Miscellaneous Settings </h4>\
 * {{{Config.addVisitedLinkClass}}} : [[Other Config APIs|Config-Misc]]
 * {{{Config.cleanupWikifierOutput}}} : [[Some Useful Configuration API for your Project|Basic-API-Config]]
-* {{{Config.debug}}} : [[Other Config APIs|Config-Misc]]
+* {{{Config.debug}}} : [[Testing and Debugging your Game|DebugAPI]]
+* {{{Config.enableOptionalDebugging}}} : [[Testing and Debugging your Game|DebugAPI]]
 * {{{Config.loadDelay}}} :[[(Un)Locking the Loading Screen|API-Lock]] 
 
 <h3>Dialog API</h3>
 * {{{Dialog.append()}}} : [[More Popups APIs|API-Dialog]] 
 * {{{Dialog.body()}}} : [[More Popups APIs|API-Dialog]] 
 * {{{Dialog.close()}}} : [[Create a PopUp|Basic-API-Dialog]] 
+* {{{Dialog.create()}}} : [[Create a PopUp|Basic-API-Dialog]]
+* {{{Dialog.empty()}}} : [[Create a PopUp|Basic-API-Dialog]]
 * {{{Dialog.isOpen()}}} : [[More Popups APIs|API-Dialog]] 
 * {{{Dialog.open()}}} : [[Create a PopUp|Basic-API-Dialog]]
-* {{{Dialog.create()}}} : [[Create a PopUp|Basic-API-Dialog]]
 * {{{Dialog.wiki()}}} : [[Create a PopUp|Basic-API-Dialog]]
+* {{{Dialog.wikiPassage()}}} : [[Create a PopUp|Basic-API-Dialog]]
 
 <h3>Engine API</h3>
 * {{{Engine.lastPlay}}} : [[(Re-)Play a Passage|Engine-Play]]
-* {{{Engine.state }}} : [[Checking the State of the Game|Engine-State]]
+* {{{Engine.state}}} : [[Checking the State of the Game|Engine-State]]
 * {{{Engine.backward()}}} : [[Moving back and forth in the History|Basic-API-Engine]]
 * {{{Engine.forward()}}} : [[Moving back and forth in the History|Basic-API-Engine]]
 * {{{Engine.go()}}} : [[Move through the Player's History|Engine-Go]]
@@ -300,7 +318,7 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{Engine.show()}}} : [[(Re-)Play a Passage|Engine-Play]]
 
 <h3>Fullscreen API</h3>
-* {{{Fullscreen.element }}} : [[Getting the FullScreen Experience|FullScreen]]
+* {{{Fullscreen.element}}} : [[Getting the FullScreen Experience|FullScreen]]
 * {{{Fullscreen.isEnabled()}}} : [[Getting the FullScreen Experience|FullScreen]]
 * {{{Fullscreen.isFullscreen()}}} : [[Getting the FullScreen Experience|FullScreen]]
 * {{{Fullscreen.request()}}} : [[Getting the FullScreen Experience|FullScreen]]
@@ -333,70 +351,184 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{<MacroContext>.parser}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
 * {{{<MacroContext>.payload}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
 * {{{<MacroContext>.self}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
-* {{{<MacroContext>.contextHas()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
-* {{{<MacroContext>.contextSelect()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
-* {{{<MacroContext>.contextSelectAll()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
-* {{{<MacroContext>.createShadowWrapper()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
+* {{{<MacroContext>.contextFilter()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
+* {{{<MacroContext>.contextFind()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
+* {{{<MacroContext>.contextSome()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
 * {{{<MacroContext>.error()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
+* {{{<MacroContext>.shadowHandler()}}} : [[Using Macro Context Objects in the handler|Macro-Context]] 
 
 <h3>Passage API</h3>
-* {{{<Passage>.domId}}} : [[Managing Passage Properties with APIs|PassageAPI]]
+* {{{<Passage>.id}}} : [[Managing Passage Properties with APIs|PassageAPI]]
+* {{{<Passage>.name}}} : [[Managing Passage Properties with APIs|PassageAPI]]
 * {{{<Passage>.tags}}} : [[Managing Passage Properties with APIs|PassageAPI]]
 * {{{<Passage>.text}}} : [[Managing Passage Properties with APIs|PassageAPI]]
-* {{{<Passage>.title}}} : [[Managing Passage Properties with APIs|PassageAPI]]
-* {{{<Passage>.description()}}} : [[Managing Passage Properties with APIs|PassageAPI]]
 * {{{<Passage>.processText()}}} : [[Managing Passage Properties with APIs|PassageAPI]]
 
 <h3>Save API</h3>
-* {{{Save Objects}}} : [[Save Objects and Their Contents|SaveAPI-Objects]] 
-* {{{Save.clear()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]]
-* {{{Save.get()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]]
-* {{{Save.ok()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]]
-<h4>Slots </h4>\
-* {{{Save.slots.length}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.count()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.delete()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.get()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.has()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.isEmpty()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.load()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.ok()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-* {{{Save.slots.save()}}} : [[Managing the Save Slots|SaveAPI-Slots]]
-<h4>Autosave </h4>\
-* {{{Save.autosave.delete()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]] 
-* {{{Save.autosave.get()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]] 
-* {{{Save.autosave.has()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]] 
-* {{{Save.autosave.load()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]] 
-* {{{Save.autosave.ok()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]] 
-* {{{Save.autosave.save()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]] 
+* {{{Save Objects}}}: [[Save Objects and Their Contents|SaveAPI-Objects]] 
+<h4>General</h4>\
+* {{{Save.browser.size}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]] 
+* {{{Save.browser.clear()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]] 
+* {{{Save.browser.continue()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]] 
+* {{{Save.browser.isEnabled()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]] 
+<h4>Autosaves</h4>\
+* {{{Save.browser.auto.size}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.clear()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.delete()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.entries()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.get()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.has()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.isEnabled()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.load()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* {{{Save.browser.auto.save()}}} : [[Managing the Autosave Slot|SaveAPI-Autosave]]
+<h4>Slot Saves</h4>\
+* {{{Save.browser.slot.size}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.clear()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.delete()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.entries()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.get()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.has()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.isEnabled()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.load()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
+* {{{Save.browser.slot.save()}}} : [[Managing the Save Slots|SaveAPI-Slots]] 
 <h4>Disk</h4>\
-* {{{Save.export()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]]
-* {{{Save.import()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]]
-<h4>Serialization</h4>\
-* {{{Save.serialize()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]]
-* {{{Save.deserialize()}}} : [[The Basic APIs of the Save Elements|SaveAPI-General]]
-<h4>Events </h4>\
+* {{{Save.disk.export()}}} : [[Managing Disk Import and Export|SaveAPI-Disk]]
+* {{{Save.disk.import()}}} : [[Managing Disk Import and Export|SaveAPI-Disk]]
+* {{{Save.disk.load()}}} : [[Managing Disk Import and Export|SaveAPI-Disk]]
+* {{{Save.disk.save()}}} : [[Managing Disk Import and Export|SaveAPI-Disk]]
+<h4>Base64 Saves</h4>\
+* {{{Save.base64.export()}}} : [[Managing Base64 saves|SaveAPI-Base64]]
+* {{{Save.base64.import()}}} : [[Managing Base64 saves|SaveAPI-Base64]]
+* {{{Save.base64.load()}}} : [[Managing Base64 saves|SaveAPI-Base64]]
+* {{{Save.base64.save()}}} : [[Managing Base64 saves|SaveAPI-Base64]]
+<h4>Save Events</h4>\
+* {{{Save.onLoad.size}}} : [[Using Save-related Events|SaveAPI-Events]] 
 * {{{Save.onLoad.add()}}} : [[Using Save-related Events|SaveAPI-Events]] 
 * {{{Save.onLoad.clear()}}} : [[Using Save-related Events|SaveAPI-Events]] 
 * {{{Save.onLoad.delete()}}} : [[Using Save-related Events|SaveAPI-Events]] 
-* {{{Save.onLoad.size}}} : [[Using Save-related Events|SaveAPI-Events]] 
-* {{{Save.onSave.add()}}} : [[Using Save-related Events|SaveAPI-Events]] 
-* {{{Save.onSave.clear()}}} : [[Using Save-related Events|SaveAPI-Events]] 
-* {{{Save.onSave.delete()}}} : [[Using Save-related Events|SaveAPI-Events]] 
-* {{{Save.onSave.size}}} : [[Using Save-related Events|SaveAPI-Events]] 
 
 <h3>Setting API</h3>
-* {{{Setting.addValue}}}: [[Creating a Setting|SettingsBasics]]
-* {{{Setting.addToggle()}}} : [[Creating a Toggle Setting|SettingsToggle]]
+* {{{Setting.addHeader()}}} : [[Adding Headers|SettingsHeader]]
 * {{{Setting.addList()}}} : [[Creating a List Setting|SettingsList]]
 * {{{Setting.addRange()}}} : [[Creating a Slider|SettingsRange]]
+* {{{Setting.addToggle()}}} : [[Creating a Toggle Setting|SettingsToggle]]
+* {{{Setting.addValue}}}: [[Creating a Setting|SettingsBasics]]
 * {{{Setting.getValue}}} : [[Going Further with Settings|Settings-More]]
-* {{{Setting.setValue}}} : [[Going Further with Settings|Settings-More]]
 * {{{Setting.load()}}} : [[Going Further with Settings|Settings-More]]
 * {{{Setting.reset()}}} : [[Going Further with Settings|Settings-More]]
 * {{{Setting.save()}}} : [[Going Further with Settings|Settings-More]]
+* {{{Setting.setValue}}} : [[Going Further with Settings|Settings-More]]
 * {{{settings}}} : [[Going Further with Settings|Settings-More]]
-* {{{Setting.addHeader()}}} : [[Adding Headers|SettingsHeader]]
+
+<h3>SimpleAudio API</h3>
+<h4>General</h4>\
+* {{{SimpleAudio.load()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.loadWithScreen()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.mute()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.muteOnHidden()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.select()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.stop()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.unload()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.volume()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+<h4>Tracks</h4>\
+* {{{SimpleAudio.tracks.add()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.tracks.clear()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.tracks.delete()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.tracks.get()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.tracks.has()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+<h4>Groups</h4>\
+* {{{SimpleAudio.groups.add()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.groups.clear()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.groups.delete()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.groups.get()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.groups.has()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+<h4>Lists</h4>\
+* {{{SimpleAudio.lists.add()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.lists.clear()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.lists.delete()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.lists.get()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* {{{SimpleAudio.lists.has()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+<details><summary>><h4>AudioTrack API</h4>\
+* {{{<AudioTrack>.clone()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.duration()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.fade()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.fadeIn()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.fadeOut()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.fadeStop()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.hasData()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.hasMetadata()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.hasNoData()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.hasSomeData()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.hasSource()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isEnded()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isFading()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isFailed()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isLoading()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isPaused()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isPlaying()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isSeeking()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isStopped()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isUnavailable()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.isUnloaded()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.load()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.loop()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.mute()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.off()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.on()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.one()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.pause()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.play()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.playWhenAllowed()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.remaining()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.stop()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.time()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.unload()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+* {{{<AudioTrack>.volume()}}} : [[Going further with AudioTrack|AudioApi-Track]]
+</details>
+<details><summary><h4>AudioRunner API</h4>\</summary>
+* {{{<AudioRunner>.fade()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.fadeIn()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.fadeOut()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.fadeStop()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.load()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.loop()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.mute()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.off()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.on()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.one()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.pause()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.play()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.playWhenAllowed()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.stop()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.time()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.unload()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+* {{{<AudioRunner>.volume()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
+</details>
+<details><summary><h4>AudioList API</h4>\</summary>
+* {{{<AudioList>.duration()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.fade()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.fadeIn()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.fadeOut()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.fadeStop()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.isEnded()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.isFading()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.isPaused()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.isPlaying()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.isStopped()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.load()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.loop()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.mute()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.pause()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.play()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.playWhenAllowed()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.remaining()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.shuffle()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.skip()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.stop()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.time()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.unload()}}} : [[Going further with AudioList|AudioAPI-List]]
+* {{{<AudioList>.volume()}}} : [[Going further with AudioList|AudioAPI-List]]
+</details>
 
 <h3>State API</h3>
 * {{{State.active}}} : [[Exploring the Different Moments inside the State|StateAPI-State]] 
@@ -431,13 +563,15 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{State.setVar()}}} : [[Managing the State of Variables|StateAPI-Variable]]
 
 <h3>Story API</h3>
-* {{{Story.domId}}} : [[Managing Story Elements with APIs|StoryAPI]]
+* {{{Story.id}}} : [[Managing Story Elements with APIs|StoryAPI]]
 * {{{Story.ifId}}} : [[Managing Story Elements with APIs|StoryAPI]]
-* {{{Story.title}}} : [[Managing Story Elements with APIs|StoryAPI]]
+* {{{Story.name}}} : [[Managing Story Elements with APIs|StoryAPI]]
+* {{{Story.add()}}} :  [[Managing Story Elements with APIs|StoryAPI]]
+* {{{Story.delete()}}} :  [[Managing Story Elements with APIs|StoryAPI]]
+* {{{Story.filter()}}} :  [[Managing Story Elements with APIs|StoryAPI]]
+* {{{Story.find()}}} :  [[Managing Story Elements with APIs|StoryAPI]]
 * {{{Story.get()}}} : [[Managing Story Elements with APIs|StoryAPI]]
 * {{{Story.has()}}} : [[Managing Story Elements with APIs|StoryAPI]]
-* {{{Story.lookup()}}} : [[Managing Story Elements with APIs|StoryAPI]]
-* {{{Story.lookupWith()}}} : [[Managing Story Elements with APIs|StoryAPI]]
 
 <h3>Template API</h3>
 * {{{Template.size}}}: [[The Template APIs|TemplateAPI]] 
@@ -451,6 +585,7 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{UI.restart()}}} : [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
 * {{{UI.saves()}}} : [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
 * {{{UI.settings()}}} : [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
+* {{{UI.update()}}} : [[More SideBar APIs|API-UIBar]] 
 
 <h3>UIBar API</h3>
 * {{{UIBar.destroy()}}} : [[Handle the SideBar|Basic-API-UIBar]]
@@ -459,13 +594,11 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{UIBar.isStowed()}}} : [[More SideBar APIs|API-UIBar]] 
 * {{{UIBar.show()}}} : [[Handle the SideBar|Basic-API-UIBar]]
 * {{{UIBar.stow()}}} : [[Handle the SideBar|Basic-API-UIBar]]
-* {{{.unstow()}}} : [[Handle the SideBar|Basic-API-UIBar]]
-* {{{UIBar.update()}}} : [[More SideBar APIs|API-UIBar]] 
+* {{{UIBar.unstow()}}} : [[Handle the SideBar|Basic-API-UIBar]]
 
 <div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
 
 :: Macros List {"position":"1200,300","size":"200,100"}
-/*NEED TO EDIT THIS -> do redo*/
 <h1>Macro List</h1>
 Below, you will find the alphabetical list of SugarCube macro, and where they are discussed in this guide.
 
@@ -483,6 +616,7 @@ Below, you will find the alphabetical list of SugarCube macro, and where they ar
 * {{{<<createaudiogroup>>}}}: [[Create Track Groups and Playlists|Macro-Group-Playlist]]
 * {{{<<createplaylist>>}}}: [[Create Track Groups and Playlists|Macro-Group-Playlist]]
 * {{{<<cycle>>}}}: [[Cycles and Conditional Options|Macro-Cycle]]
+* {{{<<do>>}}}: [[Updating Parts of the Passage|Macro-Do-Redo]]
 * {{{<<done>>}}}: [[Emulating PassageDone for one Passage|Macro-Done]]
 * {{{<<for>>}}}: [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
 * {{{<<if>>}}}: [[Display Variation|Macro-If-Basic]], [[More Conditional Statements|Macro-If]]
@@ -500,6 +634,7 @@ Below, you will find the alphabetical list of SugarCube macro, and where they ar
 * {{{<<prepend>>}}}: [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
 * {{{<<print>>}}} / {{{<<=>>}}} / {{{<<->>}}}: [[Display Variables, the Print Macro and Variants|Macro-Print]]
 * {{{<<radiobutton>>}}}: [[Multi or Single Option Choices|Macro-CheckRadio]]
+* {{{<<redo>>>}}}: [[Updating Parts of the Passage|Macro-Do-Redo]]
 * {{{<<remove>>}}}: [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
 * {{{<<removeaudiogroup>>}}}: [[Other Audio Macros|Audio-Other]]
 * {{{<<removeclass>>}}}: [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]]

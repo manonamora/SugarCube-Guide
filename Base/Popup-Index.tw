@@ -40,103 +40,130 @@
 * ''<<link "URLs for Assets and Testing">> ID: basics-maprint<</link>>''
 \
 <h3>Intermediate Use</h3>\
-* ''[[More SugarCube Markup|Markup-Int]]''  
-** [[Special Attributes and Directives|Markup-Attribute]]
-** [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]]
-** [[Display Small Variation with Templates|Markup-Template]] 
-* ''[[More Interactivity Macros|Macro-Interact-Adv]]''
-** [[Delaying Displaying Text or Running Code|Macro-Timed]]
-** [[Displaying Text Letter by Letter|Macro-Type]]
-** [[DOM Macros and Revealing Text in Targeted Spots|Macro-ApPreRepCopy]]
-** [[Using Custom Macro|Custom-Macro]]
-* ''[[Macros of Convenience|Macro-Conv]]''
-** [[An Alternative to Conditional Statements|Macro-Switch]]
-** [[Sending the Player to a Passage|Macro-Goto]]
-** [[Going Back or Returning to a Passage with a Special Link|Macro-Back-Return]]
-*** [[Arbitrarily Long Returns|Long-Return-JS]]
-** [[Updating Parts of the Passage|Macro-Do-Redo]]
-** [[Including a Passage inside Another|Macro-Include]] 
-** [[Removing Blank Space and Hiding Code|Macro-Nobr-Silent]]
-** [[Creating and Using a Widget|Macro-Widget]] 
-** [[Using JavaScript in the Passage|Macro-Script-Run]]
-* ''[[More Special Passages and Tags|Special-Tags]]''
-** [[Special Tags creating Special Passages and Functionalities|Tags-Built]]
-** [[Process Code Before and After Rendering a Passage|SP-PassageReady-Done]]
-** [[Changing the UI/Interface of the Project|SP-StoryInterface]]
-** [[Customising Passages with Tags|Tags-CSS]]
-** [[Including Assets with Tags|Tags-Asset]]
-** [[The Special Variables|SP-Variables]]
-* ''[[Using Methods to change Variables|Methods]] ''
-** [[Methods and String Variables|Method-String]]
-** [[Methods and Numbers|Method-Number]]
-** [[Methods and Arrays|Method-Array]]
-* ''[[Adding Sound with the Audio Macros|Macro-Audio]]''
-** [[Setting up the Audio Tracks|CacheAudio]]
-** [[Create Track Groups and Playlists|Macro-Group-Playlist]]
-** [[Playing Tracks in a Passage|Audio-Macro]]
-** [[Other Audio Macros|Audio-Other]]
-* ''[[Going further in Styling with CSS and JavaScript|Int-JS-CSS]]''
-** [[The Unique Targetable Elements|Int-JS-CSS-Elements]] 
-*** [[The Full List of Targetable Elements|HTML-Full-List]] 
-** [[Ensuring that Elements Start at the Top when Opened|Int-JS-CSS-Events]]
-** [[Import and Change the Font|Int-JS-CSS-Font]]
-*** [[Using the SG Icons|Int-JS-CSS-Icons]]
-** [[Using the Root and CSS var|Int-JS-CSS-Root]] 
-** [[Formating for Different Screen Size|Int-JS-CSS-Media]] 
-** [[Intro to Animation|Int-JS-CSS-Animation]]
-** [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) 
-** [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] 
-** [[A Note on Interface Accessibility|Accessibility]]
-* ''[[Some Useful Basic APIs|Basic-API]]''
-** [[Moving back and forth in the History|Basic-API-Engine]]
-** [[Create a PopUp|Basic-API-Dialog]]
-** [[Handle the SideBar|Basic-API-UIBar]]
-** [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]]
-** [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
-** [[Some Useful Configuration API for your Project|Basic-API-Config]] 
-* ''[[Edit the Built-In Text or Change the Game's Language|Localization]]''
-** [[l10nStrings, and How to Edit Them|Local-L10n]]
-** [[Localization, and Pre-Translated Templates|Local-Trans]]
-** [[Providing Multiple Languages Options In-Game|Local-Setting]]
-* ''[[Testing and Debugging your Game|DebugAPI]]''
-* ''[[Advanced Macros|Macro-Adv]]''
-** [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]] 
-** [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
-** [[Capturing the Value of a Variable|Macro-Capture]]
-** [[Emulating PassageDone for one Passage|Macro-Done]]
+* ''<<link "More SugarCube Markup">> ID: here<</link>>''  
+** <<link "Special Attributes and Directives">> ID: here<</link>>
+** <<link "Displaying Code and Verbatim Text">> ID: here<</link>>
+** <<link "Display Small Variation with Templates">> ID: here<</link>> 
+* ''<<link "More Interactivity Macros">> ID: here<</link>>''
+** <<link "Delaying Displaying Text or Running Code">> ID: here<</link>>
+** <<link "Displaying Text Letter by Letter">> ID: here<</link>>
+** <<link "DOM Macros and Revealing Text in Targeted Spots">> ID: here<</link>>
+** <<link "Using Custom Macro">> ID: here<</link>>
+* ''<<link "Macros of Convenience">> ID: here<</link>>''
+** <<link "An Alternative to Conditional Statements">> ID: here<</link>>
+** <<link "Sending the Player to a Passage">> ID: here<</link>>
+** <<link "Going Back or Returning to a Passage with a Special Link">> ID: here<</link>>
+*** <<link "Arbitrarily Long Returns">> ID: here<</link>>
+** <<link "Updating Parts of the Passage">> ID: here<</link>>
+** <<link "Including a Passage inside Another">> ID: here<</link>> 
+** <<link "Removing Blank Space and Hiding Code">> ID: here<</link>>
+** <<link "Creating and Using a Widget">> ID: here<</link>> 
+** <<link "Using JavaScript in the Passage">> ID: here<</link>>
+* ''<<link "More Special Passages and Tags">> ID: here<</link>>''
+** <<link "Special Tags creating Special Passages and Functionalities">> ID: here<</link>>
+** <<link "Process Code Before and After Rendering a Passage">> ID: here<</link>>
+** <<link "Changing the UI/Interface of the Project">> ID: here<</link>>
+** <<link "Customising Passages with Tags">> ID: here<</link>>
+** <<link "Including Assets with Tags">> ID: here<</link>>
+** <<link "The Special Variables">> ID: here<</link>>
+* ''<<link "Using Methods to change Variables">> ID: here<</link>> ''
+** <<link "Methods and String Variables">> ID: here<</link>>
+** <<link "Methods and Numbers">> ID: here<</link>>
+** <<link "Methods and Arrays">> ID: here<</link>>
+* ''<<link "Adding Sound with the Audio Macros">> ID: here<</link>>''
+** <<link "Setting up the Audio Tracks">> ID: here<</link>>
+** <<link "Create Track Groups and Playlists">> ID: here<</link>>
+** <<link "Playing Tracks in a Passage">> ID: here<</link>>
+** <<link "Other Audio Macros">> ID: here<</link>>
+* ''<<link "Going further in Styling with CSS and JavaScript">> ID: here<</link>>''
+** <<link "The Unique Targetable Elements">> ID: here<</link>> 
+*** <<link "The Full List of Targetable Elements">> ID: here<</link>> 
+** <<link "Ensuring that Elements Start at the Top when Opened">> ID: here<</link>>
+** <<link "Import and Change the Font">> ID: here<</link>>
+*** <<link "Using the SG Icons">> ID: here<</link>>
+** <<link "Using the Root and CSS var">> ID: here<</link>> 
+** <<link "Formating for Different Screen Size">> ID: here<</link>> 
+** <<link "Intro to Animation">> ID: here<</link>>
+** <<link "Creating Stats, Meter, and Progress Bars">> ID: here<</link>> (long) 
+** <<link "Editing the Loading Screen">> ID: here<</link>> 
+** <<link "A Note on Interface Accessibility">> ID: here<</link>>
+* ''<<link "Some Useful Basic APIs">> ID: here<</link>>''
+** <<link "Moving back and forth in the History">> ID: here<</link>>
+** <<link "Create a PopUp">> ID: here<</link>>
+** <<link "Handle the SideBar">> ID: here<</link>>
+** <<link "Open the Restart, Saves, and Settings PopUp">> ID: here<</link>>
+** <<link "Overriding the Navigation to a Passage">> ID: here<</link>>
+** <<link "Some Useful Configuration API for your Project">> ID: here<</link>> 
+* ''<<link "Edit the Built-In Text or Change the Game's Language">> ID: here<</link>>''
+** <<link "l10nStrings, and How to Edit Them">> ID: here<</link>>
+** <<link "Localization, and Pre-Translated Templates">> ID: here<</link>>
+** <<link "Providing Multiple Languages Options In-Game">> ID: here<</link>>
+* ''<<link "Testing and Debugging your Game">> ID: here<</link>>''
+* ''<<link "Advanced Macros">> ID: here<</link>>''
+** <<link "DOM Macros and Changing Class of an Element">> ID: here<</link>> 
+** <<link "Loops and Repeats - Two Ways">> ID: here<</link>>
+** <<link "Capturing the Value of a Variable">> ID: here<</link>>
+** <<link "Emulating PassageDone for one Passage">> ID: here<</link>>
 \
 <h3>''Advanced Mode''</h3>\
 > ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processes of SugarCube.
-* ''[[Advanced Macros|Macro-Adv]]''
-** [[DOM Macros and Changing Class of an Element|Macro-DOM-Adv]] 
-** [[Loops and Repeats - Two Ways|Macro-For-Repeat]]
-** [[Capturing the Value of a Variable|Macro-Capture]]
-** [[Emulating PassageDone for one Passage|Macro-Done]]
-* ''[[More Variable and Interaction Methods|Methods-Adv]]''
-** [[More Methods to change Variables|Method-Variables]]
-** [[jQuery Methods and Interactivity|Method-jQuery]]  
-* ''[[Going Further with Basic APIs and More|API-Adv]]''
-** [[More Popups APIs|API-Dialog]]
-** [[More SideBar APIs|API-UIBar]]
-** [[The Template APIs|TemplateAPI]]
-** [[(Un)Locking the Loading Screen|API-Lock]]
-* ''[[The Settings API|Settings]]''
-** [[Creating a Setting|SettingsBasics]]
-** [[Creating a Toggle Setting|SettingsToggle]]
-** [[Creating a List Setting|SettingsList]]
-** [[Creating a Slider|SettingsRange]]
-** [[Going Further with Settings|Settings-More]]
-** [[Adding Headers|SettingsHeader]]
-* ''[[Going further with the Engine API|Engine-API]]''
-** [[Checking the State of the Game|Engine-State]]
-** [[Move through the Player's History|Engine-Go]]
-** [[(Re-)Play a Passage|Engine-Play]]
-** [[Restarting without the Built-In PopUp|Engine-Restart]]
-* ''[[The Save APIs and Further Saving Configurations|SaveAPI]]''
-** [[Save Objects and Their Contents|SaveAPI-Objects]] 
-** [[The Basic APIs of the Save Elements|SaveAPI-General]] 
-** [[Managing the Save Slots|SaveAPI-Slots]] 
-** [[Managing the Autosave Slot|SaveAPI-Autosave]]
-** [[Managing Disk Import and Export|SaveAPI-Disk]]
-** [[Managing Base64 saves|SaveAPI-Base64]]
-** [[Using Save-related Events|SaveAPI-Events]]
+* ''<<link "Advanced Macros">> ID: here<</link>>''
+** <<link "DOM Macros and Changing Class of an Element">> ID: here<</link>> 
+** <<link "Loops and Repeats - Two Ways">> ID: here<</link>>
+** <<link "Capturing the Value of a Variable">> ID: here<</link>>
+** <<link "Emulating PassageDone for one Passage">> ID: here<</link>>
+* ''<<link "More Variable and Interaction Methods">> ID: here<</link>>''
+** <<link "More Methods to change Variables">> ID: here<</link>>
+** <<link "jQuery Methods and Interactivity">> ID: here<</link>>  
+* ''<<link "Going Further with Basic APIs and More">> ID: here<</link>>''
+** <<link "More Popups APIs">> ID: here<</link>>
+** <<link "More SideBar APIs">> ID: here<</link>>
+** <<link "The Template APIs">> ID: here<</link>>
+** <<link "(Un)Locking the Loading Screen">> ID: here<</link>>
+* ''<<link "The Settings API">> ID: here<</link>>''
+** <<link "Creating a Setting">> ID: here<</link>>
+** <<link "Creating a Toggle Setting">> ID: here<</link>>
+** <<link "Creating a List Setting">> ID: here<</link>>
+** <<link "Creating a Slider">> ID: here<</link>>
+** <<link "Going Further with Settings">> ID: here<</link>>
+** <<link "Adding Headers">> ID: here<</link>>
+* ''<<link "Going further with the Engine API">> ID: here<</link>>''
+** <<link "Checking the State of the Game">> ID: here<</link>>
+** <<link "Move through the Player's History">> ID: here<</link>>
+** <<link "(Re-)Play a Passage">> ID: here<</link>>
+** <<link "Restarting without the Built-In PopUp">> ID: here<</link>>
+* ''<<link "The Save APIs and Further Saving Configurations">> ID: here<</link>>''
+** <<link "Save Objects and Their Contents">> ID: here<</link>> 
+** <<link "The Basic APIs of the Save Elements">> ID: here<</link>> 
+** <<link "Managing the Save Slots">> ID: here<</link>> 
+** <<link "Managing the Autosave Slot">> ID: here<</link>>
+** <<link "Managing Disk Import and Export">> ID: here<</link>>
+** <<link "Managing Base64 saves">> ID: here<</link>>
+** <<link "Using Save-related Events">> ID: here<</link>>
+* ''<<link "More Configuration APIs to Customise Interaction">> ID: here<</link>>''
+** <<link "Macro-relevant Configurations">> ID: here<</link>>
+** <<link "Editing the Behaviour and Display of Passage Elements">> ID: here<</link>>
+** <<link "Save Configurations">> ID: here<</link>>
+** <<link "Other Config APIs">> ID: here<</link>>
+* ''<<link "Getting the FullScreen Experience">> ID: here<</link>>''
+* ''<<link "Trigger Code with Special Events">> ID: here<</link>>''
+** <<link "Dialog Events">> ID: here<</link>>
+** <<link "Passage and Navigation Events">> ID: here<</link>>
+** <<link "System Events">> ID: here<</link>>
+** <<link "Type Macro Events">> ID: here<</link>>
+** <<link "Audio Events">> ID: here<</link>>
+* ''<<link "Creating your Own Macro">> ID: here<</link>>''
+** <<link "The Base APIs for Macros">> ID: here<</link>>
+** <<link "Using Macro Context Objects in the handler">> ID: here<</link>>
+* ''<<link "Managing Story Elements with APIs">> ID: here<</link>>''
+* ''<<link "Managing Passage Properties with APIs">> ID: here<</link>>''
+* ''<<link "Dealing with the State of Play">> ID: here<</link>>'' 
+** <<link "Managing the State of Variables">> ID: here<</link>>
+** <<link "Exploring the Different Moments inside the State">> ID: here<</link>>
+** <<link "Using the Story Metadata">> ID: here<</link>>
+** <<link "Initialising a Seedable PRNG">> ID: here<</link>>
+* ''<<link "Going Further with Audio with APIs">> ID: here<</link>>''
+** <<link "The SimpleAudio API, the alternative to Audio macros">> ID: here<</link>>
+** <<link "Going further with AudioTrack">> ID: here<</link>>
+** <<link "Going further with AudioRunner">> ID: here<</link>>
+** <<link "Going further with AudioList">> ID: here<</link>>

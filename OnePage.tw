@@ -1,5 +1,5 @@
 :: OnePage [one-page]
-<div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div> /*TODO: change the date here*/
+<div style="text-align:right;font-size:85%;">Last Updated: 24 Aug '24</div> /*TODO: change the date here*/
 <h1 class="the-super-head">100% Good Twine SugarCube Guide</h1>\
 This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
 
@@ -404,9 +404,86 @@ The Save APIs can be grouped into different categories: Browsers (which will sav
 <<include "SaveAPI-Events">>
 <hr>
 \
--> do a whole list of include to "include" the passages, 
-    except for the Chapter pages
-        -> those are done manually to avoid the links.
--> Make a popup that clicking on links will send people to a specific page instead of a section?
-    -> indicate this won't apply to the indexes popup
-    -> make macro/function/methods/API popups 
+<h1 id="config-apis" class="the-chapter">More Configuration APIs to Customise Interaction</h1>
+If you need to configure how your project should run with more customisation, like saving playthroughs or changing hoow some macros operate, this section will cover the rest of the Configuration APIs that were not [[previously mentioned|Basic-API-Config]].
+
+Those APIs are JavaScript-based code that should be included in the JavaScript (though some can be used along with the {{{<<run>>}}} or {{{<<script>>}}} macros inside a passage).
+\
+<hr class="small-section">
+<<include "Confic-Macro">>
+<hr class="small-section">
+<<include "Config-Passage">>
+<hr class="small-section">
+<<include "Config-Saves">>
+<hr class="small-section">
+<<include "Config-Misc">>
+<hr>
+\
+<<include "FullScreen">>
+\
+<hr>
+\
+<h1 id="events" class="the-chapter">Trigger Code with Special Events</h1>
+Events are messages sent by the code within the game file to notify other bits of code that something has happened (automated or through player interaction). These are built-in the code of SugarCube, and can be used when creating a [[Custom Macro|Macro]], or wanting to customise elements on the page at a very specific moment (e.g. having a sound when closing a popup).
+
+Each event is formatted as an object and contains information about the state at the moment of the event and what happened during the event. You can find these events used plainly in JavaScript (e.g. scroll back to the top) or within macros.
+> ''Note:'' The events discussed here are specific to SugarCube. The format, however, does accept more [[standardized browser events|https://developer.mozilla.org/en-US/docs/Web/Events]].
+\
+<hr class="small-section">
+<<include "Events-Dialog">>
+<hr class="small-section">
+<<include "Events-Passage">>
+<hr class="small-section">
+<<include "Events-System">>
+<hr class="small-section">
+<<include "Events-Type">>
+<hr class="small-section">
+<<include "Events-Audio">>
+<hr>
+\
+<h1 id="macro-apis" class="the-chapter">Creating your Own Macro</h1>
+If you are looking to include a specific behaviour in your project that is not covered by the macros already built in SugarCube or custom ones available on the internet, you may want to consider creating your own.
+SugarCube has many API to help you build your custom macros, or even chose to edit already-included macros.
+> ''Note:'' Knowledge of JavaScript and understanding of the SugarCube format is very important here! 
+\
+<hr class="small-section">
+<<include "Macro-API">>
+<hr class="small-section">
+<<include "Macro-Context">>
+<hr>
+\
+<<include "StoryAPI">>
+\
+<<include "PassageAPI">>
+\
+<h1 id="state-apis" class="the-chapter">Dealing with the State of Play</h1>
+Any started playthrough will contain a State, which will include moments (states) created during play used to navigate the history (undo/redo) and to save the (potentially modified) value of variables. If relevant, the State will include Metadata and a Seedable PRNG.
+\
+<hr class="small-section">
+<<include "StateAPI-Variable">>
+<hr class="small-section">
+<<include "StateAPI-State">>
+<hr class="small-section">
+<<include "StateAPI-Metadata">>
+<hr class="small-section">
+<<include "StateAPI-PRNG">>
+<hr>
+\
+<h1 id="audio-apis" class="the-chapter">Going Further with Audio with APIs</h1>
+The Audio API is the largest group of APIs included in SugarCube, enabling you to have more control over sound in your project. It is the subsystem and backend for the [[audio macros|Macro-Audio]].
+> ''Note:'' Aside from the SimpleAudio API, this chapter is for //very// advanced users. It is unlikely they will be of use for 99% of projects, as the audio macros will already cover most use.
+
+Because the SugarCube Audio system is based on the HTML Media Elements APIs, it comes with limitations:
+* no true gapless transitions between tracks
+* on mobile, playback volume is controlled ONLY by the device hardware (except for muting)
+* playback at the start of the game must be initiated by player through a click/touch (it won't work otherwise)
+\
+<hr class="small-section">
+<<include "AudioAPI-General">>
+<hr class="small-section">
+<<include "AudioApi-Track">>
+<hr class="small-section">
+<<include "AudioApi-Runner">>
+<hr class="small-section">
+<<include "AudioApi-List">>
+<hr id='categorybreak'>
