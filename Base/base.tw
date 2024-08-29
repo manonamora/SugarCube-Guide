@@ -57,7 +57,7 @@ SugarCube Guide
   <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora.itch.io/twine-sugarcube-guide]]</center>
 <</if>>
 
-:: PassageHeader {"position":"1975,200","size":"100,100"}
+:: PassageHeader {"position":"1975,100","size":"100,100"}
 <<if tags().includes("sp-demo")>>The Header in action! included in a horizontal bar<hr><</if>>
 
 :: Start [noreturn menu] {"position":"1500,100","size":"200,200"}

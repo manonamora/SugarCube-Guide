@@ -5,7 +5,7 @@ Welcome to the Git Repository for the **100% Good Twine SugarCube Guide**.
 The **100% Good Twine SugarCube Guide** is a coding guide for the SugarCube format of Twine. It is meant as an alternative to the SugarCube documentation, with further explanations, interactive examples, and organised by difficulty. The goal of this guide is to make the learning curve for new SugarCube user less steep.
 
 As of this release, it is up to date with the version 2.37.3.
-> While you can find a copy of the 2.36.1 version in the [relevant folder](2.36.1%20Version), that guide is incomplete (missing Audio API) and does not cover the many changes from the newer version.
+> While you can find a copy of the 2.36.1 version in the [relevant folder](SG%202.36.1%20Version), that guide is incomplete (missing Audio API) and does not cover the many changes from the newer version.
 
 ## *What to expect from the Guide?*
 The guide covers the full [SugarCube documentation](http://www.motoslave.net/sugarcube/2/docs/), as well as addition in examples, usage of macros and APIs, and accessibility of customisation.
