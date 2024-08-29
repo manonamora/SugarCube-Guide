@@ -1,32 +1,30 @@
 :: Special-Tags [chapter menu] {"position":"2000,1100","size":"200,100"}
 <h1>More Special Passages and Tags</h1>
-Aside from the [[Basic Special Passages|Special-Passage]], your project can be customised even further with more Special Passage Names and Special tags.
+Aside from the [[Basic Special Passages|Special-Passage]], you can customise your project even further with more Special Passage Names and Special tags.
 
 * [[Special Tags creating Special Passages and Functionalities|Tags-Built]]
 * [[Process Code Before and After Rendering a Passage|SP-PassageReady-Done]]
-* [[Changing the UI of the Project|SP-StoryInterface]]
+* [[Changing the UI/Interface of the Project|SP-StoryInterface]]
 * [[Customising Passages with Tags|Tags-CSS]]
 * [[Including Assets with Tags|Tags-Asset]] 
 * [[The Special Variables|SP-Variables]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Tags-Built [page] {"position":"2000,1200","size":"100,100"}
-<h1>Special Tags creating Special Passages and Functionalities</h1>
-Along with [[Special Passages|Special-Passage]], SugarCube uses special passage tags to either create new Special Passages or affect the passage itself.
+:: Tags-Built [page sp-tags] {"position":"2000,1200","size":"100,100"}
+<h1 id="sp-tagsbuilt">Special Tags creating Special Passages and Functionalities</h1>
+Along with [[Special Passages|Special-Passage]], SugarCube uses special passage ''tags'' to either create new Special Passages or affect the passage itself.
 > ''Note:'' only use those tags when needed, as it can affect how Twine loads the project.
 \
 To add a tag to a passage on Twine, open the relevant passage, click {{{+ Tag}}} in the passage menu, and fill in the blanks. If a tag has been assigned to another passage, it will show in the {{{Add Tag}}} listbox. You can also assign a colour to the tag.
-For Twee files, add the tag inside {{{[ ]}}} next to the passage name. For tags with multiple words, add a {{{-}}} between them ({{{[like-this]}}}) For multiple tags, add a space in between ({{{[nobr widget]}}}).
+For Twee files, add the tag inside {{{[ ]}}} next to the passage name. For tags with multiple words, add a {{{-}}} between them ({{{[like-this]}}}) For multiple tags, add a space in-between ({{{[nobr widget]}}}).
 \
 <h3>{{{nobr}}}</h3>\
-Like the [[macro of the same name|Macro-Nobr-Silent]], the {{{nobr}}} tag removes every break to a new line in the passage. However, unlike the macro, it will affect the whole passage, rather than what was added inside the macro. This tag is most useful in passages with a lot of code, like a widget passage.
+Like the [[macro of the same name|Macro-Nobr-Silent]], the {{{nobr}}} tag removes every break to a new line in the passage. While the macro only affects a targetted section of the passage (what is within the macro), the tag will affect the //entire// passage. This tag is most useful in passages with a lot of code, like a [[widget|Macro-Widget]] passage.
 {{{
     :: Passage [nobr]
     This passage will not have line breaks.
     Even if the code is formatted with line breaks.
 }}}
-> ''Note:'' to target the whole project rather than a passage, it is best to use the [[Config.nobr|Basic-API-Config]] API instead.
+> ''Note:'' to target the whole project rather than a passage, it is best to use the {{{Config.nobr}}} [[API|Basic-API-Config]] instead.
 \
 <h3>{{{widget}}}</h3>\
 As the name suggest, this tag is meant to create a special passage to set up {{{<<widget>>}}} [[macros|Macro-Widget]]. 
@@ -34,18 +32,10 @@ As the name suggest, this tag is meant to create a special passage to set up {{{
     :: Some Widgets [widget]
     <<widget "Test">>this is a test widget<</widget>>
 }}}
-> ''Note:'' while you can have multiple passages with this tag, it is recommended to keep it to a minimum.
-\
-<h3>{{{bookmark}}}</h3>\
-This widget is meant to populate the [[JumpTo Functionlity|Basic-API-UI]], to go back in the player history.
-{{{
-    :: Passage [bookmark]
-    If the player read this passages, it will appear in the JumpTo dialog box.
-}}}
-> ''Note:'' if JumpTo is not used in a project, you can also use this tag as if it were a "regular" tag.
+> ''Note:'' while you can have multiple passages with this tag, it is recommended to keep this amount to a minimum.
 \
 <h3>{{{script}}}</h3>\
-This tag is meant to tell Twine that this passage only contains JavaScript code. It is not necessary for Twine users, as JavaScript code should be placed in the {{{Edit JavaScript}}} passage, in the //Story// menu. 
+This tag is meant to tell Twine that this passage only contains JavaScript code. It is not necessary for Twine users: JavaScript code should be placed in the {{{Edit JavaScript}}} passage, under the //Story// menu. 
 
 As for Twee files, it is only necessary if the file should be imported into the Twine app, and only one passage should be tagged as such. If you are using a compile (like Tweego), it is recommended to simply use a separate {{{.js}}} file (or multiple files) rather than create a {{{script}}} tagged passage. The files will be loaded in alphabetical order.
 {{{
@@ -54,7 +44,7 @@ As for Twee files, it is only necessary if the file should be imported into the 
 > ''Note:'' you cannot change the name of the JavaScript passage on Twine.
 \
 <h3>{{{stylesheet}}}</h3>\
-This tag is meant to tell Twine that this passage only contains CSS code. It is not necessary for Twine users, as CSS code should be placed in the {{{Edit Stylesheet}}} passage, in //Story// the menu. 
+This tag is meant to tell Twine that this passage only contains CSS code. It is not necessary for Twine users: CSS code should be placed in the {{{Edit Stylesheet}}} passage, under //Story// the menu. 
 
 As for Twee files, it is only necessary if the file should be imported into the Twine app, and only one passage should be tagged as such. If you are using a compile (like Tweego), it is recommended to simply use a separate {{{.css}}} file (or multiple files) rather than create a {{{stylesheet}}} tagged passage. The files will be loaded in alphabetical order.
 {{{
@@ -68,15 +58,13 @@ This tag is meant to be used for add-ons/library, as it loads at the beginning i
     :: initialization [init]
 }}}
 
-<div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
-
-:: SP-PassageReady-Done [page] {"position":"2100,1200","size":"100,100"}
-<h1>Process Code Before and After Rendering a Passage</h1>
+:: SP-PassageReady-Done [page sp-tags] {"position":"2100,1200","size":"100,100"}
+<h1 id="sp-readydone">Process Code Before and After Rendering a Passage</h1>
 {{{PassageReady}}} and {{{PassageDone}}} are two Special Passages that will trigger respectively before and after the story passage renders. Those passages will not render any output (i.e. text) on the page, but will run code for every new story passage visited. 
 They are best used for code meant to be used for multiple passages during the game, such as checking the location of the player to trigger some code or change the display of the page.
 {{{
     :: PassageReady 
-    <<if $var is 0>><<goto "END">><</if>>
+    <<if $var is 0>><<set $nextPassage to "END">><</if>>
     <<if $points is 100>><<set $level++, $point to 0>><</if>>
     <<if not tags().includes('noreturn')>><<set $return to passage()>><</if>>
 
@@ -95,7 +83,7 @@ Loading order:
     → PassageFooter
     → PassageDone
 }}}
-> The full ordered lists of events happening when a new passage is rendering can be found in the [[documentation|http://www.motoslave.net/sugarcube/2/docs/#events-navigation]].
+> The full ordered lists of events happening when a new passage is rendering can be found in [[this page|Events-Passage]].
 
 Because of the loading order, placing code in {{{PassageReady}}} or {{{PassageDone}}} will not only affect the currently displayed passage, but also code from the previous passage.
 Assuming that {{{$var is 2}}} before moving to a passage:
@@ -109,17 +97,20 @@ Assuming that {{{$var is 2}}} before moving to a passage:
         The dog is not here.
     <</if>>
 }}}
-If the value of {{{$var}}} is changed inside {{{PassageReady}}}, the code above will be affected, and the displayed sentence will be different. However, if the value of {{{$var}}} is changed inside {{{PassageDone}}}, the code above will not be affected, but it may affect future passages.
+If the value of {{{$var}}} is modified inside {{{PassageReady}}}, the code above will be affected, and the displayed sentence will be different. However, if the value of {{{$var}}} is changed inside {{{PassageDone}}}, the code above will not be affected, but it may affect future passages.
 
-<div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
-
-
-:: SP-StoryInterface [page] {"position":"2000,1300","size":"100,100"}
-<h1>Changing the UI of the Project</h1>
+:: SP-StoryInterface [page sp-tags] {"position":"2000,1300","size":"100,100"}
+<h1 id="sp-interface">Changing the UI/Interface of the Project</h1>
 If you want to ditch the basic SugarCube UI and have something more custom for your project, you will need to use the Special Passage {{{StoryInterface}}}. This passage only accepts HTML, and JavaScript inside a {{{<script>}}} markup at the bottom of the passage.
 > ''Note:'' while knowledge of HTML and CSS is necessary to create your own UI, there are many templates available to use as is. See <<link "Credits">><<popup "Credits" "Credits">><</link>> for the Masterlist. Still, it is heavily recommended to understand the basics of both languages, when starting on your own.
 
-This passage only has one requirement to run properly: include the {{{#passages}}} element.
+Any code added to {{{StoryInterface}}} will:
+* remove the SideBar element {{{#ui-bar}}} and its nested children
+** though, you can re-create it inside {{{StoryInterface}}}
+* be included inside {{{<div id="story"></div>}}}
+> ''Note:'' If you include an element with the ID {{{#story}}} in {{{StoryInterface}}}, you will get an error during loading.
+
+This passage only has one requirement to run properly: include the {{{#passages}}} element (and only one).
 {{{
     :: StoryInterface 
     <div id="passages"></div>
@@ -160,7 +151,7 @@ You can add any other element inside {{{StoryInterface}}}, even nesting elements
         }
     </script>
 }}}
-> ''Note:'' This is the code in my [[One Page Template|https://manonamora.itch.io/twine-sugarcube-templates]].
+> ''Note:'' This code can be found in my [[One Page Template|https://manonamora.itch.io/twine-sugarcube-templates]].
 \
 <h3>Formatting the elements</h3>\
 When the wanted and required elements are defined in {{{StoryInterface}}}, you will need some CSS to place them on the page, and to format their contents. 
@@ -168,7 +159,7 @@ No matter how edited the interface has been, some elements will still keep their
 * {{{#passages}}} and its child {{{.passage}}}
 * {{{#ui-overlay}}}, {{{#ui-dialog}}} and its children (the elements in a the dialog box)
 \
-If other [[base IDs and classes|http://www.motoslave.net/sugarcube/2/docs/#html]] were used when adding elements inside {{{StoryInterface}}}, those elements will also be displayed according to their respective built-in CSS rules.
+If other [[base IDs and classes|HTML-Full-List]] were used when adding elements inside {{{StoryInterface}}}, those elements will also be displayed according to their respective built-in CSS rules.
 > ''Note:'' like with the base UI, those rules can be changed in the StyleSheet.
 {{{
     #parent {
@@ -184,7 +175,7 @@ If other [[base IDs and classes|http://www.motoslave.net/sugarcube/2/docs/#html]
     }
 }}}
 \
-When setting sizes or placements of elements, it is important to keep in mind that your project may be viewed on ''different screens/browser window sizes''. This will affect the actual placement and display of elements on the screen. Testing the UI for different screen sizes can be done via the Inspect Tool of your browser.
+When setting sizes or placements of elements, it is important to keep in mind that your project may be viewed on ''different screens/browser window sizes''. This will affect the actual placement and display of elements on the screen. Testing the UI for different screen sizes can be done via the ''Inspect Tool'' of your browser.
 > ''Note:'' testing on both Chromium and non-Chromium browsers should be done as well, as different CSS rules (ex: overflow) will render differently on screen. 
 \
 To help take this into account, the {{{@media}}} CSS rule will let you define different sizes and placement of elements on the page depending on the size of the window or device opening the project. See [[this page|Int-JS-CSS-Media]].
@@ -198,7 +189,7 @@ To help take this into account, the {{{@media}}} CSS rule will let you define di
 > ''Note:'' this should be placed at the bottom of the StyleSheet, and in order of most-restricting to most-inclusive.
 \
 <h3>Linking an Element to a passage</h3>\
-To keep the code in {{{StoryInterface}}} simple, or because you need SugarCube code inside an element (which won't work inside that passage), you can create links between an element and a non-story passage. That passage will then display text and/or run the relevant code inside that element.
+To keep the code in {{{StoryInterface}}} simple, or because you need SugarCube code inside an element (which won't work inside {{{StoryInterface}}}), you can create connections between an element and a non-story passage. That passage will then display text and/or run the relevant code inside that element.
 This can be done with either {{{data-passage}}} or {{{data-init-passage}}}.
 {{{
     <div class="menu" data-passage="sidemenu">
@@ -208,15 +199,13 @@ This can be done with either {{{data-passage}}} or {{{data-init-passage}}}.
         <!-- Title, editable in the "title" passage-->
     </div>
 }}}
-> ''Note:'' any text coded inside the elements in {{{StoryInterface}}} will be overriden by the content of the linked passage.
+> ''Note:'' any text coded inside the elements in {{{StoryInterface}}} will be overridden by the content of the linked passage.
 \
 While these two links seem interchangeable, there is a major difference between the two: {{{data-init-passage}}} will load at the start of the game and ''never'' change, while {{{data-passage}}} will update with every new passage visited (if an update is necessary).
-> ''Note:'' you can also use {{{data-passages}} with [[Special Asset Passages|Tags-Asset]]: {{{<img data-passage="TheCube">}}}
+> ''Note:'' you can also use {{{data-passages}}} with [[Special Asset Passages|Tags-Asset]]: {{{<img data-passage="TheCube">}}}
 
-<div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
-
-:: Tags-CSS [page] {"position":"2100,1300","size":"100,100"}
-<h1>Customising Passages with Tags</h1>
+:: Tags-CSS [page sp-tags] {"position":"2100,1300","size":"100,100"}
+<h1 id="sp-tagscss">Customising Passages with Tags</h1>
 Aside from [[creating Special Passages or Functionalities|Tags-Built]], tags can also be used to customise how a passage looks. For example, if multiple passages are set in a forest, one can add a tag called {{{forest}}} to those passages, and use this tag to set an image of a forest in the background of those passages.
 
 To add a tag to a passage on Twine, open the relevant passage, click {{{+ Tag}}} in the passage menu, and fill in the blanks. If a tag has been assigned to another passage, it will show in the {{{Add Tag}}} listbox. You can also assign a colour to the tag.
@@ -226,16 +215,17 @@ Adding a tag to a passage creates:
 * a data-tag on {{{html}}}, {{{body}}}, and {{{.passage}}}
 * a CSS class on {{{body}}} and {{{.passage}}}
 
-Both the data-tag and class can be used in the Stylesheet to edit aspects of the page, but are coded differently. The data-tag will keep the formatting of the inserted tag (case-sensitive and punctuation), while the class will transform it into a lowercase string and without punctuation (save for {{{-}}}).
+Both the data-tag and class can be used in the StyleSheet to edit aspects of the page, but are coded differently. The data-tag will keep the formatting of the inserted tag (case-sensitive and punctuation), while the class will transform it into a lowercase string and without punctuation (save for {{{-}}}).
 {{{
-For a tag called: The-Name-Of-The-Tag:
+→ For a tag called: The-Name-Of-The-Tag:
     [data-tags~="The-Name-Of-The-Tag"]
     .the-name-of-the-tag
 
-For a tag called: Super!
+→ For a tag called: Super!
     [data-tags~="Super!"]
     .super
-For a tag called: This-1
+
+→ For a tag called: This-1
     [data-tags~="This-1"]
     .this-1
 }}}
@@ -269,14 +259,12 @@ As for positioning the data-tag or class on an element, you need to take into ac
     .forest #ui-bar {background: red;}
         → will change the background colour of the sidebar
 }}}
-> ''Note:'' Data-Tags are prefered over classes, because it is more stable (i.e. won't be messed up by custom macros or third party code).
+> ''Note:'' Data-Tags are preferred over classes, because it is more stable (i.e. won't be messed up by custom macros or third party code).
 
-<div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
-
-:: Tags-Asset [page] {"position":"2000,1400","size":"100,100"}
-<h1>Including Assets with Tags</h1>
-While you cannot import assets through the Twine app, it is possible with SugarCube to create //Media Passages// through a passage tag. The media embeded in your project, you can inclde those assets into other passages thanks to the {{{data-passage}}} [[attribute|Markup-Attribute]]. 
-> ''Note:'' while it is meant for [[Base64-encoded|https://en.wikipedia.org/wiki/Data_URI_scheme]] media source {{{data:type/extension;format,code}}}, the passage will also accept URL.
+:: Tags-Asset [page sp-tags] {"position":"2000,1400","size":"100,100"}
+<h1 id="sp-tagsasset">Including Assets with Tags</h1>
+While you cannot import assets through the Twine app, it is possible with SugarCube to create //Media Passages// through a passage tag. The media embedded in your project, you can include those assets into other passages thanks to the {{{data-passage}}} [[attribute|Markup-Attribute]]. 
+> ''Note:'' while it is meant for [[Base64-encoded|https://en.wikipedia.org/wiki/Data_URI_scheme]] media source {{{data:type/extension;format,code}}}, the passage will also accept URLs.
 
 These media passages will support audio, image, video, and VTT elements. Each of those get a special tag:
 * {{{Twine.audio}}}, will register the passage as an audio passage
@@ -286,29 +274,27 @@ These media passages will support audio, image, video, and VTT elements. Each of
 > ''Note:'' you can only include one asset per passage. 
 > In Twine 2, it is strongly recommended to only create a handful of media passage, and use small sources.
 
-<div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
-
-:: SP-Variables [page] {"position":"2100,1400","size":"100,100"}
-<h1>The Special Variables</h1>
+:: SP-Variables [page sp-tags] {"position":"2100,1400","size":"100,100"}
+<h1 id="sp-variables">The Special Variables</h1>
 SugarCube includes special variables, which can be used in the JavaScript passage or within the {{{<<script>>}}} [[macro|Macro-Script-Run]].
 \
 <h3>The API Variables</h3>\
 The different APIs included in SugarCube are defined as Special Variables:
-* {{{Config}}} refers to the Configuration API
-* {{{Dialog}}} refers to the Dialog API (popups)
-* {{{Engine}}} refers to the Engine API 
-* {{{Fullscreen}}} refers to the Fullscreen API
-* {{{LoadScreen}}} refers to the LoadScreen API
-* {{{Macro}}} refers to the Macro API
-* {{{Passage}}} refers to the Passage API
-* {{{Save}}} refers to the Save API
-* {{{Setting}}} refers to the Setting API
-* {{{SimpleAudio}}} refers to the SimpleAudio API
-* {{{State}}} refers to the State API
-* {{{Story}}} refers to the Story API
-* {{{Template}}} refers to the Template API
-* {{{UI}}} refers to the UI API
-* {{{UIBar}}} refers to the UIBar API
+* {{{Config}}} refers to the [[Configuration API|Config-API]]
+* {{{Dialog}}} refers to the [[Dialog API|Basic-API-Dialog]] (popups)
+* {{{Engine}}} refers to the [[Engine API|Engine-API]] 
+* {{{Fullscreen}}} refers to the [[Fullscreen API|FullScreen]]
+* {{{LoadScreen}}} refers to the [[LoadScreen API|API-Lock]]
+* {{{Macro}}} refers to the [[Macro API|Macro]]
+* {{{Passage}}} refers to the [[Passage API|PassageAPI]]
+* {{{Save}}} refers to the [[Save API|SaveAPI]]
+* {{{Setting}}} refers to the [[Setting API|Settings]]
+* {{{SimpleAudio}}} refers to the [[SimpleAudio API|AudioAPI-General]]
+* {{{State}}} refers to the [[State API|StateAPI]]
+* {{{Story}}} refers to the [[Story API|StoryAPI]]
+* {{{Template}}} refers to the [[Template API|TemplateAPI]]
+* {{{UI}}} refers to the [[UI API|Basic-API-UI]]
+* {{{UIBar}}} refers to the [[UIBar API|Basic-API-UIBar]]
 \
 <h3>Other Special Variables</h3>\
 * {{{jQuery}}} will refer to the jQuery library function, with {{{$}}} being an alias 
@@ -316,5 +302,3 @@ The different APIs included in SugarCube are defined as Special Variables:
 * {{{l10nStrings}}} refers to the Strings localization
 * {{{settings}}} are player setting object, set through the Setting API 
 * {{{setup}}} are objects used for static data
-
-<div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>

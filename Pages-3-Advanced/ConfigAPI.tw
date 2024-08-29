@@ -1,6 +1,6 @@
 :: Config-API [chapter menu] {"position":"2300,1800","size":"200,100"}
 <h1>More Configuration APIs to Customise Interaction</h1>
-To configure even more how your project should run, like saving playthroughs or changing how some macros work, here are the rest of the Configuration APIs not mentioned in [[this chapter|Basic-API-Config]].
+If you need to configure how your project should run with more customisation, like saving playthroughs or changing how some macros operate, this section will cover the rest of the Configuration APIs that were not [[previously mentioned|Basic-API-Config]].
 
 Those APIs are JavaScript-based code that should be included in the JavaScript (though some can be used along with the {{{<<run>>}}} or {{{<<script>>}}} macros inside a passage).
 
@@ -9,41 +9,38 @@ Those APIs are JavaScript-based code that should be included in the JavaScript (
 * [[Save Configurations|Config-Saves]] 
 * [[Other Config APIs|Config-Misc]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-
-:: Confic-Macro [page] {"position":"2300,1900","size":"100,100"}
-<h1>Macro-relevant Configurations</h1>
+:: Confic-Macro [page configapi] {"position":"2300,1900","size":"100,100"}
+<h1 id="config-macros">Macro-relevant Configurations</h1>
 The APIs listed below will affect with specific macros, namely {{{<<for>>}}}, {{{<<type>>}}}, and {{{<<audio>>}}}.
 \
 <h3>{{{Config.macros.maxLoopIterations}}}</h3>\
-This API will set the maximum number of iterations allowed for the {{{<<for>>}}} macro, before the macro is terminated with an error message. This setting exists to prevent making the browser unresponsive if a loop is not configured correctly.
+This API will set the maximum number of iterations allowed for the {{{<<for>>}}} macro, before the macro is automatically terminated with an error message. This setting exists to prevent making the browser unresponsive if a loop is not configured correctly.
 The default number is 1.000.
 {{{
     Config.macros.maxLoopIterations = 5000;
-→ changes the default to 5.000 iterations
+ → changes the default to 5.000 iterations
 }}}
 \
 <h3>{{{Config.macros.typeSkipKey}}}</h3>\ 
 This API will change the default key to press to skip the typing of the {{{<<type>>}}} macro, meaning it will display the rest of the content immediately. The default is {{{" "}}} (the space key).
 {{{
     Config.macros.typeSkipKey = "Control";
-→ the SkipKey will become {Ctrl}
+ → the SkipKey will become {Ctrl}
 }}}
 > ''Note:'' this is only relevant if the {{{skipkey}}} argument was not included in the [[macro|Macro-Type]].
-/
+\
 <h3>{{{Config.macros.typeVisitedPassages}}}</h3>\
 This API will determine whether to trigger the {{{<<type>>}}} macro on previously visited passages or display the text as is. This is enabled by default, meaning the macro will type out the content even if the passage had previously been visited.
 {{{
     Config.macros.typeVisitedPassages = false;
-→ will not type out the text as is on visited passages
+ → will not type out the text on visited passages
 }}}
 \
 <h3>{{{Config.audio.pauseOnFadeToZero}}}</h3>
 This API will automatically pause any track who've been faded to volume 0 (silent). This is enabled by default.
 {{{
     Config.audio.pauseOnFadeToZero = false;
-→ will not pause the track when faded to 0
+ → will not pause the track when faded to 0
 }}}
 \
 <h3>{{{Config.audio.preloadMetadata}}}</h3>\
@@ -51,40 +48,51 @@ This API will attempt to preload the metadata of any track [[cached|CacheAudio]]
 > ''Note:'' it is unlikely you will ever need to disable this setting.
 {{{
     Config.audio.preloadMetadata = false;
-→ will not preload metadata
+ → will not preload metadata
 }}}
 
-<div id="link-menu">[[Back to the Config API Menu|Config-API]] - [[Back to the Start Menu|Start]]</div>
-
-:: Config-Passage [page] {"position":"2400,1900","size":"100,100"}
-<h1>Editing the Behaviour and Display of Passage Elements</h1>
+:: Config-Passage [page configapi] {"position":"2400,1900","size":"100,100"}
+<h1 id="config-passage">Editing the Behaviour and Display of Passage Elements</h1>
 The APIs listed below will affect how a passage could behave or how its different elements are displayed.
 \
-<h3>{{{Config.passages.descriptions}}}</h3>\
-In the Saves and Jump To menus, passages are described by an excerpt of the passage's content. This API will allow you to provide an alternate description, like the passage's title. This can be defined through:
-* the {{{true}}} boolean value, which will use the passage's title
-** you should ensure the title of the passages are meaningful!
-* an object, which will replace the description for all listed passages 
-* a function, which will either indicate the new description for the passage or use the passage's excerpt
+<h3>{{{Config.saves.descriptions}}}</h3>\
+In the Saves menus, passages are described by an excerpt of the passage's content. This API will allow you to provide an alternate description, like the passage's title. 
+
+This can be defined through a function, which will either indicate the new description for the passage or use the passage's excerpt
+> //Examples from the Documentation://
 {{{
-    Config.passages.descriptions = true;
-→ will use the passage title as description
-
-    Config.passages.descriptions = {
-        "PassageName" : "the new description",
-        "DeadOAlex"   : "Where Alex will end up dying lol"
+    Config.saves.descriptions = function (saveType) {
+        return passage();
     };
-→ will use the new description for the listed passages
+ → Using passages' names
 
-    Config.passages.descriptions = function () {
-        if (this.title === "title") {
-            return "description";
+    var saveDescriptions = {
+        "passage_title_a" : "description text a…",
+        "passage_title_b" : "description text b…",
+        "passage_title_c" : "description text c…"
+    };
+    Config.saves.descriptions = function (saveType) {
+        return saveDescriptions[passage()];
+    };
+ → Use a custom description for each listed passage
+
+    Config.saves.descriptions = function (saveType) {
+        const base = `(${L10n.get("turn")} ${State.turns})`;
+
+        switch (saveType) {
+            case Save.Type.Auto:
+                return `${base} A browser auto save…`;
+            case Save.Type.Base64:
+                return `${base} A base64 save…`;
+            case Save.Type.Disk:
+                return `${base} A local disk save…`;
+            case Save.Type.Slot:
+                return `${base} A browser slot save…`;
         }
     };
-→ similar to the object, but as a function
+ → Displaying the amounts of turns during the playthrough, per type of save
 }}}
-> ''Note:'' for the Save menu, there is an alternative approach with the {{{Save.onSave.add()}}} [[API|SaveAPI-Events]]
-
+> ''Note:'' there is an alternative approach with the {{{Save.onSave.add()}}} [[API|SaveAPI-Events]]
 \
 <h3>{{{Config.passages.displayTitles}}}</h3>\
 This API can display the title of the passage, along with the story title, in the browser/tab's titlebar:
@@ -92,9 +100,10 @@ This API can display the title of the passage, along with the story title, in th
 {{{
     Config.passages.displayTitles = true;
 }}}
+> ''Note:'' this can be pretty useful for debugging/testing.
 \
 <h3>{{{Config.passages.onProcess}}}</h3>\
-This API allows custom text progressing, like changing words on the page for another. It will trigger with every passage displayed and when the {{{<Passage>.processText()}}} [[method]] is called.
+This API allows custom text progressing, like changing words on the page for another. It will trigger with every passage displayed and when the {{{<Passage>.processText()}}} [[method|PassageAPI]] is called. It works similarly to [[templates|TemplateAPI]].
 This can be a useful for swears replacement.
 {{{
     Config.passages.onProcess = function (p) {
@@ -106,7 +115,7 @@ This can be a useful for swears replacement.
 \
 <h3>{{{Config.passages.start}}}</h3>\
 This API will indicate which passage should be displayed first.
-There will be very few instances where this would be needed, as the Twine app requires you to select the starting passage, and the Twee formating needs this information in the {{{:: StoryData}}}.
+There will be very few instances where this would be needed, as the Twine app requires you to select the starting passage, and the Twee formatting needs this information in the {{{:: StoryData}}}.
 {{{
     Config.passages.start = "This Is The Actual Starting Passage";
 }}}
@@ -147,66 +156,14 @@ It is still recommended to add more rules for it to be pleasing to the eye. The 
     }
 }}}
 
-<div id="link-menu">[[Back to the Config API Menu|Config-API]] - [[Back to the Start Menu|Start]]</div>
-
-
-:: Config-Saves [page] {"position":"2300,2000","size":"100,100"}
-<h1>Save Configurations</h1>
+:: Config-Saves [page configapi] {"position":"2300,2000","size":"100,100"}
+<h1 id="configs-saves">Save Configurations</h1>
 The APIs below will allow you to enable autosaves, as well as restricting the player's ability to saves, or set up save versions.
-> ''Note:'' you may need to use some [[Save API|SaveAPI]] along with these Config.
-\
-<h3>{{{Config.saves.autoload}}}</h3>\
-This API will check if an autosave exists, and will load said autosave during startup. You can load autosaves automatically, prompt the player about it with a popup, or include a function that could load autosaves at start.
-If an autosave cannot be loaded, the player will be shown the starting passage instead.
-{{{
-    Config.saves.autoload = true;
-→ will load the autosave automatically 
-
-    Config.saves.autoload = "prompt";
-→ will prompt the player about loading saves
-
-    Config.saves.autoload = function () {
-        /* code */
-    };
-→ will load the autosave if the function returns truthy
-}}}
-\
-<h3>{{{Config.saves.autosave}}}</h3>\
-This API will determine whether and when a autosave is triggered when passages are displayed. 
-It will accept:
-* boolean values
-** //true// to autosave at every passage
-** //false// to never autosave
-* an array of strings of tags 
-** the autosave will be triggered when a passage with a listed tag is visited
-* a function with truthy/falsy values
-{{{
-    Config.saves.autosave = true;
-→ autosave on every passage
-
-    Config.saves.autosave = false;
-→ only manual saving
-
-    Config.saves.autosave = ["bookmark", "autosave"];
-→ autosave only on passages taged "bookmark" and "autosave"
-
-    Config.saves.autosave = function () {
-        /* code */
-    };
-→ autosaves only when the function returns truthy
-}}}
-> //Example://
-{{{
-    Config.saves.autosave = function () {
-        if (settings.autosave) {
-            return true
-    }};
-}}}
-> ''Note:'' when using a {{{true}}} value (first example), you may want to use {{{Config.saves.isAllowed}}} to disallow saving on the starting passage (or any non-story screens) to enable the player to load the autosave, or any new playthrough will override the previous one.
+> ''Note:'' you may need to use some extra [[Save APIs|SaveAPI]] along with these Config.
 \
 <h3>{{{Config.saves.id}}}</h3>\
 This API will set a story ID for the saves. Every save is associated with a story ID with Twine, which is automatically generated from the title of the project.
-However, if you would like to use a different IF, you can use this API.
+However, if you would like to use a different ID, you can use this API.
 {{{
 Config.saves.id = "here-is-a-new-ID-because-who-cares-part-40394857";
 }}}
@@ -214,15 +171,16 @@ Config.saves.id = "here-is-a-new-ID-because-who-cares-part-40394857";
 <h3>{{{Config.saves.isAllowed}}}</h3>\
 With a defined function, this API will determine saving is allowed depending on the context. It will be triggered every time a save is requested, and will only save if the function allows it.
 {{{
-    Config.saves.isAllowed = function () {
+    Config.saves.isAllowed = function (saveType) {
         /* code */
     };
 }}}
 > //Example://
 {{{
-    config.saves.isAllowed = function () {
-        if (passage() === "Start" || tags().contains("nosave") || State.variables.test > 5) {
-            return false;
+    config.saves.isAllowed = function (saveType) {
+        if (passage() === "Start" || tags().contains("nosave") 
+            || State.variables.test > 5) {
+                return false;
         }
         return true;
     };
@@ -230,34 +188,34 @@ With a defined function, this API will determine saving is allowed depending on 
 → this won't allow saving:
     → on the passage called "Start"
     → with any passage tagged with "nosave"
-    → if the variable $test is greated than 5
+    → if the variable $test is greater than 5
 }}}
-> ''Note:'' this API will affect both manual and auto- saves.
-\
-<h3>{{{Config.saves.tryDiskOnMobile}}}</h3>\
-This API will determine whether you can download a savefile on mobile devices (i.e. smartphones, tablets, ...). It is enabled by default.
-> ''Note:'' mobile browsers can be fickle, saving to disk at times may lead to unexpected results. 
+While this API will affect both manual and auto saves, you can choose to restrict a certain type of save. For example:
 {{{
-    Config.saves.tryDiskOnMobile = false;
-→ will disable saving to disk
+   Config.saves.isAllowed = function (saveType) {
+        if (saveType === Save.Type.Auto) {
+            return tags().includes("autosave");
+        }
+
+        return true;
+    }; 
+→ will only autosave if the passage is tagged "autosave"
 }}}
 \
 <h3>{{{Config.saves.version}}}</h3>\
 With this API, you can set the version of saves.
-However, it is only useful if you plan to upgrade out-of-date saves (e.g. missing new variables added in StoryInit), and use the {{{Save.onLoad.add()}}} [[API]] callback.
+However, it is only useful if you plan to upgrade out-of-date saves (e.g. missing new variables added in {{{StoryInit}}}), and use the {{{Save.onLoad.add()}}} [[API|SaveAPI-Events]] callback.
 {{{
 → version as an integer
-Config.saves.version = 2;
+    Config.saves.version = 2;
 
 → version as a string
-Config.saves.version = "v2";
+    Config.saves.version = "v2";
 }}}
 > ''Note:'' though the API will accept any form of value, an integer is recommended over other forms.
 
-<div id="link-menu">[[Back to the Config API Menu|Config-API]] - [[Back to the Start Menu|Start]]</div>
-
-:: Config-Misc [page] {"position":"2400,2000","size":"100,100"}
-<h1>Other Config APIs</h1>
+:: Config-Misc [page configapi] {"position":"2400,2000","size":"100,100"}
+<h1 id="configs-misc">Other Config APIs</h1>
 Below are listed the Config APIs not mentioned in other pages of this guide.
 \
 <h3>{{{Config.ui.stowBarInitially}}}</h3>\
@@ -284,12 +242,11 @@ Usually, elements in the SideBar are update every time the player moves to a new
 > ''Note:'' this API is unnecessary if you have a custom interface or conditional statements in the Special Passages.
 \
 <h3>{{{Config.addVisitedLinkClass}}}</h3>\
-This API will add a class to links sending the player to an already visited passage (i.e. in the player's history). With this added class, and some extra code in the StyleSheet, you can provide a visual distinction between visited and still-to-visit passages on the screen.
-> ''Note:'' turning on this API will still require you to style the visited links, as none is provided by default.
+This API will let you edit the styling of links sending the player to an already visited passage (i.e. incl. in the player's history) by adding a special class {{{.link-visited}}} to those. You can then modify the styling with CSS in the StyleSheet, to provide a visual distinction between already visited and still-to-read passages.
 {{{
     Config.addVisitedLinkClass = true;
 }}}
-The added class is called {{{.link-visited}}}, and you may edit it however you like.
+> ''Note:'' turning on this API will require you to add CSS rules to the class, as none is provided by default.
 {{{
     .link-visited {
         color: green;
@@ -297,24 +254,3 @@ The added class is called {{{.link-visited}}}, and you may edit it however you l
         text-decoration: line-through;
     } 
 }}}
-\
-<h3>{{{Config.debug}}}</h3>\
-This API will indicate whether SugarCube is running in the Test Mode/Debug View. This mode is useful to test code, as it makes the coding markup (i.e. macros) visible on the screen.
-> ''Note:'' the Twine app already has a way to trigger the Debug view by either clicking the //Test From Here// button in an passage or the //Test// button under the //Build// menu. In Tweego, you can compile a debug view with {{{-t}}} or {{{--test}}}.
-{{{
-    Config.debug = true;
-}}}
-> //Other Examples of use://
-{{{
-→ Pure JavaScript
-    if (Config.debug) {
-	    /* do something debug related */
-    }
-
-→ TwineScript
-    <<if Config.debug>>
-        /* do something debug related */
-    <</if>>
-}}}
-
-<div id="link-menu">[[Back to the Config API Menu|Config-API]] - [[Back to the Start Menu|Start]]</div>

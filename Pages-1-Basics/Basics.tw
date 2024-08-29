@@ -1,5 +1,5 @@
-:: About [side] {"position":"1200,100","size":"200,100"}
-<h1>About Twine and SugarCube</h1>
+:: About [chapter side] {"position":"1500,300","size":"200,100"}
+<h1 id="about-twine">About Twine and SugarCube</h1>
 //''Twine''// is a free and open-source tool to create interactive, non-linear stories, created by Chris Klimas in 2009. It is now maintained by multiple individuals, in [[several repositories|https://github.com/tweecode]]. ''//Twine//'' is also a registered trademark of the [[Interactive Fiction Technology Foundation|https://iftechfoundation.org/]].
 
 ''//Twine//'' offers both a desktop and browser application on [[its website|https://twinery.org]], giving creator a visual representation of each passage in their game. The browser version can be opened on tablets and mobile devices.
@@ -15,69 +15,65 @@ If you want to support the parties named above, you can find here the links for:
 * Chris Klimas (klembot) : [[Patreon|https://www.patreon.com/klembot]]
 * Thomas M. Edwards (TME - The Mad Exile) : [[Patreon|https://www.patreon.com/thomasmedwards]] - [[Ko-Fi|https://ko-fi.com/thomasmedwards]]
 * The Interactive Fiction Technology Foundation : [[Donations|https://iftechfoundation.org/give/]]
-> ''Note:'' to support other parties creating assets and resources for Twine, check this [[list|https://manonamora-if.tumblr.com/post/700577877042888704/]].
-
-<<back>>
+> ''Note:'' to support other parties creating assets and resources for Twine, check this [[list|https://manonamora-if.tumblr.com/post/700577877042888704/]] (non-exhaustive).
 
 :: Basics [chapter menu] {"position":"800,100","size":"200,100"}
 <h1>Starting with SugarCube</h1>
-When setting up your first project with SugarCube, it is best to start with the Basics. This means linking passages so the player moves to a different part of the story, saving information and players' choices inside [[variables|Variables-Base]], and tracking variables to display variations down the line.
+When setting up your first project with SugarCube, it is best to start with the Basics. 
+This means creating links between story pages, allowing the player to move from one passage to another, saving information and player's choices inside [[variables|Variables-Base]], and tracking the value of those variables to display variations down the line.
 
-To do this, you essentially need the 3 following macros: {{{<<link>>}}}, {{{<<set>>}}}, and {{{<<if>>}}}.
+To do this, you essentially only need the 3 following macros: {{{<<link>>}}}, {{{<<set>>}}}, and {{{<<if>>}}}.
 
-* [[The Basics of Variables|Variables-Base]]
 * [[The Elements on the Page|Basics-UI]]
 * [[Linking Passages|Macro-Link-Basic]] 
+* [[The Basics of Variables|Variables-Base]]
 * [[Tracking Information|Macro-Set-Basic]] 
 * [[Display Variation|Macro-If-Basic]]
-> ''Note:'' Any code on the page will be displayed top to bottom by the program. Code at the top of the passage can affect code further down.
+> ''Note:'' Twine reads passages from top to bottom, so any code at the top of the passage can affect any code below.
 
-Want to see this in action? Try this [[Demo|Demo-Basic]] !
+Want to see this in action? Try this [[Demo|Demo-Basic]]!
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-
-:: Basics-UI [page BasicUI] {"position":"800,200","size":"100,100"}
+:: Basics-UI [page BasicUI basics] {"position":"800,200","size":"100,100"}
 <h1>The Elements on the Page</h1>
 In a basic SugarCube project, there are essentially 3 main elements on the page:
 * the passage (in green)
 * the UI-Bar (in red)
 * the dialog box (<<link "click here">><<popup "Basic-UI-Dialog" "Dialog Box">><</link>>)
 \
-The content inside the ''passage'' is generated from the story passages created in Twine. Every time the player clicks on a link to advance the story, the passage will refresh to display the new content.
+The content inside the ''passage'' is generated from the story passages created in Twine (i.e. any non-special passage). Every time the player clicks on a link to advance the story, the passage will refresh to display the new content.
 
-In the ''UI-Bar'', you will find arrows to go back and forth in the Game History (the visited passages), an arrow to hide/show the UI-Bar/sidebar, and the //Save// and //Restart// buttons. 
-The content of the sidebar can be edited through the [[Special Passages|SP-UIBar]], or when adding [[Settings]].
+In the ''UI-Bar'', also called //SideBar//, you will find arrows to go back and forth in the Game History (the visited passages), an arrow to hide/show the UI-Bar/sidebar, and, at the minimum, the //Save// and //Restart// buttons. 
+The content of the sidebar can be edited through the [[Special Passages|SP-UIBar]], or when adding [[Settings]] or [[Saves|Config-Saves]].
 
-''Dialog boxes'' are elements that will appear at the forefront of the page. It is used by the Menu buttons (//Save// and //Restart//), but can also contain content from a story passage (like the Lexicon link below) or coded through the passage. To create a dialog box, [[visit this page|Basic-API-Dialog]].
+''Dialog boxes'' are elements that will appear at the forefront of the page (like a popup). It is used by the Menu buttons (like //Save// and //Restart//), but can also contain content from a story passage (like the Lexicon link below) or coded through the passage. To create a dialog box, [[visit this page|Basic-API-Dialog]].
 
-To edit how those elements look, you will need to edit the [[Stylesheet|Int-JS-CSS-Elements]] (intermediate).
+To edit how those elements look, you will need to edit the [[StyleSheet|Int-JS-CSS-Elements]] (intermediate).
 
-<div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
-
-:: Macro-Link-Basic [page] {"position":"900,200","size":"100,100"}
-<h1>Linking Passages and the {{{<<link>>}}} Macro</h1>
-To move the player from one part of the story to the next, you need to link the passages. This can be done in two ways: the {{{[[Link]]}}} markup or the {{{<<link>>}}} macro. Boths ways will achieve the same thing, but the macro will give you more flexibility with interactivity. 
-> ''Note:'' in some cases, the {{{<<link>>}}} macro will not create a visual link between passage blocks in the Twine map of the project.
+:: Macro-Link-Basic [page basics] {"position":"900,200","size":"100,100"}
+<h1 id="basic-links">Linking Passages and the {{{<<link>>}}} Macro</h1>
+To move the player from one part of the story to the next, you need to link the different story passages. This can be done in two ways: the {{{[[Link]]}}} markup or the {{{<<link>>}}} macro. Both ways will achieve the same thing, but the macro will give you more flexibility with interactivity. 
+> ''Note:'' in some cases, the {{{<<link>>}}} macro will not create a visual link between passage blocks in map of the project on Twine.
 \
 <h3>The {{{[[Link]]}}} markup</h3>\
-To create a link with the {{{[[Link]]}}} markup, you need to wrap the relevant text with double square brackets {{{[[ ]]}}}.
-> ''Note:'' in the Twine application, wrapping a bit of text with the square brackers will automatically create a passage with the text inside the brackets as that passage's name.
+To create a link with the {{{[[Link]]}}} markup, you need to wrap the relevant text with double square brackets {{{ [[ ]] }}}.
+> ''Note:'' in the Twine application, wrapping a bit of text with the square brackets will automatically create a passage with the text inside the brackets as that passage's name.
 {{{
-[[Go to the Garden]] 
+ [[Go to the Garden]] 
     → will send the player to the passage called "Go to the Garden"
 
-[[Home234]]
+ [[Home234]]
     → will send the player to the passage called "Home234"
 }}}
 
-If you want to display something else than the Passage name in the link, you can use a pipe separator {{{ | }}}, or an arrow ({{{->}}} or {{{<-}}}) to separate the displayed text and the name of the passage. Formatting links this way is pretty useful when you have multiple links going to one same passage.
+If you want to display something else than the Passage name in the link, you can use a pipe separator {{{ | }}}, or an arrow ({{{ -> }}} or {{{ <- }}}) to separate the displayed text and the name of the passage. Formatting links this way is pretty useful when you have multiple links going to one same passage.
+> ''Note:'' there can't be a space between the separator and the passage's name, or it can break the link.
 {{{
-[[Go to the Garden|Garden]] 
+ [[Go to the Garden|Garden]] 
     → display the text "Go to the Garden" and send the player to the passage called "Garden"
+    → also the format mostly used in this Guide 
 
-[[Go to the Garden->Garden]] 
-[[Garden<-Go to the Garden]] 
+ [[Go to the Garden->Garden]] 
+ [[Garden<-Go to the Garden]] 
     → the arrow should be pointing towards the passage's name
 }}}
 > For more advanced uses of the link markup, see [[the Link Markup page|Markup-Link]].
@@ -86,15 +82,15 @@ If you want to display something else than the Passage name in the link, you can
 One of the use of the {{{<<link>>}}} macro is to send the player to a different passage. This can be formatted in different ways.
 > //In combination with the link markup://
 {{{
-<<link [[Go to the Garden]]>><</link>> 
+ <<link [[Go to the Garden]]>><</link>> 
     →  will send the player to the passage called "Go to the Garden"
 
-<<link [[Go to the Garden|Garden]]>><</link>> 
+ <<link [[Go to the Garden|Garden]]>><</link>> 
     → display the text "Go to the Garden" and send the player to the passage called "Garden"
 }}}
 > //Without the link markup://
 {{{
-<<link "Go to the Garden" "Garden">><</link>> 
+ <<link "Go to the Garden" "Garden">><</link>> 
     → display the text "Go to the Garden" and send the player to the passage called "Garden"
 }}}
 > ''Note:'' Without the link markup, this ''won't create a visual link between passage blocks'' in the Twine map of the project.
@@ -105,20 +101,18 @@ Since the {{{<<link>>}}} macro is a container macro (with an opening and a closi
         /*Code Here*/
     <</link>>        ← closing block
 
-Example:
+ → Example:
     <<link "Take Coin">><<unset $coin>><</link>>
 }}}
 > ''Note:'' you can switch the {{{<<link>>}}} macro for the {{{<<button>>}}} macro, as their only difference is how they are formatted on the page (a simple link or a button).
 \
 > For more advanced uses of the link macro, see [[the Link Macro page|Macro-Link]].
 
-<div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
-
-:: Macro-Set-Basic [page] {"position":"800,300","size":"100,100"}
-<h1>Tracking Information and the {{{<<set>>}}} Macro</h1>
+:: Macro-Set-Basic [page basics] {"position":"800,300","size":"100,100"}
+<h1 id="basic-set">Tracking Information and the {{{<<set>>}}} Macro</h1>
 To track information and choices made by the player, you need to set [[variables|Variables-Base]], and save the tracked information as a value in the variable, by using the {{{<<set>>}}} Macro.
 
-While there are multiple ways to [[store information|Variables-Base]], the most relevant way is through using ''temporary'' or ''permanent'' variables. As their name suggests, a temporary variable is temporary, disappearing when the player moves to another passage, while the permanant variable will stick around (until you [[destroy|Macro-Unset]] it or change its value).
+While there are multiple ways to [[store information|Variables-Base]], the most relevant way is through using ''temporary'' or ''permanent'' variables. As their name suggests, a temporary variable is temporary, disappearing when the player moves to another passage, while the permanent variable will stick around (until you [[destroy|Macro-Unset]] it or change its value).
 {{{
     <<set $variable to 5>>
     <<set $variable to 'some words'>>
@@ -138,19 +132,20 @@ You can also set multiple variables at once, by separating each with a {{{,}}} c
     >>
 }}}
 > ''Note:'' the type of value stored in a variable is not set in stone when the variable is first set.
-> You can set a variable as an //integer// (number), before setting it as a //string// (words) a few passages later, without needing the unset it in between.
+> You can set a variable as an //integer// (number), before setting it as a //string// (words) a few passages later, without needing the unset it in-between.
 
 If you want to track the player's choice of action, before the passage changes, you will need to set a variable inside a link. This method is often the best way to store information, and avoid a variable to change value if the player revisit a passage.
 > ''Note:'' setting a temporary variable in a forwarding link is useless...
+\
+> //Example with the Link markup://
 {{{
-Link markup:
     [[Displayed Text|PassageName][$var to {value}]]
 
     [[Pick apples|Garden][$apple to 5]]
     [[Displayed Text|PassageName][$variable to 5, $var2 to 'some words', $var3 to true]]
 }}}
+> //Example with the Link macro://
 {{{
-Link macro:
     <<link [[Displayed Text|PassageName]]>><<set $variable to 5>><</link>>
     <<link [[Displayed Text|PassageName]]>>
         <<set $var to 5, $var2 to 'some words', $var3 to true, _temp to 5>>
@@ -158,12 +153,10 @@ Link macro:
 }}}
 
 For other mathematical operators or advanced uses of the {{{<<set>>}}} Macro, [[see the Set Macro page|Macro-Set]].
-For setting up links, [[see this page|Macro-Link-Basic]].
+For creating links, start with [[this page|Macro-Link-Basic]].
 
-<div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
-
-:: Macro-If-Basic [page] {"position":"900,300","size":"100,100"}
-<h1>Display Variation and the {{{<<if>>}}} Macro</h1>
+:: Macro-If-Basic [page basics] {"position":"900,300","size":"100,100"}
+<h1 id="basic-if">Display Variation and the {{{<<if>>}}} Macro</h1>
 Following a player's choice, you may want to show a specific variant of the next passage, based on that choice. This will be possible with ''conditional statements'', through the {{{<<if>>}}} Macro (you will need to [[set a variable|Macro-Set-Basic]] first).
 > ''Note:'' the example below showcase different types of [[values|Variables-Base]].
 \
@@ -193,11 +186,11 @@ Following a player's choice, you may want to show a specific variant of the next
 {{{
   At the store you picked <<if $pet is "dog">>a dog<<elseif $pet is "car">>a cat<<else>>a bird<</if>>.
 }}}
-> ''Note:'' the code of the examples above are indented to showcase it better.
+> ''Note:'' the code of the examples above are only indented to showcase it better. While this is a recommended method, to keep track of macros, it will create extra blank space.
 
 Conditional statements can also be nested inside one another:
 {{{
-    <<if $choice is 1>>       ← first contidional 
+    <<if $choice is 1>>       ← first conditional 
         <<if $pet is "dog">>  ← nested conditional
             This will show this sentence on the page.
         <<elseif $pet is "cat">>
@@ -210,19 +203,20 @@ Conditional statements can also be nested inside one another:
 
 For other operators and more advanced uses of the {{{<<if>>}}} Macro, see [[this page|Macro-If]].
 
-<div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
-
-:: Variables-Base [page] {"position":"800,400","size":"100,100"}
-<h1>Variables and Values in SugarCube</h1>
+:: Variables-Base [page basics] {"position":"800,400","size":"100,100"}
+<h1 id="basic-variable">Variables and Values in SugarCube</h1>
+Variables can be an important component when creating stories with variations, as it will help you track actions done by the player, and affect their playthrough. Variables come in different shape and form, and can save different types of information.
+\
 <h3>Value Types</h3>\
-Values are bits of data stocked inside variables. There are different types of values, which are affected by macros and will affect how macros behave.
+Values are bits of information (data) stocked inside variables. 
+There are different types of values, which can both affect how code behaves and be modified by macros. 
 
 The different types of values are:
-* numbers (also called //integer//)
-* words (also called //strings//)
-* Boolean ({{{true/false}}})
+* numbers (also called //integer//), such as {{{ 0 }}}, {{{ 1.5 }}}, {{{ -3 }}}
+* words (also called //strings//), such as {{{ "this small sentence is a string" }}}
+* Boolean ({{{true/false}}} values)
 * functions (advanced - covered [[here|Functions]])
-> ''Note:'' You can have numbers in a string ({{{"1" ≠ 1}}}), but you won't be able to change the value of this number (unless you transform the value into an integer).
+> ''Note:'' Numbers can be saved as strings ({{{"1" ≠ 1}}}), but you won't be able to change the value of this number (unless you transform the value into an integer). Quotes transforms any value into a string.
 \
 <h3>Variable Types</h3>\
 To track and organise those values, there are three types of variables to consider:
@@ -230,31 +224,34 @@ To track and organise those values, there are three types of variables to consid
 ** {{{var = value}}}
 * //array//: a list of values, each with a set position
 ** {{{var = [value, value, value]}}}
+** the first position of the array starts at {{{ 0 }}}!
 * //object//: values linked to properties
 ** {{{var = {property : value, property : value}}}}
-Depending on the amount of information tracked within a project, the last two options can be helpful in keeping those values organised. However, they are not necessary (especially in simple IF projects). To set a variable, see [[the Set Macro|Macro-Set-Basic]] chapter.
+\
+Depending on the amount of information tracked within a project, the last two options can be helpful in keeping those values organised (even mixing them). However, they are not necessary (especially in simple IF projects). To set a variable, see [[the Set Macro|Macro-Set-Basic]] chapter.
 
 In SugarCube, variables can been viewed as followed:
 {{{
-    basic: 
-        $variable = 5
-        $variable = "some words"
-        $variable = true
-    array:
-        $variable = [5, "some words", true]
-    object:
-        $variable = {number: 5, string: 'some words', boolean: true}
+ → basic: 
+    $variable = 5
+    $variable = "some words"
+    $variable = true
+    
+ → array:
+    $variable = [5, "some words", true]
+ 
+ → object:
+    $variable = {number: 5, string: 'some words', boolean: true}
 }}}
+> ''Note:'' Single {{{ ' ' }}} and double {{{ " " }}} quotes are essentially interchangeable.
 \
 <h3>Variable Storage</h3>\
-Aside from different types of variables, there are multiple ways to store those variables in the code. Depending on the need, a certain kind will be more useful than another. The differnt storage types are:
+Aside from different types of variables, there are multiple ways to store those variables in the code. Depending on the need, a certain kind will be more useful than another. The different storage types are:
 * temporary ({{{_temporary}}}), so the variable disappears when moving to a new passage
-* permanant ({{{$variable}}}), so the variable is stored until you [[destroy|Macro-Unset]] it
+* permanent ({{{$variable}}}), so the variable is stored until you [[destroy|Macro-Unset]] it
 * settings ({{{settings.var}}}), or variables related to the [[Settings]]
-* setup ({{{setup.var}}} - should be set in StoryInit), which is meant for unchanging values (ex: the price of an object)
+* setup ({{{setup.var}}} - should be set in [[StoryInit|SP-Init]]), which is meant for unchanging values (ex: the price of an object)
 > ''Note:'' for a simple project, you will not need the last two types. You may not even need variables at all.
-
-<div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
 
 :: Demo-Basic [page demo] {"position":"900,400","size":"100,100"}
 A simple choice.
@@ -282,7 +279,7 @@ In front of you sit three boxes: a blue one, a green one, and a red one. Inside 
 <</message>>
 
 
-:: Demo-Basic-Reveal [page demo] {"position":"1000,400","size":"100,100"}
+:: Demo-Basic-Reveal [page demo basics] {"position":"1000,400","size":"100,100"}
 <<if $box is false>>You did not choose a box.<<else>>You chose the <<if $box is "blue">>blue box, and found a cookie.<<elseif $box is "red">>red box, but found nothing.<<else>>green box, and found an apple<</if>><</if>>
 
 * [[Try again?|Demo-Basic]]
@@ -294,6 +291,4 @@ In front of you sit three boxes: a blue one, a green one, and a red one. Inside 
     * [[Try again?|Demo-Basic]]
 }}}
 <</message>>
-
-<div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
 

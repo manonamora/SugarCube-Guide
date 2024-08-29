@@ -1,0 +1,502 @@
+:: OnePagePopup [one-page popup]  {"position":"1900,250","size":"100,100"}
+You are about to move to the //One-Page// viewing of this Guide, which displays //''ALL''// the sections and pages in one single passage.
+
+While it makes it much easier to find information ({{{CTRL + F}}}), the links on the passage will send you the selected page rather than scrolling to the relevant section. If this happens, you can return to the //One-Page// page view by clicking on the left-arrow in the SideBar or at the //Return to One-Page// at the bottom of the section.
+
+If you want to scroll to a particular section, select the //Index// button in the SideBar.
+
+<<button "Go to the //One-Page// view">>
+  <<run Setting.setValue("onePage", true);>>
+   <<goto "OnePage">>
+  <<run Dialog.close()>>
+<</button>>
+
+:: OnePage [one-page] {"position":"2000,250","size":"200,100"}
+<div style="text-align:right;font-size:85%;">Last Updated: 29 Aug '24</div>
+<h1 class="the-super-head">100% Good Twine SugarCube Guide</h1>\
+This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
+
+The guide covers the different aspects of the SugarCube format, from its particular markup, to its macros, functions, and APIs. It also touches upon possible customisation of SugarCube projects, with editing the StyleSheet with CSS or the JavaScript passage. And, it brushes upon aspects of accessibility in terms of code, design, and formatting.
+> This guide is based on the [[official SugarCube documentation|https://www.motoslave.net/sugarcube/2/docs/]], and is up to date as of the ''version 2.37.3''. For later version, please refer to the official documentation. /* It is unlikely this guide will get further updates, as SugarCube 2 is moving to maintaining-only state. Always refer to the documentation anyway when unsure about something*/
+\
+The guide is separated in different categories: ''The Basics(+)'', ''Intermediate Use'', and ''Advanced Mode''. 
+Only the Basics are necessary to be able to create a game with SugarCube. 
+Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
+> ''Note:'' any coding done in SugarCube is case and character sensitive, meaning that 
+> {{{name ≠ Name}}} or {{{" " ≠ “ ”}}}.
+
+<hr class="categorybreak"><hr class="categorybreak2">
+<h1 class="the-super-head">The Basics</h1>
+<hr>
+<<include "About">>
+<hr>
+<h1 id="basic-chapter" class="the-chapter">Starting with SugarCube</h1>
+When setting up your first project with SugarCube, it is best to start with the Basics. 
+This means creating links between story pages, allowing the player to move from one passage to another, saving information and player's choices inside variables, and tracking the value of those variables to display variations down the line.
+
+To do this, you essentially only need the 3 following macros: {{{<<link>>}}}, {{{<<set>>}}}, and {{{<<if>>}}}.
+> ''Note:'' Twine reads passages from top to bottom, so any code at the top of the passage can affect any code below.
+> Want to see this in action? Try this [[Demo|Demo-Basic]]!
+<hr class="small-section">\
+<h1 id="basic-ui-element">The Elements on the Page</h1>
+In a basic SugarCube project, there are essentially 3 main elements on the page:
+* the passage (where this text is)
+* the UI-Bar (on the left)
+* the dialog box (<<link "click here">><<popup "Basic-UI-Dialog" "Dialog Box">><</link>>)
+\
+The content inside the ''passage'' is generated from the story passages created in Twine (i.e. any non-special passage). Every time the player clicks on a link to advance the story, the passage will refresh to display the new content.
+
+In the ''UI-Bar'', also called //SideBar//, you will find arrows to go back and forth in the Game History (the visited passages), an arrow to hide/show the UI-Bar/sidebar, and, at the minimum, the //Save// and //Restart// buttons. 
+The content of the sidebar can be edited through the [[Special Passages|SP-UIBar]], or when adding [[Settings]] or [[Saves|Config-Saves]].
+
+''Dialog boxes'' are elements that will appear at the forefront of the page (like a popup). It is used by the Menu buttons (like //Save// and //Restart//), but can also contain content from a story passage (like the Index link in the SideBar) or coded through the passage. To create a dialog box, [[visit this page|Basic-API-Dialog]].
+
+To edit how those elements look, you will need to edit the [[StyleSheet|Int-JS-CSS-Elements]] (intermediate).
+\
+<hr class="small-section">\
+<<include "Macro-Link-Basic">>
+<hr class="small-section">\
+<<include "Variables-Base">>
+<hr class="small-section">\
+<<include "Macro-Set-Basic">>
+<hr class="small-section">\
+<<include "Macro-If-Basic">>
+\
+<hr class="categorybreak"><hr class="categorybreak2">
+<h1 class="the-super-head">The Basics(+)</h1>
+<hr>
+\
+<h1 id="basics-markup" class="the-chapter">SugarCube Markup and Basic Styling</h1>
+To format your text or code in a specific way, SugarCube includes some special code, called ''markup'', separate from HTML and macros. 
+There are different types of markups, from formatting your text (''bold'', //italics//, etc...) to more complex interactions between HTML and variables. This section will cover the basics, used in most projects. For more advanced Markup, see [[this page|Markup-Int]].
+\
+<hr class="small-section">\
+<<include "Markup-Styling">>
+<hr class="small-section">\
+<<include "Markup-Image">>
+<hr class="small-section">\
+<<include "Markup-Variable">>
+<hr class="small-section">\
+<<include "Markup-Link">>
+<hr class="small-section">\
+<<include "Markup-Nobr">>
+<hr>
+\
+<h1 id="basics-macros" class="the-chapter">Going Further with the Basics</h1>
+With [[linking passages|Macro-Link-Basic]], [[setting variables|Macro-Set-Basic]], and creating some simple [[conditional statements|Macro-If-Basic]], you would have the basics required to make a textual game. However, if you want to push your project a bit further, and add onto that base, this section will cover slightly more complex uses for these macros, as well as include a few more related ones.
+\
+<hr class="small-section">\
+<<include "Macro-Set">>
+<hr class="small-section">\
+<<include "Macro-Unset">>
+<hr class="small-section">\
+<<include "Macro-If">>
+<hr class="small-section">\
+<<include "Macro-Link">>
+<hr class="small-section">\
+<<include "Macro-Print">>
+<hr>
+\
+<h1 id="basics-interact" class="the-chapter">Adding some Interactivity</h1>
+While links make up for the majority of interactions in Twine games, SugarCube includes other types of interactivity through macros, which can help add different kinds of gameplay elements. The macros mentioned in this section are particularly useful for character creation, puzzles, and even combat systems.
+\
+<hr class="small-section">\
+<<include "Macro-CheckRadio">>
+<hr class="small-section">\
+<<include "Macro-Cycle">>
+<hr class="small-section">\
+<<include "Accessibility-Cycle">>
+<hr class="small-section">\
+<<include "Macro-Listbox">>
+<hr class="small-section">\
+<<include "Macro-Input">>
+<hr class="small-section">\
+<<include "Macro-Link-AppPreRep">>
+<hr>
+\
+<h1 id="basics-sp" class="the-chapter">Basic Special Passages</h1>
+Your project can be customised further thanks to Special Passages. These passages are made special as they will affect how the page looks, where the content of the passage is displayed on the page, or when the code is triggered during loading. SugarCube includes 14 Special Passage names that, when use, will trigger those special properties. The ones included in this section will focus on Headers, Footers, the SideBar, and Initialisation.
+> ''Note:'' You can check [[the demo|SP-Demo]] to see the Special Passages of this section in action!
+
+To use a Special Passage in your project you will need to:
+* create a new passage
+* name it with the wanted Special Passage Name 
+** it should be exactly as indicated in the [[Documentation|http://www.motoslave.net/sugarcube/2/docs/#special-passages]]! or it will not work 
+* fill the passage however you want
+** some Special Passages have restriction in content
+> ''Note:'' you cannot have more that one of each Special Passage per project.
+\
+<hr class="small-section">\
+<<include "SP-HeaderFooter">>
+<hr class="small-section">\
+<<include "SP-UIBar">>
+<hr class="small-section">\
+<<include "SP-Init">>
+<hr>
+<<include "Base-JS-CSS">>
+<hr>
+<<include "URL-Types">>
+\
+<hr class="categorybreak"><hr class="categorybreak2">
+<h1 class="the-super-head">Intermediate Use</h1>
+<hr>
+\
+<h1 id="int-markup" class="the-chapter">More SugarCube Markup</h1>
+While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like updating stats bars), or display small variation (like changing pronouns). And, if you are trying to make a guide or tutorials in SugarCube, it will help display code!
+\
+<hr class="small-section">\
+<<include "Markup-Attribute">>
+<hr class="small-section">\
+<<include "Markup-Code-Verbatim">>
+<hr class="small-section">\
+<<include "Markup-Template">>
+<hr>
+\
+<h1 id="int-macro" class="the-chapter">More Interactivity Macros</h1>
+While a previous section touched upon the [[Base Interactive Macros|Macro-Interact]], SugarCube still has more interactive macros, of a more intermediate use level. These macros will add different kinds of interactivity to the project, or more flexibility in said interactivity.
+\
+<hr class="small-section">\
+<<include "Macro-Timed">>
+<hr class="small-section">\
+<<include "Macro-Type">>
+<hr class="small-section">\
+<<include "Macro-ApPreRepCopy">>
+<hr class="small-section">\
+<<include "Custom-Macro">>
+<hr>
+\
+<h1 id="int-conv" class="the-chapter">Macros of Convenience</h1>
+Whether you need a more convenient way to format your code or the text in passages, to send players to a specific varying story passage, or include more JavaScript in the game, SugarCube has a couple of very convenient macros.
+\
+<hr class="small-section">\
+<<include "Macro-Switch">>
+<hr class="small-section">\
+<<include "Macro-Goto">>
+<hr class="small-section">\
+<<include "Macro-Back-Return">>
+<hr class="small-section">\
+<<include "Long-Return-JS">>
+<hr class="small-section">\
+<<include "Macro-Do-Redo">>
+<hr class="small-section">\
+<<include "Macro-Include">>
+<hr class="small-section">\
+<<include "Macro-Nobr-Silent">>
+<hr class="small-section">\
+<<include "Macro-Widget">>
+<hr class="small-section">\
+<<include "Macro-Script-Run">>
+<hr>
+\
+<h1 id="sp-tags" class="the-chapter">More Special Passages and Tags</h1>
+Aside from the [[Basic Special Passages|Special-Passage]], you can customise your project even further with more Special Passage Names and Special tags.
+\
+<hr class="small-section">\
+<<include "Tags-Built">>
+<hr class="small-section">\
+<<include "SP-PassageReady-Done">>
+<hr class="small-section">\
+<<include "SP-StoryInterface">>
+<hr class="small-section">\
+<<include "Tags-CSS">>
+<hr class="small-section">\
+<<include "Tags-Asset">>
+<hr class="small-section">\
+<<include "SP-Variables">>
+<hr>
+\
+<h1 id="functions" class="the-chapter">Harness the Power of Functions</h1>
+Functions are JavaScript blocks of code designed to do a specific task, from importing outside scripts, to save information, or setting variables. While some of the functions explained in this section can be used in any passage in combination with SugarCube macros, some should be restricted to the JavaScript passage only.
+\
+<hr class="small-section">\
+<<include "Function-Clone-Random">>
+<hr class="small-section">\
+<<include "Function-Pass-Tag">>
+<hr class="small-section">\
+<<include "Function-Metadata">>
+<hr class="small-section">\
+<<include "Function-Trigger">>
+<hr class="small-section">\
+<<include "Function-JS">>
+<hr>
+\
+<h1 id="methods" class="the-chapter">Using Methods to change Variables</h1>
+Methods are [[functions|Functions]], JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run.
+{{{
+    <receiver>.method()
+ → Example:
+    $var.first()
+}}}
+
+In SugarCube, they are mainly used to handle arrays, change the formatting of strings values, or handle numbers.
+> ''Note:'' Other native JavaScript or jQuery methods can be used with SugarCube, but requires knowledge of those languages. The ones listed in this guide would be the most useful.
+\
+<hr class="small-section">\
+<<include "Method-String">>
+<hr class="small-section">\
+<<include "Method-Number">>
+<hr class="small-section">\
+<<include "Method-Array">>
+<hr>
+\
+<h1 id="audioma" class="the-chapter">Adding Sound with the Audio Macros</h1>
+Adding any asset to a project can be daunting, especially when it can involve so many macros. But adding audio is actually quite simple and, at the minimum, only requires the use of 2 macros: {{{<<audio>>}}} and {{{<<cacheaudio>>}}}.
+\
+<hr class="small-section">\
+<<include "CacheAudio">>
+<hr class="small-section">\
+<<include "Macro-Group-Playlist">>
+<hr class="small-section">\
+<<include "Audio-Macro">>
+<hr class="small-section">\
+<<include "Audio-Other">>
+<hr>
+\
+<h1 id="intjscss" class="the-chapter">Going further in Styling with CSS and JavaScript</h1>
+If you want to change how a page looks or behaves, you will need to edit either the StyleSheet, the JavaScript, or a combination of both. If it is behaviour that needs setting, then you will most likely need the JavaScript. For most visual elements, you should turn to the StyleSheet.
+
+While editing the StyleSheet, you may find the Inspect Tool of your browser to be a useful thing. From testing for different screen sizes and accessibility, to view the source code (HTML/CSS) of the displayed passage, or even messing with the CSS rules without going back and forth between the StyleSheet and the file, the tool will let you ensure a great visual for your project.
+\
+<hr class="small-section">\
+<<include "Int-JS-CSS-Elements">>
+<hr class="small-section">\
+<<include "HTML-Full-List">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-Events">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-Font">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-Icons">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-Root">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-Media">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-Animation">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-Stat">>
+<hr class="small-section">\
+<<include "Int-JS-CSS-LoadingScreen">>
+<hr class="small-section">\
+<<include "Accessibility">>
+<hr>
+\
+<h1 id="basic-apis" class="the-chapter">Some Useful Basic APIs</h1>
+Along with macros, there are basic APIs that can trigger an event in the game, such as undoing an action, opening a popup, or configuring some functionalities in the engine. 
+
+Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
+\
+<hr class="small-section">\
+<<include "Basic-API-Engine">>
+<hr class="small-section">\
+<<include "Basic-API-Dialog">>
+<hr class="small-section">\
+<<include "Basic-API-UIBar">>
+<hr class="small-section">\
+<<include "Basic-API-UI">>
+<hr class="small-section">\
+<<include "Basic-Config-Navig">>
+<hr class="small-section">\
+<<include "Basic-API-Config">>
+<hr>
+\
+<h1 id="localization" class="the-chapter">Edit the Built-In Text or Change the Game's Language</h1>
+Further customisation of a SugarCube project can be done with the {{{l10nStrings}}}, bits of JavaScript code that will change what text the Built-In elements will show. This can affect the buttons on the Sidebar, as well as the //Restart//, //Saves//, and //Settings// Popup. You can edit these strings to fit the vibe of your project, change its language entirely, or link them to a function to provide translation of your work. 
+\
+<hr class="small-section">\
+<<include "Local-L10n">>
+<hr class="small-section">\
+<<include "Local-Trans">>
+<hr class="small-section">\
+<<include "Local-Setting">>
+<hr>
+\
+<<include "DebugAPI">>
+\
+<hr class="categorybreak"><hr class="categorybreak2">
+<h1 class="the-super-head">Advanced Mode</h1>
+> ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processes of SugarCube.
+<hr>
+<h1 id="adv-macros" class="the-chapter">Advanced Macros</h1>
+Below, you will find the last of the macros that haven't been discussed in the previous sections. These macros are considered advanced, as they will either require some HTML/CSS knowledge, or full control of coding logics. They are usually not needed for basic projects. 
+\
+<hr class="small-section">\
+<<include "Macro-DOM-Adv">>
+<hr class="small-section">\
+<<include "Macro-For-Repeat">>
+<hr class="small-section">\
+<<include "Macro-Capture">>
+<hr class="small-section">\
+<<include "Macro-Done">>
+<hr>
+\
+<h1 id="adv-methods" class="the-chapter">More Variable and Interaction Methods</h1>
+In the [[Methods]] section, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. This section includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
+\
+<hr class="small-section">\
+<<include "Method-Variables">>
+<hr class="small-section">\
+<<include "Method-jQuery">>
+<hr>
+\
+<h1 id="adv-apis" class="the-chapter">Going Further with Basic APIs and More</h1>
+While most of the Basic API were listed [[here|Basic-API]], this section will cover more advanced elements for the Dialog Box and the UI SideBar, as well as extra APIs dealing with elements on the screen.
+
+Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
+\
+<hr class="small-section">\
+<<include "API-Dialog">>
+<hr class="small-section">\
+<<include "API-UIBar">>
+<hr class="small-section">\
+<<include "TemplateAPI">>
+<hr class="small-section">\
+<<include "API-Lock">>
+<hr>
+\
+<h1 id="settings-apis" class="the-chapter">The Settings APIs</h1>
+Settings can be a great way to customise your project, and make it more accessible for players. Whether it is to change the visual aspect (font, theme, etc), the audio (volume, track), or overall mechanics (difficulty, animation), there are many ways to reach your goal.
+
+While including settings in a project can feel a bit overwhelming, as they //will// require some knowledge of JavaScript, the Setting APIs are there to make things easier. There are also many UI templates out there including some settings.
+> ''Note:'' Do check the version of SugarCube attached to the template, as older templates may use correct code for their version that would be deprecated in later SugarCube version, requiring users to fix it.
+
+The basic Settings API is built in this format:
+{{{
+    Settings.function(parameters)
+}}}
+> ''Note:'' The order in which you add the settings in the JavaScript passage will be the order you will see in the Settings popup.
+\
+> ''Note 2:'' you can find a Settings-Only Template with the most useful settings for Interactive Fiction on my [[itch page|https://manonamora.itch.io/twine-sugarcube-templates]].
+\
+<hr class="small-section">\
+<<include "SettingsBasics">>
+<hr class="small-section">\
+<<include "SettingsToggle">>
+<hr class="small-section">\
+<<include "SettingsList">>
+<hr class="small-section">\
+<<include "SettingsRange">>
+<hr class="small-section">\
+<<include "Settings-More">>
+<hr class="small-section">\
+<<include "SettingsHeader">>
+<hr>
+\
+<h1 id="engine-apis" class="the-chapter">The Engine APIs</h1>
+Aside from [[moving back and forth|Basic-API-Engine]] in the player history, the Engine APIs include extra functions to customize the gameplay of your project. Some of these APIs are more useful in JavaScript than in passages.
+\
+<hr class="small-section">\
+<<include "Engine-State">>
+<hr class="small-section">\
+<<include "Engine-Go">>
+<hr class="small-section">\
+<<include "Engine-Play">>
+<hr class="small-section">\
+<<include "Engine-Restart">>
+<hr>
+\
+<h1 id="save-apis" class="the-chapter">The Save APIs and Further Saving Configurations</h1>
+While the Config APIs have [[configuration settings|Config-Saves]] for saving playthroughs, it may not be enough for the customisation you may want to achieve. This is where the Save APIs come in.
+
+The Save APIs can be grouped into different categories: Browsers (which will save in browser's [[cache|https://www.pcmag.com/encyclopedia/term/browser-cache]]), Disk (downloadable file), and Base64 (encoded string save). The latter two will allow for import/export of saves from the user.
+> ''Note:'' Browser saves (autosave/slot saves) are largely incompatible with Private Browsing Mode and Cookies/Cache blockers. Users restricting access to cache may get an error message on start.
+\
+<hr class="small-section">\
+<<include "SaveAPI-Objects">>
+<hr class="small-section">\
+<<include "SaveAPI-General">>
+<hr class="small-section">\
+<<include "SaveAPI-Slots">>
+<hr class="small-section">\
+<<include "SaveAPI-Autosave">>
+<hr class="small-section">\
+<<include "SaveAPI-Disk">>
+<hr class="small-section">\
+<<include "SaveAPI-Base64">>
+<hr class="small-section">\
+<<include "SaveAPI-Events">>
+<hr>
+\
+<h1 id="config-apis" class="the-chapter">More Configuration APIs to Customise Interaction</h1>
+If you need to configure how your project should run with more customisation, like saving playthroughs or changing how some macros operate, this section will cover the rest of the Configuration APIs that were not [[previously mentioned|Basic-API-Config]].
+
+Those APIs are JavaScript-based code that should be included in the JavaScript (though some can be used along with the {{{<<run>>}}} or {{{<<script>>}}} macros inside a passage).
+\
+<hr class="small-section">\
+<<include "Confic-Macro">>
+<hr class="small-section">\
+<<include "Config-Passage">>
+<hr class="small-section">\
+<<include "Config-Saves">>
+<hr class="small-section">\
+<<include "Config-Misc">>
+<hr>
+\
+<<include "FullScreen">>
+\
+<hr>
+\
+<h1 id="events" class="the-chapter">Trigger Code with Special Events</h1>
+Events are messages sent by the code within the game file to notify other bits of code that something has happened (automated or through player interaction). These are built-in the code of SugarCube, and can be used when creating a [[Custom Macro|Macro]], or wanting to customise elements on the page at a very specific moment (e.g. having a sound when closing a popup).
+
+Each event is formatted as an object and contains information about the state at the moment of the event and what happened during the event. You can find these events used plainly in JavaScript (e.g. scroll back to the top) or within macros.
+> ''Note:'' The events discussed here are specific to SugarCube. The format, however, does accept more [[standardized browser events|https://developer.mozilla.org/en-US/docs/Web/Events]].
+\
+<hr class="small-section">\
+<<include "Events-Dialog">>
+<hr class="small-section">\
+<<include "Events-Passage">>
+<hr class="small-section">\
+<<include "Events-System">>
+<hr class="small-section">\
+<<include "Events-Type">>
+<hr class="small-section">\
+<<include "Events-Audio">>
+<hr>
+\
+<h1 id="macro-apis" class="the-chapter">Creating your Own Macro</h1>
+If you are looking to include a specific behaviour in your project that is not covered by the macros already built in SugarCube or custom ones available on the internet, you may want to consider creating your own.
+SugarCube has many API to help you build your custom macros, or even chose to edit already-included macros.
+> ''Note:'' Knowledge of JavaScript and understanding of the SugarCube format is very important here! 
+\
+<hr class="small-section">\
+<<include "Macro-API">>
+<hr class="small-section">\
+<<include "Macro-Context">>
+<hr>
+\
+<<include "StoryAPI">>
+\
+<<include "PassageAPI">>
+\
+<h1 id="state-apis" class="the-chapter">Dealing with the State of Play</h1>
+Any started playthrough will contain a State, which will include moments (states) created during play used to navigate the history (undo/redo) and to save the (potentially modified) value of variables. If relevant, the State will include Metadata and a Seedable PRNG.
+\
+<hr class="small-section">\
+<<include "StateAPI-Variable">>
+<hr class="small-section">\
+<<include "StateAPI-State">>
+<hr class="small-section">\
+<<include "StateAPI-Metadata">>
+<hr class="small-section">\
+<<include "StateAPI-PRNG">>
+<hr>
+\
+<h1 id="audio-apis" class="the-chapter">Going Further with Audio with APIs</h1>
+The Audio API is the largest group of APIs included in SugarCube, enabling you to have more control over sound in your project. It is the subsystem and backend for the [[audio macros|Macro-Audio]].
+> ''Note:'' Aside from the SimpleAudio API, this chapter is for //very// advanced users. It is unlikely they will be of use for 99% of projects, as the audio macros will already cover most use.
+
+Because the SugarCube Audio system is based on the HTML Media Elements APIs, it comes with limitations:
+* no true gap-less transitions between tracks
+* on mobile, playback volume is controlled ONLY by the device hardware (except for muting)
+* playback at the start of the game must be initiated by player through a click/touch (it won't work otherwise)
+\
+<hr class="small-section">\
+<<include "AudioAPI-General">>
+<hr class="small-section">\
+<<include "AudioApi-Track">>
+<hr class="small-section">\
+<<include "AudioApi-Runner">>
+<hr class="small-section">\
+<<include "AudioApi-List">>
+<hr id='categorybreak'>

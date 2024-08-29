@@ -1,22 +1,20 @@
 :: Markup-Int [chapter menu] {"position":"800,1100","size":"200,100"}
 <h1>More SugarCube Markup</h1>
-While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like stats bars), or display small variation (like pronouns).
+While [[Markup]] can help format text on the screen, display an image or create a link, it can also be useful in affecting HTML elements on the page (like updating stats bars), or display small variation (like changing pronouns). And, if you are trying to make a guide or tutorials in SugarCube, it will help display code!
 
 * [[Special Attributes and Directives|Markup-Attribute]] 
 * [[Displaying Code and Verbatim Text|Markup-Code-Verbatim]] 
 * [[Display Small Variation with Templates|Markup-Template]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Markup-Attribute [page] {"position":"800,1200","size":"100,100"}
-<h1>Special Attributes and Directives</h1>
-While macros allow for interaction or affect elements on the page, it is also possible to link variables or passages directly to HTML elements, and enable special behaviour unatainable with built-in macros.
+:: Markup-Attribute [page int-markup] {"position":"800,1200","size":"100,100"}
+<h1 id="int-muattri">Special Attributes and Directives</h1>
+Macros are not the only way to interact with elements on the page and affect their aspects. You link up a variable or passage with an HTML element with a few extra characters, and enable special behaviours unattainable with built-in macros.
 \
 <h3>Special Attributes</h3>\
-SugarCube provides some special HTML attributes to enable special behaviour from HTML elements. There are two main ones: {{{data-passage}}} and {{{data-setter}}}. While the latter will set a variable to a value (like {{{<<set>>}}}), the former will behave differently depending on the element (i.e. create a link towards a passage or display the content of the passage).
+HTML attributes are additional information added on to an element or enable special behaviours, such as the source of an image ({{{src="URL"}}}), alternative text ({{{alt="text"}}}) and even styling ({{{style="some CSS"}}}). To this, SugarCube adds two extra attributes: {{{data-passage}}} and {{{data-setter}}}. The latter will set a variable (like {{{<<set>>}}}), while the former is dependent on the element attached.
 \
 <h4>{{{data-setter}}}</h4>\
-The {{{data-setter}}} attribute can be added to interactive elements like a link ({{{<a>}}}), a button ({{{<button>}}}) or an area inside a clickable image ({{{<area>}}}). It will set any SugarCube variable to a wanted value:
+To function, the {{{data-setter}}} attribute should be added to interactive elements like a link ({{{<a>}}}), a button ({{{<button>}}}) or an area inside a clickable image ({{{<area>}}}). It will save any wanted value to the indicated SugarCube variable:
 {{{
     data-setter="$var to 'value'"
 }}}
@@ -31,9 +29,9 @@ The {{{data-setter}}} attribute can be added to interactive elements like a link
 }}}
 \
 <h4>{{{data-passage}}}</h4>\
-The {{{data-passage}}} will link a passage to an element, creating either a link between passages (like a {{{<<link>>}}}), displaying images or videos, or playing audio. 
+The {{{data-passage}}} will connect a passage to the selected element, creating either a link between passages (like a {{{<<link>>}}}), displaying images or videos, or playing audio. 
     
-Using {{{data-passage}}} to create a link between passages can be used for elements such as a link ({{{<a>}}}), a button ({{{<button>}}}) or an area inside a clickable image ({{{<area>}}}). It is most useful for map images, or custom elements to hide a link.
+Using {{{data-passage}}} to create a link between passages can be used for elements such as a link ({{{<a>}}}), a button ({{{<button>}}}) or an area inside a clickable image ({{{<area>}}}). It is most useful for map images, or other custom elements.
 {{{
     <a data-passage="PassageName">Do the thing</a>
 
@@ -41,7 +39,7 @@ Using {{{data-passage}}} to create a link between passages can be used for eleme
 
     <area shape="rect" coords="25,25,75,75" data-passage="PassageName">
 }}}
-> ''Note:'' This method will not create an arrow between passages on the Twine app.
+> ''Note:'' This method will not create an arrow between passages on the Twine map.
 
 As for multi-media elements, such as {{{<audio>}}}, {{{<img>}}}, {{{<source>}}} or {{{<video>}}}, {{{data-passage}}} will become the link between the element and the asset to use in the passage. These can be helpful when wanting to include external online assets.
 > ''Note:'' this should be used in combination with the [[Asset Passage Tags|Tags-Asset]]
@@ -54,13 +52,14 @@ As for multi-media elements, such as {{{<audio>}}}, {{{<img>}}}, {{{<source>}}} 
 
     <video data-passage="VideoPassageName">
 }}}
+> ''Note:'' {{{data-passage}}} can also be used in the {{{StoryInterface}}} [[Special Passage|SP-StoryInterface]].
 \
 <h3>Attribute Directive</h3>\
-SugarCube also allows variables to affect the class or id of an element, how they are styled, or even how they behave. It can be used for any attribute of an element, except for {{{data-setter}}}.
+SugarCube also allows variables to affect elements and their attribute, changing how they are styled or how they behave. This is done through an ''attribute directive'', which will connect a variable to the wanted attribute. This method can be used for any attribute of an element, except for {{{data-setter}}}.
 
-It is particularly useful when wanting to use HTML interactive element not included in SugarCube (e.g. slider in passage), creating stat bars without diving into JavaScript code, or formatting an element depending on the state of the game.
+The //attribute directive// is particularly useful when wanting to use HTML interactive element not included in SugarCube (see [[HTML forms|https://developer.mozilla.org/en-US/docs/Web/HTML/Element#forms]]), creating stat bars without diving into JavaScript code, or formatting an element depending on the state of the game.
 
-The directives can be coded two ways: {{{sc-eval:}}} or {{{@}}} before the relevant attribute.
+The directives can be coded two ways: {{{sc-eval:}}} or {{{@}}} before the relevant attribute. The latter is the easiest form to use.
 Assuming that {{{_id = "foo"}}}:
 {{{
     <span sc-eval:id="_id">…</span>
@@ -74,22 +73,21 @@ Assuming that {{{$stat = 45}}}
     <progress @value="$stat" max="100"></progress>
 → will display a simple stats bar
 }}}
+> ''Note:'' For examples of stats bar, see [[this page|Int-JS-CSS-Stat]].
 
-<div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
+:: Markup-Code-Verbatim [page int-markup] {"position":"900,1200","size":"100,100"}
+<h1 id="int-mucode">Displaying Code and Verbatim Text</h1>
+This section won't be useful for almost all game projects, as it involves displaying code or text without formatting. However, if your Twine project is meant to be a guide, a tutorial, or other resources requiring the display of code, the markups below will prove quite useful.
+> ''Note:'' I've been using it for all code examples in this guide.
 
+There are two forms you can use: the Code Markup, with triple curvy brackets {{{ { } }}}, or the Verbatim Markup with triple quotes {{{ " " }}}. The difference between the markups will be on how it is translated into HTML.
 
-:: Markup-Code-Verbatim [page] {"position":"900,1200","size":"100,100"}
-<h1>Displaying Code and Verbatim Text</h1>
-This page might not be the most useful for game projects, as it involve displaying code or text without formatting. However, for projects like this guide, the markup below will prove quite helpful.
-
-To do so, you can follow the Code Markup, with triple curvy brakets {{{ { } }}}, or the Verbatim Markup with triple quotes {{{ " " }}}. The difference between the markups will be on how it is translated into HTML.
-
-The Code Markup will take two forms: an in-line one (HTML: {{{<code></code>}}}) and a block one (HTML: {{{<pre><code></code></pre>}}}). This guide has displayed both form with the different coloured blocks elements when showcasing code examples.
+The Code Markup will take two forms: an in-line one (HTML: {{{<code></code>}}}) and a block one (HTML: {{{<pre><code></code></pre>}}}). This guide has displayed both form with the different coloured blocks elements when showcasing code examples. In this guide, I've used the in-line form for code in-text, and the block for examples (like below).
 > //In-Line Code//:
 {{{
     {{{<<set $var to true>>}}}
 
-→ will be rended into:
+→ will be rendered as:
 
     <code><<set $var to true>></code>
 }}}
@@ -99,25 +97,24 @@ The Code Markup will take two forms: an in-line one (HTML: {{{<code></code>}}}) 
         <<set $var to true>>
     }}}
 
-→ will be rended into:
+→ will be rendered as:
 
     <pre><code><<set $var to true>></code></pre>
 }}}
-> ''Note:'' there should not be any space after the opening bracket or before the closing bracket. Othewise the code will be displayed as //in-line//. 
+> ''Note:'' there ''cannot'' be any space after the opening bracket or before the closing bracket. Otherwise the code will transform into an //in-line//. 
 
 The Verbatim Markup will require triple quotes {{{ " " }}} (HTML: {{{<nowiki></nowiki>}}})
 {{{
     """No //format//"""
 
-→ will be rended into:
+→ will be rendered as:
+
     <nowiki>No //format//</nowiki>
 }}}
 
-<div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
-
-:: Markup-Template [page] {"position":"800,1300","size":"100,100"}
-<h1>Display Small Variation with Templates</h1>
-The Template makrup is essentially a text replacement code that will display small variation (usually of one word). It works in combination with the [[Template API|TemplateAPI]], where the variation is defined. It is most useful for displaying pronouns, especially pronoun sets defined before player input.
+:: Markup-Template [page int-markup] {"position":"800,1300","size":"100,100"}
+<h1 id="int-mutemp">Display Small Variation with Templates</h1>
+The Template markup is essentially a text replacement code that will display small variation (one-two words). It works in combination with the [[Template API|TemplateAPI]], where the variation is defined. It is most useful for displaying pronouns, especially pronoun sets defined before player input.
 > ''Note:'' For an example of Pronoun Template, see [[Chapel's Macro|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/pronoun-templates.md]] or [[HiEv's Widget|https://hiev-heavy-ind.com/Sample_Code/Sample_Code.html#Pronoun%20Templates]]. 
 
 The markup is set with a question mark {{{?}}} before the defined template name ({{{?this}}}). If a Template has been defined in JavaScript, the code will look for any template markup on the page, and display the relevant element on the screen.
@@ -126,9 +123,6 @@ The markup is set with a question mark {{{?}}} before the defined template name 
 Assuming that the template sets {{{?He}}} into //She// and {{{?his}}} into //her://
 {{{
     ?He was always willing to lend ?his ear to anyone.
-→ will be rended into:
+→ will be rendered into:
     She was always willing to lend her ear to anyone.
 }}}
-
-<div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
-

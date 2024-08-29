@@ -1,0 +1,170 @@
+:: Popup-Index [index] {"position":"1800,250","size":"100,100"}
+<h1>Index</h1>\
+/*This is only because I am lazy as heck and didn't want to create huge conditional statements....*/\
+<h3>The Basics</h3>\
+* ''<<link "About Twine and SugarCube">><<run setup.scrollToId("about-twine")>><</link>>''
+* ''<<link "Starting with SugarCube">><<run setup.scrollToId("basic-chapter")>><</link>>''
+** <<link "The Elements on the Page">><<run setup.scrollToId("basic-ui-element")>><</link>>
+** <<link "Linking Passages">><<run setup.scrollToId("basic-links")>><</link>>
+** <<link "The Basics of Variables">><<run setup.scrollToId("basic-variable")>><</link>>
+** <<link "Tracking Information">><<run setup.scrollToId("basic-set")>><</link>>
+** <<link "Display Variation">><<run setup.scrollToId("basic-if")>><</link>>
+** [[Basic Demo|Demo-Basic]] (new page)
+\
+<h3> The Basics+</h3>\
+* ''<<link "SugarCube Markup and Basic Styling">><<run setup.scrollToId("basics-markup")>><</link>>''
+** <<link "Basic Text Styling">><<run setup.scrollToId("basics-mustyling")>><</link>>
+** <<link "Display an Image, and turn an Image into a Link">><<run setup.scrollToId("basics-muimage")>><</link>>
+** <<link "Showing the Value of a Variable">><<run setup.scrollToId("basics-muvariable")>><</link>>
+** <<link "Using a Variable inside a Link">><<run setup.scrollToId("basics-mulink")>><</link>>
+** <<link "Removing a Line-break">><<run setup.scrollToId("basics-munobr")>><</link>>
+* ''<<link "Going Further with the Basics">><<run setup.scrollToId("basics-macros")>><</link>>''
+** <<link "Setting and Changing Variables">><<run setup.scrollToId("basics-maset")>><</link>>
+** <<link "Unsetting Variables">><<run setup.scrollToId("basics-maunset")>><</link>>
+** <<link "More Conditional Statements">><<run setup.scrollToId("basics-maif")>><</link>>
+** <<link "Displaying more than text in Links">><<run setup.scrollToId("basics-malinks")>><</link>>
+** <<link "Display Variables, the Print Macro and Variants">><<run setup.scrollToId("basics-maprint")>><</link>>
+* ''<<link "Adding some Interactivity">><<run setup.scrollToId("basics-interact")>><</link>>''
+** <<link "Multi or Single Option Choices">><<run setup.scrollToId("basics-checkradio")>><</link>>
+** <<link "Cycles and Conditional Options">><<run setup.scrollToId("basics-cycle")>><</link>>
+*** <<link "Make the Cycle Macro Accessible">><<run setup.scrollToId("basics-cycleacc")>><</link>>
+** <<link "Listboxes and Conditional Options">><<run setup.scrollToId("basics-listbox")>><</link>>
+** <<link "Player Input in three macros">><<run setup.scrollToId("basics-input")>><</link>>
+** <<link "Revealing Extra Text and Disappearing Links">><<run setup.scrollToId("basics-appprerep")>><</link>>
+* ''<<link "Basic Special Passages">><<run setup.scrollToId("basics-sp")>><</link>>''
+** <<link "Headers and Footers">><<run setup.scrollToId("basics-headfoot")>><</link>>
+** <<link "Special Passages for the UI Bar">><<run setup.scrollToId("basics-uibar")>><</link>>
+** <<link "Setting Important Variables before Start">><<run setup.scrollToId("basics-init")>><</link>>
+** [[Special Passage Demo|SP-Demo]] (new page)
+* ''<<link "About JavaScript and the StyleSheet">><<run setup.scrollToId("basics-jscss")>><</link>>''
+* ''<<link "URLs for Assets and Testing">><<run setup.scrollToId("basics-urls")>><</link>>''
+\
+<h3>Intermediate Use</h3>\
+* ''<<link "More SugarCube Markup">><<run setup.scrollToId("int-markup")>><</link>>''  
+** <<link "Special Attributes and Directives">><<run setup.scrollToId("int-muattri")>><</link>>
+** <<link "Displaying Code and Verbatim Text">><<run setup.scrollToId("int-mucode")>><</link>>
+** <<link "Display Small Variation with Templates">><<run setup.scrollToId("int-mutemp")>><</link>> 
+* ''<<link "More Interactivity Macros">><<run setup.scrollToId("int-macro")>><</link>>''
+** <<link "Delaying Displaying Text or Running Code">><<run setup.scrollToId("int-timed")>><</link>>
+** <<link "Displaying Text Letter by Letter">><<run setup.scrollToId("int-type")>><</link>>
+** <<link "DOM Macros and Revealing Text in Targeted Spots">><<run setup.scrollToId("int-madom")>><</link>>
+** <<link "Using Custom Macro">><<run setup.scrollToId("int-custommacro")>><</link>>
+* ''<<link "Macros of Convenience">><<run setup.scrollToId("int-conv")>><</link>>''
+** <<link "An Alternative to Conditional Statements">><<run setup.scrollToId("int-switch")>><</link>>
+** <<link "Sending the Player to a Passage">><<run setup.scrollToId("int-goto")>><</link>>
+** <<link "Going Back or Returning to a Passage with a Special Link">><<run setup.scrollToId("int-backreturn")>><</link>>
+*** <<link "Arbitrarily Long Returns">><<run setup.scrollToId("int-long-return")>><</link>>
+** <<link "Updating Parts of the Passage">><<run setup.scrollToId("int-doredo")>><</link>>
+** <<link "Including a Passage inside Another">><<run setup.scrollToId("int-include")>><</link>> 
+** <<link "Removing Blank Space and Hiding Code">><<run setup.scrollToId("int-nobrsilent")>><</link>>
+** <<link "Creating and Using a Widget">><<run setup.scrollToId("int-widget")>><</link>> 
+** <<link "Using JavaScript in the Passage">><<run setup.scrollToId("int-scriptrun")>><</link>>
+* ''<<link "More Special Passages and Tags">><<run setup.scrollToId("sp-tags")>><</link>>''
+** <<link "Special Tags creating Special Passages and Functionalities">><<run setup.scrollToId("sp-tagsbuilt")>><</link>>
+** <<link "Process Code Before and After Rendering a Passage">><<run setup.scrollToId("sp-readydone")>><</link>>
+** <<link "Changing the UI/Interface of the Project">><<run setup.scrollToId("sp-interface")>><</link>>
+** <<link "Customising Passages with Tags">><<run setup.scrollToId("sp-tagscss")>><</link>>
+** <<link "Including Assets with Tags">><<run setup.scrollToId("sp-tagsasset")>><</link>>
+** <<link "The Special Variables">><<run setup.scrollToId("sp-variables")>><</link>>
+* ''<<link "Harness the Power of Functions">><<run setup.scrollToId("functions")>><</link>>''
+** <<link "Cloning Variables, and Random Values Functions">><<run setup.scrollToId("function-clone")>><</link>>
+** <<link "Using Play, Passage, and Tags information">><<run setup.scrollToId("function-info")>><</link>>
+** <<link "Memorizing Information and Metadata">><<run setup.scrollToId("function-meta")>><</link>>
+** <<link "Triggering Events">><<run setup.scrollToId("function-event")>><</link>>
+** <<link "JavaScript-only Functions">><<run setup.scrollToId("function-js")>><</link>>
+* ''<<link "Using Methods to change Variables">><<run setup.scrollToId("methods")>><</link>> ''
+** <<link "Methods and String Variables">><<run setup.scrollToId("methods-string")>><</link>>
+** <<link "Methods and Numbers">><<run setup.scrollToId("methods-numbers")>><</link>>
+** <<link "Methods and Arrays">><<run setup.scrollToId("methods-array")>><</link>>
+* ''<<link "Adding Sound with the Audio Macros">><<run setup.scrollToId("audioma")>><</link>>''
+** <<link "Setting up the Audio Tracks">><<run setup.scrollToId("audio-cache")>><</link>>
+** <<link "Create Track Groups and Playlists">><<run setup.scrollToId("audio-groupplay")>><</link>>
+** <<link "Playing Tracks in a Passage">><<run setup.scrollToId("audio-macro")>><</link>>
+** <<link "Other Audio Macros">><<run setup.scrollToId("audio-othermacro")>><</link>>
+* ''<<link "Going further in Styling with CSS and JavaScript">><<run setup.scrollToId("intjscss")>><</link>>''
+** <<link "The Unique Targetable Elements">><<run setup.scrollToId("intstyle-elements")>><</link>> 
+*** <<link "The Full List of Targetable Elements">><<run setup.scrollToId("intstyle-htmlfull")>><</link>> 
+** <<link "Ensuring that Elements Start at the Top when Opened">><<run setup.scrollToId("intstyle-events")>><</link>>
+** <<link "Import and Change the Font">><<run setup.scrollToId("intstyle-fonts")>><</link>>
+*** <<link "Using the SG Icons">><<run setup.scrollToId("intstyle-icons")>><</link>>
+** <<link "Using the Root and CSS var">><<run setup.scrollToId("intstyle-root")>><</link>> 
+** <<link "Formatting for Different Screen Size">><<run setup.scrollToId("intstyle-media")>><</link>> 
+** <<link "Intro to Animation">><<run setup.scrollToId("intstyle-animation")>><</link>>
+** <<link "Creating Stats, Meter, and Progress Bars">><<run setup.scrollToId("intstyle-stats")>><</link>> (long) 
+** <<link "Editing the Loading Screen">><<run setup.scrollToId("intstyle-load")>><</link>> 
+** <<link "A Note on Interface Accessibility">><<run setup.scrollToId("intstyle-access")>><</link>>
+* ''<<link "Some Useful Basic APIs">><<run setup.scrollToId("basic-apis")>><</link>>''
+** <<link "Moving back and forth in the History">><<run setup.scrollToId("basicapis-engine")>><</link>>
+** <<link "Create a PopUp">><<run setup.scrollToId("basicapis-dialog")>><</link>>
+** <<link "Handle the SideBar">><<run setup.scrollToId("basicapis-sidebar")>><</link>>
+** <<link "Open the Restart, Saves, and Settings PopUp">><<run setup.scrollToId("basicapis-ui")>><</link>>
+** <<link "Overriding the Navigation to a Passage">><<run setup.scrollToId("basicapis-navig")>><</link>>
+** <<link "Some Useful Configuration API for your Project">><<run setup.scrollToId("basicapis-config")>><</link>> 
+* ''<<link "Edit the Built-In Text or Change the Game's Language">><<run setup.scrollToId("localization")>><</link>>''
+** <<link "l10nStrings, and How to Edit Them">><<run setup.scrollToId("local-strings")>><</link>>
+** <<link "Localization, and Pre-Translated Templates">><<run setup.scrollToId("local-translate")>><</link>>
+** <<link "Providing Multiple Languages Options In-Game">><<run setup.scrollToId("local-langsetting")>><</link>>
+* ''<<link "Testing and Debugging your Game">><<run setup.scrollToId("debug-api")>><</link>>''
+\
+<h3>''Advanced Mode''</h3>\
+> ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processes of SugarCube.
+* ''<<link "Advanced Macros">><<run setup.scrollToId("adv-macros")>><</link>>''
+** <<link "DOM Macros and Changing Class of an Element">><<run setup.scrollToId("adv-DOM")>><</link>> 
+** <<link "Loops and Repeats - Two Ways">><<run setup.scrollToId("adv-forrepeat")>><</link>>
+** <<link "Capturing the Value of a Variable">><<run setup.scrollToId("adv-capture")>><</link>>
+** <<link "Emulating PassageDone for one Passage">><<run setup.scrollToId("adv-done")>><</link>>
+* ''<<link "More Variable and Interaction Methods">><<run setup.scrollToId("adv-methods")>><</link>>''
+** <<link "More Methods to change Variables">><<run setup.scrollToId("advmeth-var")>><</link>>
+** <<link "jQuery Methods and Interactivity">><<run setup.scrollToId("advmeth-jq")>><</link>>  
+* ''<<link "Going Further with Basic APIs and More">><<run setup.scrollToId("adv-apis")>><</link>>''
+** <<link "More Popups APIs">><<run setup.scrollToId("adv-dialog")>><</link>>
+** <<link "More SideBar APIs">><<run setup.scrollToId("adv-sidebar")>><</link>>
+** <<link "The Template APIs">><<run setup.scrollToId("adv-template")>><</link>>
+** <<link "(Un)Locking the Loading Screen">><<run setup.scrollToId("adv-lockload")>><</link>>
+* ''<<link "The Settings API">><<run setup.scrollToId("settings-apis")>><</link>>''
+** <<link "Creating a Setting">><<run setup.scrollToId("settings-basics")>><</link>>
+** <<link "Creating a Toggle Setting">><<run setup.scrollToId("settings-toggle")>><</link>>
+** <<link "Creating a List Setting">><<run setup.scrollToId("settings-list")>><</link>>
+** <<link "Creating a Slider">><<run setup.scrollToId("settings-range")>><</link>>
+** <<link "Going Further with Settings">><<run setup.scrollToId("settings-further")>><</link>>
+** <<link "Adding Headers">><<run setup.scrollToId("settings-header")>><</link>>
+* ''<<link "Going further with the Engine API">><<run setup.scrollToId("engine-apis")>><</link>>''
+** <<link "Checking the State of the Game">><<run setup.scrollToId("engineapi-state")>><</link>>
+** <<link "Move through the Player's History">><<run setup.scrollToId("engineapi-go")>><</link>>
+** <<link "(Re-)Play a Passage">><<run setup.scrollToId("engineapi-play")>><</link>>
+** <<link "Restarting without the Built-In PopUp">><<run setup.scrollToId("engineapi-restart")>><</link>>
+* ''<<link "The Save APIs and Further Saving Configurations">><<run setup.scrollToId("save-apis")>><</link>>''
+** <<link "Save Objects and Their Contents">><<run setup.scrollToId("saveapis-object")>><</link>> 
+** <<link "The Basic APIs of the Save Elements">><<run setup.scrollToId("saveapi-general")>><</link>> 
+** <<link "Managing the Save Slots">><<run setup.scrollToId("saveapi-slot")>><</link>> 
+** <<link "Managing the Autosave Slot">><<run setup.scrollToId("saveapi-auto")>><</link>>
+** <<link "Managing Disk Import and Export">><<run setup.scrollToId("saveapi-disk")>><</link>>
+** <<link "Managing Base64 saves">><<run setup.scrollToId("saveapi-base")>><</link>>
+** <<link "Using Save-related Events">><<run setup.scrollToId("saveapi-event")>><</link>>
+* ''<<link "More Configuration APIs to Customise Interaction">><<run setup.scrollToId("config-apis")>><</link>>''
+** <<link "Macro-relevant Configurations">><<run setup.scrollToId("config-macros")>><</link>>
+** <<link "Editing the Behaviour and Display of Passage Elements">><<run setup.scrollToId("config-passage")>><</link>>
+** <<link "Save Configurations">><<run setup.scrollToId("configs-saves")>><</link>>
+** <<link "Other Config APIs">><<run setup.scrollToId("configs-misc")>><</link>>
+* ''<<link "Getting the FullScreen Experience">><<run setup.scrollToId("fullscreen-apis")>><</link>>''
+* ''<<link "Trigger Code with Special Events">><<run setup.scrollToId("events")>><</link>>''
+** <<link "Dialog Events">><<run setup.scrollToId("event-dialog")>><</link>>
+** <<link "Passage and Navigation Events">><<run setup.scrollToId("event-passage")>><</link>>
+** <<link "System Events">><<run setup.scrollToId("event-system")>><</link>>
+** <<link "Type Macro Events">><<run setup.scrollToId("event-type")>><</link>>
+** <<link "Audio Events">><<run setup.scrollToId("event-audio")>><</link>>
+* ''<<link "Creating your Own Macro">><<run setup.scrollToId("macro-apis")>><</link>>''
+** <<link "The Base APIs for Macros">><<run setup.scrollToId("macro-apis-base")>><</link>>
+** <<link "Using Macro Context Objects in the handler">><<run setup.scrollToId("macro-apis-context")>><</link>>
+* ''<<link "Managing Story Elements with APIs">><<run setup.scrollToId("story-api")>><</link>>''
+* ''<<link "Managing Passage Properties with APIs">><<run setup.scrollToId("passage-apis")>><</link>>''
+* ''<<link "Dealing with the State of Play">><<run setup.scrollToId("state-apis")>><</link>>'' 
+** <<link "Managing the State of Variables">><<run setup.scrollToId("state-variable")>><</link>>
+** <<link "Exploring the Different Moments inside the State">><<run setup.scrollToId("state-state")>><</link>>
+** <<link "Using the Story Metadata">><<run setup.scrollToId("state-metadata")>><</link>>
+** <<link "Initialising a Seedable PRNG">><<run setup.scrollToId("state-seed")>><</link>>
+* ''<<link "Going Further with Audio with APIs">><<run setup.scrollToId("audio-apis")>><</link>>''
+** <<link "The SimpleAudio API, the alternative to Audio macros">><<run setup.scrollToId("audioapis-base")>><</link>>
+** <<link "Going further with AudioTrack">><<run setup.scrollToId("audioapis-track")>><</link>>
+** <<link "Going further with AudioRunner">><<run setup.scrollToId("audioapis-list")>><</link>>
+** <<link "Going further with AudioList">><<run setup.scrollToId("audioapis-runner")>><</link>>

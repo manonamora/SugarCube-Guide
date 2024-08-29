@@ -1,16 +1,14 @@
 :: StateAPI [chapter menu] {"position":"3200,1800","size":"200,100"}
 <h1>Dealing with the State of Play</h1>
-Any started playthrough will contain a State, which will include moments (states) created during play used to navigate the history (undo/redo) and to save the (potentially changed) value of variables. If relevant, the State will include Metadata and a Seedable PRNG.
+Any started playthrough will contain a State, which will include moments (states) created during play used to navigate the history (undo/redo) and to save the (potentially modified) value of variables. If relevant, the State will include Metadata and a Seedable PRNG.
 
 * [[Managing the State of Variables|StateAPI-Variable]] 
 * [[Exploring the Different Moments inside the State|StateAPI-State]] 
 * [[Using the Story Metadata|StateAPI-Metadata]] 
 * [[Initialising a Seedable PRNG|StateAPI-PRNG]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: StateAPI-Variable [page] {"position":"3200,1900","size":"100,100"}
-<h1>Managing the State of Variables</h1>
+:: StateAPI-Variable [page state-api] {"position":"3200,1900","size":"100,100"}
+<h1 id="state-variable">Managing the State of Variables</h1>
 The following APIs will help check the state of current variables in the story, and can be used to set value to those variables. They are especially helpful in JavaScript/jQuery code requiring the value of a SugarCube variable or setting them. 
 \
 <h3>{{{State.temporary}}}</h3>\
@@ -42,6 +40,7 @@ It has 1 parameter:
     State.getVar("_temporary")
     State.getVar("settings.alsothat")
 }}}
+> While the two first examples could be replaced with {{{State.variables}}} and {{{State.temporary}}}, {{{State.getVar()}}} will accept either type of variable. It is particularly useful when you don't know the type of the wanted variable ahead of time.
 \
 <h3>{{{State.setVar()}}}</h3>\
 This API sets the value of the indicated variable, like the {{{<<set>>}}} macro does.
@@ -56,10 +55,9 @@ It has 2 parameters:
     State.setVar("$charName", "Jane Doe")  
 → assigns the string "Jane Doe" to $charName
 }}}
-<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
 
-:: StateAPI-State [page] {"position":"3300,1900","size":"100,100"}
-<h1>Exploring the Different Moments inside the State</h1>
+:: StateAPI-State [page state-api] {"position":"3300,1900","size":"100,100"}
+<h1 id="state-state">Exploring the Different Moments inside the State</h1>
 The following APIs will look at the different moments of the state, from future to current to history. Some of these will look only at the current moment (active), some will focus on the in-play moments (influenced by the [[maxState|Basic-API-Config]]), while others will include the expired moments.
 \
 <h3>{{{State.active}}}</h3>\
@@ -87,7 +85,7 @@ This API will return the bottommost (least recent) moment, within the full in-pl
 \
 <h3>{{{State.top}}}</h3>\
 This API will return the topmost (most recent) moment, within the full in-play history.
->''Note:'' {{{State.top}}} is not synonymous to {{{State.active}}}. It is extreemly unlikely you will ever need {{{State.top}}}.
+>''Note:'' {{{State.top}}} is not synonymous to {{{State.active}}}. It is also extremely unlikely you will ever need {{{State.top}}}.
 \
 > //Examples://
 {{{
@@ -100,7 +98,7 @@ This API will return the topmost (most recent) moment, within the full in-play h
 \
 <h3>{{{State.current}}}</h3>\
 This API will return the current moment, within the full in-play history, which is the pre-play version of the active moment.
->''Note:'' {{{State.current}}} is not synonymous to {{{State.active}}}. It is extreemly unlikely you will ever need {{{State.current}}}.
+>''Note:'' {{{State.current}}} is not synonymous to {{{State.active}}}. It is also extremely unlikely you will ever need {{{State.current}}}.
 \
 > //Examples://
 {{{
@@ -147,10 +145,11 @@ This API returns the passage of the active (present) moment. It is useful in Jav
     /* Code to run in that passage only */
    }
 }}}
+> ''Note:'' It is similar to the {{{passage()}}} [[function|Function-Pass-Tag]].
 \
 <h3>{{{State.has()}}}</h3>\
 This API checks whether any moment(s) with the indicated title exist within the past in-play history.
-> ''Note:'' {{{State.has()}}} does not check expired moments. You may want to use {{{State.hasPlayed()}}} or {{{hasVisited()}}} instead.
+> ''Note:'' {{{State.has()}}} does not check expired moments. You may want to use {{{State.hasPlayed()}}} or the {{{hasVisited()}}} [[function|Function-Pass-Tag]] instead.
 {{{
     State.has(passageTitle)
 }}}
@@ -164,7 +163,7 @@ It has 1 parameter:
 \
 <h3>{{{State.hasPlayed()}}}</h3>\
 This API checks whether any moment(s) with the indicated title exist within the past history.
-> ''Note:'' if you need to check multiple passages, you may want to use {{{hasVisited()}}} instead.
+> ''Note:'' if you need to check multiple passages, you may want to use the {{{hasVisited()}}}  [[function|Function-Pass-Tag]] instead.
 {{{
     State.hasPlayed(passageTitle)
 }}}
@@ -225,10 +224,9 @@ It has 1 parameter:
 → the least recent moment
 }}}
 
-<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
 
-:: StateAPI-Metadata [page] {"position":"3200,2000","size":"100,100"}
-<h1>Using the Story Metadata</h1>
+:: StateAPI-Metadata [page state-api] {"position":"3200,2000","size":"100,100"}
+<h1 id="state-metadata">Using the Story Metadata</h1>
 Some of the APIs below functions similarly to the {{{memorize()}}}, {{{recall()}}}, and {{{forget()}}} [[functions|Function-Metadata]], in that it will affect the state of the Story Metadata. 
 \
 <h3>{{{State.metadata.size}}}</h3>\
@@ -240,7 +238,7 @@ This API will return the size of the story metadata.
 }}}
 \
 <h3>{{{State.metadata.clear()}}}</h3>\
-This API will empty the story metadata.
+This API will completely empty the story metadata.
 {{{
     State.metadata.clear();
 }}}
@@ -346,24 +344,22 @@ It has 2 parameters:
     State.metadata.set('achievements', { ateYellowSnow : true });
 }}}
 
-<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
 
-
-:: StateAPI-PRNG [page] {"position":"3300,2000","size":"100,100"}
-<h1>Initialising a Seedable PRNG</h1>
+:: StateAPI-PRNG [page state-api] {"position":"3300,2000","size":"100,100"}
+<h1 id="state-seed">Initialising a Seedable PRNG</h1>
 A PRNG, or pseudo-random number generator, is a deterministic algorithm for generating a sequence of numbers whose properties approximate the properties of sequences of random numbers.
-The APIs below will be useful for procedural world building, factions alignment, loot drops, dungeon map layout etc... essentiall, anything that affects or involves randomness.
+The APIs below will be useful for procedural world building, factions alignment, loot drops, dungeon map layout etc... essential, anything that affects or involves randomness.
 \
 <h3>{{{State.prng.init()}}}</h3>\
-This API will initialise the seedable PRNG and integrate it into the story state and saves. This will affect the result of methods and functions like {{{State.random()}}}, {{{random()}}}, and {{{randomFloat()}}}.
+This API will initialise the seedable PRNG and integrate it into the story state and saves. This will affect the result of methods and functions of {{{State.random()}}}, or the {{{random()}}} and {{{randomFloat()}}} [[functions|Function-Clone-Random]].
 
-If used, {{{State.prng.init()}}} should be coded in the JavaScript section of your project, or inside {{{StoryInit}}}. It is strongly recommended not to add arguments to the API, but, if you do use an explicit seed, you must enable additional entropy (or all playthroughs will be the same).
+If used, {{{State.prng.init()}}} should be coded in the JavaScript section of your project, or inside {{{StoryInit}}}. It is strongly recommended not to add arguments to the API, but, if you do use an explicit seed, you must enable additional entropy (otherwise, all playthroughs will have the same results).
 {{{
     State.prng.init([seed [, useEntropy]])
 }}}
 It has 2 parameters:
 * {{{seed}}} (optional), the explicit seed used to initialise the PRNG 
-* {{{useEntropy}}} (optional), entables the use of additional entropy to pad the seed.
+* {{{useEntropy}}} (optional), enables the use of additional entropy to pad the seed.
 \
 > //Examples://
 {{{
@@ -378,7 +374,7 @@ It has 2 parameters:
 }}}
 \
 <h3>{{{State.prng.isEnabled()}}}</h3>\
-This API will check whether the seedable PRNG has been enable.
+This API will check whether the seedable PRNG has been enabled.
 {{{
     State.prng.isEnabled()
 }}}
@@ -404,6 +400,3 @@ This API will return a pseudo-random decimal number (floating-point) in the rang
     State.random()
 → returns a pseudo-random floating-point number in the range [0, 1)
 }}}
-
-<div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
-

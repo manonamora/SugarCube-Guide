@@ -1,416 +1,651 @@
 :: SaveAPI [chapter menu] {"position":"2000,1800","size":"200,100"}
 <h1>The Save APIs and Further Saving Configurations</h1>
-While the Config APIs have [[configuration settings|Config-Saves]], it may not be enough for the customisation you may want to achieve. This is where the Save APIs come in.
-> ''Note:'' in-browser saves (autosave/slow saves) are largely incompatible with Private Browsing Mode and Cookies/Cache blockers. Users may get an error message on start in those cases.
+While the Config APIs have [[configuration settings|Config-Saves]] for saving playthroughs, it may not be enough for the customisation you may want to achieve. This is where the Save APIs come in.
+
+The Save APIs can be grouped into different categories: Browsers (which will save in browser's [[cache|https://www.pcmag.com/encyclopedia/term/browser-cache]]), Disk (downloadable file), and Base64 (encoded string save). The latter two will allow for import/export of saves from the user.
+> ''Note:'' Browser saves (autosave/slot saves) are largely incompatible with Private Browsing Mode and Cookies/Cache blockers. Users restricting access to cache may get an error message on start.
 \
 * [[Save Objects and Their Contents|SaveAPI-Objects]] 
 * [[The Basic APIs of the Save Elements|SaveAPI-General]] 
 * [[Managing the Save Slots|SaveAPI-Slots]] 
-* [[Managing the Autosave Slot|SaveAPI-Autosave]] 
+* [[Managing the Autosave Slot|SaveAPI-Autosave]]
+* [[Managing Disk Import and Export|SaveAPI-Disk]]
+* [[Managing Base64 saves|SaveAPI-Base64]]
 * [[Using Save-related Events|SaveAPI-Events]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: SaveAPI-Objects [page] {"position":"2000,1900","size":"100,100"}
-<h1>Save Objects and Their Contents</h1>
+:: SaveAPI-Objects [page saveapi] {"position":"2000,1900","size":"100,100"}
+<h1 id="saveapis-object">Save Objects and Their Contents</h1>
 When saved, a playthrough resides in a save object, with multiple property defined specifically for that playthrough.
 > ''Note:'' the exported save (Save to Disk) is encoded by default
 
 The save object has 6 properties:
+* {{{date}}} (integer), the date the save was created
+** this is indicated in [[milliseconds elpased since epoch|https://currentmillis.com/]]
+* {{{desc}}} (string), the save's description
 * {{{id}}}, the story's [[save ID|Config-Saves]]
+* {{{metadata}}}, save metadata (end-user specified - JSON serializable)
 * {{{state}}}, the marshaled story history 
+** {{{expired}}} (optional), the array of expired moments (influenced by the [[Max State|Basic-API-Config]])
 ** {{{history}}}, the arrays of moment objects 
+*** {{{pull}}} (optional), current pull count of SugarCube's seedable PRNG
 *** {{{title}}}, the title of the associated passage 
 *** {{{variables}}}, the current variable store object ({{{State.variables}}})
-*** {{{pull}}} (optional), current pull count of SugarCube's seedable PRNG
 ** {{{index}}}, the index of active moments 
-** {{{expired}}} (optional), the array of expired moments (influenced by the [[Max State|Basic-API-Config]])
 ** {{{seed}}} (optional), seed of SugarCube's seedable PRNG
-* {{{title}}}, the title of the save.
-* {{{date}}}, when the save was created (milliseconds elapsed since epoch)
-* {{{metadata}}}, save metadata (end-user specified - JSON serializable)
+* {{{type}}}, the save's type.
+** defined in {{{Save.Type}}} as [[Base64|SaveAPI-Base64]], [[Disk|SaveAPI-Disk]], and browser saves ([[autosaves|SaveAPI-Autosave]] or [[slot|SaveAPI-Slots]])
 * {{{version}}}, save [[version|Config-Saves]]
 \
 > ''Note:'' adding additional properties is not recommended. Instead use the metadata property.
 
-<div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>
 
-:: SaveAPI-General [page] {"position":"2100,1900","size":"100,100"}
-<h1>The Basic APIs of the Save Elements</h1>
+:: SaveAPI-General [page saveapi] {"position":"2100,1900","size":"100,100"}
+<h1 id="saveapi-general">The Basic APIs of the Save Elements</h1>
+The APIs below are general functions and variable for Browser-based saves, both auto and slot saves.
 \
-<h3>The General Save APIs</h3>\
-\
-<h4>{{{Save.clear()}}}</h4>\
-This API will delete all slot saves and the autosave (if enabled). This is the code behind the //Delete All// button in the Save Popup.
+<h3>General Variable</h3>\
+{{{Save.browser.size}}} is the Save variable that tracks the number of existing browser saves, auto and slot saves combined.
+> //Examples from the Documentation://
 {{{
-    Save.clear()
-}}}
-\
-<h4>{{{Save.get()}}}</h4>\
-This API will return the saves object (all in-browser saves).
-{{{
-    Save.get()
-}}}
-\
-<h4>{{{Save.ok()}}}</h4>\
-This API will check whether the project includes slot saves and autosaves.
-{{{
-    Save.ok()
+    console.log(`There are currently ${Save.browser.size} browser saves`);
 
-    if (Save.ok()) {
-	    /* Code to manipulate saves. */
+    if (Save.browser.size > 0) {
+        /* Browser saves exist. */
     }
-
-    <<if Save.ok()>> ... <</if>>
-}}}
-\
-<h3>Importing and Exporting to Disk</h3>\
-The following APIs are the ones used in the Save Popup, with the //Export to Disk// and //Load from Disk// buttons.
-<center> <<link "Export to Disk">><<run Save.export()>><</link>> | <<link "Load From Disk">>
-        <<script>>
-        jQuery(document.createElement('input'))
-            .prop('type', 'file')
-            .on('change', Save.import)
-            .trigger('click');
-        <</script>>
-    <</link>></center>
-\
-<h4>{{{Save.export()}}}</h4>\
-This API will save the current playthrough (or loaded save) to the device's disk. The file is saved under the extension {{{.save}}}.
-{{{
-    Save.export([filename [, metadata]])
-}}}
-The API has 2 parameters:
-* {{{filename}}} (optional), the base filename of the save (slugified), with the datestamp and file extension appended automatically.
-** default is the story's title (slugified)
-* {{{metadata}}} (optional), the date to be stored in the save object's [[metadata|SaveAPI-Objects]] property.
-\
-> //Examples://
-{{{
-    Save.export()
-→ default filename + no metadata
-
-    Save.export("Sweet Stuff 2")
-→ custom filename + no metadata
-  → sweet-stuff-2-{datestamp}.save
-
-    Save.export(null, someMetadata)
-→ default filename + some metadata
-
-    Save.export("Sweet Stuff 2", someMetadata)
-→ custom filename + some metadata
-  → sweet-stuff-2-{datestamp}.save
-}}}
-\
-<h4>{{{Save.import()}}}</h4>\
-This API will load a save file from disk.
-> ''Note:'' this must be called by the change vent handler of an {{{<input type="file">}}} element.
-{{{
-    Save.import(event)
-}}}
-This API has 1 parameter:
-* {{{event}}}, the event object passed to the change event handler of the associated {{{<input type="file">}}} element.
-\
-> //Basic usage example from the Documentation://
-{{{
-→ Assuming you're creating a file input something like the following
-    var input  = document.createElement('input');
-    input.type = 'file';
-    input.id   = 'saves-import-file';
-    input.name = 'saves-import-file';
-
-→ Set up Save.import() as the event handler for when a file has been chosen
-    jQuery(input).on('change', Save.import);
-}}}
-> //More Complex Documentation Example//
-{{{
-→ Assuming you're creating a file input something like the following
-    var input  = document.createElement('input');
-    input.type = 'file';
-    input.id   = 'saves-import-file';
-    input.name = 'saves-import-file';
-
-→ Set up a custom event handler for when a file has been chosen, which will call Save.import()
-    jQuery(input).on('change', function (ev) {
-        /* You must pass in the event when calling Save.import() manually */
-        Save.import(ev);
-
-        /* Put anything else you needed to do here */
-    });
-}}}
-> //Code of the Interactive Example://
-{{{
-    <<link "Load From Disk">>
-        <<script>>
-        jQuery(document.createElement('input'))
-            .prop('type', 'file')
-            .on('change', Save.import)
-            .trigger('click');
-        <</script>>
-    <</link>>
-}}}
-\
-<h3>Serialize the Save File</h3>\
-\
-<h4>{{{Save.serialize()}}}</h4>\
-This API will return a save as a serialized string (or null if saving is now allowed)
-{{{
-    Save.serialize([metadata])
-}}}
-It has 1 parameter: 
-* {{{metadata}}} (optional), the data to be stored as metadata (JSON-serializable)
-\
-> //Examples://
-{{{
-→ Serialize a save with no metadata
-    const myGameState = Save.serialize();
-    if (myGameState === null) {
-        /* Failure.  You've disallowed saving. */
-    }
-
-→ Serialize a save with metadata someMetadata
-    const myGameState = Save.serialize(someMetadata);
-    if (myGameState === null) {
-        /* Failure.  You've disallowed saving. */
+    else if (Save.browser.size === 0) {
+        /* No browser saves exist. */
     }
 }}}
-\
-<h4>{{{Save.deserialize()}}}</h4>\
-This API will deserialize the given save string, created with {{{Save.serialize()}}}, and load the save. It will also return the bundled metadata (if defined), or NULL if the save could not be deserialize and loaded.
+> //Other example:// 
 {{{
-    Save.deserialize(saveStr)
-}}}
-It has 1 parameter:
-* {{{saveStr}}}, the serialized save string.
-\
-> //Examples://
-{{{
-→ Deserialize a save with no metadata
-    const loadResult = Save.deserialize(myGameState);
-    if (loadResult === null) {
-        /* Failure.  An error was displayed to the player. */
-    }
-
-→ Deserialize a save with metadata
-    const loadResult = Save.deserialize(myGameState);
-    if (loadResult !== null) {
-        /* Success.  Do something with loadResult, which contains the metadata. */
-    }
-    else {
-        /* Failure.  An error was displayed to the player. */
-    }
-}}}
-
-<div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>
-
-:: SaveAPI-Slots [page] {"position":"2000,2000","size":"100,100"}
-<h1>Managing the Save Slots</h1>
-The APIs below will allow you to manage the available save slots. These can be useful when providing returning players to a quick link to load their saves, or creating your own Save page.
-\
-<h3>{{{Save.slots.length}}}</h3>\
-This API will return the total number of available slots. It will be influenced by the [[Config API|Basic-API-Config]].
-{{{
-    Save.slots.length
-}}}
-\
-<h3>{{{Save.slots.count()}}}</h3>\
-This API will count the number of filled save slots.
-{{{
-    Save.slots.count()
-}}}
-> //Example://
-{{{
-    <<if Save.slots.count() gt 0>>
+    <<if Save.browser.size gt 0>>
         <<link "Load Save">>
             <<run UI.saves()>>
         <</link>>
     <</if>>
 }}}
 \
-<h3>{{{Save.slots.delete()}}}</h3>\
-This API will delete a save from the given slot. This is what is behind the //Delete// buttons on the Save Popup.
+<h3>General Functions</h3>\
+\
+<h4>{{{Save.browser.isEnabled()}}}</h4>\
+This API will check whether the project includes slot saves and autosaves.
 {{{
-    Save.slots.delete(slot)
+    Save.browser.isEnabled()
+
+    if (Save.browser.isEnabled()) {
+	    /* Code to manipulate saves. */
+    }
+
+    <<if Save.browser.isEnabled()>> ... <</if>>
+}}}
+\
+<h4>{{{Save.browser.continue()}}}</h4>\
+This API will automatically load the most recent browser save (either auto or slot). 
+> ''Note:'' This is the API behind the //Continue// button included in the SideBar of the default UI.
+
+You can also use it to create special events or alerts if loading a save is successful or fails.
+> //Example from the Documentation://
+{{{
+if (Save.browser.size > 0) {
+	Save.browser.continue()
+		.then(() => {
+			/* Success.  Do something special. */
+		})
+		.catch(error => {
+			/* Failure.  Handle the error. */
+			console.error(error);
+			UI.alert(error);
+		});
+}
+else {
+	/* No browser saves exist. */
+}
+}}}
+\
+<h4>{{{Save.browser.clear()}}}</h4>\
+This API will delete all slot saves and the autosave (if enabled). This is the code behind the //Delete All// button in the Save Popup.
+{{{
+    Save.browser.clear()
+}}}
+
+:: SaveAPI-Slots [page saveapi] {"position":"2000,2000","size":"100,100"}
+<h1 id="saveapi-slot">Managing the Save Slots</h1>
+The APIs below will allow you to manage the available manual save slots. These can be especially useful when creating your own Save page. For autosave save slots, see [[this page|SaveAPI-Autosave]].
+\
+<h3>{{{Save.browser.slot.size}}}</h3>\
+This API will return the total number of available slots. It will be influenced by the [[Config API|Basic-API-Config]].
+{{{
+    Save.browser.slot.size
+}}}
+\
+<h3>{{{Save.browser.slot.delete()}}}</h3>\
+This API will delete a save from the given slot. This is what is behind the //Delete// buttons on each slot line in the Save Popup.
+{{{
+    Save.browser.slot.delete(slot)
 }}}
 It has 1 parameter:
 * {{{slot}}}, the save slot index (0-based)
 \
 > //Example://
 {{{
-    Save.slots.delete(5)  
-→ Deletes the sixth slot save
+    Save.browser.slot.delete(5)  
+→ Deletes the save in the sixth slot
 }}}
 \
-<h3>{{{Save.slots.get()}}}</h3>\
-This API will return a save object from the given slot or NULL if there is no save.
+<h3>{{{Save.browser.slot.clear()}}}</h3>\
+This API will delete all the saves in the slots. This is what is behind the //Delete All// button on the Save Popup.
 {{{
-    Save.slots.get(slot)
+    Save.browser.slot.clear()
+}}}
+> //Example://
+{{{
+    <<run Save.browser.slot.clear()>>  
+→ Deletes all the slot saves
+}}}
+\
+<h3>{{{Save.browser.slot.entries()}}}</h3>
+This API will return an array of save objects, with information about all the slot saves.
+> //Example://
+{{{
+    Save.browser.slot.entries().forEach(function (entry) {
+        console.log(`Descriptor of the slot save at index ${entry.index}:`, entry.info);
+    });
+}}}
+The save objects in this array will each have two properties: the {{{index}}} (position of the slot) and {{{info}}} (an object with the save's information).
+\
+<h3>{{{Save.browser.slot.get()}}}</h3>\
+This API will return a save object from the given slot or NULL if it doesn't exist.
+{{{
+    Save.browser.slot.get(slot)
 }}}
 It has 1 parameter:
 * {{{slot}}}, the save slot index (0-based)
 \
 > //Example://
 {{{
-    Save.slots.get(5)  
+    Save.browser.slot.get(5)  
 → Returns the sixth slot save
 }}}
 \
-<h3>{{{Save.slots.has()}}}</h3>\
+<h3>{{{Save.browser.slot.has()}}}</h3>\
 This API will check whether the given slot is filled.
 {{{
-    Save.slots.has(slot)
+    Save.browser.slot.has(slot)
 }}}
 It has 1 parameter:
 * {{{slot}}}, the save slot index (0-based)
 \
 > //Examples://
 {{{
-    Save.slots.has(5)  
+    Save.browser.slot.has(5)  
 → checks the sixth slot save
 
-    if (Save.slots.has(5)) {
+    if (Save.browser.slot.has(5)) {
         /* Code to manipulate the sixth slot save. */
     }
 }}}
 \
-<h3>{{{Save.slots.isEmpty()}}}</h3>\
-This API will check whether there are any filled slots. It will return with a //true// value if all slots are empty, and a //false// one if at least one slot is filled.
+<h3>{{{Save.browser.slot.isEnabled()}}}</h3>\
+This API will check if slot saves are enabled (true by default, can be modified with [[Config API|Basic-API-Config]]).
+> //Examples://
 {{{
-    Save.slots.isEmpty()
+if (Save.browser.slot.isEnabled()) {
+	/* Slot saves are enabled. */
+}
 }}}
 \
-<h3>{{{Save.slots.load()}}}</h3>\
+<h3>{{{Save.browser.slot.load()}}}</h3>\
 This API will load a save from the given slot. This is the code behind the //Load// buttons in the Save Popup.
 {{{
-    Save.slots.load(slot)
+    Save.browser.slot.load(slot)
 }}}
 It has 1 parameter:
 * {{{slot}}}, the save slot index (0-based)
 \
 > //Example://
 {{{
-    Save.slots.load(5)  
+    Save.browser.slot.load(5)  
 → Loads the sixth slot save
 }}}
 \
-<h3>{{{Save.slots.ok()}}}</h3>\
-This API will check whether the slots saves are available.
-{{{
-    Save.slots.ok()
-
-    if (Save.slots.ok()) {
-        /* Code to manipulate slot saves. */
-    }
-}}}
-\
-<h3>{{{Save.slots.save()}}}</h3>\
+<h3>{{{Save.browser.slot.save()}}}</h3>\
 This API will save to the given slot. This is the code behind the //Save// buttons in the Save Popup.
 {{{
-    Save.slots.save(slot [, title [, metadata]])
+    Save.browser.slot.save(slot [, desc [, metadata]])
 }}}
 It has 3 parameters:
 * {{{slot}}}, the save slot index (0-based)
-* {{{title}}} (optional), the title of the save
+* {{{desc}}} (optional), the description of the save
 ** if omitted or NULL, it defaults to the passage's description 
 * {{{metadata}}} (optional), the data to be stored as metadata (JSON-serializable)
 \
 > //Examples://
 {{{
-    Save.slots.save(5)
+    Save.browser.slot.save(5)
 → Save to the sixth slot 
   + default title and no metadata
 
-    Save.slots.save(5, "Midgar")
+    Save.browser.slot.save(5, "Midgar")
 → Save to the sixth slot 
   + title "Midgar" and no metadata
 
-    Save.slots.save(5, null, someMetadata)
+    Save.browser.slot.save(5, null, someMetadata)
 → Save to the sixth slot 
   + default title and metadata someMetadata
 
-    Save.slots.save(5, "Midgar", someMetadata)
+    Save.browser.slot.save(5, "Midgar", someMetadata)
 → Save to the sixth slot 
   + title "Midgar" and metadata someMetadata
 }}}
 
-<div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>
-
-:: SaveAPI-Autosave [page] {"position":"2100,2000","size":"100,100"}
-<h1>Managing the Autosave Slot</h1>
-The APIs below will allow you to manage the autosave slot. These can be useful when providing returning players to a quick link to load their autosave.
+:: SaveAPI-Autosave [page saveapi] {"position":"2100,2000","size":"100,100"}
+<h1 id="saveapi-auto">Managing the Autosave Slots</h1>
+The APIs below will allow you to manage the available autosave slots. These can be especially useful when creating your own Save page. For manual save slots, see [[this page|SaveAPI-Slots]].
 \
-<h3>Save.autosave.delete()</h3>\
-This API will delete the autosave.
+<h3>{{{Save.browser.auto.size}}}</h3>\
+This API will return the total number of available autosaves slots. It will be influenced by the [[Config API|Basic-API-Config]].
 {{{
-    Save.autosave.delete()
+    Save.browser.auto.size
 }}}
 \
-<h3>{{{Save.autosave.get()}}}</h3>\
-This API will return the save object from the autosave slot, or NULL.
+<h3>{{{Save.browser.auto.delete()}}}</h3>\
+This API will delete a save from the given autosave slot. This is what is behind the //Delete// buttons on the Save Popup.
 {{{
-    Save.autosave.get()
+    Save.browser.auto.delete(slot)
+}}}
+It has 1 parameter:
+* {{{slot}}}, the save slot index (0-based)
+\
+> //Example://
+{{{
+    Save.browser.auto.delete(5)  
+→ Deletes the save in the sixth slot
 }}}
 \
-<h3>{{{Save.autosave.has()}}}</h3>\
-This API will check whether the autosave is filled.
+<h3>{{{Save.browser.auto.clear()}}}</h3>\
+This API will delete all the saves in the slots. This is what is behind the //Delete All// button on the Save Popup (but only for the Autosaves).
 {{{
-    Save.autosave.has()
+    Save.browser.auto.clear()
+}}}
+> //Example://
+{{{
+    <<run Save.browser.auto.clear()>>  
+→ Deletes all the autosaves
+}}}
+\
+<h3>{{{Save.browser.auto.entries()}}}</h3>
+This API will return an array of objects, with information about all the autosaves saves.
+> //Example://
+{{{
+    Save.browser.auto.entries().forEach(function (entry) {
+        console.log(`Descriptor of the auto save at index ${entry.index}:`, entry.info);
+    });
+}}}
+The save objects in this array will each have two properties: the {{{index}}} (position of the auto slot) and {{{info}}} (an object with the save's information).
+\
+<h3>{{{Save.browser.auto.get()}}}</h3>\
+This API will return a save object from the given slot or NULL if it doesn't exist.
+{{{
+    Save.browser.auto.get(slot)
+}}}
+It has 1 parameter:
+* {{{slot}}}, the autosave slot index (0-based)
+\
+> //Example://
+{{{
+    Save.browser.auto.get(5)  
+→ Returns the sixth autosave slot save
+}}}
+\
+<h3>{{{Save.browser.auto.has()}}}</h3>\
+This API will check whether the given autosave slot is filled.
+{{{
+    Save.browser.auto.has(slot)
+}}}
+It has 1 parameter:
+* {{{slot}}}, the save slot index (0-based)
+\
+> //Examples://
+{{{
+    Save.browser.auto.has(5)  
+→ checks the sixth autosave slot
 
-    if (Save.autosave.has()) {
-        /* Code to manipulate the autosave. */
+    if (Save.browser.auto.has(5)) {
+        /* Code to manipulate the sixth autosave slot. */
     }
 }}}
 \
-<h3>{{{Save.autosave.load()}}}</h3>\
-This API will load the autosave (if filled).
+<h3>{{{Save.browser.auto.isEnabled()}}}</h3>\
+This API will check if autosaves are enabled (no slots by default, can be modified with [[Config API|Basic-API-Config]]).
+> //Examples://
 {{{
-    Save.autosave.load()
+if (Save.browser.auto.isEnabled()) {
+	/* Autosaves are enabled. */
+}
 }}}
 \
-<h3>{{{Save.autosave.ok()}}}</h3>\
-This API will check whether the autosave is available.
+<h3>{{{Save.browser.auto.load()}}}</h3>\
+This API will load a save from the given autosave slot. This is the code behind the //Load// buttons in the Save Popup.
 {{{
-    Save.autosave.ok()
-
-    if (Save.autosave.ok()) {
-        /* Code to manipulate the autosave. */
-    }
+    Save.browser.auto.load(slot)
+}}}
+It has 1 parameter:
+* {{{slot}}}, the save slot index (0-based)
+\
+> //Example://
+{{{
+    Save.browser.auto.load(5)  
+→ Loads the sixth autosave
 }}}
 \
-<h3>{{{Save.autosave.save()}}}</h3>\
-This API will save to the autosave slot.
+<h3>{{{Save.browser.auto.save()}}}</h3>\
+This API will save in the first available autosave slot. If all the autosaves are full, it will override the oldest autosave
 {{{
-    Save.autosave.save([title [, metadata]])
+    Save.browser.auto.save([desc [, metadata]])
 }}}
-It has 3 parameters:
-* {{{title}}} (optional), the title of the save
+It has 2 parameters:
+* {{{desc}}} (optional), the description of the save
 ** if omitted or NULL, it defaults to the passage's description 
 * {{{metadata}}} (optional), the data to be stored as metadata (JSON-serializable)
 \
 > //Examples://
 {{{
-    Save.autosave.save()
-→ Save to the autosave slot 
+    Save.browser.auto.save(5)
+→ Save to the sixth slot 
   + default title and no metadata
 
-    Save.autosave.save("Midgar")
-→ Save to the autosave slot
+    Save.browser.auto.save(5, "Midgar")
+→ Save to the sixth slot 
   + title "Midgar" and no metadata
 
-    Save.autosave.save(null, someMetadata)
-→ Save to the autosave slot
+    Save.browser.auto.save(5, null, someMetadata)
+→ Save to the sixth slot 
   + default title and metadata someMetadata
 
-    Save.autosave.save("Midgar", someMetadata)
-→ Save to the autosave slot 
+    Save.browser.auto.save(5, "Midgar", someMetadata)
+→ Save to the sixth slot 
   + title "Midgar" and metadata someMetadata
 }}}
 
-<div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>
+:: SaveAPI-Disk [page saveapi] {"position":"2100,2100","size":"100,100"}
+<h1 id="saveapi-disk">Managing Disk Import and Export</h1>
+The following APIs enables you to import and export save files (as to avoid over-burdening the player's Browser Cache). Those APIs are behind the code of the //Save...// and //Load...// (single saves), as well as the //Export...// and //Import...// bundles (multiple saves).
+> ''Note:'' These APIs are fairly advanced, and are most useful when creating your own Save System.
+\
+<h3>Save and Load Single Saves</h3>\
+\
+<h4>{{{Save.disk.save()}}}</h4>
+This API will save the current story state (playthrough at the current moment) in a downloadable file, which can be restored with {{{Save.disk.load()}}}. Along with the [[current state of the game|SaveAPI-Objects]], you can tie further metadata to a savefile.
+{{{
+    Save.disk.save(filename [, metadata])
+}}}
+\
+This API has 2 parameters:
+* {{{filename}}}: (string) the base name for the file downloaded.
+** this string will get slugified and appended with a datestamp (format: YYYYMMDD-hhmmss) and the extension (format: {{{.save}}})
+* {{{metadata}}}: (optional, JSON-serializable) extra data to be stored in the save object's metadata property.
+\
+> //Simple Example from the Documentation://
+{{{
+    try {
+        Save.disk.save("The 6th Fantasy");
+    }
+    catch (error) {
+        /* Failure.  Handle the error. */
+        console.error(error);
+        UI.alert(error);
+    }
 
+ → unless failure, will create a savefile called:
+    {the-6th-fantasy-YYYYMMDD-hhmmss.save}
+    where {YYYYMMDD-hhmmss} is the datestamp at download
+}}}
+> //Example with Extra Metadata//:
+{{{
+    try {
+        const saveMetadata = {
+            chars : ['Celes', 'Locke', 'Edward'],
+            gold  : 2345
+        };
+        Save.disk.save("The 6th Fantasy", saveMetadata);
+    }
+    catch (error) {
+        /* Failure.  Handle the error. */
+        console.error(error);
+        UI.alert(error);
+    }
+}}}
+\
+<h4>{{{Save.disk.load()}}}</h4>\
+This APi will load any given disk save previously created with {{{Save.disk.save()}}}. If the selected file is valid, it will load the save's metadata and restore the game; if not, it will reject with an error.
+> ''Note:'' this must be used with a change event handler linked to a {{{<input type="file">}}} element (to "upload" the save file to the game).
+{{{
+    Save.disk.load(event)
+}}}
+\
+This API has 1 parameter:
+* {{{event}}}: the event object passed to the input change event handler.
+\
+> //Examples from the Documentation://
+{{{
+    jQuery(document.createElement('input'))
+	.prop({
+		id   : 'saves-disk-load-file',
+		name : 'saves-disk-load-file',
+		type : 'file'
+	})
+	.on('change', ev => {
+		// You must provide the event to Save.disk.load()
+		Save.disk.load(ev)
+			.then(metadata => {
+				Engine.show();
+			})
+			.catch(error => {
+				/* Failure.  Handle the error. */
+				console.error(error);
+				UI.alert(error);
+			});
+	});
+}}}
+> //Using a SugarCube button//:
+{{{
+    <<button "Load From Disk">>
+        <<script>>
+        jQuery(document.createElement('input'))
+            .prop('type', 'file')
+            .on('change', ev => {
+                // You must provide the event to Save.disk.load()
+                Save.disk.load(ev)
+                    .then(metadata => {
+                        Engine.show();
+                    })
+                    .catch(error => {
+                        /* Failure.  Handle the error. */
+                        console.error(error);
+                        UI.alert(error);
+                    });
+            })
+            .trigger('click');
+        <</script>>
+    <</button>>
+}}}
+\
+<h3>Import and Export Multiple Saves</h3>\
+\
+<h4>{{{Save.disk.export()}}}</h4>\
+This API will export all existing browser saves (auto and slot) as a bundled file to disk, which can be restored with {{{Save.disk.import()}}}.
+{{{
+    Save.disk.export(filename)
+}}}
+\
+This API has 1 parameter:
+* {{{filename}}}: (string) the base name for the file downloaded.
+** this string will get slugified and appended with a datestamp (format: YYYYMMDD-hhmmss) and the extension (format: {{{.savesbundle}}})
+\
+> //Simple Example from the Documentation://
+{{{
+    try {
+        Save.disk.export('The 6th Fantasy');
+    }
+    catch (error) {
+        /* Failure.  Handle the error. */
+        console.error(error);
+        UI.alert(error);
+    }
+ → unless failure, will create a savefile called:
+    {the-6th-fantasy-YYYYMMDD-hhmmss.savesbundle}
+    where {YYYYMMDD-hhmmss} is the datestamp at download
+}}}
+\
+<h4>{{{Save.disk.import()}}}</h4>
+This API will import any given disk save bundle previously created with {{{Save.disk.export()}}}.
+> ''Note:'' this must be used with a change event handler linked to a {{{<input type="file">}}} element (to "upload" the save file to the game).
+\
+If the selected file is valid, it will restore all the saves in the bundle; if not, it will reject with an error.
+> ''IMPORTANT!'' Restoring a bundle will override any existing browser saves.
+\
+{{{
+    Save.disk.import(event)
+}}}
+\
+This API has 1 parameter:
+* {{{event}}}: the event object passed to the input change event handler.
+\
+> //Example from the Documentation://
+{{{
+    jQuery(document.createElement('input'))
+	.prop({
+		id   : 'saves-import-file',
+		name : 'saves-import-file',
+		type : 'file'
+	})
+	.on('change', function (ev) {
+		// You must provide the event to Save.browser.import()
+		Save.disk.import(ev)
+			.then(() => {
+				/* Success.  Do something special. */
+			})
+			.catch(error => {
+				/* Failure.  Handle the error. */
+				console.error(error);
+				UI.alert(error);
+			});
+	});
+}}}
 
-:: SaveAPI-Events [page] {"position":"2000,2100","size":"100,100"}
-<h1>Using Save-related Events</h1>
+:: SaveAPI-Base64 [page saveapi] {"position":"2100,2200","size":"100,100"}
+<h1 id="saveapi-base">Managing Base64 saves</h1>
+The following APIs are similar to the [[Disk Import/Export|SaveAPI-Disk]], except it will save it all in a Base64 string instead of a savefile.
+> ''Note:'' these APIs are not recommended unless you //know// what you are doing. /* Which I do not at all, so you won't see me messing with those. */
+\
+<h3>Save and Load Single Saves</h3>\
+\
+<h4>{{{Save.base64.save()}}}</h4>\
+This API will save the current story state (playthrough at the current moment) in a Base64 string.
+{{{
+    Save.base64.save([metadata])
+}}}
+\
+This API has 1 parameter:
+* {{{metadata}}}: (optional, JSON-serializable) extra data to be stored in the save object's metadata property.
+\
+> //Simple Example from the Documentation://
+{{{
+    try {
+        const base64Save = Save.base64.save();
+        /* Do something with the save. */
+    }
+    catch (error) {
+        /* Failure.  Handle the error. */
+        console.error(error);
+        UI.alert(error);
+    }
+}}}
+> //Example with Extra Metadata//:
+{{{
+    try {
+        const saveMetadata = {
+            chars : ['Celes', 'Locke', 'Edward'],
+            gold  : 2345
+        };
+        const base64Save = Save.base64.save(saveMetadata);
+        /* Do something with the save. */
+    }
+    catch (error) {
+        /* Failure.  Handle the error. */
+        console.error(error);
+        UI.alert(error);
+    }
+}}}
+\
+<h4>{{{Save.base64.load()}}}</h4>\
+This APi will load any given Base64 save string previously created with {{{Save.base64.save()}}}. If the selected string is valid, it will load the save's metadata and restore the game; if not, it will reject with an error.
+{{{
+    Save.base64.load(save)
+}}}
+\
+This API has 1 parameter:
+* {{{save}}}: (string) the Base64 save string.
+\
+> //Example from the Documentation//:
+{{{
+    Save.base64.load(base64Save)
+	.then(metadata => {
+		Engine.show();
+	})
+	.catch(error => {
+		/* Failure.  Handle the error. */
+		console.error(error);
+		UI.alert(error);
+	});
+}}}
+\
+<h3>Import and Export Multiple Saves</h3>\
+<h4>{{{Save.base64.export()}}}</h4>\
+This API will export all existing browser saves (auto and slot) as a bundled file Base64 string, which can be restored with {{{Save.base64.import()}}}.
+{{{
+    Save.base64.export()
+}}}
+\
+> //Simple Example from the Documentation://
+{{{
+    try {
+        const base64Save = Save.base64.export();
+        /* Do something with the saves bundle. */
+    }
+    catch (error) {
+        /* Failure.  Handle the error. */
+        console.error(error);
+        UI.alert(error);
+    }
+}}}
+\
+<h4>{{{Save.base64.import()}}}</h4>\
+This API will import any given Base64 save bundle string previously created with {{{Save.base64.export()}}}.If the selected file is valid, it will restore all the saves in the bundle; if not, it will reject with an error.
+> ''IMPORTANT!'' Restoring a bundle will override any existing browser save.
+\
+{{{
+    Save.base64.import(bundle)
+}}}
+\
+This API has 1 parameter:
+* {{{bundle}}}: (string) the Base64 saves bundle string.
+\
+> //Example from the Documentation://
+{{{
+    Save.base64.import(base64Bundle)
+	.then(() => {
+		/* Success.  Do something special. */
+	})
+	.catch(error => {
+		/* Failure.  Handle the error. */
+		console.error(error);
+		UI.alert(error);
+	});
+}}}
+
+:: SaveAPI-Events [page saveapi] {"position":"2000,2100","size":"100,100"}
+<h1 id="saveapi-event">Using Save-related Events</h1>
 \
 <h3>Events during Save Load</h3>\
 \
@@ -429,19 +664,19 @@ It has 1 parameter:
         /* code to process the save object before it's loaded */
     });
 
-→ Updading old saves to be compatible:
+→ Updating old saves to be compatible:
     Save.onLoad.add(function (save) {
         const history = save.state.history;
         if (save.version < 14) {
             /* 
-                Code to fix all saves upto version 14 
+                Code to fix all saves up to version 14 
             */
             save.version = 14;
             /* Updating the save file's version */
         }
     });
 }}}
-> ''Note:'' the {{{save.version}}} will be defined with the relevant [[Config API|Config-Saves]]
+> ''Note:'' the {{{save.version}}} can be defined with the relevant [[Config API|Config-Saves]]
 \
 <h4>{{{Save.onLoad.clear()}}}</h4>\
 This API will delete all currently defined on-load handlers.
@@ -541,5 +776,3 @@ This API will give the number of currently registered on-save handlers.
 {{{
     console.log('There are %d onSave handlers registered.', Save.onSave.size);
 }}}
-
-<div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>

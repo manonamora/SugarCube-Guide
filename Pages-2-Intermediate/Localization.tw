@@ -1,16 +1,14 @@
 :: Localization [chapter menu] {"position":"3800,1100","size":"200,100"}
 <h1>Edit the Built-In Text or Change the Game's Language</h1>
-Further customisation of a SugarCube project can be done with the {{{l10nStrings}}}, bits of JavaScript code that will change what text the Built-In elements will show. This can affect the buttons on the Sidebar, as well as the Restart, Saves, and Settings Popup. You can edit these strings to fit the vibe of your project, change its language entirely, or link them to a function to provide translation of your work. 
+Further customisation of a SugarCube project can be done with the {{{l10nStrings}}}, bits of JavaScript code that will change what text the Built-In elements will show. This can affect the buttons on the Sidebar, as well as the //Restart//, //Saves//, and //Settings// Popup. You can edit these strings to fit the vibe of your project, change its language entirely, or link them to a function to provide translation of your work. 
 
 * [[l10nStrings, and How to Edit Them|Local-L10n]]
 * [[Localization, and Pre-Translated Templates|Local-Trans]]
-* [[Providing Multiple Languages In-Game|Local-Setting]]
+* [[Providing Multiple Languages Options In-Game|Local-Setting]]
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Local-L10n [page] {"position":"3800,1200","size":"100,100"}
-<h1>{{{l10nStrings}}}, and How to Edit Them</h1>
-{{{l10nStrings}}} are strings of words which can only be edited in JavaScript. These strings populate your project pages in very specific spots, as defined by the property attached to it. Depending on the property chosen, it can affect visible text on the screen, text only visible when hovering over an element, text inside a browser alert, or when the game is in Debugging Mode (Test).
+:: Local-L10n [page translate] {"position":"3800,1200","size":"100,100"}
+<h1 id="local-strings">{{{l10nStrings}}}, and How to Edit Them</h1>
+{{{l10nStrings}}} are strings of words which can only be edited in JavaScript. These strings populate your project pages in very specific spots, defined by the property you can attach to it. Depending on the property chosen, it can affect visible text on the screen, text only visible when hovering over an element, text inside a browser alert, or when the game is in Debugging Mode (Test).
 {{{
     l10nStrings.property = "New Text";
 }}}
@@ -18,63 +16,48 @@ Further customisation of a SugarCube project can be done with the {{{l10nStrings
 {{{
     l10nStrings.restartTitle = "Restart";
     l10nStrings.restartTitle = "Are You Sure?";
+    l10nStrings.restartTitle = "Restarting is for Babies :P";
 }}}
-> ''Note:'' any {{{l10nStrings}}} added to your JavaScript will override the built-in text. If multiple iteration of the same property is edited in your file, only the last one will be shown on the page.
+> ''Note:'' any {{{l10nStrings}}} added to your JavaScript will override the built-in text. If you add multiple iteration of the same property in your file, only the last one will be used by the game.
 
-You can find the whole list of accepted property on [[this page|https://github.com/tmedwards/sugarcube-2/blob/develop/locale/l10n-template.js]] of the SugarCube repository. 
+You can find the whole list of accepted property on [[this page|https://github.com/tmedwards/sugarcube-2/blob/v2-develop/locale/l10n-template.js]] of the SugarCube repository. 
 Just Copy-Paste the necessary lines into your JavaScript, and edit the text. The code will accept any [[Unicode Character and Symbols|https://en.wikipedia.org/wiki/List_of_Unicode_characters]] (testing for fonts advised).
-> ''Note:'' If you remove an element in the UI, like the backward button, the related {{{l10nStrings.propery}}} (here {{{l10nStrings.uiBarBackward}}}) will not need to be included in your project.
+> ''Note:'' If you remove an element in the UI, like the backward button, the related {{{l10nStrings.propery}}} (here {{{l10nStrings.uiBarLabelBackward}}}) do not have to be included in your project (because it won't be used).
 
 You can also use the text of other properties inside an {{{l10nStrings}}} to avoid writing it multiple times, either by using the property itself ({{{l10nStrings.propery}}}) or creating a template ({{{l10nStrings._template}}}). For example, in the Built-In {{{l10nStrings}}}:
 {{{
-    l10nStrings.identity = 'game';
+    l10nStrings.textIdentity  = 'game';
 
     l10nStrings._warningIntroLacking  = 'Your browser either lacks or has disabled';
 
-    l10nStrings._warningOutroDegraded = ', so this {identity} is running in a degraded mode. You may be able to continue, however, some parts may not work properly.';
+    l10nStrings._warningOutroDegraded = ', so this {textIdentity } is running in a degraded mode. You may be able to continue, however, some parts may not work properly.';
 
-    l10nStrings.warningNoWebStorage   = '{_warningIntroLacking} the Web Storage API{_warningOutroDegraded}';
+    l10nStrings.warningNoWebStorage = '{_warningIntroLacking} the Web Storage API{_warningOutroDegraded}';
 }}}
-The three first {{{l10nStrings}}} (one a property, the two others templates) are used by the last string to create the following text:
+> ''Note:'' as of 2.37, the templates are not used anymore by the built-in format. You can still define and use them, but at your own risk.
+
+The three first {{{l10nStrings}}} (one a property, two templates) are used by the last string to create the following text:
 > //Your browser either lacks or has disabled// the Web Storage API, //so this ''game'' is running in a degraded mode. You may be able to continue, however, some parts may not work properly.//
 
-<div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
+:: Local-Trans [page translate] {"position":"3900,1200","size":"100,100"}
+<h1 id="local-translate">Localization, and Pre-Translated Templates</h1>
+If your project is not written in English, and you would prefer seeing the Built-In text match this, you will need to edit most of the defined [[l10nStrings|Local-L10n]]. This can be done by Copy-Pasting into your JavaScript the code from [[this page|https://github.com/tmedwards/sugarcube-2/blob/v2-develop/locale/l10n-template.js]] of the SugarCube repository, and edit the text.
+> ''Note:'' you can forgo the first and last line of the code in that page (i.e. the {{{(function(){ }}} and {{{ {})();}}}).
 
-
-:: Local-Trans [page] {"position":"3900,1200","size":"100,100"}
-<h1>Localization, and Pre-Translated Templates</h1>
-If your project is not in English and you want the Built-In text to reflect this, you will need to include and edit most of the [[l10nStrings|Local-L10n]] defined in the format's code. This can be done by Copy-Pasting into your JavaScript the code from [[this page|https://github.com/tmedwards/sugarcube-2/blob/develop/locale/l10n-template.js]] of the SugarCube repository, and edit the text.
-> ''Note:'' you can forgo the first and last line of the code in that page (i.e. the {{{function()}}}).
-
-There may be a faster way to translate this built-in text if your language is included in the following list:
-{{{
-    Arabic (ar-EG)
-    Chinese (chs)
-    German (de)
-    Spanish (es-ES)/(es-UNKNOWN)
-    French (fr)
-    Italian (it-IT)
-    Dutch (nl)
-    Polish (pl)
-    Portuguese (pt-BR)/(pt-PT)
-    Russian (ru)
-    Turk (tr)
-}}}
-> ''Note:'' this was last checked on 3-Dec-2023.
-These languages already have a Localization package, downloadable on the [[SugarCube website|http://www.motoslave.net/sugarcube/2/#downloads]], that you can Copy-Paste without needing to translate.
+If the wanted language is available, you can use one of the pre-translated localizations, done by volunteers. Any available localization package will be downloadable on the [[SugarCube website|http://www.motoslave.net/sugarcube/2/#downloads]]. You can Copy-Paste the code from the {{{.js}}} into your JavaScript.
 > ''Note:'' you //may// want to check the translated version fits with your project, or whether some edits may be required.
 
-If your language (or its regional version) is unfortunately not included in the list above, you will need to edit every {{{l10nStrings}}} manually.
-> ''Note:'' You may also want to provide this translation to TME, so it may be included in this list for future users. This can be done by forking the GitHub repository, edit [[this folder|https://github.com/tmedwards/sugarcube-2/tree/master/locale]] to include your translation, and open a pull request.
+While SugarCube 2.36 had many localization packages, which you can find here [[here|https://github.com/tmedwards/sugarcube-2/blob/v2-develop/locale/]], these are now outdated due to the many changes brought by the 2.37 update. You can still, however, use them as a base for your own translation. But, if your language (or its regional version) was not included in that list, you will need to edit every {{{l10nStrings}}} manually.
+> ''Note:'' You may also want to provide this translation to TME, so a new localization package may be made available for future users. Simple [[create a new issue|https://github.com/tmedwards/sugarcube-2/issues]] on GitHub, and include the translation in your message (as a downloadable file or a link to the code).
 
-<div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
-
-:: Local-Setting [page] {"position":"3800,1300","size":"100,100"}
-<h1>Providing Multiple Languages In-Game</h1>
-If you want to include more than one language to your project, how to code it will depend on the UI of your project (Base or Custom) and whether the functionalities in your game (i.e. Settings, Saves, ...) use the [[Built-In text|Local-L10n]]. It may be as simple as creating seperate passage paths per language (with a starting screen displaying a list of available languages), to more complex, like having a Setting the player can use to change the language at anytime.
+:: Local-Setting [page translate] {"position":"3800,1300","size":"100,100"}
+<h1 id="local-langsetting">Providing Multiple Languages Options In-Game</h1>
+If you want your project to be played in multiple languages, there are different ways to include those. Which way to code it will depend on the interface (Built-In or [[Custom|SP-StoryInterface]]), and whether the functionalities (e.g. Settings, Saves...) use any [[Built-In text|Local-L10n]]. It may be as simple as creating separate passage paths per language (with a starting screen displaying a list of available languages), to more complex, like having a Setting the player can use to change the language at anytime.
 \
 <h3>No Built-In Text and Language Choice at Start</h3>\
-In this first case (which can be attainable by removing the Sidebar or creating a Custom UI), an easy way to achieve including localization would be to start with a passage where the player can choose the language from a list of links, each of which would send the player to a path of passages for that specific language:
+This first case will assume that players won't ever see any of the Built-In text, which can be done by removing the SideBar or creating a Custom Interface, and avoiding using the Built-In //Settings//, //Saves// and //Restart// popups (or you don't mind that they aren't translated).
+
+This way to include localization is to create a starting passage, where the player can choose the wanted language from a list of links, which in turn would sent the player to a path of passages written in the selected language:
 {{{
     :: Start
     THIS IS A GAME, REALLY...
@@ -91,15 +74,15 @@ In this first case (which can be attainable by removing the Sidebar or creating 
     Ce Passage est en Français. 
     [[Continuer|FR-Next]]
     
-    :: EN-Passage
+    :: ES-Passage
     Este pasaje esta en español.
     [[Continuar|ES-Next]]
     
-    :: EN-Passage
+    :: NL-Passage
     Deze passage is in het Nederlands.
     [[Doorgaan|NL-Next]] 
 }}}
-You can also choose to merge every translated passage into one, tracking the language choice through a variable:
+If you want to avoid creating copies of those passages when adding a new language, you can merge them all and track the language choice through a variable:
 {{{
     :: Start
     THIS IS A GAME, REALLY...
@@ -123,15 +106,15 @@ You can also choose to merge every translated passage into one, tracking the lan
         [[Doorgaan|Next]]
     <</switch>>
 }}}
-> ''Note:'' this last example can work with a Custom UI, where other UI elements need to be displayed in the chosen language.
 \
 <h3>Built-In Text and Settings</h3>\
-If Built-In Text appears on the page (throug the Base UI or while using Settings or Saves), you will need to not only show the proper Story Text within passages, but the correct version of this Built-In text. This should be done via JavaScript and include [[l10nStrings|Local-L10n]].
+This other case can be used for any interface where the Built-In text appears on the page (Base UI or Custom), as it will target the Built-In text and display it in the wanted (coded) language. This will be done with some custom JavaScript code and include [[l10nStrings|Local-L10n]].
 
-While you may choose to built your own, TME has already created a custom version ([[code here|https://gist.github.com/tmedwards/33f3b4b7ada317fc9cc70aa8580c03f0]]), which includes a Setting for the player to switch from one language to another at any time, and explained below.
+While you may choose to built your own, TME has already created a custom version ([[code here|https://gist.github.com/tmedwards/33f3b4b7ada317fc9cc70aa8580c03f0]]), which includes a Setting for the player to switch from one language to another at any time. This is the example explained below.
 \
 <h4>TME Internalization Code</h4>\
 First, Copy-Paste the JavaScript code between the {{{:: Language Switching [script]}}} and {{{:: Start}}} lines into your project's JavaScript. Then, edit the code to fit your project's need. 
+
 Two parts are the most important: changing the list of languages to choose from, and changing the Built-In text for each language. 
 > ''Note:'' TME indicates where to edit the code with his {{{// ''Note:'' User customization required here.}}} comment.
 {{{
@@ -174,16 +157,19 @@ The {{{case 'en':}}} is not listed here, since it already uses the Built-In text
 > ''Note:'' you can find [[pre-translated packages|Local-Trans]] for the {{{l10nStrings}}}.
 \
 <h4>Setting up the Passages</h4>\
-After the JavaScript code is set, you will have to set the passages. While similar to the first method, this way requires an empty passage to act as an anchor for the JavaScript code. From that anchor, the code will check the langugage chosen, add the relevant language code as a suffic to the anchor, and display the corresponding passage. 
+After the JavaScript code is set, you will have to set the passages. While similar to the first method, this way requires an empty passage to act as an anchor for the JavaScript code. From that anchor, the code will check the language chosen, add the relevant language code as a suffix to the anchor, and display the corresponding passage. 
 For example, with the passage {{{Start}}}:
 # Anchor {{{Start}}}
 # Language: {{{English}}}
-# Code into Suffix: {{{en}}} -> {{{_en}}}
+# Code into Suffix: {{{en}}} → {{{_en}}}
 # Passage to display: {{{Start_en}}}
 So, you will need to create as many passages as there are defined languages, on top of the anchor (e.g. 3 languages = 4 passages). In a project, it will look like this:
 {{{
     :: Start
-        /* You can add code, macros and notes here, but no text will show. */
+        /* 
+            Code included here will run,
+            but no text will show. 
+        */
     
     :: Start_de
         Deutsche.
@@ -205,24 +191,24 @@ And so on and so forth...
 While the player can go into the settings to change the language of the game, it is also possible to give the player the option to choose a language as a starting passage. You will need to create a link, where you save the language choice in a setting variable.
 {{{
     <<link "Français" "Next">>
-        <<set settings.lang to "Français">>
-        <<run Setting.save()>>
+        <<run Setting.setValue('lang', 'Français')>>
     <</link>>
 }}}
 
-If you are using Build-in elements or the Base UI, you will need to force a page refresh to ensure the next page loads {{{l10nStrings}}} correctly. This is because this method links the {{{l10nStrings}}} to the {{{lang}}} attribute attached to {{{<html>}}}, so changing the setting without changing the attribute is not enough for those elements. A page refresh, however, will be able to fix that.
-This can be done by adding a tad extra code:
+Thanks to {{{Settings.setValue()}}} [[Setting API|Settings-More]], this will both change the setting to the wanted language and reload its code, so the page displays both the correct passage and any use Built-In text. This way, the player will see the game page refresh with a loading screen between clicking the link and seeing the new passage.
+> ''Note:'' the refresh is recommended, because the {{{l10nStrings}}} are linked to the {{{lang}}} attribute, which is attached to {{{<html>}}}, which do not update automatically.
+
+However, if you do not want the page refresh, you can get away with simply editing the value of the setting, and saving it, as such:
 {{{
     <<link "Français" "Next">>
         <<set settings.lang to "Français">>
         <<run Setting.save()>>
-        <<run window.location.reload()>>
     <</link>>
 }}}
-> ''Note:'' In a fully Custom UI, this //may// not be necessary. Though a refresh is still recommended.
+> ''Note:'' the Built-In text, especially in popups, won't be displayed with the correct text without the refresh.
 \
 <h4>Edit Settings Language or Other Custom Elements</h4>\
-While TME's code allows the automation in displaying different version of Built-In text through the {{{l10nStrings}}}, you will need to do the same for custom text, such as Settings lables and descriptions, or whatever element you created on the page (e.g. Custom Menu in the UI). This, however, can easily be remedied with the {{{<<switch>>}}} macro.
+While TME's code allows the automation in displaying different version of Built-In text through the {{{l10nStrings}}}, you will need to do the same for custom text, such as Settings labels and descriptions, or whatever element you created on the page (e.g. Custom Menu in the UI). This, however, can easily be remedied with the {{{<<switch>>}}} macro.
 > //In a Non-Story Passage://
 {{{
     <<switch settings.lang>>
@@ -241,6 +227,4 @@ While TME's code allows the automation in displaying different version of Built-
 		onChange : changeLanguage
 	});
 }}}
-> ''Note:'' the backticks {{{` `}}} allows the includions of SugarCube code inside JavaScript here.
-
-<div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
+> ''Note:'' the backticks {{{` `}}} allows the inclusions of SugarCube code inside JavaScript here.

@@ -1,20 +1,19 @@
 :: Functions [chapter menu] {"position":"2300,1100","size":"200,100"}
 <h1>Harness the Power of Functions</h1>
-Functions are JavaScript blocks of code designed to do a specific task, from importing outside scripts, to save information, or setting variables. While some of the functions explained in this chapter can be used in any passage in combination with SugarCube macros, some should be restricted to the JavaScript passage only.
+Functions are JavaScript blocks of code designed to do a specific task, from importing outside scripts, to save information, or setting variables. While some of the functions explained in this section can be used in any passage in combination with SugarCube macros, some should be restricted to the JavaScript passage only.
 
 * [[Cloning Variables, and Random Values Functions|Function-Clone-Random]]
 * [[Using Play, Passage, and Tags information|Function-Pass-Tag]]  
 * [[Memorizing Information and Metadata|Function-Metadata]]
+* [[Triggering Events|Function-Trigger]]
 * [[JavaScript-only Functions|Function-JS]]
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Function-Clone-Random [page] {"position":"2300,1200","size":"100,100"}
-<h1>Cloning Variables, and Random Values Functions</h1>
+:: Function-Clone-Random [page functions] {"position":"2300,1200","size":"100,100"}
+<h1 id="function-clone">Cloning Variables, and Random Values Functions</h1>
 SugarCube has a handful of functions to set variables, from cloning objects to randomising a value.
 \
 <h3>The {{{clone()}}} function</h3>\
-Unlike simple variables or arrays, copying an object in another variable will not just copy the current value of the orginal variable but any future changes to that original variable. Assuming that {{{$object = {turn : 1} }}}:
+Unlike simple variables or arrays, copying an object in another variable will not just copy the current value of the original variable but keep track with any future changes to that original variable. Assuming that {{{$object = {turn : 1} }}}:
 {{{
     <<set $var to $object>>
     <<set $object.turn to 6>>
@@ -43,7 +42,7 @@ To randomise a value, there are two main functions: {{{either()}}} for strings a
     <<set _temp to randomFloat(0.0, 5.0)>>
 → this will set _temp a number between 0.0 and 4.99999...
 }}}
-> ''Note:'' {{{either()}}} will also accept integer and boolean values.
+> ''Note:'' {{{either()}}} will also accept integer and boolean values, but you will need to list them.
 \
 Instead of listing values, other variables can be used inside the functions. Assuming that {{{_min = 0}}}, {{{_max = 10}}}, {{{_array = ["Apple", "Chocolate"]}}}, {{{_array2 = [1, 2]}}}:
 {{{
@@ -56,27 +55,28 @@ Instead of listing values, other variables can be used inside the functions. Ass
     >>
 }}}
 
-<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
-
-:: Function-Pass-Tag [page] {"position":"2400,1200","size":"100,100"}
-<h1>Using Play, Passage, and Tags information</h1>
-SugarCube functions can also track where players have (or have not) been, or how many times they have visited a certain passage. These can be useful to show variation, whether certain links appear in a menu, or changing the content of the Header/Footer depending on a location.
+:: Function-Pass-Tag [page functions] {"position":"2400,1200","size":"100,100"}
+<h1 id="function-info">Using Play, Passage, and Tags information</h1>
+SugarCube functions can also track where players have (or have not) been, or how many times they have visited a certain passage. This information can be useful to display variation, whether certain links appear in a menu, or changing the content of the Header/Footer depending on a location.
 \
 <h3>Using the {{{tags()}}} and {{{visitedTags()}}} functions</h3>\
-To track where the player is or has been based on the tags coded on the passages, we can use respectively the {{{tags()}}} and {{{visitedTags()}}} functions. This is quite useful when trying to target a group of passages rather than a handful of them (and having to list those). 
+To track where the player is or has been based on the tags of the passages, we can use respectively the {{{tags()}}} and {{{visitedTags()}}} functions. This is quite useful when trying to target a group of passages rather than a handful of them (and having to list those). 
 
 {{{tags()}}} should mainly be used in Special Passages, widgets, or JavaScript code outside of the passage, as it contains the list of tags of the current passage. As passages may have multiple tags, it should be treated as if they were an array variable.
 {{{
     :: PassageHeader
-    <<if tags().includes('forest')>>The Dark Forest
-    <<elseif tags().includes('town')>>The Lovely Town 
-    <<elseif tags().includes('tavern')>>The Thick Table Tavern :P
+    <<if tags().includes('forest')>>
+        The Dark Forest
+    <<elseif tags().includes('town')>>
+        The Lovely Town 
+    <<elseif tags().includes('tavern')>>
+        The Thick Table Tavern :P
     <</if>>
 
-Display tags:
+→ Display tags:
     <<print tags()>>
 
-Set as a value:
+→ Set as a value:
     <<set $var to tags()>>
 }}}
 
@@ -128,7 +128,7 @@ One can track where the player is or has been based on the passages' name. Aside
 }}}
 > ''Note:'' when using more strict conditional statements, as players may unknowingly visit a passage more than once (see {{{<<return>>}}} [[macro|Macro-Back-Return]] or the [[Arbitrarily Long Return|Long-Return-JS]]).
 
-{{{lastVisited()}}} works similarly to the {{{previous()}}} function, though it will look at the length of turns between the current passage and the one in question. The following examples will check if:
+{{{lastVisited()}}} works similarly to the {{{previous()}}} function, though it can also look at the length of turns between the current passage and the one in question. The following examples will check if:
 {{{
     <<if lastVisited('Tavern') is 0>>...<</if>>
 → the player is currently in the passage "Tavern"
@@ -188,11 +188,9 @@ One can track where the player is or has been based on the passages' name. Aside
         <</if>>
     <</link>>
 }}}
-    
-<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
 
-:: Function-Metadata [page] {"position":"2300,1300","size":"100,100"}
-<h1>Memorizing Information and Metadata</h1>
+:: Function-Metadata [page functions] {"position":"2300,1300","size":"100,100"}
+<h1 id="function-meta">Memorizing Information and Metadata</h1>
 Aside form the Built-In Saves, SugarCube has another way of saving information, in the story metadata. While it ''is not'' a save and ''should not'' replace saves, the following functions can be useful for tracking achievements or statistics, or having a New Game+ feature.
 > ''Note:'' this //will not work with private browsing//, and may affect how the game progresses.
 > It will also affect all playthroughs of the game.
@@ -222,14 +220,12 @@ The {{{recall}}} function can also be used in conditional statements and saving 
     <<set $variable to recall('achievement')>>
 }}}
 
-<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
-
-:: Function-JS [page] {"position":"2400,1300","size":"100,100"}
-<h1>JavaScript-only Functions</h1>
+:: Function-JS [page functions] {"position":"2400,1300","size":"100,100"}
+<h1 id="function-js">JavaScript-only Functions</h1>
 The functions below can only be used in the JavaScript tab or inside a {{{<<script>>}}} macro.
 \
-<h3>Importing outside code</h3>\
-SugarCube functions allows for importing JavaScript and CSS from outside sources, to use in a project:
+<h3>Importing external code</h3>\
+SugarCube functions allows for importing JavaScript and CSS from external sources, to use in a project:
 {{{
 To import JavaScript:
     importScripts(URL);
@@ -269,6 +265,73 @@ Sometimes, your JavaScript code will need a variable set in SugarCube to run. Th
     }
 → if the variable $hasGoldenKey is true, the code will change the value of _unlock to true
 }}}
+\
+<h3>Rendering a Passage in a Target Element</h3>\
+While this is more of an Advanced function/*but I am too lazy to create a whole section just for this....*/, you may encounter it in special custom code, like Greyelf's [[Right SideBar|http://twinery.org/forum/discussion/comment/17617/]].
+{{{
+    setPageElement(idOrElement , passages [, defaultText])
+}}}
+This function has 3 parameters:
+* {{{idOrElement}}}: The ID of the element or the element itself.
+* {{{passages}}}: The name(s) of the passage(s) to link to the element. 
+** can be a single passage or an array of passages (only the first available will be displayed).
+* {{{defaultText}}}: (optional, string) the default text to use if no passages are found.
+> //Example//:
+{{{
+    setPageElement("my-display", "MyPassage");
 
-<div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div>
+    setPageElement('right-ui-bar-body', 'StoryRightSidebar');
+}}}
 
+
+:: Function-Trigger [page functions] {"position":"2300,1400","size":"100,100"}
+<h1 id="function-event">Triggering Events</h1>
+There may come a time when interactivity may require extra bits of code to be processed, by targetting a certain element through a synthetic event. Such as opening a menu when pressing a certain key on the keyboard or trigger an animation when a certain link is clicked.
+The {{{triggerEvent()}}} function is in charge of running that event.
+> ''Note'': Aside from the most basic use of this function, customising it is pretty advanced.
+{{{
+    triggerEvent(name [, targets [, options]])
+}}}
+\
+This function has 3 parameters:
+* {{{name}}} (string), the name of the event to trigger
+** it can be both native or custom events
+*** custom event names should be limited to: letters, numbers, {{{ . }}}, {{{ - }}}, {{{ _ }}} and {{{ : }}}
+** while it will also accept [[built-in events|Events]], this is not recommended!
+* {{{targets}}} (optional), what element(s) it should target
+** it will accept: {{{document}}}, HTML elements (e.g. {{{<div>}}} - single or arrays), jQuery, NodeList, etc...
+** if left blank, it will default to {{{document}}}
+* {{{options}}} (object, optional)
+** any additional properties for the event should be added to the {{{detail}}} property
+The //options// object has multiple property:
+* {{{bubbles}}} (boolean, optional), whether the event bubbles to parent elements ({{{true}}} by default) 
+* {{{cancelable}}} (boolean, optional), whether the event is cancelable ({{{true}}} by default)
+* {{{composed}}} (boolean, optional), whether the event triggers listeners outside of a shadow root ({{{false}}} by default)
+* {{{detail}}} (any, optional), custom data sent with the events ({{{undefined}}} is default)
+** it is recommended to use an object, for practicality.
+\
+> //Examples from the documentation//:
+{{{
+→ Basic use:
+    triggerEvent('custom-event');
+    triggerEvent('click');
+    triggerEvent(':uiupdate');
+
+→ Targetting a specific element with ID:
+    triggerEvent('click', document.getElementById('choice-1'));
+        → this will "click" on the element #choice-1
+
+→ Use with options:
+    triggerEvent('update-meter', document, {
+        detail : {
+            tags : ['health', 'magick']
+        }
+    });
+        → will update custom meters named 'health' and 'magick'
+
+→ Different ways for one same action:
+    triggerEvent('mouseover', document.getElementsByClassName('flippable'));
+    triggerEvent('mouseover', document.querySelectorAll('.flippable'));
+    triggerEvent('mouseover', jQuery('.flippable'));
+        → this will 'mouse over' the elements .flippable 
+}}}

@@ -1,0 +1,841 @@
+:: AudioAPI [chapter menu] {"position":"3800,1800","size":"200,100"}
+<h1>Going Further with Audio with APIs</h1>
+The Audio API is the largest group of APIs included in SugarCube, enabling you to have more control over sound in your project. It is the subsystem and backend for the [[audio macros|Macro-Audio]].
+> ''Note:'' Aside from the SimpleAudio API, this chapter is for //very// advanced users. It is unlikely they will be of use for 99% of projects, as the audio macros will already cover most use.
+
+Because the SugarCube Audio system is based on the HTML Media Elements APIs, it comes with limitations:
+* no true gap-less transitions between tracks
+* on mobile, playback volume is controlled ONLY by the device hardware (except for muting)
+* playback at the start of the game must be initiated by player through a click/touch (it won't work otherwise)
+
+* [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
+* [[Going further with AudioTrack|AudioApi-Track]]
+* [[Going further with AudioRunner|AudioApi-Runner]]
+* [[Going further with AudioList|AudioApi-List]]
+
+:: AudioAPI-General [page audio-api] {"position":"3800,1900","size":"100,100"}
+<h1 id="audioapis-base">The SimpleAudio API, the alternative to Audio macros</h1>
+The SimpleAudio APIs is the base APIs behind the [[audio macros|Macro-Audio]], but will let you go further when manipulating the general audio controls, tracks, groups of tracks and playlists. Those APIs are most useful for the master volume control, as well as checking whether certain tracks/groups/playlists are playing.
+\
+<h3>General SimpleAudio APIs</h3>\
+<h4>{{{SimpleAudio.load()}}} and {{{SimpleAudio.loadWithScreen()}}}</h4>\
+These APIs are used to load tracks up to playable state, anytime it is called, with the latter adding a loading screen untill all tracks are loaded (or aborts due to errors).
+> ''Note:'' these APIs should not be abused, as it forces players to download the tracks if they are sourced on the network.
+{{{
+    SimpleAudio.load();
+    SimpleAudio.loadWithScreen();
+}}}
+\
+<h4>{{{SimpleAudio.unload()}}}</h4>\
+This API will both stop the playback of registered tracks and drop their information.
+> ''Note:'' unloaded tracks won't be playable until they are loaded again.
+{{{
+    SimpleAudio.unload();
+}}}
+\
+<h4>{{{SimpleAudio.select()}}}</h4>\
+This API will allow you to select tracks and/or groups of tracks, which you can then manipulate with track functions.
+{{{
+    SimpleAudio.select(selector)
+}}}
+This API has 1 parameter:
+* {{{selector}}}: the list of audio track(s) and/or group ID(s), separated by spaces
+** this includes pre-defined group IDs like {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:paused}}}, {{{:playing}}} and {{{:stopped}}}
+** you can also unselect tracks/groups from a larger selection with {{{:not()}}}
+\
+> //Examples://
+{{{
+    SimpleAudio.select(":paused").play();
+    SimpleAudio.select(":playing").stop();
+    SimpleAudio.select(":playing:not(:ui)").stop();
+}}}
+\
+<h4>{{{SimpleAudio.mute()}}} and {{{SimpleAudio.muteOnHidden()}}}</h4>\
+The general logic of the APIs is to (un)mute the master volume for the game, with {{{SimpleAudio.muteOnHidden()}}} going further as it will mute/unmute depending on the visibility of the page (i.e. //is the browser page in focus?//). You can also use those API as a variable to check whether the master volume is muted or not.
+{{{
+    SimpleAudio.mute([state])
+    SimpleAudio.muteOnHidden([state])
+}}}
+It has 1 parameter: 
+* {{{state}}} (optional, boolean), whether the game is/should be muted or not 
+\
+> ''Note:''  
+{{{
+ → as a variable:
+    var isMuted = SimpleAudio.mute();
+    var isMuteOnHidden = SimpleAudio.muteOnHidden();
+
+ → Mute (master volume)
+    SimpleAudio.mute(true);
+    SimpleAudio.muteOnHidden(true);
+
+ → Unmute (master volume)
+    SimpleAudio.mute(false);
+    SimpleAudio.muteOnHidden(false);
+}}}
+\
+<h4>{{{SimpleAudio.volume()}}}</h4>\
+This API can be used to both get the current master volume level and change it.
+{{{
+    SimpleAudio.volume([level])
+}}}
+It has 1 parameter:
+* {{{level}}}: (optional, integer) the volume level to set, between 0 (silent) and 1 (loudest)
+\
+> //Examples://
+{{{
+    var currentMasterVolume = SimpleAudio.volume();
+
+    SimpleAudio.volume(0.75);
+}}}
+\
+<h4>{{{SimpleAudio.stop()}}}</h4>\
+This API will stop the playback of all registered tracks.
+{{{
+    SimpleAudio.stop();
+}}}
+\
+<h3>Tracks SimpleAudio APIs</h3>\
+<h4>{{{SimpleAudio.tracks.add()}}}</h4>\
+This API will add an audio track and assign it to a given ID. It is similar to {{{<<cacheaudio>>}}}.
+{{{
+    SimpleAudio.tracks.add(trackId, sources…)
+}}}
+This API has 2 parameters:
+* {{{trackId}}} (string): the ID of the track, to be referenced in other code.
+* {{{sources}}} (string/arrays): the source(s) of the track
+** only one is required, but you can supply additional formats (none is supported by all browsers)
+** the string must be the file's URL, an [[audio passage|Tags-Asset]] or a data URI
+** you can also format it as {{{format|URL}}}, if the file's extension cannot be detected
+> //Examples://
+{{{
+    SimpleAudio.tracks.add("boom", "asset/file.mp3");
+    SimpleAudio.tracks.add("boom", "AudioPassageName");
+    SimpleAudio.tracks.add("bgm_space", "asset/file.mp3", "asset/file.ogg");
+    SimpleAudio.tracks.add("what", "mp3|http://an-audio-service.com/a-user/a-track-id");
+}}}
+\
+<h4>{{{SimpleAudio.tracks.clear()}}}</h4>\
+This API will delete all audio tracks.
+{{{
+    SimpleAudio.tracks.clear()
+}}}
+> ''Note:'' it won't delete tracks solely under the control of a playlist.
+\
+<h4>{{{SimpleAudio.tracks.delete()}}}</h4>\
+This API will delete audio tracks given the track ID.
+> ''Note:'' it won't delete tracks solely under the control of a playlist.
+{{{
+    SimpleAudio.tracks.delete(trackId)
+}}}
+This API has 1 parameter:
+* {{{trackId}}}: (string) the ID of the track 
+> //Example://
+{{{
+    SimpleAudio.tracks.delete("bgm_space");
+}}}
+> ''Note:'' any playlist or group containing the track will need to be rebuilt.
+\
+<h4>{{{SimpleAudio.tracks.get()}}}</h4>\
+This API will return the AudioTrack instance of the given track ID. You can also use this API to manipulate singular tracks.
+{{{
+    SimpleAudio.tracks.get(trackId)
+}}}
+This API has 1 parameter:
+* {{{trackId}}}: (string) the ID of the track 
+> //Examples://
+{{{
+    SimpleAudio.tracks.get("bgm_space");
+    SimpleAudio.tracks.get("swamped").volume(1).play();
+}}}
+<h4>{{{SimpleAudio.tracks.has()}}}</h4>\
+This API will check if an audio track exists within the game given a track ID.
+{{{
+    SimpleAudio.tracks.has(trackId)
+}}}
+This API has 1 parameter:
+* {{{trackId}}}: (string) the ID of the track 
+> //Examples://
+{{{
+    <<if SimpleAudio.tracks.has("bgm_space")>>
+        /* Do things */
+    <</if>>
+}}}
+\
+<h3>Groups SimpleAudio APIs</h3>\
+<h4>{{{SimpleAudio.groups.add()}}}</h4>\
+This API lets you create an audio group of track, which can be useful to manipulate multiple tracks at once, or to exclude from a larger set when applying actions.
+{{{
+    SimpleAudio.groups.add(groupId, trackIds…)
+}}}
+This API has 2 parameter:
+* {{{groupId}}}: (string) the ID of the group, starting with a colon {{{ : }}}
+** the name cannot be any of the following {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:not}}}, {{{:paused}}}, {{{:playing}}}, {{{:stopped}}}
+* {{{trackId}}}: (string/Array) the track(s) ID to include in the group
+> //Example://
+{{{
+    SimpleAudio.groups.add(":ui", "ui_beep", "ui_boop", "ui_swish");
+}}}
+\
+<h4>{{{SimpleAudio.groups.clear()}}}</h4>\
+This API will delete all audio groups.
+{{{
+    SimpleAudio.groups.clear()
+}}}
+> ''Note:'' this won't affect the tracks.
+\
+<h4>{{{SimpleAudio.groups.delete()}}}</h4>\
+This API will delete the indicated audio group.
+> ''Note:'' this won't affect the tracks.
+{{{
+    SimpleAudio.groups.delete(groupId)
+}}}
+This API has 1 parameter:
+* {{{groupId}}}: (string) the ID of the group
+> //Example://
+{{{
+    SimpleAudio.groups.delete(":ui");
+}}}
+\
+<h4>{{{SimpleAudio.groups.get()}}}</h4>\
+This API will return the array of audio tracks given a group ID. You can also use this API to manipulate multiple tracks (of a single group).
+> ''Note:'' to select multiple tracks and/or groups, you will need {{{SimpleAudio.select()}}}.
+{{{
+    SimpleAudio.groups.get(groupsId)
+}}}
+This API has 1 parameter:
+* {{{groupsId}}}: (string) the ID of the group. 
+> //Examples://
+{{{
+    SimpleAudio.groups.get(":ui");
+    SimpleAudio.groups.get(":ui").volume(1).play();
+}}}
+<h4>{{{SimpleAudio.groups.has()}}}</h4>\
+This API will check if an audio group exists within the game given a group ID.
+{{{
+    SimpleAudio.groups.has(groupsId)
+}}}
+This API has 1 parameter:
+* {{{groupsId}}}: (string) the ID of the group 
+> //Examples://
+{{{
+    <<if SimpleAudio.groups.has(":ui")>>
+        /* Do things */
+    <</if>>
+}}}
+\
+<h3>Lists SimpleAudio APIs</h3>\
+<h4>{{{SimpleAudio.lists.add()}}}</h4>\
+This API lets you create a playlist of tracks, which can be useful to play tracks in a specific sequence.
+{{{
+    SimpleAudio.lists.add(listId, sources…)
+}}}
+This API has 2 parameter:
+* {{{listId}}}: (string) the ID of the playlist
+* {{{sources}}}: (string/object/array) the track IDs or descriptors to include in the playlist
+> //Example://
+{{{
+    SimpleAudio.lists.add("bgm_lacuna", "swamped", "heavens_a_lie", "closer", "to_the_edge");
+}}}
+If you are using descriptors (objects), the code will be formatted differently depending on the track:
+* Existing track: {{{ { id, [own], [volume] } }}}
+** {{{id}}}: (string) the ID of the track 
+** {{{own}}}: (optional, boolean) whether an independent copy of the track should be created 
+*** any manipulation of the original track will not affect the copy in the playlist (and vice-versa)
+** {{{volume}}}: (optional, integer) the volume level to set, between 0 (silent) and 1 (loudest)
+* New track: {{{ {sources, [volume]} }}}
+** {{{sources}}}: (Array) the audio source(s) of the track
+*** only one source is required, but multiple formats of the track is recommended
+** {{{volume}}}: (optional, integer) the volume level to set, between 0 (silent) and 1 (loudest)
+*** if omitted, default is 1
+> //Example://
+{{{
+    SimpleAudio.lists.add("bgm_lacuna",
+        {
+            id     : "to_the_edge",
+            own    : true,
+            volume : 1
+        }
+        {
+            sources : ["media/audio/Swamped.mp3", "media/audio/Swamped.ogg"],
+            volume  : 0.6 
+        }
+    );
+
+}}}
+\
+<h4>{{{SimpleAudio.lists.clear()}}}</h4>\
+This API will delete all playlists.
+{{{
+    SimpleAudio.lists.clear()
+}}}
+\
+<h4>{{{SimpleAudio.lists.delete()}}}</h4>\
+This API will delete the indicated playlist.
+{{{
+    SimpleAudio.lists.delete(listsId)
+}}}
+This API has 1 parameter:
+* {{{listsId}}}: (string) the ID of the playlist
+> //Example://
+{{{
+    SimpleAudio.lists.delete("bgm_lacuna");
+}}}
+\
+<h4>{{{SimpleAudio.lists.get()}}}</h4>\
+This API will return the array of audio tracks given a playlist ID. You can also use this API to manipulate the playlist.
+> ''Note:'' to select multiple playlists, you will need {{{SimpleAudio.select()}}}.
+{{{
+    SimpleAudio.lists.get(listsId)
+}}}
+This API has 1 parameter:
+* {{{listsId}}}: (string) the ID of the playlist. 
+> //Examples://
+{{{
+    SimpleAudio.lists.get("bgm_lacuna");
+    SimpleAudio.lists.get("bgm_lacuna").volume(1).loop(true).play();
+}}}
+<h4>{{{SimpleAudio.lists.has()}}}</h4>\
+This API will check if a playlist exists within the game given a group ID.
+{{{
+    SimpleAudio.lists.has(listsId)
+}}}
+This API has 1 parameter:
+* {{{listsId}}}: (string) the ID of the playlist 
+> //Examples://
+{{{
+    <<if SimpleAudio.lists.has("bgm_lacuna")>>
+        /* Do things */
+    <</if>>
+}}}
+
+:: AudioApi-Track [page audio-api] {"position":"3900,1900","size":"100,100"}
+<h1 id="audioapis-track">Going further with AudioTrack</h1>
+If the SimpleAudio APIs are too general for use, you can use the following APIs to manipulate or get information on single tracks.
+
+<h3>(Un)Loading and Track Data</h3>\
+<h4>{{{<AudioTrack>.load()}}} and {{{<AudioTrack>.unload()}}}</h4>\
+These APIs will respectively load and unload the linked track.
+> ''Note:'' these APIs should not be abused, as it forces players to download the tracks if they are sourced on the network, and unloaded tracks won't be playable until they are loaded again.
+{{{
+    <AudioTrack>.load()
+        aTrack.load();
+
+    <AudioTrack>.unload()
+        aTrack.unload();
+}}}
+<h4>{{{<AudioTrack>.has...()}}}</h4>\
+These five APIs will check whether certain types of data attached to a track are available:
+* {{{<AudioTrack>.hasData()}}} checks if the track can be fully played without interruption
+* {{{<AudioTrack>.hasNoData()}}} checks if //no// data has been loaded for the track 
+* {{{<AudioTrack>.hasSomeData()}}} checks if some of the track's data has been loaded
+* {{{<AudioTrack>.hasMetadata()}}} checks if the track's metadata has been loaded
+* {{{<AudioTrack>.hasSource()}}} checks if there are any valid sources for the track
+> //Examples://
+{{{
+    if (aTrack.hasData() 
+        && bTrack.hasNoData() 
+        && cTrack.hasSomeData() 
+        && dTrack.hasMetadata() 
+        && eTrack.hasSource()) {
+            /* do something */
+    }
+}}}
+\
+<h4>{{{<AudioTrack>.duration()}}}, {{{<AudioTrack>.remaining()}}}</h4>\
+These APIs will provide different information about the track, namely the total playtime of the track ({{{<AudioTrack>.duration()}}}, in seconds), the remaining playtime ({{{<AudioTrack>.remaining()}}}, in seconds)
+> //Examples://
+{{{
+    var trackLength = aTrack.duration();
+    var trackRemains = aTrack.remaining();
+}}}
+\
+<h4>{{{<AudioTrack>.clone()}}}</h4>\
+This API will create an independent copy of the track, which when manipulated, won't affect the original track.
+{{{
+    var trackCopy = aTrack.clone();
+}}}
+\
+<h3>Check the State of the Track</h3>\
+The following APIs will check if the selected track has a specific state:
+* {{{<AudioTrack>.isLoading()}}} checks if the track is loading data
+* {{{<AudioTrack>.isUnloaded()}}} checks if the track's sources are unloaded
+* {{{<AudioTrack>.isSeeking()}}} checks if the track is seeking
+* {{{<AudioTrack>.isFailed()}}} checks if an error occurred
+* {{{<AudioTrack>.isUnavailable()}}} checks if the track is unavailable for playback 
+** this API will not tell you the reason why it's unavailable
+* {{{<AudioTrack>.isPlaying()}}} checks if the track is playing
+* {{{<AudioTrack>.isPaused()}}} checks if the playback of the track is paused
+* {{{<AudioTrack>.isStopped()}}} checks if the playback of the track has been stopped
+* {{{<AudioTrack>.isEnded()}}} checks if the playback of the track ended 
+* {{{<AudioTrack>.isFading()}}} checks if there is a fade in-progress on the track
+\
+<h3>Track Actions and Playback Manipulation</h3>
+The following APIs will affect the playback of the selected track.
+\
+<h4>{{{<AudioTrack>.fade()}}}</h4>\
+This API will start the playback of the track fade between the specified volumes during the specified fading duration.
+> ''Note:'' the {{{Config.audio.pauseOnFadeToZero}}} [[setting|Confic-Macro]] will automatically pause a track faded to 0.
+{{{
+    <AudioTrack>.fade(duration , toVol [, fromVol])
+}}}
+This API has 3 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{toVol}}}: (integer) the destination volume level
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   aTrack.fade(6, 1, 0); 
+}}}
+<h4>{{{<AudioTrack>.fadeIn()}}}</h4>\
+This API will start the playback of the track fade from the specified volume to 1 (loudest) during the specified fading duration.
+{{{
+    <AudioTrack>.fadeIn(duration [, fromVol])
+}}}
+This API has 2 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   aTrack.fadeIn(6, 0); 
+}}}
+<h4>{{{<AudioTrack>.fadeOut()}}}</h4>\
+This API will start the playback of the track fade from the specified volume to 0 (silent) during the specified fading duration.
+> ''Note:'' the {{{Config.audio.pauseOnFadeToZero}}} [[setting|Confic-Macro]] will automatically pause a track faded to 0.
+{{{
+    <AudioTrack>.fadeOut(duration [, fromVol])
+}}}
+This API has 2 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   aTrack.fadeOut(6, 1); 
+}}}
+<h4>{{{<AudioTrack>.fadeStop()}}}</h4>\
+This API will stop any in-progress fade of the selected track.
+{{{
+    aTrack.fadeStop();
+}}}
+<h4>{{{<AudioTrack>.time()}}}</h4>\
+This API lets you both get and set the track's current time in seconds.
+{{{
+    <AudioTrack>.time([seconds])
+}}}
+This API has 1 parameter:
+* {{{seconds}}}: (optional, integer) the time to set, in seconds
+> //Examples://
+{{{
+ → get the track's time:
+    var trackTime = aTrack.time();
+
+ → set the track's time:
+    aTrack.time(30);
+    aTrack.time(aTrack.duration() - 30);
+}}}
+<h4>{{{<AudioTrack>.loop()}}}</h4>\
+This API lets you loop a track, as well as check if the track is looping.
+{{{
+    <AudioTrack>.loop([state])
+}}}
+This API has 1 parameter:
+* {{{state}}}: (optional, boolean) the loop state 
+> //Examples://
+{{{
+    var isLooped = aTrack.loop();
+
+    aTrack.loop(true);
+    aTrack.loop(false);
+}}}
+<h4>{{{<AudioTrack>.volume()}}} and {{{<AudioTrack>.mute()}}}</h4>\
+These API will let you control the volume of the selected track, either changing the volume or muting it altogether. They can also check the current state of the track.
+{{{
+    <AudioTrack>.volume([level])
+    <AudioTrack>.mute([state])
+}}}
+The {{{.volume()}}} API has 1 parameter:
+* {{{level}}}: (optional, integer) the volume level to set, between 0 (silent) and 1 (loudest)
+> //Examples://
+{{{
+    var trackVolume = aTrack.volume();
+    
+    aTrack.volume(0.75);
+}}}
+The {{{.mute()}}} API has 1 parameter:
+* {{{state}}}: (optional, boolean) the mute state
+> //Examples://
+{{{
+    var isMuted = aTrack.mute();
+
+    aTrack.mute(true);
+    aTrack.mute(false);
+}}}
+<h4>{{{<AudioTrack>.play()}}}, {{{<AudioTrack>.pause()}}} and {{{<AudioTrack>.stop()}}}</h4>\
+These APIs will let you control the playback of a track, either by playing or stopping it. Playing a track after pausing will continue the track where left off, while after stopping will restart the track.
+> ''Note:'' {{{.playWhenAllowed()}}} will only play the track as soon as it is able (player interact with the document).
+{{{
+    <AudioTrack>.play()
+        <AudioTrack>.playWhenAllowed()
+    <AudioTrack>.pause()
+    <AudioTrack>.stop()
+}}}
+\
+> //Examples://
+{{{
+    aTrack.play();
+        aTrack.playWhenAllowed();
+    aTrack.pause();
+    aTrack.stop(); 
+}}}
+You can also add a failure catch:
+{{{
+    aTrack.play()
+	.then(function () {
+		console.log('The track is playing.');
+	})
+	.catch(function (problem) {
+		console.warn('There was a problem with playback: ' + problem);
+	});
+}}}
+\
+<h3>Event Handlers on tracks</h3>\
+These APIs lets you assign event handlers to specific tracks, essentially as shorthands of their respective jQuery methods.
+> //Examples://
+{{{
+ → Add a handler:
+    aTrack.on('ended.myEvents', function () {
+        /* do something */
+    });
+
+ → Add a single-use handler:
+    aTrack.one('ended.myEvents', function () {
+	    /* do something */
+    });
+
+ → Remove a handler:
+    aTrack.off('ended.myEvents');
+}}}
+> ''Note:'' because the SimpleAudio APIs use events internally, it is recommended to specify custom user namespace, to avoid conflicts.
+
+:: AudioApi-List [page audio-api] {"position":"3800,2000","size":"100,100"}
+<h1 id="audioapis-list">Going further with AudioList</h1>
+If the SimpleAudio APIs are too general for use, you can use the following APIs to manipulate or get information on playlists.
+\
+<h3>(Un)Loading and Track Data</h3>\
+<h4>{{{<AudioList>.load()}}} and {{{<AudioList>.unload()}}}</h4>\
+These APIs will respectively load and unload the tracks included in the playlist.
+> ''Note:'' these APIs should not be abused, as it forces players to download the tracks if they are sourced on the network, and unloaded tracks won't be playable until they are loaded again.
+{{{
+    <AudioList>.load()
+        aList.load();
+
+    <AudioList>.unload()
+        aList.unload();
+}}}
+\
+<h4>{{{<AudioList>.duration()}}}, {{{<AudioList>.remaining()}}}</h4>\
+These APIs will provide different information about the track, namely the total playtime of the playlist ({{{<AudioList>.duration()}}}, in seconds), the remaining playtime ({{{<AudioList>.remaining()}}}, in seconds)
+> //Examples://
+{{{
+    var listLength = aList.duration();
+    var listRemains = aList.remaining();
+}}}
+\
+<h3>Check the State of the Track</h3>\
+The following APIs will check if the selected playlist has a specific state:
+* {{{<AudioList>.isPlaying()}}} checks if the playlist is playing
+* {{{<AudioList>.isPaused()}}} checks if the playback of the playlist is paused
+* {{{<AudioList>.isStopped()}}} checks if the playback of the playlist has been stopped
+* {{{<AudioList>.isEnded()}}} checks if the playback of the playlist ended 
+* {{{<AudioList>.isFading()}}} checks if there is a fade in-progress on the playlist
+\
+<h3>Track Actions and Playback Manipulation</h3>
+The following APIs will affect the playback of the selected playlist.
+\
+<h4>{{{<AudioList>.fade()}}}</h4>\
+This API will start the playback of the playlist fade between the specified volumes during the specified fading duration.
+> ''Note:'' the {{{Config.audio.pauseOnFadeToZero}}} [[setting|Confic-Macro]] will automatically pause a track faded to 0.
+{{{
+    <AudioList>.fade(duration , toVol [, fromVol])
+}}}
+This API has 3 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{toVol}}}: (integer) the destination volume level
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   aList.fade(6, 1, 0); 
+}}}
+<h4>{{{<AudioList>.fadeIn()}}}</h4>\
+This API will start the playback of the playlist fade from the specified volume to 1 (loudest) during the specified fading duration.
+{{{
+    <AudioList>.fadeIn(duration [, fromVol])
+}}}
+This API has 2 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   aList.fadeIn(6, 0); 
+}}}
+<h4>{{{<AudioList>.fadeOut()}}}</h4>\
+This API will start the playback of the playlist fade from the specified volume to 0 (silent) during the specified fading duration.
+> ''Note:'' the {{{Config.audio.pauseOnFadeToZero}}} [[setting|Confic-Macro]] will automatically pause a track faded to 0.
+{{{
+    <AudioList>.fadeOut(duration [, fromVol])
+}}}
+This API has 2 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   aList.fadeOut(6, 1); 
+}}}
+<h4>{{{<AudioList>.fadeStop()}}}</h4>\
+This API will stop any in-progress fade of the selected playlist.
+{{{
+    aList.fadeStop();
+}}}
+<h4>{{{<AudioList>.time()}}}</h4>\
+This API lets you both get the playlist's current time in seconds.
+{{{
+    var listTime = aList.time();
+}}}
+<h4>{{{<AudioList>.loop()}}}</h4>\
+This API lets you loop a playlist, as well as check if the track is looping.
+{{{
+    <AudioList>.loop([state])
+}}}
+This API has 1 parameter:
+* {{{state}}}: (optional, boolean) the loop state 
+> //Examples://
+{{{
+    var isLooped = aList.loop();
+
+    aList.loop(true);
+    aList.loop(false);
+}}}
+<h4>{{{<AudioList>.volume()}}} and {{{<AudioList>.mute()}}}</h4>\
+These API will let you control the volume of the selected playlist, either changing the volume or muting it altogether. They can also check the current state of the playlist.
+{{{
+    <AudioList>.volume([level])
+    <AudioList>.mute([state])
+}}}
+The {{{.volume()}}} API has 1 parameter:
+* {{{level}}}: (optional, integer) the volume level to set, between 0 (silent) and 1 (loudest)
+> //Examples://
+{{{
+    var trackVolume = aList.volume();
+    
+    aList.volume(0.75);
+}}}
+The {{{.mute()}}} API has 1 parameter:
+* {{{state}}}: (optional, boolean) the mute state
+> //Examples://
+{{{
+    var isMuted = aList.mute();
+
+    aList.mute(true);
+    aList.mute(false);
+}}}
+\
+<h4>{{{<AudioList>.play()}}}, {{{<AudioList>.pause()}}} and {{{<AudioList>.stop()}}}</h4>\
+These APIs will let you control the playback of a playlist, either by playing or stopping it. Playing a playlist after pausing will continue where it left off, while after stopping will restart it.
+> ''Note:'' {{{.playWhenAllowed()}}} will only play the playlist as soon as it is able (player interact with the document).
+{{{
+    <AudioList>.play()
+        <AudioList>.playWhenAllowed()
+    <AudioList>.pause()
+    <AudioList>.stop()
+}}}
+\
+> //Examples://
+{{{
+    aList.play();
+        aList.playWhenAllowed();
+    aList.pause();
+    aList.stop(); 
+}}}
+You can also add a failure catch:
+{{{
+    aList.play()
+	.then(function () {
+		console.log('The playlist is playing.');
+	})
+	.catch(function (problem) {
+		console.warn('There was a problem with playback: ' + problem);
+	});
+}}}
+\
+<h4>{{{<AudioList>.shuffle()}}}</h4>\
+This API will shuffle the track order in the playlist (or return it to its original order), as well as check whether it is shuffled.
+{{{
+    <AudioList>.shuffle([state])
+}}}
+This API has 1 parameter:
+* {{{state}}}: (optional, boolean) the shuffle state
+> //Examples://
+{{{
+    var isShuffled = aList.shuffle();
+
+    aList.shuffle(true);
+    aList.shuffle(false);
+}}}
+\
+<h4>{{{<AudioList>.skip()}}}</h4>\
+This API will skip to the next track of the playlist, if available.
+{{{
+    someTrack.skip();
+}}}
+
+:: AudioApi-Runner [page audio-api] {"position":"3900,2000","size":"100,100"}
+<h1 id="audioapis-runner">Going further with AudioRunner</h1>
+If the SimpleAudio APIs are too general for use, you can use the following APIs to manipulate or get information on multiple tracks.
+
+<h3>(Un)Loading and Track Data</h3>\
+<h4>{{{<AudioRunner>.load()}}} and {{{<AudioRunner>.unload()}}}</h4>\
+These APIs will respectively load and unload the selected tracks.
+> ''Note:'' these APIs should not be abused, as it forces players to download the tracks if they are sourced on the network, and unloaded tracks won't be playable until they are loaded again.
+{{{
+    <AudioRunner>.load()
+        someTracks.load();
+
+    <AudioRunner>.unload()
+        someTracks.unload();
+}}}
+\
+<h3>Track Actions and Playback Manipulation</h3>
+The following APIs will affect the playback of the selected tracks.
+\
+<h4>{{{<AudioRunner>.fade()}}}</h4>\
+This API will start the playback of the tracks fade between the specified volumes during the specified fading duration.
+> ''Note:'' the {{{Config.audio.pauseOnFadeToZero}}} [[setting|Confic-Macro]] will automatically pause tracks faded to 0.
+{{{
+    <AudioRunner>.fade(duration , toVol [, fromVol])
+}}}
+This API has 3 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{toVol}}}: (integer) the destination volume level
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the tracks's current volume level 
+> //Example://
+{{{
+   someTracks.fade(6, 1, 0); 
+}}}
+<h4>{{{<AudioRunner>.fadeIn()}}}</h4>\
+This API will start the playback of the tracks fade from the specified volume to 1 (loudest) during the specified fading duration.
+{{{
+    <AudioRunner>.fadeIn(duration [, fromVol])
+}}}
+This API has 2 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   someTracks.fadeIn(6, 0); 
+}}}
+<h4>{{{<AudioRunner>.fadeOut()}}}</h4>\
+This API will start the playback of the tracks fade from the specified volume to 0 (silent) during the specified fading duration.
+> ''Note:'' the {{{Config.audio.pauseOnFadeToZero}}} [[setting|Confic-Macro]] will automatically pause tracks faded to 0.
+{{{
+    <AudioRunner>.fadeOut(duration [, fromVol])
+}}}
+This API has 2 parameters:
+* {{{duration}}}: (integer) the number of seconds for the fading.
+* {{{fromVol}}}: (optional, integer) the starting volume level 
+** if omitted, default is the track's current volume level 
+> //Example://
+{{{
+   someTracks.fadeOut(6, 1); 
+}}}
+<h4>{{{<AudioRunner>.fadeStop()}}}</h4>\
+This API will stop any in-progress fade of the selected tracks.
+{{{
+    someTracks.fadeStop();
+}}}
+<h4>{{{<AudioRunner>.time()}}}</h4>\
+This API lets you set tracks' current time in seconds.
+{{{
+    <AudioRunner>.time(seconds)
+}}}
+This API has 1 parameter:
+* {{{seconds}}}: (integer) the time to set, in seconds
+> //Examples://
+{{{
+    someTracks.time(30);
+}}}
+<h4>{{{<AudioRunner>.loop()}}}</h4>\
+This API lets you loop the selected tracks.
+{{{
+    <AudioRunner>.loop(state)
+}}}
+This API has 1 parameter:
+* {{{state}}}: (boolean) the loop state 
+> //Examples://
+{{{
+    someTracks.loop(true);
+    someTracks.loop(false);
+}}}
+\
+<h4>{{{<AudioRunner>.volume()}}} and {{{<AudioRunner>.mute()}}}</h4>\
+These API will let you control the volume of the selected tracks, either changing the volume or muting it altogether.
+{{{
+    <AudioRunner>.volume(level)
+    <AudioRunner>.mute(state)
+}}}
+The {{{.volume()}}} API has 1 parameter:
+* {{{level}}}: (integer) the volume level to set, between 0 (silent) and 1 (loudest)
+> //Examples://
+{{{   
+    someTracks.volume(0.75);
+}}}
+The {{{.mute()}}} API has 1 parameter:
+* {{{state}}}: (boolean) the mute state
+> //Examples://
+{{{
+    someTracks.mute(true);
+    someTracks.mute(false);
+}}}
+<h4>{{{<AudioRunner>.play()}}}, {{{<AudioRunner>.pause()}}} and {{{<AudioRunner>.stop()}}}</h4>\
+These APIs will let you control the playback of selected tracks, either by playing or stopping then. Playing a track after pausing will continue where it left off, while after stopping will restart it.
+> ''Note:'' {{{.playWhenAllowed()}}} will only play the tracks as soon as it is able (player interact with the document).
+{{{
+    <AudioRunner>.play()
+        <AudioRunner>.playWhenAllowed()
+    <AudioRunner>.pause()
+    <AudioRunner>.stop()
+}}}
+\
+> //Examples://
+{{{
+    someTracks.play();
+        someTracks.playWhenAllowed();
+    someTracks.pause();
+    someTracks.stop(); 
+}}}
+\
+<h3>Event Handlers on tracks</h3>\
+These APIs lets you assign event handlers to specific tracks, essentially as shorthands of their respective jQuery methods.
+> //Examples://
+{{{
+ → Add a handler:
+    someTracks.on('ended.myEvents', function () {
+        /* do something */
+    });
+
+ → Add a single-use handler:
+    someTracks.one('ended.myEvents', function () {
+	    /* do something */
+    });
+
+ → Remove a handler:
+    someTracks.off('ended.myEvents');
+}}}
+> ''Note:'' because the SimpleAudio APIs use events internally, it is recommended to specify custom user namespace, to avoid conflicts.

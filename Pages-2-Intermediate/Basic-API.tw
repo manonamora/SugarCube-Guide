@@ -1,20 +1,20 @@
 :: Basic-API [chapter menu] {"position":"3500,1100","size":"200,100"}
 <h1>Some Useful Basic APIs</h1>
-Along with macros, there are further APIs to trigger an event in the game, such as undoing an action, opening a popup, or configuring some functionalities in the engine. For more Basic APIs, see [[this page|API-Adv]].
+Along with macros, there are basic APIs that can trigger an event in the game, such as undoing an action, opening a popup, or configuring some functionalities in the engine. 
 
-Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
+Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>><>}}} macros to work.
 
 * [[Moving back and forth in the History|Basic-API-Engine]]
 * [[Create a PopUp|Basic-API-Dialog]] 
 * [[Handle the SideBar|Basic-API-UIBar]]
-* [[Open the JumpTo, Restart, Saves, and Settings PopUp|Basic-API-UI]] 
+* [[Open the Restart, Saves, and Settings PopUp|Basic-API-UI]] 
 * [[Overriding the Navigation to a Passage|Basic-Config-Navig]]
 * [[Some Useful Configuration API for your Project|Basic-API-Config]]
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+For more Basic APIs, see [[this page|API-Adv]].
 
-:: Basic-API-Engine [page] {"position":"3500,1200","size":"100,100"}
-<h1>Moving back and forth in the History</h1>
+:: Basic-API-Engine [page basic-apis] {"position":"3500,1200","size":"100,100"}
+<h1 id="basicapis-engine">Moving back and forth in the History</h1>
 Moving back and forth in the Player's History is possible in the base SugarCube UI with the History buttons at the top of the SideBar. They are represented with the {{{←}}} and {{{→}}} arrows in the base styling. 
 
 However, if those buttons are removed, through the [[Config API|Basic-API-Config]] or because the SideBar was removed (with {{{StoryInterface}}} or the [[UIBar API|Basic-API-UIBar]]), it is still possible for the player to undo/redo an action: with the {{{Engine.backward()}}} and {{{Engine.forward()}}}, nested inside a {{{<<link>>}}} or a {{{<<button>>}}}.
@@ -27,42 +27,55 @@ Inside a link/button:
     <<button "Forward">><<script>>Engine.forward()<</script>><</button>>
 }}}
 
-While this API can also be used without player interaction, by simply including the API in a non-interactive macro (e.g. {{{<<timed>>}}}), to automatically rewind/redo the action, I would not recommend it.
+While this API can also be used without player interaction, by simply including the API in a non-interactive macro (e.g. {{{<<timed>>}}}), to automatically rewind/redo the action, it is not recommend.
 
-<div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
-
-:: Basic-API-Dialog [page] {"position":"3600,1200","size":"100,100"}
-<h1>Create a PopUp</h1>
+:: Basic-API-Dialog [page basic-apis] {"position":"3600,1200","size":"100,100"}
+<h1 id="basicapis-dialog">Create a PopUp</h1>
 Instead of moving to another passage to show a bit of text to the player, the Dialog API is here to create <<link "PopUps">><<popup "Basic-UI-Dialog" "Dialog Box">><</link>>!
 \
 <h3>The Basics of Popups</h3>\
 To create a popup, you will need 3 APIs, in this order:
-* {{{Dialog.setup()}}}, to prepare the popup, and add a title (optional) and a class (optional)
+* {{{Dialog.create()}}}, to prepare the popup, and add a title (optional) and a class (optional)
 * {{{Dialog.wiki()}}}, to include text in the popup
 * {{{Dialog.open()}}}, to open the dialog box
 \
 {{{
-    Dialog.setup('This a PopUp');
+    Dialog.create('This a PopUp');
     Dialog.wiki("And here is the text. Even some //italics// and ''bold''!");
     Dialog.open();
+
+    Dialog
+        .create('This a PopUp')
+        .wiki("And here is the text. Even some //italics// and ''bold''!")
+        .open();
 }}}
 >'' Note:'' be mindful of quotes in {{{Dialog.wiki()}}}, as it could start issues.
 
-For longer popups, you can use {{{Story.get().processText()}}} to pull the content of a separate passage. This is quite handy when you want to avoid messy code blocks, have a bit more control over the text (like line breaks), or when including interactive macros.
+For longer popups, you can use {{{Dialog.wikiPassage();}}} to pull the content of a separate passage. This is quite handy when you want to avoid messy code blocks, have a bit more control over the text (like line breaks), or when including interactive macros.
 {{{
-    Dialog.wiki(Story.get("Passage Name").processText());
+    Dialog.wikiPassage("PassageName");
+}}}
+
+If you need to empty the content of a popup before displaying something new, you can use {{{Dialog.empty();}}}:
+{{{
+    Dialog.empty();
+
+ → in combination with a new wiki:
+    Dialog
+        .empty()
+        .wikiPassage("AnotherPassage");     
 }}}
 \
 <h3>Customise the Popup</h3>\
-For {{{Dialog.setup()}}} and {{{Dialog.open()}}}, it is possible to add parameters to customise a popup further. This can take multiple forms, from adding a CSS class to the whole popup, changing where the popup is positioned, or triggering a function when closing the popup.
+For {{{Dialog.create()}}} and {{{Dialog.open()}}}, it is possible to add parameters to customise a popup further. This can take multiple forms, from adding a CSS class to the whole popup, changing where the popup is positioned, or triggering a function when closing the popup.
 
-The {{{Dialog.setup()}}} has 2 parameters:
+The {{{Dialog.create()}}} has 2 parameters:
 * {{{title}}} (optional): the title displayed for the popup
 * {{{classNames}}} (optional): classes to attach to the popup, separated with a space
 {{{
     Dialog.setup('This is a PopUp Title', 'a-class and-another-one');
 }}}
-> ''Note:'' you can target this class in the StyleSheet to change how the popup looks 
+> ''Note:'' you can target the class in the StyleSheet, to change how the popup looks.
 
 The {{{Dialog.open()}}} has also 2 parameters:
 * {{{options}}} (optional) 
@@ -72,7 +85,7 @@ The {{{Dialog.open()}}} has also 2 parameters:
     Dialog.open({top : 500}, myFunction())
 }}}
 
->'' Note:'' Chapel has created a [[Macro Set|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/dialog-api-macro-set.md]] to make the process of coding Popups easier. This macro is used in this guide.
+>'' Note:'' Chapel has created a [[Macro Set|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/dialog-api-macro-set.md]] to make the process of coding Popups easier. This macro is used in this guide. /*Because laziness always wins!*/
 \
 <h3>{{{Dialog.close();}}}</h3>\
 While the Dialog box has a built-in //Close// button in its top-right corner, or can be closed by clicking outside of the dialog box, there is a third way to make the popup disappear: {{{Dialog.close()}}}.
@@ -90,13 +103,11 @@ If the popup has interactive elements, especially some triggering more code (e.g
     <</button>>
 }}}
 
-<div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
-
 :: Basic-UI-Dialog [popup] {"position":"700,200","size":"100,100"}
 You found the dialog box!
 
-:: Basic-API-UIBar [page] {"position":"3500,1300","size":"100,100"}
-<h1>Handle the SideBar</h1>
+:: Basic-API-UIBar [page basic-apis] {"position":"3500,1300","size":"100,100"}
+<h1 id="basicapis-sidebar">Handle the SideBar</h1>
 Thanks to the APIs below, you can control when/where the SideBar will appear on the page. These can be included directly on the passage (with either {{{<<run>>}}} or {{{<<script>>}}}), or in the JavaScript.
 
 {{{UIBar.hide()}}} will hide the SideBar on the page, and stay hidden until {{{UIBar.show()}}} is triggered. Even if it won't appear on the page, the element {{{#ui-bar}}} will still be included in the HTML, but with a display value of {{{none}}} when hidden.
@@ -106,28 +117,21 @@ Similarly, {{{UIBar.stow()}}} will stow the SideBar to the side (but still visib
 {{{UIBar.destroy()}}}, on the other hand will remove the the element {{{#ui-bar}}} completely.
 >'' Note:'' if {{{StoryInterface}}} is in use, and does not include the element {{{#ui-bar}}} within this Special Passage, there is no need to include this API.
 
-<div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
-
-:: Basic-API-UI [page] {"position":"3600,1300","size":"100,100"}
-<h1>Open the JumpTo, Restart, Saves, and Settings PopUp</h1>
+:: Basic-API-UI [page basic-apis] {"position":"3600,1300","size":"100,100"}
+<h1 id="basicapis-ui">Open the Restart, Saves, and Settings PopUp</h1>
 The elements above are included in the base SugarCube UI, as buttons in the menu (if they are populated), but can be called at any time with the APIs below:
-* {{{UI.jumpto()}}}, will open the JumpTo Menu, allowing the player to go back in the History to a [[bookmarked passage|Tags-Built]].
-** This will ''undo any action'' made by the player since the bookmark. 
 * {{{UI.restart()}}}, will open a popup asking the player if they would like to Restart the Game.
 ** To restart without a popup, you will want to use the [[Engine API|Engine-Restart]].
 * {{{UI.saves()}}}, will open the Save popup.
 * {{{UI.settings()}}}, will open the Settings popup.
-* {{{UI.share()}}}, will open the Share popup.
 
 Those APIs are most useful inside a {{{<<link>>}}} or {{{<<button>>}}} when:
 * the UI of the project doesn't include the built-in SideBar 
 * when the menu has been removed from the SideBar
 * in a Starting Menu Passage or an Ending Passage
 
-<div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
-
-:: Basic-Config-Navig [page] {"position":"3500,1400","size":"100,100"}
-<h1>Overriding the Navigation to a Passage</h1>
+:: Basic-Config-Navig [page basic-apis] {"position":"3500,1400","size":"100,100"}
+<h1 id="basicapis-navig">Overriding the Navigation to a Passage</h1>
 While moving from passage to passage is dictated by the Passage Name inside a link or in a {{{<<goto>>}}} macro, it is still possible to override the original destination, sending the player to a new passage. This can be done with {{{Config.navigation.override}}}:
 {{{
     Config.navigation.override = function (dest) {
@@ -154,19 +158,19 @@ If there are multiple situations where the player should be sent to a special pa
         if (sv.health <= 0) {
             return "You Died";
         }
-        else if (sv.coins = 0) {
+        else if (sv.coins == 0) {
             return "You Poor";
         }
     };
 }}}
 
-''An important Note:'' if there is a link to a different passage in the End Screen and the variable still has a value that would run the code above, the Navigation will be overriden again when that link is clicked. You can avoid this by:
+''An important Note:'' if there is a link to a different passage in the End Screen and the variable still has a value that would run the code above, the Navigation will be overridden again when that link is clicked. You can avoid this by:
 * change the value of the variable 
 * unset the variable 
 * remove any link that would move the player to a new passage
 \
 <h3>A non-JavaScript Alternative</h3>\
-While the method above is prefered, this navigation override is also possible to do in SugarCube code, inside the {{{PassageReady}}} with a couple of conditional statements and {{{<<goto>>}}} macros:
+While the method above is preferred, this navigation override is also possible to do in SugarCube code, inside the {{{PassageReady}}} [[Special Passage|SP-PassageReady-Done]] with a couple of conditional statements and {{{<<goto>>}}} macros:
 {{{
     ::PassageReady
     <<if !$ending>>
@@ -180,20 +184,19 @@ While the method above is prefered, this navigation override is also possible to
     <</if>>
 }}}
 Since this runs before the passage is [[fully rendered|SP-PassageReady-Done]], it is important that the {{{$ending}}} variable is included here, and set as true before the {{{<<goto>>}}} macro, otherwise the player will run into an endless loop of reloading the ending passage.
+> ''Note:'' instead of a variable, you could use the {{{passage()}}} or {{{tags()}}} [[functions|Function-Pass-Tag]] to restrict the endless loop.
 
-<div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
-
-:: Basic-API-Config [page] {"position":"3600,1400","size":"100,100"}
-<h1>Some Useful Configuration API for your Project</h1>
-To customise your project further, here are a few Config APIs you might find useful.
+:: Basic-API-Config [page basic-apis] {"position":"3600,1400","size":"100,100"}
+<h1 id="basicapis-config">Some Useful Configuration API for your Project</h1>
+To customise your project even further, here are a few Config APIs you might find useful.
 \
 <h3>Remove the History Buttons</h3>\
-To force players to move forwards, it is possible to remove the //Forward// and //Backwards// buttons at the top of the SideBar, with the following code in the JavaScript:
+To force players to move only forwards, it is possible to remove the //Forward// and //Backwards// buttons at the top of the SideBar, with the following code in the JavaScript:
 {{{
     Config.history.controls = false;
 }}}
 >'' Note:'' this is only useful if the Base UI is in use or the element {{{#ui-bar-history}}} appears on the page. If the UIBar has been removed from editing the {{{StoryInterface}}}, you will not need this API.
-> When removing these controls, you may want to give the player ways to go backward and forward in the story (especially relevant if you have codexes).
+> When removing these controls, you may want to give the player ways to go backward and forward in the story (especially relevant if you have Codexes).
 \
 <h3>Change the Max Amount of States</h3>\
 To avoid the player rewinding too much, you change the maximum number of state the history can save. These are active passages visited the player can go back to by pressing the //Backwards// button. If the player has visited more passage than the limit, the earlier visited states are moved to an "Expired" state, and won't be available to go back to with the back arrow or {{{Engine.backward()}}}.
@@ -204,18 +207,21 @@ To avoid the player rewinding too much, you change the maximum number of state t
 >'' Note:'' the larger the {{{maxStates}}}, the bigger the chance of lag when loading new passages.
 \
 <h3>Change the Number of Save Slots</h3>\
-With a default of 8 save slots (+ autosave and export), players have many opportunities to save a play through. Still, the number of save slots can be modified:
+With a default of 8 save slots (+ export), players have many opportunities to save a play through. Still, the number of save slots can be modified:
 {{{
-    Config.saves.slots = 4;
+    Config.saves.maxSlotSaves = 4;
 }}}
+You can also modify the number of autosave slots available for players with:
+{{{
+    Config.saves.maxAutoSaves = 4;
+}}} 
 >'' Note:'' the higher the number, the more the game will save in the player's cache. 
 > For more Save Config, see [[this page|Config-Saves]].
 \
 <h3>Removing Unwanted Blank Space</h3>\
 Aside from using the {{{<<nobr>>}}} macro or {{{nobr}}} tag, there are two Config APIs which will remove the unnecessary blank space in your project: {{{Config.cleanupWikifierOutput}}} and {{{Config.passages.nobr}}}.
 
-{{{Config.cleanupWikifierOutput}}} will transform any {{{<br>}}} on the page into empty {{{<p>}}} (thus, "disappear"), as well as wrap any non {{{<div>}}} elements with {{{<p>}}}.
->'' Note:'' {{{Config.cleanupWikifierOutput}}} runs into strange issues sometimes, like working strangely with the {{{<<cycle>>}}} macro ([[this can be fixed|Accessibility-Cycle]]).
+{{{Config.cleanupWikifierOutput}}} will remove any line breaks ({{{<br>}}}) created during compiling, as well as wrap any non {{{<div>}}} elements with {{{<p>}}}, creating paragraphs.
 
 On the other hand, {{{Config.passages.nobr}}} will only remove any break on the page. This means that you will need to wrap every paragraph or bit of text with a block HTML makrup (i.e. {{{<p>}}}, {{{<div>}}}, {{{<h1>}}}, etc...) manually.
 {{{
@@ -223,6 +229,5 @@ On the other hand, {{{Config.passages.nobr}}} will only remove any break on the 
     Config.passages.nobr = true;
 }}}
 >'' Note:'' if both are included, no matter the order, {{{Config.passages.nobr}}} will remove all breaks on the page. 
-
-<div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
+> As well, if the {{{nobr}}} tag is used in a passage, it too will override {{{Config.cleanupWikifierOutput}}}
 

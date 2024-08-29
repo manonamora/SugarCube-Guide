@@ -1,6 +1,6 @@
 :: Base-JS-CSS [chapter page] {"position":"2000,725","size":"200,100"}
-<h1>About JavaScript and the StyleSheet</h1>
-To customise your project even futher, Twine gives you the possibility to use JavaScript and CSS, which you can edit in the //JavaScript// and //StyleSheet// passages (under the //Story Menu// in the Twine app).
+<h1 id="basics-jscss" class="the-chapter">About JavaScript and the StyleSheet</h1>
+To customise your project even further, Twine gives you the possibility to use JavaScript and CSS, which you can edit in the //JavaScript// and //StyleSheet// passages (under the //Story Menu// in the Twine app).
 \
 <h3>JS - JavaScript</h3>\
 ''JavaScript'' (or JS) is a coding language used in HTML files that will dictate the behaviour of elements on the page. When you click on a link to change the passage to a new one, it is because the JavaScript code is telling the page to do so. The macros in SugarCube are built on JavaScript.
@@ -12,37 +12,38 @@ The most common use for JavaScript in a project is:
 You could potentially build a whole SugarCube project by only using JavaScript, though you might as well use [[Snowman|https://videlais.github.io/snowman/#/]]...
 \
 > ''Notes:'' SugarCube also uses jQuery, which is a sub-language of JavaScript, used for navigation, selecting elements or control animation.
-> Java and JavaScript are ''two different coding languages'', with no link between each other aside from their name!
+> ''IMPORTANT'': Java and JavaScript are ''two different coding languages'', with no link between each other aside from the four characters in their name!
 \
 <h3>CSS - Cascading Style Sheet</h3>\
-''Cascading Style Sheet'' (or CSS) is a coding language used in HTML files to dictate the layout and formatting of the page. From the choice of backgrond to the placement of an element, this is usually done in with CSS. The language allows for alternate rules for different settings or screen size, as well as animation.
+''Cascading Style Sheet'' (or CSS) is a coding language used in HTML files to dictate the layout and formatting of the page. From the choice of background to the placement of an element, this is usually done in with CSS. The language allows for alternate rules for different settings or screen size, as well as animation.
 > ''Note:'' you can use JavaScript/jQuery to change aspects of the page (add/remove an element, change the colour). But, in most cases, CSS will suffice.
 \
 The most common use for CSS in a project is:
 * to change the basic formatting of a page (ex: colour scheme)
-* to have alternate rules for coded settings in the JavaScript (ex: font family)
-* to have a different formatting of the page on mobile
-> ''Note:'' in SugarCube, you can edit some styling with the [[Markup formatting|Markup-Styling]]. For futher use of CSS, see [[this page|Int-JS-CSS]].
+* to have alternate rules for coded [[settings|Settings]] in the JavaScript (ex: font family)
+* to have a different formatting of the page on mobile screens
+> ''Note:'' in SugarCube, you can edit some styling with the [[Markup formatting|Markup-Styling]]. For further use of CSS, see [[this page|Int-JS-CSS]].
 \
 <h3>Learn more about JavaScript, jQuery, and CSS</h3>\
 * the [[W3 School|https://www.w3schools.com/]] has the most beginner explanations, and lets you test and edit their examples.
 * [[MDN Web Docs|https://developer.mozilla.org/en-US/]] is more technical but provides a more extensive documentation.
 * [[jQuery|https://jquery.com/]] has also a special documentation website.
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
 :: URL-Types [chapter page] {"position":"2000,600","size":"200,100"}
-<h1>ULRs for Assets and Testing</h1>
+<h1 id="basics-urls" class="the-chapter">URLs for Assets and Testing</h1>
 When including any external element into a project (e.g. image, sound, font, etc...), you will need the URL of the file. Twine does not have an import function for assets (and neither does Tweego). This means the URL will be the link between the Twine project and the asset, as it will tell the code where find it and (dis)play it when the game is in use.
+
 There are essentially two locations for assets:
 * ''Online'' assets, requiring an Online URL ({{{html://website/file}}})
 * ''Local'' assets:
 ** located in the user's device, using the ''Absolute'' path URL ({{{C:\User\Documents\Folder\file}}})
 ** located in the project folder, using ''Relative'' path URL ({{{Folder\file}}})
-> ''Note:'' as different players will organise their devices differently, the Absolute path is not recommended for Twine projects meant to be shared (online or otherside).
+> ''Note:'' since every device is different and organise its folders differently, the Absolute path is ''absolutely not recommended'' for Twine projects meant to be shared (online or otherwise).
 \
 <h3>Online Assets</h3>\
 For assets hosted on third-party platforms, you will only need the URL towards the wanted file. Some of these platforms will even provide you with the needed URL for your projects.
+> ''Note:'' Some platforms, like DropBox or GoogleDrive, won't allow this form of hosting, and will block the loading of assets. You should check that the hosting platform allows third-party links.
+
 For example, here is the URL for the Google-hosted font //Roboto//:
 {{{
     https://fonts.googleapis.com/css2?family=Roboto&display=swap
@@ -59,6 +60,7 @@ For the logo of the Wikimedia Foundation, the URL will look like this:
 \
 <h3>Relative Path</h3>\
 For assets located in the game folder, you will need their //Relative// paths. This is a path the operating system will take to find the wanted asset, starting from the file (or program) where the code is triggered. For Twine projects, that starting point is the project HTML file.
+
 Assuming that the game folder is as follow:
 {{{
     index.html
@@ -84,15 +86,13 @@ Using in the StyleSheet:
 Both Online URLs and Relative paths are case sensitive: this means that the URL should match the paths in terms of lower- and upper-case characters, or the asset will not load. This is relevant for:
 * folder names 
 * asset names 
-* file extension (.png ≠ .PNG)
+* file extension ({{{.png ≠ .PNG}}})
 It is important that all these aspects are coded in the proper case.
 \
-<h3>Some Recomendations</h3>\
+<h3>Some Recommendations</h3>\
 To avoid issues with loading assets, I recommend:
 * using only plain letters (a-z) and numbers (if necessary), instead of special characters (é, ñ, à, etc…)
 * using hyphens {{{-}}} or underscores {{{_}}} to replace space in the folder/file names
 * be consistent in the casing (all upper or all lower case)
 \
-> ''Note:'' While there is no import function in Twine, it is possible to create "asset" passages for Base64-encoded media source, using an [[Asset Tag|Tags-Asset]]. This supports audio, images, video and VTT assets.
-
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
+> ''Note:'' While there is no import function in Twine, it is possible to create "asset" passages for Base64-encoded media source, using an [[Asset Tag|Tags-Asset]]. This supports audio, images, video and VTT assets. It will, //however//, increase the size of your project file.

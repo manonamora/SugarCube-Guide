@@ -1,16 +1,98 @@
-:: Update Log [side] {"position":"1700,400","size":"100,100"}
-<h1>100% Good Twine SugarCube Guide</h1>
+:: Update Log [side] {"position":"1975,400","size":"100,100"}
+<h1>Update Log</h1>
+This is the update log of the ''100% Good SugarCube Guide'', containing all the changes made for each update of the guide.
+> ''Note:'' with development of SugarCube 2 ending, this guide will probably not receive further substantial updates.
+
 > //Next Update// (TBA)
-Edits to take into account changes in the new SugarCube version 
-Potentially the Audio API
+    -> if a new 2.37 version comes out (most likely small fixes)
 <hr>
-> ''Version 1.2.1''
+> ''Version 2.0.0'' - 29-Aug-24
+[29-Aug] - Final clean up and compiling
+[29-Aug] - Created {One Page View} Special Index (scroll-to-view)
+[29-Aug] - Completed Styling the {One Page View}
+[28-Aug] - Updated main Indexes
+[28-Aug] - Another extra round of grammar check
+[28-Aug] - Added {setPageElement()} to the {Function} chapter 
+[28-Aug] - Edited the {Story API} page to replace deprecated code ({.filter}, {.find}, {.add}, {.delete})
+[28-Aug] - Fixed the Indexes (General, APIs, Function/Methods, Macros)
+[28-Aug] - Completed the {One Page View}
+[28-Aug] - Fixed broken links
+[28-Aug] - Rephrased some explanations for clarity and consistency
+[28-Aug] - Fixed typos and formatting errors
+[25-Aug] - Reorganised Pages orders
+[25-Aug] - Rephrased some explanations for clarity and consistency
+[25-Aug] - Fixed broken links
+[25-Aug] - Fixed typos and formatting errors
+[24-Aug] - Reorganised Pages orders
+[24-Aug] - Rephrased some explanations for clarity and consistency
+[24-Aug] - Fixed typos and formatting errors
+[22-Aug] - Reorganised Pages orders
+[22-Aug] - Rephrased some explanations for clarity and consistency
+[22-Aug] - Fixed broken links
+[22-Aug] - Fixed typos and formatting errors
+[20-Aug] - Reorganised Pages orders
+[20-Aug] - Rephrased some explanations for clarity and consistency
+[20-Aug] - Fixed typos and formatting errors
+[19-Aug] - Added extra tips to the {Accessibility Cycle} page
+[19-Aug] - Reorganised Pages orders
+[19-Aug] - Rephrased some explanations for clarity and consistency
+[19-Aug] - Fixed typos and formatting errors
+[18-Aug] - Reorganised Pages orders
+[18-Aug] - Rephrased some explanations for clarity and consistency
+[18-Aug] - Fixed typos and formatting errors
+[17-Aug] - Rephrased some explanations for clarity and consistency
+[17-Aug] - Fixed typos and formatting errors 
+[17-Aug] - Started the {One Page View}
+[17-Aug] - ''Completed updating the guide for SG v2.37.3''
+[17-Aug] - Added the {Audio Events} page
+[17-Aug] - Completed the {Audio API} chapter
+[16-Aug] - Rephrased some explanations for clarity and consistency
+[16-Aug] - Continued the {Audio API} chapter
+[15-Aug] - Created the {Audio API} chapter
+[15-Aug] - Edited the {Basic API} page to edit deprecated code ({Config.saves.maxSlotSaves/maxAutoSaves})
+[15-Aug] - Edited the {Config API} page to edit and remove deprecated code ({Config.saves.descriptions}, {Config.saves.isAllowed} - removed {Config.saves.autoload}, {Config.saves.tryDiskOnMobile}, {Config.saves.autosave})
+[15-Aug] - Edited the {Passage API} page to edit and remove deprecated code ({<‎Passage‎>.id}, {<‎Passage‎>.name})
+[15-Aug] - Edited the {Methods} page to remove deprecated code ({<‎Number‎> .clamp()})
+[15-Aug] - Edited the {Story API} page to replace deprecated code ({.id}, {.title})
+[15-Aug] - Edited the {Macro API} page to replace deprecated code ({.contextSome()}, {.contextFind()}, {.contextFilter()})
+[15-Aug] - Added the {SC-Icon Font} page
+[15-Aug] - Added the {Debug API} page
+[14-Aug] - Rephrased some explanations for clarity and consistency
+[14-Aug] - Edited the {Save API} chapter with new information (due to complete re-work of the API) 
+[08-Aug] - Created the {One Page View} page (unfilled)
+[08-Aug] - Rephrased some explanations for clarity and consistency
+[08-Aug] - Added the {Do/Redo} macro 
+[08-Aug] - Added the {triggerEvent} function
+[08-Aug] - Rephrased some explanations for clarity and consistency
+[08-Aug] - Edited the {StoryInterface} page to update with new information
+[07-Aug] - Added the {:uiupdate} to {System Events}
+[07-Aug] - Edited the {silently} macro to its new {silent} name
+[07-Aug] - Edited the {Widget} macro page
+[07-Aug] - Edited the {Loop - Two Ways} page to update the {for} macro
+[07-Aug] - Replaced {UIBar.update()} with {UI.update()}
+[07-Aug] - Rephrased some explanations for clarity and consistency
+[07-Aug] - Fixed typos and formatting errors
+[07-Aug] - Edited the {Settings API} with new information. This includes: {Setting.addValue()}, {Setting.getValue()}, {Setting.setValue()}
+[06-Aug] - Fixed typos and formatting errors 
+[06-Aug] - Updated the {jQuery Methods} with new information ({.wikiPassage()})
+[06-Aug] - Edited the {Array Methods} page to replace deprecated code and update information ({.deleteFirst/Last()}, {.toShuffled()}, {.toUnique()})
+[06-Aug] - Updated information about {Config.cleanupWikifierOutput}
+[06-Aug] - Updated information about the {back} and {return} macro
+[06-Aug] - Updated information about the {unset} macro
+[06-Aug] - Edited the {Dialog API} page to replace deprecated code and updated new information ({.create()}, {.empty()}, {.wikiPassage()})
+[06-Aug] - Deleted deprecated information. This includes: {UI.jumpto()} and {bookmark} tag, {UI.share()} and {StoryShare} SP, and {UIBar.update()}, {action} and {choice} macros
+[05-Aug] - Fixed typos previously raised 
+[05-Aug] - Edited {Slider Setting} example for consistency 
+[05-Aug] - Added example to {Include Macro}
+<hr>
+> ''Version 1.2.1'' - 24-Jan-24
 [24-Jan] - Added Function/Method Index + API Index
 [24-Jan] - Completed the TODO comments
 [24-Jan] - Removed the //New// and //Updated// signs
 [24-Jan] - Fixed typos, broken links
 [24-Jan] - Reformatted the Macro Index
-> ''Version 1.2.0''
+<hr>
+> ''Version 1.2.0'' - 10-Dec-23
 [10-Dec] - Released a Downloadable Form
 [10-Dec] - Completed the SugarCube Theme 
 [10-Dec] - Completed the Settings Options
@@ -48,7 +130,7 @@ Potentially the Audio API
 [28-Nov] - Fixed some external links
 [28-Nov] - Added more links (internal guide)
 <hr>
-> ''Version 1.1.0''
+> ''Version 1.1.0'' - 05-Aug-23
 [05-Aug] - Clean up and check for update
 [02-Aug] - Added the {Event} pages
 [02-Aug] - Added the {Intro to Animation} page
@@ -56,7 +138,7 @@ Potentially the Audio API
 [01-Aug] - Added the {Engine API} pages
 [01-Aug] - Added the {Localization} pages
 <hr>
-> ''Version 1.0.2''
+> ''Version 1.0.2'' - 30-Jul-23
 [30-Jul] - Fixed broken links
 [30-Jul] - Added external links
 [30-Jul] - Added extra explanation on the {Back vs Return} macros, and the {Conditional Statements}.
@@ -66,16 +148,14 @@ Potentially the Audio API
 [30-Jul] - Completed the {Macro List} Page
 [30-Jul] - Updated the {Lexicon}
 <hr>
-> ''Version 1.0.1''
+> ''Version 1.0.1'' - 29-Jul-23
 [29-Jul] - Fixed errors in Method code (array, string)
 [29-Jul] - Fixed broken links
 [29-Jul] - Fixed markup errors
 [29-Jul] - Fixed inconsistencies in formatting
 [29-Jul] - Cleaned up TODO notes on published pages
 <hr>
-> ''Version 1.0.0''
+> ''Version 1.0.0'' - 20-Jun-23
 [30-Jun] - Pre-Release
 
 <<back>>
-
-

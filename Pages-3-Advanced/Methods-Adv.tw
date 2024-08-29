@@ -1,15 +1,12 @@
 :: Methods-Adv [chapter menu] {"position":"1100,1800","size":"200,100"}
 <h1>More Variable and Interaction Methods</h1>
-In the [[Methods]] chapter, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. 
-This chapter includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
+In the [[Methods]] section, methods were defined JavaScript blocks of code designed to do a specific task, linked to a receiver, like a variable, to run. This section includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
 
 * [[More Methods to change Variables|Method-Variables]] 
 * [[jQuery Methods and Interactivity|Method-jQuery]] 
 
-<div id="link-menu">[[Back to the Start Menu|Start]]</div>
-
-:: Method-Variables [page] {"position":"1100,1900","size":"100,100"}
-<h1>More Methods to change Variables</h1>
+:: Method-Variables [page adv-methods] {"position":"1100,1900","size":"100,100"}
+<h1 id="advmeth-var">More Methods to change Variables</h1>
 The methods below should be used with other macros, such as {{{<<set>>}}}, {{{<<run>>}}}, {{{<<print>>}}} or even {{{<<if>>}}}, as well as JavaScript.
 \
 <h3>String-related Methods</h3>\
@@ -31,7 +28,7 @@ This method had 2 parameters:
     String.format("{0}, {1}!", "Hello", "World") 
     → returns "Hello, World!"
     
-→ Array argumment:
+→ Array argument:
     String.format("{0}, {1}!", [ "Hello", "World" ])
     → returns "Hello, World!"
 
@@ -108,7 +105,7 @@ This will return as 3, since there are 3 counts of full numbers in the array.
     { name : 'Dead rat', kind : 'junk' },
     { name : 'Endurance potion', kind : 'potion' },
     { name : 'Shortbow', kind : 'weapon' }
-    ]
+  ]
 
     $items.countWith(
         function (item) { 
@@ -161,7 +158,7 @@ It has 2 parameters:
         return val.name.startsWith("Ap");
     })
 
-→ this function will remove any interation where {name} starts with {"Ap"}
+→ this function will remove any iteration where {name} starts with {"Ap"}
     → $fruits = [{ name : "Oranges" }]
 }}}
 \
@@ -188,14 +185,12 @@ It has 2 parameters:
     → $npa = ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot"]
 }}}
 
-<div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
 
-
-:: Method-jQuery [page] {"position":"1200,1900","size":"100,100"}
-<h1>jQuery Methods and Interactivity</h1>
+:: Method-jQuery [page adv-methods] {"position":"1200,1900","size":"100,100"}
+<h1 id="advmeth-jq">jQuery Methods and Interactivity</h1>
 \
 <h3>{{{<jQuery>.ariaClick()}}}</h3>\
-This method will make the target element WAI-ARIA-compatible clickable. This means the element will get accessibility attributes and can be activated with a mouse click, or key press (enter/return/spacebar).
+This method will make the target element [[WAI-ARIA-compatible|https://www.w3.org/WAI/standards-guidelines/aria/]] clickable. This means the element will get accessibility attributes and can be activated with a mouse click, or key press (enter/return/spacebar).
 {{{
     <jQuery>.ariaClick([options ,] handler)
 }}}
@@ -205,6 +200,8 @@ The method has 2 parameters:
 ** {{{one}}}, if indicated, the clickable is single-use 
 ** {{{selector}}}, if indicated, the selector will filter the descendants that triggered the event.
 ** {{{data}}}, to be passed to the handler 
+** {{{tabindex}}}, value to make element selectable with the TAB key.
+*** If omitted, defaults to 0 (always tab-able).
 ** {{{controls}}}, value for {{{aria-controls}}}
 ** {{{pressed}}}, value for {{{aria-pressed}}}
 ** {{{label}}}, value for {{{aria-label}}} and {{{title}}}
@@ -275,7 +272,7 @@ $('#so-clicky').ariaIsDisabled()
 }}}
 \
 <h3>{{{jQuery.wiki()}}}</h3>\
-This methos will wikify the indicated content source(s) and discard the result (unless there are errors). This is only useful when you want to invoke a macro for its side-effects but don't need the output.
+This method will wikify the indicated content source(s) and discard the result (unless there are errors). This is only useful when you want to invoke a macro for its side-effects but don't need the output.
 {{{
     jQuery.wiki()
 }}}
@@ -284,7 +281,7 @@ It has 1 parameter:
 > //Example://
 {{{
     $.wiki('<<somemacro>>');  
-→ Invokes the <<somemacro>> macro, discarding any output
+→ Invokes the <<somemacro>> macro, not printing any output
 }}}
 \
 <h3>{{{<jQuery>.wiki()}}}</h3>\
@@ -294,11 +291,35 @@ This method is similar to the previous one, except it will append the output of 
 }}}
 It has 1 parameter:
 * {{{sources}}}: the list of content sources 
-> //Examplem given the element:// {{{<div id="the-box"></div>}}}
+> //Example given the element:// {{{<div id="the-box"></div>}}}
 {{{
     $('#the-box').wiki('Who //are// you?'); 
 → will append to {#the-box}
     "Who <em>are</em> you?"
 }}}
-
-<div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
+\
+<h3>{{{jQuery.wikiPassage()}}}</h3>\
+This method will wikify the content of the indicated passage and discard the result (unless there are errors). This is only useful when you want to invoke a passage full of code but don't need to display output.
+{{{
+    jQuery.wikiPassage()
+}}}
+It has 1 parameter:
+* {{{name}}}: the name of the Passage 
+> //Example://
+{{{
+    $.wikiPassage('TheSuperDuperLongHiddenCode');  
+→ Runs the code inside the "TheSuperDuperLongHiddenCode" passage, not printing any output
+}}}
+\
+<h3>{{{<jQuery>.wikiPassage()}}}</h3>\
+This method is similar to the previous one, except it will append the output of the indicated passage to the targetted element(s).
+{{{
+    <jQuery>.wikiPassage(name)
+}}}
+It has 1 parameter:
+* {{{name}}}: the name of the Passage 
+> //Example given the element:// {{{<div id="the-box"></div>}}}
+{{{
+    $('#the-box').wikiPassage('ASuperLongImportantText'); 
+→ will append the content to {#the-box}
+}}}
