@@ -70,7 +70,7 @@ The API has 3 parameters:
 
     UI.alert("You smell of elderberries!", { top : 500});
 }}}
-<<button "Alert Hi">><<run UI.alert("You smell of elderberries!");>><</button>> | <<button "Alert Low">><<run UI.alert("You smell of elderberries!", { top : 500});>><</button>>
+<<button "Alert High">><<run UI.alert("You smell of elderberries!");>><</button>> | <<button "Alert Low">><<run UI.alert("You smell of elderberries!", { top : 500});>><</button>>
 
 :: API-UIBar [page adv-api] {"position":"1200,1200","size":"100,100"}
 <h1 id="adv-sidebar">More SideBar APIs</h1>
@@ -115,7 +115,7 @@ The API has 2 parameters:
 * {{{name}}}, the name (or array of names) of the template
 ** it must consist of basic Latin characters (A → Z) and start with a letter.
 ** it can include numbers (0 → 9), underscores ({{{ _ }}}), or hyphens ({{{ - }}})
-* {{{definition}}}, what could be outputed when the template is used
+* {{{definition}}}, what could be outputted when the template is used
 ** this can be a function, a string, or an array of either 
 ** if the definition is an array, the output will be randomly selected between all listed options
 ** functions should always produce string values

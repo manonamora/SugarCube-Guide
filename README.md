@@ -28,7 +28,7 @@ The guide is separated into four categories, representing different difficulties
 ## *How to read the Guide?*
 You can find a "playable" version of the guide on [itch.io](https://manonamora.itch.io/twine-sugarcube-guide), as well as a downloadable version (includes an HTML, and the source files). Or you can peruse the source file on this Github.
 
-The "playable" version includes two modes of reading: a 'One-Page' view where the whole guide is scrollable from start to finish, and a 'Book' view, with a category/chapter/page separation. The first makes it easier to find information (`CTRL+F`), the latter makes the information more digestable (by bits).
+The "playable" version includes two modes of reading: a 'One-Page' view where the whole guide is scrollable from start to finish, and a 'Book' view, with a category/chapter/page separation. The first makes it easier to find information (`CTRL+F`), the latter makes the information more digestible (by bits).
 
 The guide includes multiple indexes: Chapter/Pages, Macros, Functions and Methods, and API.
 

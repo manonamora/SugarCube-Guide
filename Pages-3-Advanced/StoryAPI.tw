@@ -94,7 +94,7 @@ It has 1 parameter:
 }}}
 \
 <h3>{{{Story.filter()}}}</h3>\
-This API will retrun an array of Passage instances whose value matches the search prediction, given the function.
+This API will return an array of Passage instances whose value matches the search prediction, given the function.
 {{{
     Story.filter(predicate [, thisArg])
 }}}

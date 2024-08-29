@@ -42,7 +42,7 @@ The three first {{{l10nStrings}}} (one a property, two templates) are used by th
 :: Local-Trans [page translate] {"position":"3900,1200","size":"100,100"}
 <h1 id="local-translate">Localization, and Pre-Translated Templates</h1>
 If your project is not written in English, and you would prefer seeing the Built-In text match this, you will need to edit most of the defined [[l10nStrings|Local-L10n]]. This can be done by Copy-Pasting into your JavaScript the code from [[this page|https://github.com/tmedwards/sugarcube-2/blob/v2-develop/locale/l10n-template.js]] of the SugarCube repository, and edit the text.
-> ''Note:'' you can forgo the first and last line of the code in that page (i.e. the {{{(function(){ }}} and {{ {})();}}}).
+> ''Note:'' you can forgo the first and last line of the code in that page (i.e. the {{{(function(){ }}} and {{{ {})();}}}).
 
 If the wanted language is available, you can use one of the pre-translated localizations, done by volunteers. Any available localization package will be downloadable on the [[SugarCube website|http://www.motoslave.net/sugarcube/2/#downloads]]. You can Copy-Paste the code from the {{{.js}}} into your JavaScript.
 > ''Note:'' you //may// want to check the translated version fits with your project, or whether some edits may be required.
@@ -52,7 +52,7 @@ While SugarCube 2.36 had many localization packages, which you can find here [[h
 
 :: Local-Setting [page translate] {"position":"3800,1300","size":"100,100"}
 <h1 id="local-langsetting">Providing Multiple Languages Options In-Game</h1>
-If you want your project to be played in multiple languages, there are different ways to include those. Which way to code it will depend on the interface (Built-In or [[Custom|SP-StoryInterface]]), and whether the functionalities (e.g. Settings, Saves...) use any [[Built-In text|Local-L10n]]. It may be as simple as creating seperate passage paths per language (with a starting screen displaying a list of available languages), to more complex, like having a Setting the player can use to change the language at anytime.
+If you want your project to be played in multiple languages, there are different ways to include those. Which way to code it will depend on the interface (Built-In or [[Custom|SP-StoryInterface]]), and whether the functionalities (e.g. Settings, Saves...) use any [[Built-In text|Local-L10n]]. It may be as simple as creating separate passage paths per language (with a starting screen displaying a list of available languages), to more complex, like having a Setting the player can use to change the language at anytime.
 \
 <h3>No Built-In Text and Language Choice at Start</h3>\
 This first case will assume that players won't ever see any of the Built-In text, which can be done by removing the SideBar or creating a Custom Interface, and avoiding using the Built-In //Settings//, //Saves// and //Restart// popups (or you don't mind that they aren't translated).
@@ -82,7 +82,7 @@ This way to include localization is to create a starting passage, where the play
     Deze passage is in het Nederlands.
     [[Doorgaan|NL-Next]] 
 }}}
-If you want to avoid creating copies of those passages when adding a new langague, you can merge them all and track the language choice through a variable:
+If you want to avoid creating copies of those passages when adding a new language, you can merge them all and track the language choice through a variable:
 {{{
     :: Start
     THIS IS A GAME, REALLY...
@@ -157,7 +157,7 @@ The {{{case 'en':}}} is not listed here, since it already uses the Built-In text
 > ''Note:'' you can find [[pre-translated packages|Local-Trans]] for the {{{l10nStrings}}}.
 \
 <h4>Setting up the Passages</h4>\
-After the JavaScript code is set, you will have to set the passages. While similar to the first method, this way requires an empty passage to act as an anchor for the JavaScript code. From that anchor, the code will check the langugage chosen, add the relevant language code as a suffic to the anchor, and display the corresponding passage. 
+After the JavaScript code is set, you will have to set the passages. While similar to the first method, this way requires an empty passage to act as an anchor for the JavaScript code. From that anchor, the code will check the language chosen, add the relevant language code as a suffix to the anchor, and display the corresponding passage. 
 For example, with the passage {{{Start}}}:
 # Anchor {{{Start}}}
 # Language: {{{English}}}
@@ -208,7 +208,7 @@ However, if you do not want the page refresh, you can get away with simply editi
 > ''Note:'' the Built-In text, especially in popups, won't be displayed with the correct text without the refresh.
 \
 <h4>Edit Settings Language or Other Custom Elements</h4>\
-While TME's code allows the automation in displaying different version of Built-In text through the {{{l10nStrings}}}, you will need to do the same for custom text, such as Settings lables and descriptions, or whatever element you created on the page (e.g. Custom Menu in the UI). This, however, can easily be remedied with the {{{<<switch>>}}} macro.
+While TME's code allows the automation in displaying different version of Built-In text through the {{{l10nStrings}}}, you will need to do the same for custom text, such as Settings labels and descriptions, or whatever element you created on the page (e.g. Custom Menu in the UI). This, however, can easily be remedied with the {{{<<switch>>}}} macro.
 > //In a Non-Story Passage://
 {{{
     <<switch settings.lang>>
@@ -227,4 +227,4 @@ While TME's code allows the automation in displaying different version of Built-
 		onChange : changeLanguage
 	});
 }}}
-> ''Note:'' the backticks {{{` `}}} allows the includions of SugarCube code inside JavaScript here.
+> ''Note:'' the backticks {{{` `}}} allows the inclusions of SugarCube code inside JavaScript here.

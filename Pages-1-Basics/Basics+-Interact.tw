@@ -47,7 +47,7 @@ This macro has 4 arguments:
 ** this will check the option with the same current value of the variable 
 * {{{checked}}} (optional): whether the option should be checked from the start (only for one per group)
 {{{
-    <<radiobutton "_exmaple" false>> Displayed Text
+    <<radiobutton "_example" false>> Displayed Text
     <<radiobutton "_object.property" 1>> Displayed Text
     <<radiobutton "_array[0]" "Tim" checked>> Displayed Text
 
@@ -58,13 +58,13 @@ A radiobutton group:
 }}}
 \
 <h3>Using a {{{<label>}}}</h3>\
-For accessiblity reasons, it is recommended to wrap each option of the macros above with the HTML markup {{{<label>}}}. Rather than forcing the player to click on a small checkbox or radiobutton, they will be able to click on the displayed text to trigger the macro.
+For accessibility reasons, it is recommended to wrap each option of the macros above with the HTML markup {{{<label>}}}. Rather than forcing the player to click on a small checkbox or radiobutton, they will be able to click on the displayed text to trigger the macro.
 {{{
     <label><<checkbox "_example" false true autocheck>> Displayed Text</label>
-    <label><<radiobutton "_exmaple" false>> Displayed Text</label>
+    <label><<radiobutton "_example" false>> Displayed Text</label>
 }}}
 <label><<checkbox "_example" false true autocheck>> Displayed Text</label>
-<label><<radiobutton "_exmaple" false>> Displayed Text</label>
+<label><<radiobutton "_example" false>> Displayed Text</label>
 \
 > ''Note:'' styling a checkbox or a radiobutton is pretty limited, as these elements are styled by the browser used (without a third-party plug-in or building it from scratch). 
 
@@ -109,7 +109,7 @@ Assuming that the array {{{_pieOptions = ["blueberry", "cherry", "coconut cream"
 <h3>Why {{{<<optionfrom>>}}} instead of {{{<<option>>}}}?</h3>\
 The {{{<<cycle>>}}} macro provides two ways of getting the source of options to display, with {{{<<option>>}}} and {{{<<optionfrom>>}}}. Whether to choose one rather than the other will depend on preferences and situations.
 
-{{{<<option>>}}} allows for an easier read of the code, as all options and their respective values are explicitely displayed in the code. However, due to how the {{{<<cycle>>}}} macro is built, it won't let you add or remove options depending on situations (i.e. you can't do {{{<<if $var>><<option "value">><</if>>}}}).
+{{{<<option>>}}} allows for an easier read of the code, as all options and their respective values are explicitly displayed in the code. However, due to how the {{{<<cycle>>}}} macro is built, it won't let you add or remove options depending on situations (i.e. you can't do {{{<<if $var>><<option "value">><</if>>}}}).
 > ''Note:'' You can also have different {{{<<cycle>>}}}/{{{<<option>>}}} combo for each situation...  which you can hide inside [[widgets|Macro-Widget]]!
 \
 On the other hand, {{{<<optionfrom>>}}} will only display the sourcing variable, allowing for cleaner but more obtuse code (see examples above). However, this means you can show different options depending on the situation by modifying the source variable ahead of time.
@@ -134,7 +134,7 @@ While the object will show: <<cycle "_pie2" autoselect>>
 	<<optionsfrom _pieOptions2>>
 <</cycle>> (value of the first option: _pie2)
 
-> ''Note on the macro:'' this macro has some issues with accessiblity (among others, with screen readers). While this can be remedied with some [[extra code|Accessibility-Cycle]], this should be taken into account when creating a project.
+> ''Note on the macro:'' this macro has some issues with accessibility (among others, with screen readers). While this can be remedied with some [[extra code|Accessibility-Cycle]], this should be taken into account when creating a project.
 
 :: Accessibility-Cycle [page basic-interact] {"position":"1500,700","size":"100,100"}
 <h1 id="basics-cycleacc">Make the Cycle Macro Accessible</h1>
@@ -271,7 +271,7 @@ Assuming that the array {{{_pieOptions = ["blueberry", "cherry", "coconut cream"
 <h3>Why {{{<<optionfrom>>}}} instead of {{{<<option>>}}}?</h3>\
 The {{{<<listbox>>}}} macro provides two ways of getting the source of options to display, with {{{<<option>>}}} and {{{<<optionfrom>>}}}. Whether to choose one rather than the other will depend on preferences and situations.
 
-{{{<<option>>}}} allows for an easier read of the code, as all options and their respective values are explicitely displayed in the code. However, due to how the {{{<<listbox>>}}} macro is built, it won't let you add or remove options depending on situations (i.e. you can't do {{{<<if $var>><<option "value">><</if>>}}}).
+{{{<<option>>}}} allows for an easier read of the code, as all options and their respective values are explicitly displayed in the code. However, due to how the {{{<<listbox>>}}} macro is built, it won't let you add or remove options depending on situations (i.e. you can't do {{{<<if $var>><<option "value">><</if>>}}}).
 > ''Note:'' You can also have different {{{<<listbox>>}}}/{{{<<option>>}}} combo for each situation...  which you can hide inside [[widgets|Macro-Widget]]!
 \
 On the other hand, {{{<<optionfrom>>}}} will only display the sourcing variable, allowing for cleaner but more obtuse code (see examples above). However, this means you can show different options depending on the situation by modifying the source variable ahead of time.
@@ -330,7 +330,7 @@ The macro has four arguments:
 * the variable to save the player input
 * the default number visible to the player
 ** if ({{{ "" }}}) is indicated, it will default to 0
-* {{{PassageName}}} (optional) whether the player will be sent to another passage when presseing //Enter//
+* {{{PassageName}}} (optional) whether the player will be sent to another passage when pressing //Enter//
 * {{{autofocus}}} (optional) whether the area is automatically in focus 
 {{{
     <<numberbox "$variable" 10 "NextPassage" autofocus>>

@@ -1,8 +1,8 @@
 :: Methods [chapter menu] {"position":"2600,1100","size":"200,100"}
 <h1>Using Methods to change Variables</h1>
-Methods are [[functions|Functions]], JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run.
+Methods are [[functions|Functions]], JavaScript blocks of code designed to do a specific task, linked to a receiver, like a variable, to run.
 {{{
-    <reciever>.method()
+    <receiver>.method()
  → Example:
     $var.first()
 }}}
@@ -111,7 +111,7 @@ There are multiple ways to add elements to an array, but the methods listed belo
 The examples below will assume that {{{_array = ['Apple', 'Potatoe', 'Sausage']}}} and {{{_array2 = [1, 2, 3]}}}
 \
 <h4>{{{<Array>.concat()}}}</h4>\
-{{{<Array>.concat()}}} will merge other arrays or lists of values to the original array, with the new values added at the end of the orginal array:
+{{{<Array>.concat()}}} will merge other arrays or lists of values to the original array, with the new values added at the end of the original array:
 {{{
     _array.concat(value/variable)
 }}}
@@ -130,7 +130,7 @@ As the method will not edit the original variable, you would need to use the {{{
 > ''Note:'' if you want to only include new values to the array, you would need to use {{{<Array>.concatUnique()}}}
 \
 <h4>{{{<Array>.push()}}}</h4>\
-{{{<Array>.push()}}} will add values to the original array, with the new values to be added at the end of the orignal array:
+{{{<Array>.push()}}} will add values to the original array, with the new values to be added at the end of the original array:
 {{{
     _array.push(value/variable)
 }}}
@@ -153,7 +153,7 @@ The method can be run on either the {{{<<set>>}}} or {{{<<run>>}}} macros.
 > ''Note:'' if you want to only include new values to the array, you would need to use {{{<Array>.pushUnique()}}}
 \
 <h4>{{{<Array>.unshift()}}}</h4>\
-{{{<Array>.unshift()}}} will add values to the original array, with the new values to be added at the ''beginning'' of the orignal array:
+{{{<Array>.unshift()}}} will add values to the original array, with the new values to be added at the ''beginning'' of the original array:
 {{{
     _array.unshift(value/variable)
 }}}
@@ -323,7 +323,7 @@ The method is best used in conditional statements:
     <<if _array.includesAny(_array2, 4)>>...<</if>>
 → since the array has those elements, it will run the content
 
-Using a non-variable array as the reciever:
+Using a non-variable array as the receiver:
     <<if ["John", "Jane", "Sylvia"].includes($var)>>...<</if>>
 → if the value of the variable is included in this array, the code will run.
 }}}
@@ -361,7 +361,7 @@ Among other, they can be used in conditional statements or setting another varia
 <h3>Other Array Methods</h3>\
 There are handful of other methods one can use with arrays.
 <h4>{{{<Array>.random()}}}</h4>\
-{{{<Array>.random()}}} will take a value from the array at random (but not modify the orignal array), and {{{<Array>.randomMany()}}} will do the same thing but take as many as indicated:
+{{{<Array>.random()}}} will take a value from the array at random (but not modify the original array), and {{{<Array>.randomMany()}}} will do the same thing but take as many as indicated:
 {{{
     <Array>.random()
     <Array>.randomMany(number)

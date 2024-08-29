@@ -1,4 +1,4 @@
-:: Index [index] {"position":"1200,200","size":"200,100"}
+:: Index [index] {"position":"1200,100","size":"200,100"}
 <h1>Index</h1>\
 <h3>The Basics</h3>\
 * ''[[About Twine and SugarCube|About]]''
@@ -87,7 +87,7 @@
 ** [[Import and Change the Font|Int-JS-CSS-Font]]
 *** [[Using the SG Icons|Int-JS-CSS-Icons]]
 ** [[Using the Root and CSS var|Int-JS-CSS-Root]] 
-** [[Formating for Different Screen Size|Int-JS-CSS-Media]] 
+** [[Formatting for Different Screen Size|Int-JS-CSS-Media]] 
 ** [[Intro to Animation|Int-JS-CSS-Animation]]
 ** [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) 
 ** [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] 
@@ -165,12 +165,12 @@
 * ''[[Going Further with Audio with APIs|AudioAPI]]''
 ** [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
 ** [[Going further with AudioTrack|AudioApi-Track]]
-** [[Going further with AudioRunner|AudioAPI-Runner]]
-** [[Going further with AudioList|AudioAPI-List]]
+** [[Going further with AudioRunner|AudioApi-Runner]]
+** [[Going further with AudioList|AudioApi-List]]
 
-<div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
+<div id="link-menu"><<back "Return to Previous Page">></div>
 
-:: Function/Method List {"position":"1200,400","size":"200,100"}
+:: Function/Method List {"position":"1200,300","size":"200,100"}
 <h1>Functions and Methods List</h1>
 Below, you will find the list of Functions and Methods included in SugarCube, and where they are discussed in this guide.
 > ''Note:'' As SugarCube is built on JavaScript, you can use any JavaScript and jQuery functions and methods, even ones you create and define yourself.
@@ -243,10 +243,9 @@ Below, you will find the list of Functions and Methods included in SugarCube, an
 * {{{<String>.toLocaleUpperFirst()}}} : [[Methods and String Variables|Method-String]]
 * {{{<String>.toUpperFirst()}}} : [[Methods and String Variables|Method-String]]
 
-<div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
+<div id="link-menu"><<back "Return to Previous Page">></div>
 
-:: API List {"position":"1200,500","size":"200,100"}
-/*NEED TO EDIT THIS*/
+:: API List {"position":"1200,400","size":"200,100"}
 <h1>APIs List</h1>
 Below, you will find the list of SugarCube APIs, and where they are discussed in this guide.
 > ''Note:'' Most of the elements below are meant for Advanced users.
@@ -448,7 +447,7 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{SimpleAudio.lists.delete()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
 * {{{SimpleAudio.lists.get()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
 * {{{SimpleAudio.lists.has()}}} : [[The SimpleAudio API, the alternative to Audio macros|AudioAPI-General]]
-<details><summary>><h4>AudioTrack API</h4>\
+<h4>AudioTrack API</h4>\
 * {{{<AudioTrack>.clone()}}} : [[Going further with AudioTrack|AudioApi-Track]]
 * {{{<AudioTrack>.duration()}}} : [[Going further with AudioTrack|AudioApi-Track]]
 * {{{<AudioTrack>.fade()}}} : [[Going further with AudioTrack|AudioApi-Track]]
@@ -484,51 +483,48 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{<AudioTrack>.time()}}} : [[Going further with AudioTrack|AudioApi-Track]]
 * {{{<AudioTrack>.unload()}}} : [[Going further with AudioTrack|AudioApi-Track]]
 * {{{<AudioTrack>.volume()}}} : [[Going further with AudioTrack|AudioApi-Track]]
-</details>
-<details><summary><h4>AudioRunner API</h4>\</summary>
-* {{{<AudioRunner>.fade()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.fadeIn()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.fadeOut()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.fadeStop()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.load()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.loop()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.mute()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.off()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.on()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.one()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.pause()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.play()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.playWhenAllowed()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.stop()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.time()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.unload()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-* {{{<AudioRunner>.volume()}}} : [[Going further with AudioRunner|AudioAPI-Runner]]
-</details>
-<details><summary><h4>AudioList API</h4>\</summary>
-* {{{<AudioList>.duration()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.fade()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.fadeIn()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.fadeOut()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.fadeStop()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.isEnded()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.isFading()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.isPaused()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.isPlaying()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.isStopped()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.load()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.loop()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.mute()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.pause()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.play()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.playWhenAllowed()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.remaining()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.shuffle()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.skip()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.stop()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.time()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.unload()}}} : [[Going further with AudioList|AudioAPI-List]]
-* {{{<AudioList>.volume()}}} : [[Going further with AudioList|AudioAPI-List]]
-</details>
+<h4>AudioRunner API</h4>\
+* {{{<AudioRunner>.fade()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.fadeIn()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.fadeOut()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.fadeStop()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.load()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.loop()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.mute()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.off()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.on()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.one()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.pause()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.play()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.playWhenAllowed()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.stop()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.time()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.unload()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+* {{{<AudioRunner>.volume()}}} : [[Going further with AudioRunner|AudioApi-Runner]]
+<h4>AudioList API</h4>\
+* {{{<AudioList>.duration()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.fade()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.fadeIn()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.fadeOut()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.fadeStop()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.isEnded()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.isFading()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.isPaused()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.isPlaying()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.isStopped()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.load()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.loop()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.mute()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.pause()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.play()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.playWhenAllowed()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.remaining()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.shuffle()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.skip()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.stop()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.time()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.unload()}}} : [[Going further with AudioList|AudioApi-List]]
+* {{{<AudioList>.volume()}}} : [[Going further with AudioList|AudioApi-List]]
 
 <h3>State API</h3>
 * {{{State.active}}} : [[Exploring the Different Moments inside the State|StateAPI-State]] 
@@ -596,9 +592,9 @@ Below, you will find the list of SugarCube APIs, and where they are discussed in
 * {{{UIBar.stow()}}} : [[Handle the SideBar|Basic-API-UIBar]]
 * {{{UIBar.unstow()}}} : [[Handle the SideBar|Basic-API-UIBar]]
 
-<div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
+<div id="link-menu"><<back "Return to Previous Page">></div>
 
-:: Macros List {"position":"1200,300","size":"200,100"}
+:: Macros List {"position":"1200,200","size":"200,100"}
 <h1>Macro List</h1>
 Below, you will find the alphabetical list of SugarCube macro, and where they are discussed in this guide.
 
@@ -657,4 +653,4 @@ Below, you will find the alphabetical list of SugarCube macro, and where they ar
 * {{{<<waitforaudio>>}}}: [[Setting up the Audio Tracks|CacheAudio]]
 * {{{<<widget>>}}}: [[Creating and Using a Widget|Macro-Widget]]
 
-<div id="link-menu"><<back "Return to Previous Page">> - [[Back to the Start Menu|Start]]</div>
+<div id="link-menu"><<back "Return to Previous Page">></div>

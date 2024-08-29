@@ -101,7 +101,7 @@ For this form, the macro has three arguments:
 * {{{init}}} (optional), or the initialisation of a counter variable (ex: {{{_i}}})
 * {{{conditional}}}, or the conditional expression which should be check at the start of every loop, triggering the code until it is no longer true
 * {{{post}}} (optional), the change of value of the counter variable, happening at the end of each loop.
-> ''Note:'' the arguments HAVE to be seperated by a semi-colon {{{ ; }}}
+> ''Note:'' the arguments HAVE to be separated by a semi-colon {{{ ; }}}
 \
 > //Single Conditional://
 {{{
@@ -116,7 +116,7 @@ For this form, the macro has three arguments:
         <</if>>
     <</for>>
 
-→ This will print //You eat the [type] Pie!// untill all {{{_filling}}} have been listed.
+→ This will print //You eat the [type] Pie!// until all {{{_filling}}} have been listed.
 }}}
 > //3-Part Conditional://
 {{{

@@ -67,12 +67,12 @@ The Markup code to display an image works similarly to the [[Link Markup|Markup-
 {{{
     [img[URL]]
 }}}
-> ''Note:'' When compiling the code into an HTML file, the code will automatically transorm the SugarCube markup into the HTML version: {{{<img src="URL">}}}.
+> ''Note:'' When compiling the code into an HTML file, the code will automatically transform the SugarCube markup into the HTML version: {{{<img src="URL">}}}.
 
 This required URL can be an absolute, relative or online [[URL|URL-Types]], or even the name of an [[image passage|Tags-Asset]]:
 {{{
 → absolute URL:
-    [img[C:/Users/YourAcount/Documents/Folder/image/garden.png]]
+    [img[C:/Users/YourAccount/Documents/Folder/image/garden.png]]
 
 → relative URL:    
     [img[images/garden.png]]
@@ -120,7 +120,7 @@ You can go even further and set a variable inside that Image Link:
 {{{
     [img[URL][PASSAGE][$var to true]]
 }}}
-> ''Note:'' for the Image Link, I would recomment using the {{{<<link>>}}} macro with the {{{<img>}}} HTML markup instead.
+> ''Note:'' for the Image Link, I would recommend using the {{{<<link>>}}} macro with the {{{<img>}}} HTML markup instead.
 
 And for extra accessibility, you can add a "title" to the image, to show what it is supposed to represent. This title will be displayed when the player's mouse hovers over the image.
 {{{
@@ -133,14 +133,14 @@ And for extra accessibility, you can add a "title" to the image, to show what it
  → Setting a variable:
    [img[Title|URL][PASSAGE][$var to true]] 
 
- → Only using varialbes:
+ → Only using variables:
     [img[$imageTitle|$imageURL][$NextPassage][$done to true]]
 }}}
 
 :: Markup-Nobr [page basic-plus] {"position":"900,800","size":"100,100"}
 <h1 id="basics-munobr">Removing a Line-break</h1>
-When having multiple paragraphs of text, as well as code, you may notice extra space added to the page - space that you may not want. This is because everytime you start a new line (of code or text) in a passage, Twine will automatically add a {{{<br>}}} HTML markup (also called a line-break) to match. 
-This can be especially annoying when using macros or fomatted text (header, lists, etc..) forcing that extra unwanted space. However, it can be managed with markup!
+When having multiple paragraphs of text, as well as code, you may notice extra space added to the page - space that you may not want. This is because every time you start a new line (of code or text) in a passage, Twine will automatically add a {{{<br>}}} HTML markup (also called a line-break) to match. 
+This can be especially annoying when using macros or formatted text (header, lists, etc..) forcing that extra unwanted space. However, it can be managed with markup!
 
 If you want to remove a line-break, you can do so with a backslash {{{\}}}:
 {{{
@@ -160,7 +160,7 @@ or
 :: Markup-Styling [page basic-plus] {"position":"800,900","size":"100,100"}
 <h1 id="basics-mustyling">Basic Text Styling</h1>
 Text styling is an important part of adding visual flavouring to the text, to pull focus towards certain elements or accentuate other parts. Adding colour to a certain word, bolding whole sentences, or creating headers for chapter titles, all this and more can be done with formatting markup (rather than HTML/CSS).
-> ''Note:'' when {{{Beginning a line with...}}} is indicated, that character ''has to be'' the first on the line. If you have a space or an intentation at the start of the line, the text will not transform. 
+> ''Note:'' when {{{Beginning a line with...}}} is indicated, that character ''has to be'' the first on the line. If you have a space or an indentation at the start of the line, the text will not transform. 
 > Also, if the text, passage, or project uses one of the [[Line-Break features|Markup-Nobr]], the Style Markup will not work. Only the HTML markup will!
 \
 <h3>Headings</h3>\
@@ -257,7 +257,7 @@ Similarly the headings, adding more than one character consecutively will define
 >Main 2
 \
 <h3>Custom Style</h3>\
-To create a block (like a {{{<span>}}} or a {{{<div>}}}) to target a spcecific bit of text, you need to wrap it with two at signs{{{@@}}}:
+To create a block (like a {{{<span>}}} or a {{{<div>}}}) to target a specific bit of text, you need to wrap it with two at signs{{{@@}}}:
 {{{
     @@Text@@ → <span>Text</span>
 
@@ -268,7 +268,7 @@ To create a block (like a {{{<span>}}} or a {{{<div>}}}) to target a spcecific b
 }}}
 > ''Note:'' a {{{<div>}}} will create a block of text, while a {{{<span>}}} will stay inside a line.
 
-To further customise a block, you can assign it a class {{{.class}}}, id {{{#id}}}, or CSS rule to it, seperating each and it from the text with a semi-colon {{{;}}}:
+To further customise a block, you can assign it a class {{{.class}}}, id {{{#id}}}, or CSS rule to it, separating each and it from the text with a semi-colon {{{;}}}:
 {{{
     @@#id;.class;color:red;Text@@ 
 → <span id="id" class="class" style="color:red;"></span>

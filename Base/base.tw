@@ -14,7 +14,6 @@ SugarCube Guide
   },
   "zoom": 0.3
 }
-// TODO: need to download new version to compile!!
 
 :: StoryAuthor {"position":"2300,400","size":"100,100"}
 <<if tags().includes("sp-demo")>>This is made by me! Manon :D<</if>>
@@ -24,16 +23,15 @@ SugarCube Guide
 
 :: StoryCaption {"position":"2300,500","size":"100,100"}
 <<if tags().includes("sp-demo")>>I can't think of a good caption... so here's some text<<else>>\
-''//One Page Toggle//''
-<span id="fancy-button"><<button `(settings.onePage) ? "On" : "Off"`>>
+<span id="fancy-button">''//One Page Toggle//''
+<<button `(settings.onePage) ? "On" : "Off"`>>
   <<if settings.onePage>>
     <<run Setting.setValue("onePage", false);>>
     <<goto "Start">>
   <<else>>
-    <<run Setting.setValue("onePage", true);>>
-    <<goto "OnePage">>
-  <</if>>
-<</button>></span>
+    <<popup 'OnePagePopup' "Warning">>
+  <</if>>  
+<</button>></span><</if>>
 
 :: StoryDisplayTitle {"position":"2300,200","size":"100,100"}
 <<if tags().includes("sp-demo")>>SG SUPER GUIDE YO@!<<else>>100% Good Twine SugarCube Guide<</if>>
@@ -41,9 +39,9 @@ SugarCube Guide
 :: StoryMenu {"position":"2300,600","size":"100,100"}
 <<if tags().includes("sp-demo")>>[[This will only accept links, and this one is broken]]
 	[[But this one will send you back to the main menu!|Start]]
-	And this won't appeat, because it's not a link.
+	And this won't appear, because it's not a link.
 	<<button [[And neither will this, because a button is not a link]]>><</button>>
-	<<else>><<if !settings.onePage>>[[Index]]<<else>><<link "Index">><<popup "IndexOnePage" "Index">><</link>>
+	<<else>><<if !settings.onePage>>[[Index]]<<else>><<link "Index">><<popup "Popup-Index" "Index">><</link>><</if>>
   <<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>>
 	<<link "Credits">><<popup "Credits" "Credits">><</link>>
 	[[Update Log]]<</if>>
@@ -51,19 +49,19 @@ SugarCube Guide
 :: StorySubtitle {"position":"2300,300","size":"100,100"}
 <<if tags().includes("sp-demo")>>The bestest of guides!<<else>>Version 2.0.0<</if>>
 
-:: PassageFooter {"position":"2000,200","size":"100,100"}
-<<if tags().includes("sp-demo")>><hr>The Footer in action! included in a horizontal bar<<else>><hr>
-  <<ChapterDependentTags>>
-	<center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - <<if !settings.onePage>>[[Pages Index|Index]]<<else>><<link "Section Index">><<popup "IndexOnePage" "Index">><</link>>
+:: PassageFooter {"position":"2100,100","size":"100,100"}
+<<if tags().includes("sp-demo")>><hr>The Footer in action! included in a horizontal bar<<else>><<if !settings.onePage>><hr><</if>>\
+  <<ChapterDependentTags>>\
+  <center><<link "Lexicon">><<popup 'Lexicon' "Lexicon">><</link>> - <<if !settings.onePage>>[[Pages Index|Index]]<<else>><<link "Section Index">><<popup "Popup-Index" "Index">><</link>><</if>>
   [[Macros List]] - [[Function/Method List]] - [[API List]]
-  <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora.itch.io/twine-sugarcube-guide]]</center><</if>>
+  <<link "Credits">><<popup "Credits" "Credits">><</link>> - [[Need More Help?|https://manonamora.itch.io/twine-sugarcube-guide]]</center>
 <</if>>
 
-:: PassageHeader {"position":"1900,200","size":"100,100"}
+:: PassageHeader {"position":"1975,200","size":"100,100"}
 <<if tags().includes("sp-demo")>>The Header in action! included in a horizontal bar<hr><</if>>
 
 :: Start [noreturn menu] {"position":"1500,100","size":"200,200"}
-<div style="text-align:right;font-size:85%;">Last Updated: 24 Jan '24</div> /*TODO: change the date here*/
+<div style="text-align:right;font-size:85%;">Last Updated: 29 Aug '24</div>
 <h1>100% Good Twine SugarCube Guide</h1>\
 This guide was created as an ''alternative'' to the SugarCube documentation, including simpler explanations to the macros and with clearer examples when possible. It is meant to make the SugarCube format more accessible to new and learning users.
 > ''Note:'' the //One-Page// button on the SideBar will display the whole guide in one page for easier search.
@@ -100,6 +98,7 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 * [[Going further in Styling with CSS and JavaScript|Int-JS-CSS]]
 * [[Some Useful Basic APIs|Basic-API]]
 * [[Edit the Built-In Text or Change the Game's Language|Localization]]
+* [[Testing and Debugging your Game|DebugAPI]]
 \
 > ''Advanced Mode''
 > ''Note:'' Many of the elements included in the following chapters will require knowledge of JavaScript, jQuery, and understanding of the core processes of SugarCube.
@@ -107,8 +106,8 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 * [[More Variable and Interaction Methods|Methods-Adv]]
 * [[Going Further with Basic APIs and More|API-Adv]]
 * [[The Settings APIs|Settings]]
-* [[The Save APIs and Further Saving Configurations|SaveAPI]] 
 * [[Going Further with the Engine API|Engine-API]]
+* [[The Save APIs and Further Saving Configurations|SaveAPI]] 
 * [[More Configuration APIs to Customise Interaction|Config-API]]
 * [[Getting the FullScreen Experience|FullScreen]] 
 * [[Trigger Code with Special Events|Events]] 
@@ -116,10 +115,11 @@ Knowledge of CSS, JavaScript/jQuery may be required for more complex elements.
 * [[Managing Story Elements with APIs|StoryAPI]] 
 * [[Managing Passage Properties with APIs|PassageAPI]] 
 * [[Dealing with the State of Play|StateAPI]] 
+* [[Going Further with Audio with APIs|AudioAPI]]
 
 If something is unclear, if you find an error in this guide, if you think I missing an important element, or if I did not provide enough examples, please [[let me know|https://manonamora.itch.io/twine-sugarcube-guide]]!
 
-:: Lexicon [side popup] {"position":"1500,400","size":"100,100"}
+:: Lexicon [side popup] {"position":"1850,400","size":"100,100"}
 __Types of Values__
 //String//	: type of value, word, wrapped in {" "}
 //Boolean// : type of value, true/false 

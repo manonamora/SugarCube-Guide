@@ -1,4 +1,4 @@
-:: Widget [widget nobr] {"position":"1900,100","size":"100,100"}
+:: Widget [widget nobr] {"position":"1850,100","size":"100,100"}
 <<widget "SomeWidget">>
     Wow Some Text
 <</widget>>
@@ -20,68 +20,71 @@
     </div>
 <</widget>>
 <<widget "ChapterDependentTags">>
-    <<if tags().includes("chapter")>>
-        <div id="link-menu">[[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("basics")>>
-        <div id="link-menu">[[Back to the Basics Menu|Basics]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("basic-plus")>>
-        <div id="link-menu">[[Back to the Markup Menu|Markup]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("basic-macro")>>
-        <div id="link-menu">[[Back to the Base Macro Menu|Macro-Basic]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("basic-interact")>>
-        <div id="link-menu">[[Back to the Interactive Macro Menu|Macro-Interact]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("basic-sp")>>
-        <div id="link-menu">[[Back to the Special Passages Menu|Special-Passage]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("int-markup")>>
-        <div id="link-menu">[[Back to the Markup Menu|Markup-Int]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("int-macro")>>
-        <div id="link-menu">[[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("int-conv")>>
-        <div id="link-menu">[[Back to the Convenient Macro Menu|Macro-Conv]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("sp-tags")>>
-        <div id="link-menu">[[Back to the Special Passages and Tags Menu|Special-Tags]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("functions")>>
-        <div id="link-menu">[[Back to the Functions Menu|Functions]] - [[Back to the Start Menu|Start]]</div> 
-    <<elseif tags().includes("methods")>>
-        <div id="link-menu">[[Back to the Methods Menu|Methods]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("audio-macro")>>
-        <div id="link-menu">[[Back to the Audio Macros Menu|Macro-Audio]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("int-jscss")>>
-        <div id="link-menu">[[Back to the Styling Menu|Int-JS-CSS]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("basic-apis")>>
-        <div id="link-menu">[[Back to the Basic API Menu|Basic-API]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("translate")>>
-        <div id="link-menu">[[Back to the Localization Menu|Localization]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("adv-macro")>>
-        <div id="link-menu">[[Back to the Advanced Macro Menu|Macro-Adv]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("adv-methods")>>
-        <div id="link-menu">[[Back to the Methods Menu|Methods-Adv]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("adv-api")>>
-        <div id="link-menu">[[Back to the API Menu|API-Adv]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("engine")>>
-        <div id="link-menu">[[Back to the Engine API Menu|Engine-API]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("settingsapi")>>
-        <div id="link-menu">[[Back to the Settings API Menu|Settings]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("saveapi")>>
-        <div id="link-menu">[[Back to the Save APIs Menu|SaveAPI]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("configapi")>>
-        <div id="link-menu">[[Back to the Config API Menu|Config-API]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("events")>>
-        <div id="link-menu">[[Back to the Events Menu|Events]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("macro-apis")>>
-        <div id="link-menu">[[Back to the Macro API Menu|Macro]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("state-api")>>
-        <div id="link-menu">[[Back to State API Menu|StateAPI]] - [[Back to the Start Menu|Start]]</div>
-    <<elseif tags().includes("audio-api")>>
-        <div id="link-menu">[[Back to Audio API Menu|AudioAPI]] - [[Back to the Start Menu|Start]]</div>
-    <</if>>
+    <<if passage() isnot "Start">>
+    <div id="link-menu">
+        <<if tags().includes("basics")>>
+            [[Back to the Basics Menu|Basics]] - 
+        <<elseif tags().includes("basic-plus")>>
+            [[Back to the Markup Menu|Markup]] - 
+        <<elseif tags().includes("basic-macro")>>
+            [[Back to the Base Macro Menu|Macro-Basic]] - 
+        <<elseif tags().includes("basic-interact")>>
+            [[Back to the Interactive Macro Menu|Macro-Interact]] - 
+        <<elseif tags().includes("basic-sp")>>
+            [[Back to the Special Passages Menu|Special-Passage]] - 
+        <<elseif tags().includes("int-markup")>>
+            [[Back to the Markup Menu|Markup-Int]] - 
+        <<elseif tags().includes("int-macro")>>
+            [[Back to the Advanced interactive Macro Menu|Macro-Interact-Adv]] - 
+        <<elseif tags().includes("int-conv")>>
+            [[Back to the Convenient Macro Menu|Macro-Conv]] - 
+        <<elseif tags().includes("sp-tags")>>
+            [[Back to the Special Passages and Tags Menu|Special-Tags]] - 
+        <<elseif tags().includes("functions")>>
+            [[Back to the Functions Menu|Functions]] -  
+        <<elseif tags().includes("methods")>>
+            [[Back to the Methods Menu|Methods]] - 
+        <<elseif tags().includes("audio-macro")>>
+            [[Back to the Audio Macros Menu|Macro-Audio]] - 
+        <<elseif tags().includes("int-jscss")>>
+            [[Back to the Styling Menu|Int-JS-CSS]] - 
+        <<elseif tags().includes("basic-apis")>>
+            [[Back to the Basic API Menu|Basic-API]] - 
+        <<elseif tags().includes("translate")>>
+            [[Back to the Localization Menu|Localization]] - 
+        <<elseif tags().includes("adv-macro")>>
+            [[Back to the Advanced Macro Menu|Macro-Adv]] - 
+        <<elseif tags().includes("adv-methods")>>
+            [[Back to the Methods Menu|Methods-Adv]] - 
+        <<elseif tags().includes("adv-api")>>
+            [[Back to the API Menu|API-Adv]] - 
+        <<elseif tags().includes("engine")>>
+            [[Back to the Engine API Menu|Engine-API]] - 
+        <<elseif tags().includes("settingsapi")>>
+            [[Back to the Settings API Menu|Settings]] - 
+        <<elseif tags().includes("saveapi")>>
+            [[Back to the Save APIs Menu|SaveAPI]] - 
+        <<elseif tags().includes("configapi")>>
+            [[Back to the Config API Menu|Config-API]] - 
+        <<elseif tags().includes("events")>>
+            [[Back to the Events Menu|Events]] - 
+        <<elseif tags().includes("macro-apis")>>
+            [[Back to the Macro API Menu|Macro]] - 
+        <<elseif tags().includes("state-api")>>
+            [[Back to State API Menu|StateAPI]] - 
+        <<elseif tags().includes("audio-api")>>
+            [[Back to Audio API Menu|AudioAPI]] - 
+        <</if>>
+        <<if settings.onePage && passage() isnot "OnePage">> [[Return to One-Page|OnePage]] - <</if>>
+        [[Back to the Start Menu|Start]]
+    </div>
+    <hr style="width: 75%;margin: 0.5em auto;border-top-style: dashed;"><</if>>
 <</widget>>
 
-
-:: TheCube [Twine.image] {"position":"2100,400","size":"100,100"}
+:: TheCube [Twine.image] {"position":"2475,350","size":"100,100"}
 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAAAB3RJTUUH5AMQDQ4vazJd/wAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAAN1wAADdcBQiibeAAAAzdJREFUeNrt3M1rGkEUAHDb/jO9tce20B5bUKOiLpqIH/9Gbh4CvQQCnsV6r7d4rh9gY8EYjYk5qQcPBmM8iB6E7E7nyS5Yu36s7uzne/BYFnZ25v2cdZaFXYfDgHF0dPTWgbE5XC7XN6/XW6VYxOPxXNHtV1SRQfL5fH8A6fj4WEilUiQcDguwL+LZHu0VnT0cxbgHlFgsxufzeTKbzch8Pl9sYT8ajfIi2j0cD+0QSURaTQkNjrMT2gKJXm7tXZBsiZZMJl+73e7Yvkjb0OC8pkdTG2kXNOgP+kUkK6FpjWRKNI7j3iwjxeNxTZFMgSYh0VXpwQhI69BgXMtoMG7dkBKJhKGQtqHBuJmjycwkwchI69Dgx2WGZnakDTNNUA3NakjM0GjDTzTrcJJIJCLkcjkymUwsgbSaUBfUd3JyIqHVoX4lD9++Q8N0Ov1oVSQ5tGw2+wh1Q/2KsarVKmk0GrdPT091K0PRS7L+/Px8OxgMyEFYtVptkVZEk5BGoxGBVA1rBe3GSkjMsMyMRpFu5JCYY5kJbRuSZlhGRtsVSXMsI6EpRdINaxltOBw2zICkO5aUzWbzmhZwxxJpOp02DkEyDBZLNDqT7sbj8fWhSIbDUhNNbSTDYh2CxgrJ8FhK0FgjmQZrE5pWSKbDEpNvtVq/KVCVwl3RAnitoMyItch2u13UEgmxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEAuxEMsaWOVy2VZYvV5POZbH4zmFRhzHvVxcXJBKpWJprH6/TzKZDAmFQi/iZxJOFb044Ha7P9KGl9DY7/fzZ2dnpFQqWQqr2+0S+CxCIBDgxRl1CXXv/VqKHmissVRH0hONFRZzJD3Q1MbSHElLNLWwOp3Of0g0P+j2+i90TleP/DJasVjUFWsVSRyffkgs0fbFMjwSCzSlWCtIguGRNqAJStF2xTI9khpo27AkpGAwKCH9dDqd7y3zAR8oBoraBW0dlhwSXZXfOawaUNw2tFUs2yEpQZOwbI8k84TjC4UowOoJf9Tn5+ekUChU0+k0PPWQbgF+wXEOjH/QiuKdNpGQXC7XZ9TZjPYDkTDsE38BhSF0jgiMpUIAAAAASUVORK5CYII=
 
-:: Credits [side popup] {"position":"1900,400","size":"100,100"}
+:: Credits [side popup] {"position":"2100,400","size":"100,100"}
 This guide was constructed by ''manonamora''.
 It is based on the SugarCube official documentation, created by Thomas M. Edwards, the developer of the SugarCube format.
 
@@ -93,7 +96,7 @@ You can find:
 * my games and IF experiments on [[Itch|https://manonamora.itch.io/]]
 * me, and ask me questions, over on [[Tumblr|https://manonamora-if.tumblr.com]] or [[my website|https://manonamora.neocities.org/]]
 * my Twine Resource Masterlist on the [[IntFiction Forum|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]] (a less updated version is rebloggable on [[Tumbr|https://manonamora-if.tumblr.com/post/700577877042888704/]]).
-
+\
 <h3>Twine and SugarCube</h3>\
 [[About Twine and SugarCube|About]]
 You can download Twine over on the [[Twinery.org|https://twinery.org/]] website, which includes the SugarCube format.
@@ -104,22 +107,22 @@ You can also find resources and help with Twine and SugarCube:
 * on the [[Twine Subreddit|https://www.reddit.com/r/twinegames/]]
 * in the [[Twine Discord|https://discord.gg/n5dJvPp]]
 * and more listed in this [[Masterlist|https://intfiction.org/t/twine-resource-masterlist-wiki/65903]]
-
+\
 <h3>HTML, CSS, JavaScript</h3>\
 There are many online courses to learn the basics (or further) of the Twine-adjacent languages: HTML, CSS, JavaScript/jQuery.
 * the [[W3 School|https://www.w3schools.com/]] has the most beginner explanations, and lets you test and edit their examples.
 * [[MDN Web Docs|https://developer.mozilla.org/en-US/]] is more technical but provides a more extensive documentation.
 * [[jQuery|https://jquery.com/]] has also a specialist documentation website.
-
+\
 <h3>This Guide also uses...</h3>\
 * the {{{<<message>>}}} and {{{Dialog API}}} macros from [[Chapel|https://github.com/ChapelR/custom-macros-for-sugarcube-2/]].
 * the Accessibility Fix for the {{{<<cycle>>}}} macro by [[HiEv|https://www.patreon.com/HiEv]].
-
+\
 <h3>A Special Thanks to...</h3>\
 * ''Chris Klimas'' for creating Twine, and ''TheMadExile/TME'' for making the SugarCube format and the Tweego compiler.
 * ''Cycy'' for making the Twee 3 Language Tool extension for VScode.
 * The Twine Discord, especially ''Crepes'', ''TRBRY'', ''Gwen'', ''Cyrus'', ''Sjoerd'', ''SleepyFool'', and ''TME'' for their help and sharing examples when I forgot what certain macros were supposed to do!
-* every single user who reported issues with the guide, whether it was broken links, wrong examples, or typos, as well as request extra functions.
+* all the users who reported issues with the guide, whether it was broken links, wrong or missing examples, or typos, as well as request extra functions.
 
 :: Organise {"position":"2475,100","size":"100,100"}
 <h1>Some Random Stuff That will be Organised Later</h1>

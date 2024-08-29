@@ -1,6 +1,6 @@
 :: Settings [chapter menu] {"position":"1400,1800","size":"200,100"}
 <h1>The Settings APIs</h1>
-Settings can be a great way to customise your project, and make it more accessible for players. Whether it is to change the visual aspect (font, theme, etc), the audio (volume, track), or overall mechanics (difficulty, annimation), there are many ways to reach your goal.
+Settings can be a great way to customise your project, and make it more accessible for players. Whether it is to change the visual aspect (font, theme, etc), the audio (volume, track), or overall mechanics (difficulty, animation), there are many ways to reach your goal.
 
 While including settings in a project can feel a bit overwhelming, as they //will// require some knowledge of JavaScript, the Setting APIs are there to make things easier. There are also many UI templates out there including some settings.
 > ''Note:'' Do check the version of SugarCube attached to the template, as older templates may use correct code for their version that would be deprecated in later SugarCube version, requiring users to fix it.
@@ -20,7 +20,7 @@ The basic Settings API is built in this format:
 \
 > ''Note:'' you can find a Settings-Only Template with the most useful settings for Interactive Fiction on my [[itch page|https://manonamora.itch.io/twine-sugarcube-templates]].
 
-:: SettingsBasics [page settingsapi]
+:: SettingsBasics [page settingsapi] {"position":"1400,1900","size":"100,100"}
 <h1 id="settings-basics">Creating a Setting</h1>
 This API lets you create a setting, without appearing as a control in the built-in Settings popup. It is most useful when building your own Settings controls (like a customised Settings page). This API was used for the //One Page// toggle in the SideBar.
 > ''Note:'' this API is unnecessary if you are using the [[Toggle|SettingsToggle]], [[List|SettingsList]] or [[Slider|SettingsRange]] API for that particular setting.
@@ -59,7 +59,7 @@ The //definition// object has multiple options:
 }}}
 > ''Note:'' {{{Setting.addValue()}}} should not be used to create settings to affect the game like a regular variable would, as it will be shared with all playthroughs.
 
-:: SettingsHeader [page settingsapi] {"position":"1400,1900","size":"100,100"}
+:: SettingsHeader [page settingsapi] {"position":"1500,2100","size":"100,100"}
 <h1 id="settings-header">Adding Headers</h1>
 If you want to customise the Settings Dialog Box or organise your settings, you can group those under a Header. This will indicate to users the kind of settings they can expect below.
 {{{
@@ -249,7 +249,7 @@ The //definition// object has multiple options:
 
 :: Settings-More [page settingsapi] {"position":"1400,2100","size":"100,100"}
 <h1 id="settings-further">Going Further with Settings</h1>
-The Settings APIs doesn't just allow you to create settings, but use the value of settings for code both in JavaScript and in story passages as well as change it ouside of the Settings Dialog Box.
+The Settings APIs doesn't just allow you to create settings, but use the value of settings for code both in JavaScript and in story passages as well as change it outside of the Settings Dialog Box.
 
 <h3>Use the value of a Setting in code</h3>\
 To use the value of a Setting in code, you can either use the {{{settings}}} variable or the {{{Setting.getValue()}}} API.
@@ -321,4 +321,4 @@ There are a handful of APIs to modify and save the value of Setting, outside of 
     <<run Setting.reset('difficulty')>>
 }}}
 
-> ''Note:'' while {{{Setting.load()}}} API does exist, it is called automatically everytime the game is loaded. As such, it should never be called manually.
+> ''Note:'' while {{{Setting.load()}}} API does exist, it is called automatically every time the game is loaded. As such, it should never be called manually.

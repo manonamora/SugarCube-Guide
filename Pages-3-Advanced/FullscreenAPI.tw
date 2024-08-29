@@ -30,7 +30,7 @@ This API will request the browser to enter fullscreen mode.
 }}}
 It has 2 parameters:
 * {{{options}}} (optional), the fullscreen options 
-** {{{navigationUI}}}, dtermines the fullscreen navigation UI preference 
+** {{{navigationUI}}}, determines the fullscreen navigation UI preference 
 *** only valid values: {{{auto}}} (no preference), {{{hide}}} (hidden navigation), {{{show}}} (shown navigation)
 *** this may not be honoured by the browser
 * {{{requestedEl}}} (optional), the element to enter fullscreen mode
@@ -61,7 +61,7 @@ This API will toggle the fullscreen mode, entering or exiting the mode depending
 }}}
 It has 2 parameters:
 * {{{options}}} (optional), the fullscreen options 
-** {{{navigationUI}}}, dtermines the fullscreen navigation UI preference 
+** {{{navigationUI}}}, determines the fullscreen navigation UI preference 
 *** only valid values: {{{auto}}} (no preference), {{{hide}}} (hidden navigation), {{{show}}} (shown navigation)
 *** this may not be honoured by the browser
 * {{{requestedEl}}} (optional), the element to enter fullscreen mode

@@ -67,13 +67,13 @@ Assuming that the tracks {{{beep}}}, {{{boop}}}, and {{{swish}}} were defined ab
         [<<track trackId actionList>> …]
     <</createplaylist>> 
 }}}
-The macro only has one argument for the container, and three arugment for the sub-macro:
+The macro only has one argument for the container, and three argument for the sub-macro:
 * {{{<<createplaylist>>}}}
 ** {{{listId}}}: the ID of the playlist
 * {{{<<track>>}}}
 ** {{{trackId}}}: the ID of the track
 ** {{{volume}}} (optional): to set the volume of the track, set from 0 (for 0%) to 1 (for 100%).
-** {{{own}}} (optional): to create an independant copy of the track for the playlist
+** {{{own}}} (optional): to create an independent copy of the track for the playlist
 Assuming that the tracks {{{beep}}}, {{{boop}}}, and {{{swish}}} were defined above:
 {{{
     <<createplaylist "controls">>
@@ -85,7 +85,7 @@ Assuming that the tracks {{{beep}}}, {{{boop}}}, and {{{swish}}} were defined ab
 
 :: Audio-Macro [page audio-macro] {"position":"2900,1300","size":"100,100"}
 <h1 id="audio-macro">Playing Tracks in a Passage</h1>
-After setting tracks in {{{StoryInit}}}, you can add those tracks to a passage with the {{{<<audio>>}}} macro. You also use this macro to target track groups, as well as controling the playback (ex: pause, volume change...).
+After setting tracks in {{{StoryInit}}}, you can add those tracks to a passage with the {{{<<audio>>}}} macro. You also use this macro to target track groups, as well as controlling the playback (ex: pause, volume change...).
 
 The macro can be coded as is in a passage, or can be nested inside other macros, like a {{{<<link>>}}} or with a delay in {{{<<timed>>}}}.
 
@@ -136,7 +136,7 @@ There are 14 actions that can be included in the {{{<<audio>>}}} macro to contro
         <td>{{{fadeoverto}}}</td><td>Start/Continue to play the track(s), fading it over a set amount of seconds to a certain volume level </td><td>{{{<<audio "track" 5 0.5>>}}}</td>
     </tr>
     <tr>
-        <td>{{{fadeto}}}</td><td>Start/Continue to play the track(s), fading to a certai volume level over 5 seconds</td><td>{{{<<audio "track" fadeto 0.9>>}}}</td>
+        <td>{{{fadeto}}}</td><td>Start/Continue to play the track(s), fading to a certain volume level over 5 seconds</td><td>{{{<<audio "track" fadeto 0.9>>}}}</td>
     </tr>
     <tr>
         <td>{{{goto}}}</td><td>Send the player to a certain passage at the end of the track(s)</td><td>{{{<<audio "track" goto "Home">>}}}</td>
@@ -202,16 +202,16 @@ The macro has 2 main arguments:
 * the ID of the playlist 
 * the list of action to perform (can be combined)
 {{{
-        <<playlist "ID" action>>
+    <<playlist "ID" action>>
 }}}
 On top of the actions mentioned above for {{{<<audio>>}}}, this macro has three extra: 
 * {{{shuffle}}}, shuffling the order of the tracks
 * {{{unshuffle}}}, reorganising the order of the tracks to its original form
 * {{{skip}}}, skipping the next track in the playlist 
 {{{
-        <<playlist "playlist" shuffle>>
-        <<playlist "playlist" unshuffle>>
-        <<playlist "playlist" skip>>
+    <<playlist "playlist" shuffle>>
+    <<playlist "playlist" unshuffle>>
+    <<playlist "playlist" skip>>
 }}}
 >'' Note:'' The action {{{goto}}} will not work with {{{<<playlist>>}}}
 
@@ -228,18 +228,18 @@ This macro only has one argument, the action:
 * {{{stop}}}, which will stop all registered tracks.
 * {{{volume}}}, which will change the master volume to a specified level
 {{{
-        <<masteraudio action>>
+    <<masteraudio action>>
 }}}
 >'' Note:'' the master audio volume can be changed at will by the player with a [[Slider Setting|SettingsRange]].
 \
 <h3>{{{<<removeaudiogroup>>}}}</h3>\
 This macro will delete a track group, which was previously set with {{{<<createaudiogroup>>}}}, by targeting the ID of the group. As with the latter macro, it will not accept the following IDs: {{{:all}}}, {{{:looped}}}, {{{:muted}}}, {{{:not}}}, {{{:paused}}}, {{{:playing}}}.
 {{{
-        <<removeaudiogroup ":space">>
+    <<removeaudiogroup ":space">>
 }}}
 \
 <h3>{{{<<removeplaylist>>}}}</h3>\
 This macro will delete a playlist, which was previously set with {{{<<createplaylist>>}}}, by targeting the ID of the playlist.
 {{{
-        <<removeplaylist "playlist">>
+    <<removeplaylist "playlist">>
 }}}

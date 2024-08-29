@@ -13,7 +13,7 @@ Functions are JavaScript blocks of code designed to do a specific task, from imp
 SugarCube has a handful of functions to set variables, from cloning objects to randomising a value.
 \
 <h3>The {{{clone()}}} function</h3>\
-Unlike simple variables or arrays, copying an object in another variable will not just copy the current value of the orginal variable but keep track with any future changes to that original variable. Assuming that {{{$object = {turn : 1} }}}:
+Unlike simple variables or arrays, copying an object in another variable will not just copy the current value of the original variable but keep track with any future changes to that original variable. Assuming that {{{$object = {turn : 1} }}}:
 {{{
     <<set $var to $object>>
     <<set $object.turn to 6>>
@@ -284,7 +284,7 @@ This function has 3 parameters:
 }}}
 
 
-:: Function-Trigger [page functions]
+:: Function-Trigger [page functions] {"position":"2300,1400","size":"100,100"}
 <h1 id="function-event">Triggering Events</h1>
 There may come a time when interactivity may require extra bits of code to be processed, by targetting a certain element through a synthetic event. Such as opening a menu when pressing a certain key on the keyboard or trigger an animation when a certain link is clicked.
 The {{{triggerEvent()}}} function is in charge of running that event.
@@ -304,7 +304,7 @@ This function has 3 parameters:
 * {{{options}}} (object, optional)
 ** any additional properties for the event should be added to the {{{detail}}} property
 The //options// object has multiple property:
-* {{{bubbles}}} (boolean, optional), whether the event blubbles to parent elements ({{{true}}} by default) 
+* {{{bubbles}}} (boolean, optional), whether the event bubbles to parent elements ({{{true}}} by default) 
 * {{{cancelable}}} (boolean, optional), whether the event is cancelable ({{{true}}} by default)
 * {{{composed}}} (boolean, optional), whether the event triggers listeners outside of a shadow root ({{{false}}} by default)
 * {{{detail}}} (any, optional), custom data sent with the events ({{{undefined}}} is default)

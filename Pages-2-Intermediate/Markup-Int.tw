@@ -8,7 +8,7 @@ While [[Markup]] can help format text on the screen, display an image or create 
 
 :: Markup-Attribute [page int-markup] {"position":"800,1200","size":"100,100"}
 <h1 id="int-muattri">Special Attributes and Directives</h1>
-Macros are not the only way to interact with elements on the page and affect their aspects. You link up a variable or passage with an HTML element with a few extra characters, and enable special behaviours unatainable with built-in macros.
+Macros are not the only way to interact with elements on the page and affect their aspects. You link up a variable or passage with an HTML element with a few extra characters, and enable special behaviours unattainable with built-in macros.
 \
 <h3>Special Attributes</h3>\
 HTML attributes are additional information added on to an element or enable special behaviours, such as the source of an image ({{{src="URL"}}}), alternative text ({{{alt="text"}}}) and even styling ({{{style="some CSS"}}}). To this, SugarCube adds two extra attributes: {{{data-passage}}} and {{{data-setter}}}. The latter will set a variable (like {{{<<set>>}}}), while the former is dependent on the element attached.
@@ -75,12 +75,12 @@ Assuming that {{{$stat = 45}}}
 }}}
 > ''Note:'' For examples of stats bar, see [[this page|Int-JS-CSS-Stat]].
 
-:: Markup-Code-Verbatim [page] {"position":"900,1200","size":"100,100"}
+:: Markup-Code-Verbatim [page int-markup] {"position":"900,1200","size":"100,100"}
 <h1 id="int-mucode">Displaying Code and Verbatim Text</h1>
 This section won't be useful for almost all game projects, as it involves displaying code or text without formatting. However, if your Twine project is meant to be a guide, a tutorial, or other resources requiring the display of code, the markups below will prove quite useful.
 > ''Note:'' I've been using it for all code examples in this guide.
 
-There are two forms you can use: the Code Markup, with triple curvy brakets {{{ { } }}}, or the Verbatim Markup with triple quotes {{{ " " }}}. The difference between the markups will be on how it is translated into HTML.
+There are two forms you can use: the Code Markup, with triple curvy brackets {{{ { } }}}, or the Verbatim Markup with triple quotes {{{ " " }}}. The difference between the markups will be on how it is translated into HTML.
 
 The Code Markup will take two forms: an in-line one (HTML: {{{<code></code>}}}) and a block one (HTML: {{{<pre><code></code></pre>}}}). This guide has displayed both form with the different coloured blocks elements when showcasing code examples. In this guide, I've used the in-line form for code in-text, and the block for examples (like below).
 > //In-Line Code//:
@@ -101,7 +101,7 @@ The Code Markup will take two forms: an in-line one (HTML: {{{<code></code>}}}) 
 
     <pre><code><<set $var to true>></code></pre>
 }}}
-> ''Note:'' there ''cannot'' be any space after the opening bracket or before the closing bracket. Othewise the code will transform into an //in-line//. 
+> ''Note:'' there ''cannot'' be any space after the opening bracket or before the closing bracket. Otherwise the code will transform into an //in-line//. 
 
 The Verbatim Markup will require triple quotes {{{ " " }}} (HTML: {{{<nowiki></nowiki>}}})
 {{{
@@ -112,7 +112,7 @@ The Verbatim Markup will require triple quotes {{{ " " }}} (HTML: {{{<nowiki></n
     <nowiki>No //format//</nowiki>
 }}}
 
-:: Markup-Template [page] {"position":"800,1300","size":"100,100"}
+:: Markup-Template [page int-markup] {"position":"800,1300","size":"100,100"}
 <h1 id="int-mutemp">Display Small Variation with Templates</h1>
 The Template markup is essentially a text replacement code that will display small variation (one-two words). It works in combination with the [[Template API|TemplateAPI]], where the variation is defined. It is most useful for displaying pronouns, especially pronoun sets defined before player input.
 > ''Note:'' For an example of Pronoun Template, see [[Chapel's Macro|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/pronoun-templates.md]] or [[HiEv's Widget|https://hiev-heavy-ind.com/Sample_Code/Sample_Code.html#Pronoun%20Templates]]. 

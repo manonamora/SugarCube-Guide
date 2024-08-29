@@ -148,7 +148,7 @@ An example where the incoming passage with overflow will be displayed from the t
         $("#passages").scrollTop(0);
     });
 }}}
-> ''Note:'' this is especially useful with custom UI. Change {{{#passages}}} with the relevent element.
+> ''Note:'' this is especially useful with custom UI. Change {{{#passages}}} with the relevant element.
 \
 <h3>{{{:passageend}}}</h3>\
 This event is triggered at the end of the passage navigation. It will also contain the elements of the passage displayed, and the HTML elements rendered.
@@ -185,7 +185,7 @@ You can include any JavaScript code inside the following container:
 > ''Note:'' this event can only be triggered ''once''.
 \
 <h3>{{{:uiupdate}}}</h3>\
-This is a global event that will be triggered everytime the user interface is updated, either through the manual use of the {{{UI.update()}}} [[API]] or when the player moves to a new passage.
+This is a global event that will be triggered every time the user interface is updated, either through the manual use of the {{{UI.update()}}} [[API|API-UIBar]] or when the player moves to a new passage.
 You can include any JavaScript code inside the following container:
 {{{
     $(document).on(':uiupdate', function (ev) {
@@ -247,7 +247,7 @@ You can include any JavaScript code inside the following container:
 }}}
 
 
-:: Events-Audio [page events]
+:: Events-Audio [page events]  {"position":"2600,2100","size":"100,100"}
 <h1 id="event-audio">Audio Events</h1>
 The following events allows the execution of JavaScript code at specific points during [[audio playback|Macro-Audio]]. These work in combination with the advanced [[SimpleAudio API|AudioAPI]].
 {{{
@@ -301,4 +301,4 @@ This event is triggered when playback is stopped after {{{<AudioTrack>.stop()}}}
     });
 }}}
 
-> ''Note:'' You can also create custom events with the [[AudioRunner|AudioAPI-Runner]] and [[AudioTrack|AudioAPI-Track]] APIs.
+> ''Note:'' You can also create custom events with the [[AudioRunner|AudioApi-Runner]] and [[AudioTrack|AudioApi-Track]] APIs.

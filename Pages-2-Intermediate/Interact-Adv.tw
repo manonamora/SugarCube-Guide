@@ -61,12 +61,12 @@ Like with their {{{<<link[insert-DOM]>>}}} counterparts, {{{<<append>>}}}, {{{<<
 	<<link "Replace as is">><<replace "#coco">>This replaces the element without a transition.<</replace>><</link>> | <<link "Replace with transition">><<replace "#coco" t8n>>This replaces the element with a transition.<</replace>><</link>>
 \
 <h3>In combination with other macros</h3>\
-The DOM macros are best used in combination with other interative elements, like {{{<<link>>}}}, {{{<<button>>}}}, or even the {{{<<timed>>}}} [[macro|Macro-Timed]]. Here are some examples:
+The DOM macros are best used in combination with other interactive elements, like {{{<<link>>}}}, {{{<<button>>}}}, or even the {{{<<timed>>}}} [[macro|Macro-Timed]]. Here are some examples:
 <span id="dog">The dog is barking</span>.
 	<<link "Throw a ball">><<append "#dog">> at the ball<</append>><</link>>
 {{{
 	<span id="dog">The dog is barking</span>.
-	<<link "Throw a ball">><<apprend "#dog">> at the ball<</append>><</link>>
+	<<link "Throw a ball">><<append "#dog">> at the ball<</append>><</link>>
 }}}
 > //Replacing a list of links with more text://
 {{{
@@ -91,7 +91,7 @@ The DOM macros are best used in combination with other interative elements, like
 	Well, I think this is <span class="two">a grand idea!</span>
 
 	<<link "Or is it?">>
-		<<replace ".two">>actuall a <<copy ".one">> one as well...<</replace>>
+		<<replace ".two">>actually a <<copy ".one">> one as well...<</replace>>
 	<</link>>
 }}}
 \
@@ -112,13 +112,13 @@ If you need to delay the display of text or the trigger of code, after the passa
 The macro has 2 arguments for its container, and 1 for the submacro:
 * {{{<<timed>>}}}:
 ** the delay before the macro triggers, can be indicated in seconds or milliseconds.
-*** the minumum recommended delay is 40ms.
+*** the minimum recommended delay is 40ms.
 ** {{{t8n}}}/{{{transition}}}, whether the text appearing does so like the transition between passages.
 * {{{<<next>>}}}:
 ** (optional) the delay before the next part of the macro triggers, can be indicated in seconds or milliseconds.
-*** the minumum recommended delay is 40ms.
+*** the minimum recommended delay is 40ms.
 *** if not indicated, it will take the delay from the {{{<<timed>>}}} macro.
-
+\
 {{{
 	<<timed 2s t8b>>
 		This will appear with a transition after 2 seconds.
@@ -142,7 +142,7 @@ Aside from displaying text, you can use the {{{<<timed>>}}} macro to trigger cod
 > ''Note:'' When using this macro, it is important to test the passage ''extensively'', to ensure it works as intended.
 > To players, timers will often feel longer than indicated.
 
-:: Macro-Type [page int-macro] {"position":"1500,1300","size":"100,100"}
+:: Macro-Type [page int-macro] {"position":"1500,1200","size":"100,100"}
 <h1 id="int-type">Displaying Text Letter by Letter</h1>
 Whether wanting to emulate a computer monitor or a typewriter, displaying a text letter by letter, the {{{<<type>>}}} macro will do the job!
 
@@ -198,7 +198,7 @@ If you nest a {{{<<type>>}}} macro inside another one, the nested {{{<<type>>}}}
 <h3>Customising the typed text with CSS</h3>\
 While the typed text does not have default styling (aside from the cursor), the macro includes special classes you can target and edit:
 * {{{.macro-type}}}, to change the base styling of the macro (e.g. colour, font...)
-* {{{.macro-type-done}}}, to change the styling when all iteractions of the macro are complete
+* {{{.macro-type-done}}}, to change the styling when all iterations of the macro are complete
 * {{{.macro-type-cursor:after}}}, to edit the cursor
 {{{
 	.macro-type {
@@ -214,7 +214,7 @@ While the typed text does not have default styling (aside from the cursor), the 
 
 > ''Note:'' for even more advanced customisation of the macro, you can also add custom JavaScript code with the [[Typing Events|Events-Type]].
 
-:: Custom-Macro [page int-macro] {"position":"1400,1400","size":"100,100"}
+:: Custom-Macro [page int-macro] {"position":"1500,1300","size":"100,100"}
 <h1 id="int-custommacro">Using Custom Macro</h1>
 Aside from the built-in macros, there are many custom ones created by other SugarCube users, from official [[add-ons|http://www.motoslave.net/sugarcube/2/]] on the SugarCube page, to code repositories (mainly on GitHub - see <<link "Credits">><<popup "Credits" "Credits">><</link>>). These custom macros will almost always have their own documentation, with examples or guides on how to use them.
 

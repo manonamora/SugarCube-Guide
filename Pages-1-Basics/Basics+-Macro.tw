@@ -89,7 +89,7 @@ But, to change the value of a variable, especially if that value is numerical, t
         <td>{{{+=}}}</td><td>Adds to the current value.</td><td>{{{<<set $apples += 6>>}}} or {{{<<set $apples to $apples + 6>>}}} </td>
     </tr>
     <tr>
-        <td>{{{-=}}}</td><td>Substract to the current value.</td><td>{{{<<set $apples -= 6>>}}} or {{{<<set $apples to $apples - 6>>}}} </td>
+        <td>{{{-=}}}</td><td>Subtract to the current value.</td><td>{{{<<set $apples -= 6>>}}} or {{{<<set $apples to $apples - 6>>}}} </td>
     </tr>
     <tr>
         <td>{{{*=}}}</td><td>Multiplies the current value.</td><td>{{{<<set $apples *= 6>>}}} or {{{<<set $apples to $apples * 6>>}}} </td>
@@ -151,7 +151,7 @@ Assuming that {{{$name = "Jane"}}} and {{{$apple = 4}}}
 > ''Note:'' using some mathematical operators on a string-based variable will give an error: {{{<<set $name /= 2>>}}}.
 \
 <h3>Setting up Arrays and Objects</h3>\
-To use an array or object variable, you need to define it as an array or object ahead of time. This can be done at the earliest inside [[StoryInit|SP-Init]], and, at the lastest, just before you use them. Defined arrays and objects can be empty before use.
+To use an array or object variable, you need to define it as an array or object ahead of time. This can be done at the earliest inside [[StoryInit|SP-Init]], and, at the latest, just before you use them. Defined arrays and objects can be empty before use.
 Arrays need to be defined with square brackets {{{ [ ] }}}, while objects need curly brackets {{{ { } }}}
 {{{
 → Array:
@@ -168,7 +168,7 @@ Arrays need to be defined with square brackets {{{ [ ] }}}, while objects need c
     <<set $object to {number: 1, string: "word", boolean: true}>>
     <<set $mc to {age: 51, hair: "bald", degree: true}>>
 }}}
-Modifying arrays, such as addring or removing elements, will require the use of [[methods|Method-Array]].
+Modifying arrays, such as adding or removing elements, will require the use of [[methods|Method-Array]].
 
 After an object is defined, you can add any property to it, even if they were not listed when the main variable was set. You can also change the value of an already defined property the same way you would a regular variable.
 {{{
@@ -179,15 +179,15 @@ After an object is defined, you can add any property to it, even if they were no
 
 \
 <h3>Going further:</h3>\
-Along with modifying the content of arrays, [[methods|Methods]] can be used to both set or modify the content of a simple variable or property of an object. Some examples of useful application: capitalising a string value, ensuring a healh variable stays between certain numbers, or stats change.
+Along with modifying the content of arrays, [[methods|Methods]] can be used to both set or modify the content of a simple variable or property of an object. Some examples of useful application: capitalising a string value, ensuring a heatlh variable stays between certain numbers, or stats change.
 
-You can also save special information about the game, such as name passages or turnss, inside variables thanks to [[functions|Functions]]. 
+You can also save special information about the game, such as name passages or turns, inside variables thanks to [[functions|Functions]]. 
 
 :: Macro-Unset [page basic-macro] {"position":"1200,800","size":"100,100"}
 <h1 id="basics-maunset">Unsetting Variables with {{{<<unset>>}}}</h1>
 To avoid bloating your game (lag during loading passages), it is recommended to keep the number of active variables to a minimum. While the limit is fairly high before a player could notice the lag, it is still a good practice to do so.
 
-One way to avoid bloat is to use [[temporary variables|Variables-Base]] {{{_temp}}}, which disappear automatically when the player moves to another passage. Another is to rely more on [[functions|Functions]] (intermediate level). Finally, the one covered here, and most useful, is to ''unset'' the permanant variables {{{$var}}} you don't need anymore, with the {{{<<unset>>}}} macro.
+One way to avoid bloat is to use [[temporary variables|Variables-Base]] {{{_temp}}}, which disappear automatically when the player moves to another passage. Another is to rely more on [[functions|Functions]] (intermediate level). Finally, the one covered here, and most useful, is to ''unset'' the permanent variables {{{$var}}} you don't need anymore, with the {{{<<unset>>}}} macro.
 {{{
     <<unset $variable>>
 
@@ -229,10 +229,10 @@ While the {{{is}}} operator covers many cases in [[conditional statements|Macro-
             <th>SugarCube</th><th>JavaScript</th><th>Description</th><th>Example</th>
         </tr>
         <tr>
-            <td>{{{is}}}</td><td>{{{===}}}</td><td>Check if //strickly// equal</td><td>{{{<<if $test is 1>>}}} {{{<<if $test === 1>>}}}</td>
+            <td>{{{is}}}</td><td>{{{===}}}</td><td>Check if //strictly// equal</td><td>{{{<<if $test is 1>>}}} {{{<<if $test === 1>>}}}</td>
         </tr>
         <tr>
-            <td>{{{isnot}}}</td><td>{{{!==}}}</td><td>Check if //strickly// NOT equal</td><td>{{{<<if $test isnot "apple">>}}} {{{<<if $test !== "apple">>}}}</td>
+            <td>{{{isnot}}}</td><td>{{{!==}}}</td><td>Check if //strictly// NOT equal</td><td>{{{<<if $test isnot "apple">>}}} {{{<<if $test !== "apple">>}}}</td>
         </tr>
         <tr>
             <td>{{{eq}}}</td><td>{{{==}}}</td><td>Check if equivalent</td><td>{{{<<if $test eq 45>>}}} {{{<<if $test == 45>>}}}</td>
@@ -292,7 +292,7 @@ When including multiple conditions inside one {{{<<if>>}}} block, it is //really
 }}}
 \
 <h3>Mixing AND and OR</h3>\
-Linking operators like {{{and}}} and {{{or}}} are particularly useful in avoiding bloating passages with unecessary {{{<<elseif>>}}} and nested {{{<<if>>}}} blocks. Those operators allow you to merge conditions and make your code easier to go through.
+Linking operators like {{{and}}} and {{{or}}} are particularly useful in avoiding bloating passages with unnecessary {{{<<elseif>>}}} and nested {{{<<if>>}}} blocks. Those operators allow you to merge conditions and make your code easier to go through.
 
 If a variation requires multiple conditions to be met, you can merge them into one statement using the {{{and}}} operator (or {{{ && }}}). For a variation that could be applied to different distinct conditions, you can merge them into one statement using the {{{or}}} operator (or {{{ || }}}). 
 {{{
@@ -315,8 +315,8 @@ It is also possible to mix and match those operators for more complex merge of c
 }}}
 \
 <h3>True/False and Truthy/Falsy</h3>\
-The {{{ }}} and {{{!}}} operators will not only look whether a boolean variable is true/false, but can also be used with non-boolean variables (i.e. string/integer) and see if they meet the truthy/falsy condition. Though they sound pretty similar, there is a big difference between //true/talse// and //truthy/falsy//:
-* //True/False// is strickly related to Boolean values and situations
+The {{{ }}} and {{{!}}} operators will not only look whether a boolean variable is true/false, but can also be used with non-boolean variables (i.e. string/integer) and see if they meet the truthy/falsy condition. Though they sound pretty similar, there is a big difference between //true/false// and //truthy/falsy//:
+* //True/False// is strictly related to Boolean values and situations
 ** {{{$var is true}}} or {{{hasVisited("PASSAGE") is false}}}
 * //Truthy/Falsy// will look at whether a variable is defined, and what types of value it holds (including //True/False//)
 <table id="truthy">

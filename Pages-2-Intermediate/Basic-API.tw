@@ -2,7 +2,7 @@
 <h1>Some Useful Basic APIs</h1>
 Along with macros, there are basic APIs that can trigger an event in the game, such as undoing an action, opening a popup, or configuring some functionalities in the engine. 
 
-Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>>}}} macros to work.
+Those APIs are JavaScript-based code that should either be included in the JavaScript or within the {{{<<run>>}}} or {{{<<script>><>}}} macros to work.
 
 * [[Moving back and forth in the History|Basic-API-Engine]]
 * [[Create a PopUp|Basic-API-Dialog]] 
@@ -85,7 +85,7 @@ The {{{Dialog.open()}}} has also 2 parameters:
     Dialog.open({top : 500}, myFunction())
 }}}
 
->'' Note:'' Chapel has created a [[Macro Set|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/dialog-api-macro-set.md]] to make the process of coding Popups easier. This macro is used in this guide. /*Because lazyness always wins!*/
+>'' Note:'' Chapel has created a [[Macro Set|https://github.com/ChapelR/custom-macros-for-sugarcube-2/blob/master/docs/dialog-api-macro-set.md]] to make the process of coding Popups easier. This macro is used in this guide. /*Because laziness always wins!*/
 \
 <h3>{{{Dialog.close();}}}</h3>\
 While the Dialog box has a built-in //Close// button in its top-right corner, or can be closed by clicking outside of the dialog box, there is a third way to make the popup disappear: {{{Dialog.close()}}}.
@@ -164,13 +164,13 @@ If there are multiple situations where the player should be sent to a special pa
     };
 }}}
 
-''An important Note:'' if there is a link to a different passage in the End Screen and the variable still has a value that would run the code above, the Navigation will be overriden again when that link is clicked. You can avoid this by:
+''An important Note:'' if there is a link to a different passage in the End Screen and the variable still has a value that would run the code above, the Navigation will be overridden again when that link is clicked. You can avoid this by:
 * change the value of the variable 
 * unset the variable 
 * remove any link that would move the player to a new passage
 \
 <h3>A non-JavaScript Alternative</h3>\
-While the method above is prefered, this navigation override is also possible to do in SugarCube code, inside the {{{PassageReady}}} [[Special Passage|SP-PassageReady-Done]] with a couple of conditional statements and {{{<<goto>>}}} macros:
+While the method above is preferred, this navigation override is also possible to do in SugarCube code, inside the {{{PassageReady}}} [[Special Passage|SP-PassageReady-Done]] with a couple of conditional statements and {{{<<goto>>}}} macros:
 {{{
     ::PassageReady
     <<if !$ending>>

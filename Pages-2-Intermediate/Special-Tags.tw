@@ -199,7 +199,7 @@ This can be done with either {{{data-passage}}} or {{{data-init-passage}}}.
         <!-- Title, editable in the "title" passage-->
     </div>
 }}}
-> ''Note:'' any text coded inside the elements in {{{StoryInterface}}} will be overriden by the content of the linked passage.
+> ''Note:'' any text coded inside the elements in {{{StoryInterface}}} will be overridden by the content of the linked passage.
 \
 While these two links seem interchangeable, there is a major difference between the two: {{{data-init-passage}}} will load at the start of the game and ''never'' change, while {{{data-passage}}} will update with every new passage visited (if an update is necessary).
 > ''Note:'' you can also use {{{data-passages}}} with [[Special Asset Passages|Tags-Asset]]: {{{<img data-passage="TheCube">}}}
@@ -215,7 +215,7 @@ Adding a tag to a passage creates:
 * a data-tag on {{{html}}}, {{{body}}}, and {{{.passage}}}
 * a CSS class on {{{body}}} and {{{.passage}}}
 
-Both the data-tag and class can be used in the Stylesheet to edit aspects of the page, but are coded differently. The data-tag will keep the formatting of the inserted tag (case-sensitive and punctuation), while the class will transform it into a lowercase string and without punctuation (save for {{{-}}}).
+Both the data-tag and class can be used in the StyleSheet to edit aspects of the page, but are coded differently. The data-tag will keep the formatting of the inserted tag (case-sensitive and punctuation), while the class will transform it into a lowercase string and without punctuation (save for {{{-}}}).
 {{{
 → For a tag called: The-Name-Of-The-Tag:
     [data-tags~="The-Name-Of-The-Tag"]
@@ -259,11 +259,11 @@ As for positioning the data-tag or class on an element, you need to take into ac
     .forest #ui-bar {background: red;}
         → will change the background colour of the sidebar
 }}}
-> ''Note:'' Data-Tags are prefered over classes, because it is more stable (i.e. won't be messed up by custom macros or third party code).
+> ''Note:'' Data-Tags are preferred over classes, because it is more stable (i.e. won't be messed up by custom macros or third party code).
 
 :: Tags-Asset [page sp-tags] {"position":"2000,1400","size":"100,100"}
 <h1 id="sp-tagsasset">Including Assets with Tags</h1>
-While you cannot import assets through the Twine app, it is possible with SugarCube to create //Media Passages// through a passage tag. The media embeded in your project, you can inclde those assets into other passages thanks to the {{{data-passage}}} [[attribute|Markup-Attribute]]. 
+While you cannot import assets through the Twine app, it is possible with SugarCube to create //Media Passages// through a passage tag. The media embedded in your project, you can include those assets into other passages thanks to the {{{data-passage}}} [[attribute|Markup-Attribute]]. 
 > ''Note:'' while it is meant for [[Base64-encoded|https://en.wikipedia.org/wiki/Data_URI_scheme]] media source {{{data:type/extension;format,code}}}, the passage will also accept URLs.
 
 These media passages will support audio, image, video, and VTT elements. Each of those get a special tag:
@@ -294,7 +294,7 @@ The different APIs included in SugarCube are defined as Special Variables:
 * {{{Story}}} refers to the [[Story API|StoryAPI]]
 * {{{Template}}} refers to the [[Template API|TemplateAPI]]
 * {{{UI}}} refers to the [[UI API|Basic-API-UI]]
-* {{{UIBar}}} refers to the [[UIBar API|UIBar]]
+* {{{UIBar}}} refers to the [[UIBar API|Basic-API-UIBar]]
 \
 <h3>Other Special Variables</h3>\
 * {{{jQuery}}} will refer to the jQuery library function, with {{{$}}} being an alias 

@@ -10,7 +10,7 @@ While editing the StyleSheet, you may find the Inspect Tool of your browser to b
 * [[Import and Change the Font|Int-JS-CSS-Font]]
 ** [[Using the SG Icons|Int-JS-CSS-Icons]]
 * [[Using the Root and CSS var|Int-JS-CSS-Root]] 
-* [[Formating for Different Screen Size|Int-JS-CSS-Media]] 
+* [[Formatting for Different Screen Size|Int-JS-CSS-Media]] 
 * [[Intro to Animation|Int-JS-CSS-Animation]]
 * [[Creating Stats, Meter, and Progress Bars|Int-JS-CSS-Stat]] (long) 
 * [[Editing the Loading Screen|Int-JS-CSS-LoadingScreen]] 
@@ -18,7 +18,7 @@ While editing the StyleSheet, you may find the Inspect Tool of your browser to b
 
 :: Int-JS-CSS-Elements [page int-jscss] {"position":"3200,1200","size":"100,100"}
 <h1 id="intstyle-elements">The Unique Targetable Elements</h1>
-With every project created in SugarCube, the [[base UI|http://www.motoslave.net/sugarcube/2/docs/#html]] diplays many elements on the page by default, as well extra when [[Special Passages|Special-Passage]] are used. These elements can be targeted in the StyleSheet with some CSS or in JavaScript.
+With every project created in SugarCube, the [[base UI|http://www.motoslave.net/sugarcube/2/docs/#html]] displays many elements on the page by default, as well extra when [[Special Passages|Special-Passage]] are used. These elements can be targeted in the StyleSheet with some CSS or in JavaScript.
 
 The elements also have relationships with one another, when they are nested within one another. Depending on where they are located within the nesting, and how the Built-In StyleSheet targets them, any edit made may not just affect the targeted elements but others as well.
 > ''Note:'' when an element {{{A}}} is located inside another {{{B}}}, {{{A}}} will be called a child of {{{B}}}, while {{{B}}} is the parent of {{{A}}}. CSS rules in the parent element may affect the child element.
@@ -51,7 +51,7 @@ The elements also have relationships with one another, when they are nested with
     <tr>
         <td>{{{#ui-bar}}}</td>
         <td>The left sidebar. Can be included in {{{StoryInterface}}}, if wanted.
-        This element will affect how {{{#story}}} is positionned on the page.</td>
+        This element will affect how {{{#story}}} is positioned on the page.</td>
         <td>{{{#ui-bar}}} is a child element of {{{body}}}, and the parent element of the Special Passage elements, among others.</td>
     </tr>
     <tr>
@@ -81,9 +81,9 @@ The elements also have relationships with one another, when they are nested with
 targeting the links with the element {{{a}}} or the buttons with {{{button}}} without including a parent element before, the CSS rules will affect every link and button in the project (the passage, the sidebar, and the dialog box). On the other hand, if you indicate {{{.passage a}}} or {{{.passage button}}} in the StyleSheet, it will only target the links or buttons in the passage element.
 
 The {{{a}}} element will affect any interactive macro using a link, such as {{{<<link>>}}}, {{{<<linkappend>>}}}, {{{<<linkprepend>>}}}, {{{<<linkreplace>>}}}, and the {{{<<cycle>>}}} macros, as well as the {{{[[link]]}}} markup. targeting a certain macro can be done as follow: {{{a.macro-[name]}}} or {{{.macro-[name]}}}.
-> ''Note:'' targeting the macro class will not affect the [[link]] markup.
+> ''Note:'' targeting the macro class will not affect the {{{[[link]]}}} markup.
 
-To differenciate internal and external links, aside from the icon at the end of the link, a specific class is added to every link(-related) element: {{{.link-internal}}} or {{{.link-external}}}. Only the links going to another website will get the second class, all others will get the first.
+To differentiate internal and external links, aside from the icon at the end of the link, a specific class is added to every link(-related) element: {{{.link-internal}}} or {{{.link-external}}}. Only the links going to another website will get the second class, all others will get the first.
 > ''Note:'' the macros listed in the paragraph above will have the {{{.link-internal}}} class. 
 
 To change how a link looks when hovered/in focus/being clicked on, compared to the link when not in use, you can add a special selector to the link: {{{:hover}}}, {{{:focus}}}, and {{{:active}}}. If all these three states will look the same, {{{a:hover, a:focus { /* CSS rules */ }}}} will be sufficient.
@@ -171,7 +171,6 @@ In the body of the //Saves// menu ({{{.saves}}} class), you will find:
 > Other targetable elements includes the rows and cells of the save tables, and the {{{li}}} elements for the buttons.
 \
 <h4>The Settings Menu</h4>\
-TODO: DOUBLE CHECK THIS!!!
 The elements inside the //Settings// Menu will depend on what settings were coded in the project's JavaScript. 
 Each setting will be coded as follow, with [setting] being the defined name of the setting:
 * {{{#setting-body-[setting]}}}
@@ -279,7 +278,7 @@ However, this can be easily fixed with a bit of jQuery in the JavaScript passage
 
 :: Int-JS-CSS-Font [page int-jscss] {"position":"3300,1300","size":"100,100"}
 <h1 id="intstyle-fonts">Import and Change the Font</h1>
-As different devices come with different fonts, you may want to have a unified experience accross the playerbase, through one-same font. For this, you will need to import the chosen font(s) and define it(them) in the StyleSheet.
+As different devices come with different fonts, you may want to have a unified experience across the player base, through one-same font. For this, you will need to import the chosen font(s) and define it(them) in the StyleSheet.
 As with [[images|URL-Types]], how to import fonts will depend on the location of the font. A local import will require a different rule than an import from a third-party server (e.g. Google).
 
 > ''IMPORTANT:'' the import of a font should be ''the first thing'' in your StyleSheet, before any other CSS rules!
@@ -360,8 +359,8 @@ For example, if you want to change the font of the header:
 <h3>Let the Player Change the Font*</h3>\
 *from a preset list of fonts that you set up in the code.
 
-To accomodate players, you can let them change the reading font through a [[List Setting|SettingsList]], within which you have indicated a list of imported fonts (serif, sans-serif, monospace) to choose from.
-For accessibility, it is recommended to have multiple legible //serif// and //sans-serif// fonts, especially for story text (//monospaces// are pretty good too!).
+To accommodate players, you can let them change the reading font through a [[List Setting|SettingsList]], within which you have indicated a list of imported fonts (serif, sans-serif, monospace) to choose from.
+For accessibility, it is recommended to have multiple legible //serif// and //sans-serif// fonts, especially for story text (//monospace// are pretty good too!).
 > ''Note:'' you can find a Font setting in my [[Setting Template|https://manonamora.itch.io/twine-sugarcube-templates]].
 
 Assuming that a font //Georgia//, //Montserrat// and //OpenDyslexic// have been imported, the code below could be added to the JavaScript:
@@ -398,11 +397,11 @@ And in the CSS:
 }}}
 > ''Note:'' this will affect all elements on the page. Change the {{{body}}} to another element, if you want to target only one spot.
 
-:: Int-JS-CSS-Icons [page int-jscss]
+:: Int-JS-CSS-Icons [page int-jscss] {"position":"3100,1500","size":"100,100"}
 <h1 id="intstyle-icons">Using the SG Icons</h1>
 SugarCube includes a custom icon font within the format, created as a subset of the Free Solid [[Font Awesome|https://fontawesome.com]] icon font (v.5.15.2). Named {{{sc-icons}}}, the font is responsible for all the icons of the interface. You can find all the elements using the icon font in the [[Built-In StyleSheets|http://www.motoslave.net/sugarcube/2/docs/#css-built-ins]].
 \
-> //From the SideBar stylesheet://
+> //From the SideBar StyleSheet://
 {{{
     #ui-bar-tray button::before {
         @mixin sc-icons-properties;
@@ -417,7 +416,7 @@ SugarCube includes a custom icon font within the format, created as a subset of 
     #ui-bar-tray #history-jumpto::before {
         content: "\f0e7";
     }
- → Displays the Rigth Arrow icon
+ → Displays the Right Arrow icon
 }}}
 > ''Note:'' {{{@mixin sc-icons-properties;}}} only works in the Built-in StyleSheet, see below for the correct properties to use.
 \
@@ -489,7 +488,7 @@ This formatting is also what you can use for other icon fonts, as well as [[Unic
 }}}
 > ''Note:'' in HTML, you will need to wrap the icon with an element with a defined class, which includes the icon font property. For example, this last example would look like: <span class="icons">&#xf0e7</span>
 \
-<h3>Icon Font References<h3>\
+<h3>Icon Font References<\h3>\
 The {{{sc-icon}}} includes 120 icons, displayed and referenced below:
 <<nobr>>
 <div id="icons-wrap">
@@ -1026,7 +1025,7 @@ Setting a CSS variables can also be done outside of {{{:root}}}:
 }}}
 
 :: Int-JS-CSS-Media [page int-jscss] {"position":"3300,1400","size":"100,100"}
-<h1 id="intstyle-media">Formating for Different Screen Size</h1>
+<h1 id="intstyle-media">Formatting for Different Screen Size</h1>
 While the Base UI of SugarCube is already optimised for different screens/devices, any change in the interface, whether it be changing the size and display of elements in the StyleSheet or in {{{StoryInterface}}}, will need to be fitted for those different screen sizes. 
 
 This can be done with the {{{@media}}} rule inside the StyleSheet.
@@ -1037,7 +1036,7 @@ This can be done with the {{{@media}}} rule inside the StyleSheet.
         }
     }
 }}}
-Inside the {{{(size)}}}, you can target a specific range or screen size or ratio to apply different CSS rules. You will need to use as many {{{@media}}} rules as your interface would require (it will depend on the elements on the page). Each iteraction of this rule should be ordered from most-restrictive size/ratio range to most-inclusive (you're essentially creating contidional statements).
+Inside the {{{(size)}}}, you can target a specific range or screen size or ratio to apply different CSS rules. You will need to use as many {{{@media}}} rules as your interface would require (it will depend on the elements on the page). Each iteration of this rule should be ordered from most-restrictive size/ratio range to most-inclusive (you're essentially creating conditional statements).
 > //Example://
 {{{
     #passages {
@@ -1180,7 +1179,7 @@ Assuming that {{{<<set $intext to 42>>}}}: <<set $intext to 42>>
 }}}
 → will render as: <progress @value="$intext" max="100"></progress>
 
-The {{{<progress>}}} element will also accept other global attributes, such as {{{.class}}}, {{{#id}}}, or ARIA-related elements. These attribues can make it easier to target a specific progress bar during styling.
+The {{{<progress>}}} element will also accept other global attributes, such as {{{.class}}}, {{{#id}}}, or ARIA-related elements. These attributes can make it easier to target a specific progress bar during styling.
 
 If you want the {{{<progress>}}} element to look the same across browsers, you will need to edit the StyleSheet:
 * {{{progress}}} to target the {{{<progress>}}} elements as a whole 
@@ -1264,7 +1263,7 @@ Assuming that {{{<<set $intext to 42>>}}}: <<set $intext to 42>>
 }}}
 → will render as: <meter @value="$intext" min="0" max="100"></meter>
 
-The {{{<meter>}}} element will also accept other global attributes, such as {{{.class}}}, {{{#id}}}, or ARIA-related elements. These attribues can make it easier to target a specific progress bar during styling.
+The {{{<meter>}}} element will also accept other global attributes, such as {{{.class}}}, {{{#id}}}, or ARIA-related elements. These attributes can make it easier to target a specific progress bar during styling.
 
 If you want the {{{<meter>}}} element to look the same across browsers, you will need to edit the StyleSheet:
 * {{{meter}}} to target the {{{<meter>}}} elements as a whole 
@@ -1315,7 +1314,6 @@ To edit the value bar however, you will need to use browser specific Pseudo-Code
 → will set the appearance of the value bar in Chromium
 }}}
 <meter id="test-metbar" @value="$intext" min="0" max="100"></meter>
-
 \
 <h3>Build your own from {{{<div>}}} and {{{<span>}}}</h3>\
 While progress and meter bars can be pretty neat to use, they do have some issues with compatibility with older browsers (especially {{{<meter>}}}), and require the use of Pseudo-Code to style the bar for the different browsers. And, if you are looking to add some [[animations|Int-JS-CSS-Animation]] to your bar, you would most likely require some JavaScript code.
@@ -1415,7 +1413,7 @@ The Loading Screen is composed of two elements: {{{#init-loading}}} nested insid
 If you just want to edit what is already there, you can do so in the JavaScript:
 {{{
     $("#init-loading").css({ animation: "none", border: "none", width: "100%", height: "100%" });
-→ this will remove the current loading aninmation
+→ this will remove the current loading animation
   and size the element to the screen
 }}}
 Or directly in the StyleSheet:
@@ -1508,8 +1506,8 @@ To check whether you achieved those ratio, you can use an [[online contrast chec
 \
 <h4>Colour Contrast and Image Background</h4>\
 This contrast is even more important when the text is brought before an image background. Due to the often varied range of colours in images, it is sometimes difficult to find the correct text colour for a good contrast.
-While avoiding busy background altogether is preferred, there are ways to keep your pie and eat it. One option is to add a blurry shadow behing the text with the {{{text-shadow}}} CSS rule. Another is adding a border around each letter, like an outline (again with {{{text-shadow}}} or with {{{-webkit-text-stroke}}}). 
-An even easier option is to add a "sreen" between the image and the text:
+While avoiding busy background altogether is preferred, there are ways to keep your pie and eat it. One option is to add a blurry shadow behind the text with the {{{text-shadow}}} CSS rule. Another is adding a border around each letter, like an outline (again with {{{text-shadow}}} or with {{{-webkit-text-stroke}}}). 
+An even easier option is to add a "screen" between the image and the text:
 {{{
     #passages {
         background: #HexcodeWithSomeOpacity;
@@ -1532,7 +1530,7 @@ An even easier option is to add a "sreen" between the image and the text:
 > ''Note:'' it is not recommended to add a background to {{{.passage}}} as it will refresh along with the content of the passage (flash).
 \
 <h4>Light and Dark Themes</h4>\
-If your project will be played by others, you may want to consider adding multiple themes for comfort. Light mode (bright colours closer to white) tend to be superior for readability and provising less eye straints in bright environment. On the other hand, dark mode (darker colours closer to black) make it easier to the eyes in darker environment, and reduces exposure to blue screen light. Individuals also have their personal preference between light and dark mode.
+If your project will be played by others, you may want to consider adding multiple themes for comfort. Light mode (bright colours closer to white) tend to be superior for readability and providing less eye-strains in bright environment. On the other hand, dark mode (darker colours closer to black) make it easier to the eyes in darker environment, and reduces exposure to blue screen light. Individuals also have their personal preference between light and dark mode.
 > ''Note:'' many SugarCube templates will include a Theme [[Setting|SettingsList]] within its code, with a light and dark mode.
 \
 <h3>Font Choices and Alternatives</h3>\
@@ -1541,13 +1539,13 @@ We all love Papyrus as a font, but it does not make for a legible font for plain
 So decorative and overly stylized fonts, such as cursive fonts, which can be difficult to read even for non-impaired users, should be avoided (or an alternative should be provided). Serif fonts, like Times New Roman or Calibri, are preferred for printed items (i.e. books), but doesn't display as nicely on screens as sans-serif fonts do (though those two are still very legible).
 
 Fonts like {{{Arial}}} (sans-serif), {{{Calibri}}} (serif), {{{Georgia}}} (serif), {{{Helvetica}}} (sans-serif), {{{Lucida Sans}}}/{{{Lucida Grande}}} (sans-serif), {{{Tahoma}}} (sans-serif), {{{Times New Roman}}} (serif), and {{{Verdana}}} (sans-serif) are often among lists of recommended fonts. Monospace fonts tend to help with legibility of letters as well.
-There are also fonts created specifically for dyslexic and visually impared users, though many are under copyright or are not free for use. [[OpenDyslexic|https://opendyslexic.org/]] and [[Atkinson Hyperlegible|https://brailleinstitute.org/freefont]] are two freely available sans-serif fonts.
+There are also fonts created specifically for dyslexic and visually impaired users, though many are under copyright or are not free for use. [[OpenDyslexic|https://opendyslexic.org/]] and [[Atkinson Hyperlegible|https://brailleinstitute.org/freefont]] are two freely available sans-serif fonts.
 
 For Twine projects, you may want to consider adding multiple serif and sans-serif fonts, letting the player decided which one they would prefer to use, through a [[Setting|SettingsList]].
 > ''Note:'' along with font families, you may want to add different font sizes for player to choose from as well!
 \
 <h3>Animated Content</h3>\
-While animations can help elevate a project, some may also hinder it. Ill-timed animations can become a distraction, too many animations at once could bring confusion on where the eye should focus, poorly designed animations may work fine on computers but may not translate on mobile devices, and certain types of animations (e.g. rapid flashing) could present accessibility issues to users (e.g. espilepsy, visual impairments, etc...).
+While animations can help elevate a project, some may also hinder it. Ill-timed animations can become a distraction, too many animations at once could bring confusion on where the eye should focus, poorly designed animations may work fine on computers but may not translate on mobile devices, and certain types of animations (e.g. rapid flashing) could present accessibility issues to users (e.g. epilepsy, visual impairments, etc...).
 
 When including animation, even as simple as the {{{<<type>>}}} macro, you may want to code a [[Toggle Setting|SettingsToggle]] to hide the animated elements. This can be done either in the StyleSheet through a class, or directly in the passage with a conditional statement.
 \

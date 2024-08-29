@@ -1,6 +1,6 @@
 :: Base-JS-CSS [chapter page] {"position":"2000,725","size":"200,100"}
 <h1 id="basics-jscss" class="the-chapter">About JavaScript and the StyleSheet</h1>
-To customise your project even futher, Twine gives you the possibility to use JavaScript and CSS, which you can edit in the //JavaScript// and //StyleSheet// passages (under the //Story Menu// in the Twine app).
+To customise your project even further, Twine gives you the possibility to use JavaScript and CSS, which you can edit in the //JavaScript// and //StyleSheet// passages (under the //Story Menu// in the Twine app).
 \
 <h3>JS - JavaScript</h3>\
 ''JavaScript'' (or JS) is a coding language used in HTML files that will dictate the behaviour of elements on the page. When you click on a link to change the passage to a new one, it is because the JavaScript code is telling the page to do so. The macros in SugarCube are built on JavaScript.
@@ -15,14 +15,14 @@ You could potentially build a whole SugarCube project by only using JavaScript, 
 > ''IMPORTANT'': Java and JavaScript are ''two different coding languages'', with no link between each other aside from the four characters in their name!
 \
 <h3>CSS - Cascading Style Sheet</h3>\
-''Cascading Style Sheet'' (or CSS) is a coding language used in HTML files to dictate the layout and formatting of the page. From the choice of backgrond to the placement of an element, this is usually done in with CSS. The language allows for alternate rules for different settings or screen size, as well as animation.
+''Cascading Style Sheet'' (or CSS) is a coding language used in HTML files to dictate the layout and formatting of the page. From the choice of background to the placement of an element, this is usually done in with CSS. The language allows for alternate rules for different settings or screen size, as well as animation.
 > ''Note:'' you can use JavaScript/jQuery to change aspects of the page (add/remove an element, change the colour). But, in most cases, CSS will suffice.
 \
 The most common use for CSS in a project is:
 * to change the basic formatting of a page (ex: colour scheme)
 * to have alternate rules for coded [[settings|Settings]] in the JavaScript (ex: font family)
 * to have a different formatting of the page on mobile screens
-> ''Note:'' in SugarCube, you can edit some styling with the [[Markup formatting|Markup-Styling]]. For futher use of CSS, see [[this page|Int-JS-CSS]].
+> ''Note:'' in SugarCube, you can edit some styling with the [[Markup formatting|Markup-Styling]]. For further use of CSS, see [[this page|Int-JS-CSS]].
 \
 <h3>Learn more about JavaScript, jQuery, and CSS</h3>\
 * the [[W3 School|https://www.w3schools.com/]] has the most beginner explanations, and lets you test and edit their examples.
@@ -89,7 +89,7 @@ Both Online URLs and Relative paths are case sensitive: this means that the URL 
 * file extension ({{{.png ≠ .PNG}}})
 It is important that all these aspects are coded in the proper case.
 \
-<h3>Some Recomendations</h3>\
+<h3>Some Recommendations</h3>\
 To avoid issues with loading assets, I recommend:
 * using only plain letters (a-z) and numbers (if necessary), instead of special characters (é, ñ, à, etc…)
 * using hyphens {{{-}}} or underscores {{{_}}} to replace space in the folder/file names

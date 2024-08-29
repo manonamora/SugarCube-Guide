@@ -40,7 +40,7 @@ It has 1 parameter:
     State.getVar("_temporary")
     State.getVar("settings.alsothat")
 }}}
-> While the two first examples could be replaced with {{{State.variables}}} and {{{State.temporary}}}, {{{State.getVar()}}} will accept either type of variable. It is particularly usefule when you don't know the type of the wanted variable ahead of time.
+> While the two first examples could be replaced with {{{State.variables}}} and {{{State.temporary}}}, {{{State.getVar()}}} will accept either type of variable. It is particularly useful when you don't know the type of the wanted variable ahead of time.
 \
 <h3>{{{State.setVar()}}}</h3>\
 This API sets the value of the indicated variable, like the {{{<<set>>}}} macro does.
@@ -85,7 +85,7 @@ This API will return the bottommost (least recent) moment, within the full in-pl
 \
 <h3>{{{State.top}}}</h3>\
 This API will return the topmost (most recent) moment, within the full in-play history.
->''Note:'' {{{State.top}}} is not synonymous to {{{State.active}}}. It is also extreemly unlikely you will ever need {{{State.top}}}.
+>''Note:'' {{{State.top}}} is not synonymous to {{{State.active}}}. It is also extremely unlikely you will ever need {{{State.top}}}.
 \
 > //Examples://
 {{{
@@ -98,7 +98,7 @@ This API will return the topmost (most recent) moment, within the full in-play h
 \
 <h3>{{{State.current}}}</h3>\
 This API will return the current moment, within the full in-play history, which is the pre-play version of the active moment.
->''Note:'' {{{State.current}}} is not synonymous to {{{State.active}}}. It is also extreemly unlikely you will ever need {{{State.current}}}.
+>''Note:'' {{{State.current}}} is not synonymous to {{{State.active}}}. It is also extremely unlikely you will ever need {{{State.current}}}.
 \
 > //Examples://
 {{{
@@ -348,7 +348,7 @@ It has 2 parameters:
 :: StateAPI-PRNG [page state-api] {"position":"3300,2000","size":"100,100"}
 <h1 id="state-seed">Initialising a Seedable PRNG</h1>
 A PRNG, or pseudo-random number generator, is a deterministic algorithm for generating a sequence of numbers whose properties approximate the properties of sequences of random numbers.
-The APIs below will be useful for procedural world building, factions alignment, loot drops, dungeon map layout etc... essentiall, anything that affects or involves randomness.
+The APIs below will be useful for procedural world building, factions alignment, loot drops, dungeon map layout etc... essential, anything that affects or involves randomness.
 \
 <h3>{{{State.prng.init()}}}</h3>\
 This API will initialise the seedable PRNG and integrate it into the story state and saves. This will affect the result of methods and functions of {{{State.random()}}}, or the {{{random()}}} and {{{randomFloat()}}} [[functions|Function-Clone-Random]].
@@ -359,7 +359,7 @@ If used, {{{State.prng.init()}}} should be coded in the JavaScript section of yo
 }}}
 It has 2 parameters:
 * {{{seed}}} (optional), the explicit seed used to initialise the PRNG 
-* {{{useEntropy}}} (optional), entables the use of additional entropy to pad the seed.
+* {{{useEntropy}}} (optional), enables the use of additional entropy to pad the seed.
 \
 > //Examples://
 {{{

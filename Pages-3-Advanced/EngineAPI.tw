@@ -9,9 +9,9 @@ Aside from [[moving back and forth|Basic-API-Engine]] in the player history, the
 
 :: Engine-State [page engine] {"position":"1700,1900","size":"100,100"}
 <h1 id="engineapi-state">Checking the State of the Game</h1>
-There are instences where knowing the state of the game is needed before triggering a certain bit of code, such as with macros needing the passage to be fully idle to start an audio track, or if the game has a server connection. This set of Engine API will show whether the game is in one of the following three states:
+There are instances where knowing the state of the game is needed before triggering a certain bit of code, such as with macros needing the passage to be fully idle to start an audio track, or if the game has a server connection. This set of Engine API will show whether the game is in one of the following three states:
 * {{{idle}}}: the page is idle (default)
-* {{{playing}}}: nagivation to a new passage has been triggered
+* {{{playing}}}: navigation to a new passage has been triggered
 * {{{rendering}}}: a passage is rendering on the screen 
 
 You can check which state the game is currently at with {{{Engine.state}}}:
@@ -31,7 +31,7 @@ SugarCube has also three other Engine API to check for a specific state:
     else if (Engine.isRendering()) { /* your JS code */ }
 }}}
 
-> ''Note:'' while those are useful, if you are looking to target a more specific time during the redering of a passage or element, you may want to check the [[Events]], instead.
+> ''Note:'' while those are useful, if you are looking to target a more specific time during the rendering of a passage or element, you may want to check the [[Events]], instead.
 
 :: Engine-Go [page engine] {"position":"1800,1900","size":"100,100"}
 <h1 id="engineapi-go">Move through the Player's History</h1>

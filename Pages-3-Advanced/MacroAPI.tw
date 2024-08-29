@@ -80,7 +80,7 @@ This API will check whether the indicated macro exists in the code.
 \
 <h3>{{{Macro.get()}}}</h3>\
 This API will look at the definition of the targeted macro, or return NULL if there is none.
-The output of this API is an oject containing the definition of the macro
+The output of this API is an object containing the definition of the macro
 {{{
     Macro.get("print")
 }}}
@@ -103,7 +103,7 @@ This API will return with the name of the all the macros which have included the
 <h1 id="macro-apis-context">Using Macro Context Objects in the handler</h1>
 While Macro [[handlers|Macro-API]] are called with no arguments, you can use {{{this}}} and the context object properties below to refer to different components of the macro (e.g. macro arguments and expressions, data, methods).
 \
-<h3>Refering to the Macro Arguments and Expressions</h3>\
+<h3>Referring to the Macro Arguments and Expressions</h3>\
 \
 <h4>{{{<MacroContext>.args}}}</h4>\
 This property will refer to the arguments you can indicate in a macro. It is saved as an array.
@@ -151,7 +151,7 @@ This property will refer to the macro's parent (or null, if it does not have a p
 }}}
 \
 <h4>{{{<MacroContext>.output}}}</h4>\
-This property references the output element, as an HTML Elment object.
+This property references the output element, as an HTML Element object.
 {{{
     this.output
 }}}
@@ -280,7 +280,7 @@ This method creates a callback wrapper around the given parameters, which are th
 \
 <h4>{{{<MacroContext>.error()}}}</h4>\
 This property will render an error message for then the macro can't be processed. It requires an error message in the form of a string.
-> //Assugming that// {{{<<someMacro …>>}}}
+> //Assuming that// {{{<<someMacro …>>}}}
 {{{
     return this.error("oops");
 

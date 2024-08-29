@@ -1,6 +1,6 @@
 :: Config-API [chapter menu] {"position":"2300,1800","size":"200,100"}
 <h1>More Configuration APIs to Customise Interaction</h1>
-If you need to configure how your project should run with more customisation, like saving playthroughs or changing hoow some macros operate, this section will cover the rest of the Configuration APIs that were not [[previously mentioned|Basic-API-Config]].
+If you need to configure how your project should run with more customisation, like saving playthroughs or changing how some macros operate, this section will cover the rest of the Configuration APIs that were not [[previously mentioned|Basic-API-Config]].
 
 Those APIs are JavaScript-based code that should be included in the JavaScript (though some can be used along with the {{{<<run>>}}} or {{{<<script>>}}} macros inside a passage).
 
@@ -28,7 +28,7 @@ This API will change the default key to press to skip the typing of the {{{<<typ
  → the SkipKey will become {Ctrl}
 }}}
 > ''Note:'' this is only relevant if the {{{skipkey}}} argument was not included in the [[macro|Macro-Type]].
-/
+\
 <h3>{{{Config.macros.typeVisitedPassages}}}</h3>\
 This API will determine whether to trigger the {{{<<type>>}}} macro on previously visited passages or display the text as is. This is enabled by default, meaning the macro will type out the content even if the passage had previously been visited.
 {{{
@@ -115,7 +115,7 @@ This can be a useful for swears replacement.
 \
 <h3>{{{Config.passages.start}}}</h3>\
 This API will indicate which passage should be displayed first.
-There will be very few instances where this would be needed, as the Twine app requires you to select the starting passage, and the Twee formating needs this information in the {{{:: StoryData}}}.
+There will be very few instances where this would be needed, as the Twine app requires you to select the starting passage, and the Twee formatting needs this information in the {{{:: StoryData}}}.
 {{{
     Config.passages.start = "This Is The Actual Starting Passage";
 }}}

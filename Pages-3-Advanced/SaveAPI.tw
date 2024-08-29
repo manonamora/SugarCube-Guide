@@ -238,7 +238,7 @@ It has 3 parameters:
   + title "Midgar" and metadata someMetadata
 }}}
 
-:: SaveAPI-Autosave [page saveapi] {"position":"2000,2000","size":"100,100"}
+:: SaveAPI-Autosave [page saveapi] {"position":"2100,2000","size":"100,100"}
 <h1 id="saveapi-auto">Managing the Autosave Slots</h1>
 The APIs below will allow you to manage the available autosave slots. These can be especially useful when creating your own Save page. For manual save slots, see [[this page|SaveAPI-Slots]].
 \
@@ -339,7 +339,7 @@ It has 1 parameter:
 }}}
 \
 <h3>{{{Save.browser.auto.save()}}}</h3>\
-This API will save in the first available autosave slot. If all the autosaves are full, it will override the oldes autosave
+This API will save in the first available autosave slot. If all the autosaves are full, it will override the oldest autosave
 {{{
     Save.browser.auto.save([desc [, metadata]])
 }}}
@@ -367,7 +367,7 @@ It has 2 parameters:
   + title "Midgar" and metadata someMetadata
 }}}
 
-:: SaveAPI-Disk [page saveapi]
+:: SaveAPI-Disk [page saveapi] {"position":"2100,2100","size":"100,100"}
 <h1 id="saveapi-disk">Managing Disk Import and Export</h1>
 The following APIs enables you to import and export save files (as to avoid over-burdening the player's Browser Cache). Those APIs are behind the code of the //Save...// and //Load...// (single saves), as well as the //Export...// and //Import...// bundles (multiple saves).
 > ''Note:'' These APIs are fairly advanced, and are most useful when creating your own Save System.
@@ -400,7 +400,7 @@ This API has 2 parameters:
     {the-6th-fantasy-YYYYMMDD-hhmmss.save}
     where {YYYYMMDD-hhmmss} is the datestamp at download
 }}}
-> //Example with Extra Metadata://
+> //Example with Extra Metadata//:
 {{{
     try {
         const saveMetadata = {
@@ -447,7 +447,7 @@ This API has 1 parameter:
 			});
 	});
 }}}
-> //Using a SugarCube button://
+> //Using a SugarCube button//:
 {{{
     <<button "Load From Disk">>
         <<script>>
@@ -470,7 +470,7 @@ This API has 1 parameter:
     <</button>>
 }}}
 \
-<h3>Import and Export Multiple Saves<h3>\
+<h3>Import and Export Multiple Saves</h3>\
 \
 <h4>{{{Save.disk.export()}}}</h4>\
 This API will export all existing browser saves (auto and slot) as a bundled file to disk, which can be restored with {{{Save.disk.import()}}}.
@@ -533,7 +533,7 @@ This API has 1 parameter:
 	});
 }}}
 
-:: SaveAPI-Base64 [page saveapi]
+:: SaveAPI-Base64 [page saveapi] {"position":"2100,2200","size":"100,100"}
 <h1 id="saveapi-base">Managing Base64 saves</h1>
 The following APIs are similar to the [[Disk Import/Export|SaveAPI-Disk]], except it will save it all in a Base64 string instead of a savefile.
 > ''Note:'' these APIs are not recommended unless you //know// what you are doing. /* Which I do not at all, so you won't see me messing with those. */
@@ -561,7 +561,7 @@ This API has 1 parameter:
         UI.alert(error);
     }
 }}}
-> //Example with Extra Metadata://
+> //Example with Extra Metadata//:
 {{{
     try {
         const saveMetadata = {
@@ -587,7 +587,7 @@ This APi will load any given Base64 save string previously created with {{{Save.
 This API has 1 parameter:
 * {{{save}}}: (string) the Base64 save string.
 \
-> //Example from the Documentation://
+> //Example from the Documentation//:
 {{{
     Save.base64.load(base64Save)
 	.then(metadata => {
@@ -600,7 +600,7 @@ This API has 1 parameter:
 	});
 }}}
 \
-<h3>Import and Export Multiple Saves<h3>\
+<h3>Import and Export Multiple Saves</h3>\
 <h4>{{{Save.base64.export()}}}</h4>\
 This API will export all existing browser saves (auto and slot) as a bundled file Base64 string, which can be restored with {{{Save.base64.import()}}}.
 {{{
@@ -664,12 +664,12 @@ It has 1 parameter:
         /* code to process the save object before it's loaded */
     });
 
-→ Updading old saves to be compatible:
+→ Updating old saves to be compatible:
     Save.onLoad.add(function (save) {
         const history = save.state.history;
         if (save.version < 14) {
             /* 
-                Code to fix all saves upto version 14 
+                Code to fix all saves up to version 14 
             */
             save.version = 14;
             /* Updating the save file's version */

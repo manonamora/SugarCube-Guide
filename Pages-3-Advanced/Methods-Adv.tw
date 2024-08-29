@@ -1,6 +1,6 @@
 :: Methods-Adv [chapter menu] {"position":"1100,1800","size":"200,100"}
 <h1>More Variable and Interaction Methods</h1>
-In the [[Methods]] section, methods were defined JavaScript blocks of code designed to do a specific task, linked to a reciever, like a variable, to run. This section includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
+In the [[Methods]] section, methods were defined JavaScript blocks of code designed to do a specific task, linked to a receiver, like a variable, to run. This section includes more complex methods, often involving functions. Knowledge of both JavaScript and jQuery is required here.
 
 * [[More Methods to change Variables|Method-Variables]] 
 * [[jQuery Methods and Interactivity|Method-jQuery]] 
@@ -28,7 +28,7 @@ This method had 2 parameters:
     String.format("{0}, {1}!", "Hello", "World") 
     → returns "Hello, World!"
     
-→ Array argumment:
+→ Array argument:
     String.format("{0}, {1}!", [ "Hello", "World" ])
     → returns "Hello, World!"
 
@@ -158,7 +158,7 @@ It has 2 parameters:
         return val.name.startsWith("Ap");
     })
 
-→ this function will remove any interation where {name} starts with {"Ap"}
+→ this function will remove any iteration where {name} starts with {"Ap"}
     → $fruits = [{ name : "Oranges" }]
 }}}
 \

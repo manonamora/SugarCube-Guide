@@ -1,4 +1,4 @@
-:: About [chapter side] {"position":"1200,100","size":"200,100"}
+:: About [chapter side] {"position":"1500,300","size":"200,100"}
 <h1 id="about-twine">About Twine and SugarCube</h1>
 //''Twine''// is a free and open-source tool to create interactive, non-linear stories, created by Chris Klimas in 2009. It is now maintained by multiple individuals, in [[several repositories|https://github.com/tweecode]]. ''//Twine//'' is also a registered trademark of the [[Interactive Fiction Technology Foundation|https://iftechfoundation.org/]].
 
@@ -42,21 +42,21 @@ In a basic SugarCube project, there are essentially 3 main elements on the page:
 \
 The content inside the ''passage'' is generated from the story passages created in Twine (i.e. any non-special passage). Every time the player clicks on a link to advance the story, the passage will refresh to display the new content.
 
-In the ''UI-Bar'', also called //SideBar//, you will find arrows to go back and forth in the Game History (the visited passages), an arrow to hide/show the UI-Bar/sidebar, and, at the mininmum, the //Save// and //Restart// buttons. 
+In the ''UI-Bar'', also called //SideBar//, you will find arrows to go back and forth in the Game History (the visited passages), an arrow to hide/show the UI-Bar/sidebar, and, at the minimum, the //Save// and //Restart// buttons. 
 The content of the sidebar can be edited through the [[Special Passages|SP-UIBar]], or when adding [[Settings]] or [[Saves|Config-Saves]].
 
 ''Dialog boxes'' are elements that will appear at the forefront of the page (like a popup). It is used by the Menu buttons (like //Save// and //Restart//), but can also contain content from a story passage (like the Lexicon link below) or coded through the passage. To create a dialog box, [[visit this page|Basic-API-Dialog]].
 
-To edit how those elements look, you will need to edit the [[Stylesheet|Int-JS-CSS-Elements]] (intermediate).
+To edit how those elements look, you will need to edit the [[StyleSheet|Int-JS-CSS-Elements]] (intermediate).
 
 :: Macro-Link-Basic [page basics] {"position":"900,200","size":"100,100"}
 <h1 id="basic-links">Linking Passages and the {{{<<link>>}}} Macro</h1>
-To move the player from one part of the story to the next, you need to link the different story passages. This can be done in two ways: the {{{[[Link]]}}} markup or the {{{<<link>>}}} macro. Boths ways will achieve the same thing, but the macro will give you more flexibility with interactivity. 
+To move the player from one part of the story to the next, you need to link the different story passages. This can be done in two ways: the {{{[[Link]]}}} markup or the {{{<<link>>}}} macro. Both ways will achieve the same thing, but the macro will give you more flexibility with interactivity. 
 > ''Note:'' in some cases, the {{{<<link>>}}} macro will not create a visual link between passage blocks in map of the project on Twine.
 \
 <h3>The {{{[[Link]]}}} markup</h3>\
 To create a link with the {{{[[Link]]}}} markup, you need to wrap the relevant text with double square brackets {{{ [[ ]] }}}.
-> ''Note:'' in the Twine application, wrapping a bit of text with the square brackers will automatically create a passage with the text inside the brackets as that passage's name.
+> ''Note:'' in the Twine application, wrapping a bit of text with the square brackets will automatically create a passage with the text inside the brackets as that passage's name.
 {{{
  [[Go to the Garden]] 
     → will send the player to the passage called "Go to the Garden"
@@ -112,7 +112,7 @@ Since the {{{<<link>>}}} macro is a container macro (with an opening and a closi
 <h1 id="basic-set">Tracking Information and the {{{<<set>>}}} Macro</h1>
 To track information and choices made by the player, you need to set [[variables|Variables-Base]], and save the tracked information as a value in the variable, by using the {{{<<set>>}}} Macro.
 
-While there are multiple ways to [[store information|Variables-Base]], the most relevant way is through using ''temporary'' or ''permanent'' variables. As their name suggests, a temporary variable is temporary, disappearing when the player moves to another passage, while the permanant variable will stick around (until you [[destroy|Macro-Unset]] it or change its value).
+While there are multiple ways to [[store information|Variables-Base]], the most relevant way is through using ''temporary'' or ''permanent'' variables. As their name suggests, a temporary variable is temporary, disappearing when the player moves to another passage, while the permanent variable will stick around (until you [[destroy|Macro-Unset]] it or change its value).
 {{{
     <<set $variable to 5>>
     <<set $variable to 'some words'>>
@@ -190,7 +190,7 @@ Following a player's choice, you may want to show a specific variant of the next
 
 Conditional statements can also be nested inside one another:
 {{{
-    <<if $choice is 1>>       ← first contidional 
+    <<if $choice is 1>>       ← first conditional 
         <<if $pet is "dog">>  ← nested conditional
             This will show this sentence on the page.
         <<elseif $pet is "cat">>
@@ -246,9 +246,9 @@ In SugarCube, variables can been viewed as followed:
 > ''Note:'' Single {{{ ' ' }}} and double {{{ " " }}} quotes are essentially interchangeable.
 \
 <h3>Variable Storage</h3>\
-Aside from different types of variables, there are multiple ways to store those variables in the code. Depending on the need, a certain kind will be more useful than another. The differnt storage types are:
+Aside from different types of variables, there are multiple ways to store those variables in the code. Depending on the need, a certain kind will be more useful than another. The different storage types are:
 * temporary ({{{_temporary}}}), so the variable disappears when moving to a new passage
-* permanant ({{{$variable}}}), so the variable is stored until you [[destroy|Macro-Unset]] it
+* permanent ({{{$variable}}}), so the variable is stored until you [[destroy|Macro-Unset]] it
 * settings ({{{settings.var}}}), or variables related to the [[Settings]]
 * setup ({{{setup.var}}} - should be set in [[StoryInit|SP-Init]]), which is meant for unchanging values (ex: the price of an object)
 > ''Note:'' for a simple project, you will not need the last two types. You may not even need variables at all.
